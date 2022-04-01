@@ -9,7 +9,7 @@ public class poolConexion {
     private static poolConexion INSTANCE = null;
     private static Connection con = null;
     private static BasicDataSource dataSource;
-    private static String url = "jdbc:mysql://165.98.12.158:3306/sistemacontablebd?autoReconnect=true&useSSL=false&serverTimezone=UTC";
+    private static String url = "jdbc:mysql://165.98.12.158:3306/dbucash?autoReconnect=true&useSSL=false&serverTimezone=UTC";
     private static String user = "root";
     private static String pass = "My$qlS3rv3rAPS*";
 

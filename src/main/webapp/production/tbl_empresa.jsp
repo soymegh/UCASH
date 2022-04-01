@@ -224,9 +224,9 @@
 
 															<th>Direccion</th>
 															<th>Representante legal</th>
-															<th>Moneda</th>
 															<th>Departamento</th>
 															<th>Municipio</th>
+															<th>Periodo Fiscal</th>
 
 															<th>Telefono</th>
 															<th>Correo</th>
@@ -245,11 +245,11 @@
 															<td><%=empresa.getNombreComercial()%></td>
 
 															<td><%=empresa.getDireccion()%></td>
-															<td><%=empresa.getRepresentanteLegalNombre()%></td>
-															<td><%=empresa.getMonedaNombre()%></td>
+															<td><%=empresa.getRepresentante()%></td>
 															<td><%=empresa.getDepartamentoNombre()%></td>
 															<td><%=empresa.getMunicipioNombre()%></td>
 
+															<td><%=empresa.getPeriodoFiscal()%></td>
 
 															<td><%=empresa.getTelefono()%></td>
 															<td><%=empresa.getCorreo()%></td>
