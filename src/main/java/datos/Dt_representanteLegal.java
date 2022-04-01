@@ -27,7 +27,7 @@ public class Dt_representanteLegal {
 	
 	public void llenaRsRepresentanteLegal(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM sistemacontablebd.vw_representantelegal;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.vw_representantelegal;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsRL = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
@@ -40,13 +40,13 @@ public class Dt_representanteLegal {
 		ArrayList<Vw_representanteLegal> listRL = new ArrayList<Vw_representanteLegal>();
 		try {
 			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM sistemacontablebd.vw_representantelegal WHERE estado<>3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_representantelegal WHERE estado<>3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.rs = this.ps.executeQuery();
 			
 			while(this.rs.next()) {
 				Vw_representanteLegal RL = new Vw_representanteLegal();
 				
-				RL.setIdRepresentanteLegal(rs.getInt("idRepresentanteLegal"));
+				RL.setIdRepresentante(rs.getInt("idRepresentante"));
 				RL.setNombreCompleto(rs.getString("nombre Completo"));
 				RL.setTipo(rs.getString("tipo"));
 				RL.setCorreo(rs.getString("correo"));
