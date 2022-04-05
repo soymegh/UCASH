@@ -11,6 +11,11 @@ public class Tbl_rol {
 
 	}
 
+	public Tbl_rol(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
