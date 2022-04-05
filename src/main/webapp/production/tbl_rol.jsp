@@ -217,6 +217,7 @@
 													<thead>
 														<tr>
 															<th>Id</th>
+															<th>Nombre</th>
 															<th>Descripcion</th>
 															<th>Estado</th>
 															<th>Acciones</th>
@@ -234,6 +235,7 @@
 														%>
 														<tr>
 															<td><%=tr.getIdRol()%></td>
+															<td><%=tr.getNombre()%></td>
 															<td><%=tr.getDescripcion()%></td>
 															<td><%=estado%></td>
 
@@ -264,9 +266,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
 	<!-- /page content -->
 
 	<!-- footer content -->
@@ -276,8 +275,6 @@
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	</div>
-	</div>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

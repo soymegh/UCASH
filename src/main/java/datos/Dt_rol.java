@@ -22,7 +22,7 @@ public class Dt_rol {
 	
 	public void llenaRsRol(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_rol;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.rol;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsRol = this.ps.executeQuery();
 			
 		} catch(Exception e) {
@@ -35,14 +35,17 @@ public class Dt_rol {
 		ArrayList<Tbl_rol> listRol = new ArrayList<Tbl_rol>();
 		try {
 			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_rol WHERE estado<>3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.rol WHERE estado <> 3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.rs = this.ps.executeQuery();
 			
 			while(this.rs.next()) {
 				Tbl_rol rol = new Tbl_rol();
+				
 				rol.setIdRol(this.rs.getInt("idRol"));
+				rol.setNombre(rs.getString("nombreRol"));
 				rol.setDescripcion(this.rs.getString("descripcion"));
 				rol.setEstado(this.rs.getInt("estado"));
+				
 				listRol.add(rol);
 			}
 			} catch(Exception e) {
