@@ -23,7 +23,7 @@ public class Dt_tipoIdentificacion {
 	
 	public void llenaRsTipoIdentificacion(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_tipoIdentificacion;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.tipoidentificacion;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsTI = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
@@ -32,17 +32,17 @@ public class Dt_tipoIdentificacion {
 		}
 	}
 	
-	public ArrayList<Tbl_tipoIdentificacion> listarDepartamento(){
+	public ArrayList<Tbl_tipoIdentificacion> listarTipoIdentificacion(){
 		ArrayList<Tbl_tipoIdentificacion> listTI = new ArrayList<Tbl_tipoIdentificacion>();
 		try {
 			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_tipoIdentificacion WHERE estado<>3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.tipoidentificacion WHERE estado<>3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.rs = this.ps.executeQuery();
 			
 			while(this.rs.next()) {
 				Tbl_tipoIdentificacion TI = new Tbl_tipoIdentificacion();
 				
-				TI.setIdTipoIdentificacion(rs.getInt("idTipoIdentificacion"));
+				TI.setIdTipoIdentifiacion(rs.getInt("idTipoIdentifiacion"));
 				TI.setTipo(rs.getString("tipo"));
 				TI.setEstado(rs.getInt("Estado"));
 				

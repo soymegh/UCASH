@@ -3,15 +3,15 @@ import java.util.Date;
 
 public class Tbl_tipoIdentificacion {
 	
-	private int idTipoIdentificacion;
+	private int idTipoIdentifiacion;
 	private int estado;
 	private String tipo;
 	
-	public int getIdTipoIdentificacion() {
-		return idTipoIdentificacion;
+	public int getIdTipoIdentifiacion() {
+		return idTipoIdentifiacion;
 	}
-	public void setIdTipoIdentificacion(int idTipoIdentificacion) {
-		this.idTipoIdentificacion = idTipoIdentificacion;
+	public void setIdTipoIdentifiacion(int idTipoIdentifiacion) {
+		this.idTipoIdentifiacion = idTipoIdentifiacion;
 	}
 	public int getEstado() {
 		return estado;
@@ -26,6 +26,9 @@ public class Tbl_tipoIdentificacion {
 		this.tipo = tipo;
 	}
 	
+	
+
+
 	
 
 }

@@ -24,7 +24,7 @@ public class Dt_departamento {
 	
 	public void llenaRsDepartamento(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_departamento;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.departamento;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsDp = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
@@ -37,7 +37,7 @@ public class Dt_departamento {
 		ArrayList<Tbl_departamento> listDp = new ArrayList<Tbl_departamento>();
 		try {
 			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_departamento", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.departamento", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.rs = this.ps.executeQuery();
 			
 			while(this.rs.next()) {

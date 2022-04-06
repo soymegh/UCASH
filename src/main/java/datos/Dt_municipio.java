@@ -27,7 +27,7 @@ public class Dt_municipio {
 	
 	public void llenarRsMunicipio(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM sistemacontablebd.vw_municipio;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.vw_municipio;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsMun = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
@@ -40,7 +40,7 @@ public class Dt_municipio {
 		ArrayList<Vw_municipio> listarMunicipio = new ArrayList<Vw_municipio>();
 		try {
 			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM sistemacontablebd.vw_municipio ;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_municipio ;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.rs = this.ps.executeQuery();
 			
 			while(this.rs.next()) {

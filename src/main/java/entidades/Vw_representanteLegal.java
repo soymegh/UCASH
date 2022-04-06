@@ -4,18 +4,18 @@ public class Vw_representanteLegal {
 
 
 	
-	private int idRepresentanteLegal;
+	private int idRepresentante;
 	private String nombreCompleto;
 	private String tipo;
 	private String correo;
 	private String telefono;
 	private String estado;
 	
-	public int getIdRepresentanteLegal() {
-		return idRepresentanteLegal;
+	public int getIdRepresentante() {
+		return idRepresentante;
 	}
-	public void setIdRepresentanteLegal(int idRepresentanteLegal) {
-		this.idRepresentanteLegal = idRepresentanteLegal;
+	public void setIdRepresentante(int idRepresentante) {
+		this.idRepresentante = idRepresentante;
 	}
 	public String getNombreCompleto() {
 		return nombreCompleto;
@@ -47,6 +47,8 @@ public class Vw_representanteLegal {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	
+	
 	
 	
 	

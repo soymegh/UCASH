@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Representante Legal</title>
+<title>Gestión | Tipo Identificacion</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -148,7 +148,7 @@
 					<div class="page-title">
 						<div class="title_left">
 							<h3>
-								Representante Legal <small></small>
+								Tipo Identificacion <small></small>
 							</h3>
 						</div>
 
@@ -172,7 +172,7 @@
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Representante Legal</h2>
+									<h2>Tipo Identificacion</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
 												class="fa fa-chevron-up"></i></a></li>
@@ -196,41 +196,40 @@
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
 													<a href="addRepresentanteLegal.jsp"> <i class="fa fa-plus-square"></i>
-														Nuevo Representante Legal
+														Nuevo Tipo Identificacion
 													</a> <br></br>
 												</div>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-													ArrayList<Vw_representanteLegal> listarRepresentanteLegal = new ArrayList<Vw_representanteLegal>();
-													Dt_representanteLegal dtRL = new Dt_representanteLegal();
-													listarRepresentanteLegal = dtRL.listarRepresentanteLegal();
+													ArrayList<Tbl_tipoIdentificacion> listarTipoIdentificacion = new ArrayList<Tbl_tipoIdentificacion>();
+													Dt_tipoIdentificacion dtTI = new Dt_tipoIdentificacion();
+													listarTipoIdentificacion = dtTI.listarTipoIdentificacion();
 													%>
 													<thead>
 														<tr>
 															<th>ID</th>
-															<th>Nombre Completo</th>
+															
 															<th>Tipo</th>
-															<th>Correo</th>
-															<th>Telefono</th>
+															
 															<th>Estado</th>
+															
 															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
-														for (Vw_representanteLegal RL : listarRepresentanteLegal) {
+														for (Tbl_tipoIdentificacion TI : listarTipoIdentificacion) {
 															
 														%>
 														<tr>
 															
-															<td><%=RL.getIdRepresentante() %></td>
-															<td><%=RL.getNombreCompleto() %></td>
-															<td><%=RL.getTipo() %></td>
-															<td><%=RL.getCorreo() %></td>
-															<td><%=RL.getTelefono() %></td>
-															<td><%=RL.getEstado() %></td>
+															<td><%=TI.getIdTipoIdentifiacion() %></td>
+														
+															<td><%=TI.getTipo() %></td>
+															
+															<td><%=TI.getEstado() %></td>
 															
 															
 															<td><a href="editRepresentanteLegal.jsp" target="blank"> <i
