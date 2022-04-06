@@ -89,12 +89,6 @@ public class Vw_empresa {
 	public void setRepresentanteLegalNombre(String representanteLegalNombre) {
 		this.representanteLegalNombre = representanteLegalNombre;
 	}
-	public String getMonedaNombre() {
-		return monedaNombre;
-	}
-	public void setMonedaNombre(String monedaNombre) {
-		this.monedaNombre = monedaNombre;
-	}
 	public String getMunicipioNombre() {
 		return municipioNombre;
 	}
@@ -106,6 +100,12 @@ public class Vw_empresa {
 	}
 	public void setDepartamentoNombre(String departamentoNombre) {
 		this.departamentoNombre = departamentoNombre;
+	}
+	public String getPeriodoFiscal() {
+		return periodoFiscal;
+	}
+	public void setPeriodoFiscal(String periodoFiscal) {
+		this.periodoFiscal = periodoFiscal;
 	}
 	
 	

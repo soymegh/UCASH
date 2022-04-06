@@ -24,11 +24,11 @@ public class Dt_empresa {
 	// Metodo para llenar el ResultSet
 	public void llenar_rsEmpresa(Connection c) {
 		try {
-			ps = c.prepareStatement("Select * from tbl_empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,
+			ps = c.prepareStatement("Select * from empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			rsEmpresa = ps.executeQuery();
 		} catch (Exception e) {
-			System.out.println("DATOS: ERROR EN LISTAR tbl_empresa " + e.getMessage());
+			System.out.println("DATOS: ERROR EN LISTAR EMPRESA " + e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -52,10 +52,10 @@ public class Dt_empresa {
 				tblEmpresa.setTelefono(rs.getString("telefono"));
 				tblEmpresa.setCorreo(rs.getString("correo"));
 				tblEmpresa.setDireccion(rs.getString("direccion"));
-				tblEmpresa.setRepresentanteLegalNombre(rs.getString("Nombre Completo"));
-				tblEmpresa.setMonedaNombre(rs.getString("nombre"));
+				tblEmpresa.setRepresentante(rs.getString("Representante"));
 				tblEmpresa.setDepartamentoNombre(rs.getString("departamento"));
 				tblEmpresa.setMunicipioNombre(rs.getString("municipio"));
+				tblEmpresa.setPeriodoFiscal(rs.getString("periodoFiscal"));
 				listEmpresa.add(tblEmpresa);
 			}
 		} catch (Exception e) {
@@ -98,10 +98,10 @@ public class Dt_empresa {
 			rsEmpresa.updateString("telefono", empresa.getTelefono());
 			rsEmpresa.updateString("correo", empresa.getCorreo());
 			rsEmpresa.updateString("direccion", empresa.getDireccion());
-			rsEmpresa.updateInt("tbl_representanteLegal_idRepresentanteLegal", empresa.getIdRepresentanteLegal());
-			rsEmpresa.updateInt("tbl_moneda_idMoneda", empresa.getIdMoneda());
-			rsEmpresa.updateInt("tbl_departamento_idDepartamento", empresa.getIdDepartamento());
-			rsEmpresa.updateInt("tbl_municipio_idMunicipio", empresa.getIdMunicipio());
+			rsEmpresa.updateInt("idRepresentante", empresa.getIdRepresentanteLegal());
+			rsEmpresa.updateInt("idDepartamento", empresa.getIdDepartamento());
+			rsEmpresa.updateInt("idMunicipio", empresa.getIdMunicipio());
+			rsEmpresa.updateInt("idPeriodoFiscal", empresa.getIdPeriodoFiscal());
 			rsEmpresa.updateDate("fechaCreacion", empresa.getFechaCreacion());
 			rsEmpresa.updateInt("usuarioCreacion", empresa.getUsuarioCreacion());
 
