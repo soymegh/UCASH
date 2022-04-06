@@ -68,6 +68,24 @@ public class Sl_rol extends HttpServlet {
 
 			break;
 
+		case 2:
+			// TODO: Editar roles en el sistema
+			break;
+
+		case 3:
+			int idBorrar = Integer.parseInt(request.getParameter("idRolEliminar"));
+
+			try {
+				if (dtr.eliminarRolPorId(idBorrar))
+					response.sendRedirect("production/tbl_rol.jsp?msj=5");
+				else
+					response.sendRedirect("production/tbl_rol.jsp?msj=6");
+			} catch (Exception e) {
+				System.err.println("ERROR AL BORRAR (Servlet) ROL: " + e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+
 		default:
 			break;
 		}

@@ -2,17 +2,24 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Tbl_rol r = new Tbl_rol();
+Dt_rol datosRol = new Dt_rol();
+
+int idR = (request.getParameter("idRol") != null) ? Integer.parseInt(request.getParameter("idRol")) : 0;
+
+r = datosRol.obtenerRolPorId(idR);
+%>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Roles</title>
+<title><%=r.getNombre()%> | Eliminar rol</title>
 
 <!-- Bootstrap -->
-<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
@@ -20,25 +27,6 @@
 	rel="stylesheet">
 <!-- NProgress -->
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-<!-- iCheck -->
-<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-<!-- Datatables -->
-
-<link
-	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
-	rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -159,118 +147,119 @@
 				</div>
 			</div>
 			<!-- /top navigation -->
-			<!-- /top navigation -->
 
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Roles</h3>
+							<h3><%=r.getNombre()%></h3>
 						</div>
 
 						<div class="title_right">
-							<div
-								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control" placeholder="Buscar...">
 									<span class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Go!</button>
+										<button class="btn btn-default" type="button">Go!</button>
 									</span>
 								</div>
 							</div>
 						</div>
 					</div>
-
 					<div class="clearfix"></div>
 
 					<div class="row">
-						<div class="col-md-12 col-sm-12 ">
+						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Roles registrados</h2>
+									<h2>¿Está seguro que quiere eliminar a <%=r.getNombre() %>?</h2>
+
 									<div class="clearfix"></div>
 								</div>
+
 								<div class="x_content">
-									<div class="row">
-										<div class="col-sm-12">
-											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-													<a href="addRol.jsp"> <i class="fa fa-plus-square"></i>
-														Nuevo Rol
-													</a> <br></br>
-												</div>
-												<table id="datatable-buttons"
-													class="table table-striped table-bordered"
-													style="width: 100%">
-													<%
-													ArrayList<Tbl_rol> listaRol = new ArrayList<Tbl_rol>();
-													Dt_rol dtr = new Dt_rol();
-													listaRol = dtr.listaRolesActivos();
-													%>
-													<thead>
-														<tr>
-															<th>Id</th>
-															<th>Nombre</th>
-															<th>Descripcion</th>
-															<th>Estado</th>
-															<th>Acciones</th>
-														</tr>
-													</thead>
-													<tbody>
-														<%
-														for (Tbl_rol tr : listaRol) {
-															String estado = "";
-															if (tr.getEstado() != 3) {
-																estado = "ACTIVO";
-															} else {
-																estado = "INACTIVO";
-															}
-														%>
-														<tr>
-															<td><%=tr.getIdRol()%></td>
-															<td><%=tr.getNombre()%></td>
-															<td><%=tr.getDescripcion()%></td>
-															<td><%=estado%></td>
+									<form class="" action="../Sl_rol" method="post" novalidate>
+										<input type="hidden" value="3" name="opcion" id="opcion" />
+										<input type="hidden" value="<%=r.getIdRol() %>" name="idRolEliminar" id="idRolEliminar" />
 
-															<td><a href="editRol.jsp?idRol=<%=tr.getIdRol()%>">
-																	<i class="fa fa-edit" title="Editar"></i>
-															</a> &nbsp;&nbsp; <a
-																href="viewRol.jsp?idRol=<%=tr.getIdRol()%>"> <i
-																	class="fa fa-eye" title="Ver"></i>
-															</a> &nbsp;&nbsp; <a href="eliminarRol.jsp?idRol=<%=tr.getIdRol()%>"> <i class="fa fa-trash"
-																	title="Eliminar"></i>
-															</a></td>
-														</tr>
-														<%
-														}
-														%>
-													</tbody>
-
-												</table>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" name="txtNombre"
+													value="<%=r.getNombre()%>" id="txtNombre" type="text"
+													readonly />
 											</div>
 										</div>
-									</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" name="descripcion"
+													value="<%=r.getDescripcion()%>" id="descripcion"
+													type="text" readonly />
+											</div>
+										</div>
+
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<a href="tbl_rol.jsp" class="btn btn-primary"> <i class="fa fa-arrow-left"></i>
+														Regresar
+													</a>
+													<button class="btn btn-danger">Eliminar <%=r.getNombre() %></button>
+												</div>
+											</div>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer>
+				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
 		</div>
 	</div>
-	<!-- /page content -->
 
-	<!-- footer content -->
-	<footer>
-		<div class="pull-right">Sistema contable multi-empresa by
-			Eldian's Software.</div>
-		<div class="clearfix"></div>
-	</footer>
-	<!-- /footer content -->
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../vendors/validator/multifield.js"></script>
+	<script src="../vendors/validator/validator.js"></script>
+
+	<!-- Javascript functions	-->
+
+	<script>
+		// initialize a validator instance from the "FormValidator" constructor.
+		// A "<form>" element is optionally passed as an argument, but is not a must
+		var validator = new FormValidator({
+			"events" : [ 'blur', 'input', 'change' ]
+		}, document.forms[0]);
+		// on form "submit" event
+		document.forms[0].onsubmit = function(e) {
+			var submit = true, validatorResult = validator.checkAll(this);
+			console.log(validatorResult);
+			return !!validatorResult.valid;
+		};
+		// on form "reset" event
+		document.forms[0].onreset = function(e) {
+			validator.reset();
+		};
+		// stuff related ONLY for this demo page:
+		$('.toggleValidationTooltips').change(function() {
+			validator.settings.alerts = !this.checked;
+			if (this.checked)
+				$('form .alert').remove();
+		}).prop('checked', false);
+	</script>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -280,32 +269,8 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- iCheck -->
-	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script
-		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="../vendors/jszip/dist/jszip.min.js"></script>
-	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+	<!-- validator -->
+	<!-- <script src="../vendors/validator/validator.js"></script> -->
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>

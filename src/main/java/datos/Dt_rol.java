@@ -117,7 +117,7 @@ public class Dt_rol {
 					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.ps.setInt(1, id);
 			this.rs = this.ps.executeQuery();
-			
+
 			if (rs.next()) {
 				r.setIdRol(rs.getInt("idRol"));
 				r.setNombre(rs.getString("nombreRol"));
@@ -141,6 +141,41 @@ public class Dt_rol {
 		}
 
 		return r;
+	}
+
+	public boolean eliminarRolPorId(int idEliminar) {
+		boolean borrado = false;
+
+		try {
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("UPDATE dbucash.rol\n"
+					+ "SET estado=3\n"
+					+ "WHERE idRol=?;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEliminar);
+			int result = this.ps.executeUpdate();
+
+			if (result > 0) {
+				borrado = true;
+			}
+
+		} catch (Exception e) {
+			System.err.println("ERROR AL BORRAR ROL POR ID: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rsRol != null) {
+					rsRol.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return borrado;
 	}
 
 }
