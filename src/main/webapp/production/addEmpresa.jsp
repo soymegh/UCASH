@@ -263,8 +263,9 @@
 											<div class="col-md-6 col-sm-6">
 
 												<div class="x_content">
-													<form class="" action="" method="post"
+													<form class="" action="../Sl_representanteLegal" method="post"
 														novalidate>
+														<input type="hidden" value="1" name="opcion" id="opcion" />
 														<span class="section">Datos de Representante Legal</span>
 
 														<div class="field item form-group">
@@ -285,7 +286,7 @@
 															</label>
 															<div class="col-md-6 col-sm-6">
 																<input class="form-control" class='optional'
-																	name="occupation" data-validate-length-range="5,15"
+																	name="occupation"
 																	type="text" required="required" />
 															</div>
 														</div>

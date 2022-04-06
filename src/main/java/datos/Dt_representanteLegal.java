@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+import entidades.Tbl_representanteLegal;
 import entidades.Vw_representanteLegal;
 
 public class Dt_representanteLegal {
@@ -80,6 +80,48 @@ public class Dt_representanteLegal {
 		}
 		
 		return listRL;
+	}
+	
+	public boolean addRepresentanteLegal(Tbl_representanteLegal representante) { 
+		boolean guardado = false;
+		
+		try {
+			c = poolConexion.getConnection(); 
+			this.llenaRsRepresentanteLegal(c);
+			this.rs.moveToCurrentRow();
+			
+			
+			rs.updateInt("idRepresentantelegal", representante.getIdRepresentante());
+			rs.updateInt("idTipoIdentifiacion", representante.getIdTipoIdentifiacion());
+			rs.updateString("nombre", representante.getNombre());
+			rs.updateString("apellido", representante.getApellido());
+			rs.updateString("telefono", representante.getTelefono());
+			rs.updateString("correo", representante.getCorreo());
+			rs.updateInt("estado", representante.getEstado());
+
+			rs.insertRow(); 
+			rs.moveToCurrentRow();
+			guardado = true; 
+			
+		} catch (Exception e) {
+			System.err.println("ERROR AL GUARDAR REPRESENTANTE LEGAL: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return guardado;
 	}
 
 }
