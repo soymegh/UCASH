@@ -51,7 +51,7 @@ public class Dt_representanteLegal {
 				RL.setTipo(rs.getString("tipo"));
 				RL.setCorreo(rs.getString("correo"));
 				RL.setTelefono(rs.getString("telefono"));
-				RL.setEstado(rs.getString("estado"));
+				RL.setEstado(rs.getInt("estado"));
 				
 				
 				listRL.add(RL);

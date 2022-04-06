@@ -9,7 +9,7 @@ public class Tbl_representanteLegal {
 	private String apellido;
 	private String correo;
 	private String telefono;
-	private String estado;
+	private int estado;
 	
 	public int getIdRepresentante() {
 		return idRepresentante;
@@ -47,10 +47,10 @@ public class Tbl_representanteLegal {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public String getEstado() {
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 	
