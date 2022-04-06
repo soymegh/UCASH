@@ -62,9 +62,9 @@ public class Sl_empresa extends HttpServlet {
 		empresa.setDireccion(request.getParameter("direccion"));
 		empresa.setCorreo(request.getParameter("correo"));
 		int representanteLegal = Integer.parseInt(request.getParameter("representanteLegal"));
+		int periodoFiscal = Integer.parseInt(request.getParameter("idPeriodoFiscal"));
 		empresa.setIdRepresentanteLegal(representanteLegal);
 		int moneda = Integer.parseInt(request.getParameter("moneda"));
-		empresa.setIdMoneda(moneda);
 		int departamento = Integer.parseInt(request.getParameter("departamento"));
 		empresa.setIdDepartamento(departamento);
 		int municipio = Integer.parseInt(request.getParameter("municipio"));

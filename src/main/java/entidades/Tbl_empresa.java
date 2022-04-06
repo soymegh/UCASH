@@ -20,6 +20,8 @@ public class Tbl_empresa {
 	private int usuarioCreacion;
 	private int usuarioModificacion;
 	private int usuarioEliminacion;
+	
+	
 	public int getIdEmpresa() {
 		return idEmpresa;
 	}

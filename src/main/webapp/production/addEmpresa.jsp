@@ -210,8 +210,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input name="razonSocial" class="form-control"
-													class='optional' type="text"
-													required="required" />
+													class='optional' type="text" required="required" />
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -262,29 +261,65 @@
 												legal: <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-												<%
-												ArrayList<Vw_representanteLegal> listaRep = new ArrayList<Vw_representanteLegal>();
-												Dt_representanteLegal dtRep = new Dt_representanteLegal();
-												listaRep = dtRep.listarRepresentanteLegal();
-												%>
+												<div class="x_content">
+													<form class="" action="" method="post"
+														novalidate>
+														<span class="section">Datos de Representante Legal</span>
 
-												<select id="representanteLegal" name="representanteLegal"
-													class="form-control js-example-basic-single"
-													required="required">
-													<option value="0">Seleccione...</option>
-													<%
-													for (Vw_representanteLegal rep : listaRep) {
-													%>
-													<option value="<%=rep.getIdRepresentanteLegal()%>">
-														<%=rep.getNombreCompleto()%>
-													</option>
-													<%
-													}
-													%>
-
-												</select>
+														<div class="field item form-group">
+															<label
+																class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+																Completo<span class="required">*</span>
+															</label>
+															<div class="col-md-6 col-sm-6">
+																<input class="form-control" class='optional'
+																	name="occupation" data-validate-length-range="5,15"
+																	type="text" required="required" />
+															</div>
+														</div>
+														<div class="field item form-group">
+															<label
+																class="col-form-label col-md-3 col-sm-3  label-align">Tipo
+																<span class="required">*</span>
+															</label>
+															<div class="col-md-6 col-sm-6">
+																<input class="form-control" class='optional'
+																	name="occupation" data-validate-length-range="5,15"
+																	type="text" required="required" />
+															</div>
+														</div>
+														<div class="field item form-group">
+															<label
+																class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
+																class="required">*</span></label>
+															<div class="col-md-6 col-sm-6">
+																<input id="correo" class="form-control" name="email"
+																	class='email' required="required" type="email" />
+															</div>
+														</div>
+														<div class="field item form-group">
+															<label
+																class="col-form-label col-md-3 col-sm-3  label-align">Confirmar
+																correo<span class="required">*</span>
+															</label>
+															<div class="col-md-6 col-sm-6">
+																<input class="form-control" type="email" class='email'
+																	name="confirm_email" data-validate-linked='email'
+																	required='required' />
+															</div>
+														</div>
+														<div class="field item form-group">
+															<label
+																class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
+																class="required">*</span></label>
+															<div class="col-md-6 col-sm-6">
+																<input class="form-control" type="tel" class='tel'
+																	name="phone" required='required'
+																	data-validate-length-range="8,20" />
+															</div>
+														</div>
+												</div>
 											</div>
 										</div>
 
@@ -429,7 +464,6 @@
 
 		}
 	</script>
-
 	<script>
 		// initialize a validator instance from the "FormValidator" constructor.
 		// A "<form>" element is optionally passed as an argument, but is not a must
