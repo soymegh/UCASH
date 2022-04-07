@@ -17,8 +17,8 @@ public class Dt_representanteLegal {
 
 	poolConexion pc = poolConexion.getInstance();
 	Connection c = null;
-	private ResultSet rsRL = null;
 	private ResultSet rs = null;
+	private ResultSet rsRepresentantel = null; 
 	private PreparedStatement ps = null;
 	
 	public Dt_representanteLegal() {
@@ -27,8 +27,8 @@ public class Dt_representanteLegal {
 	
 	public void llenaRsRepresentanteLegal(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM dbucash.vw_representantelegal;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
-			this.rsRL = this.ps.executeQuery();
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.representanteLegal;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.rsRepresentantel = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
 			System.out.println("DATOS: ERROR EN LISTAR REPRESENTANTELEGAL " + var3.getMessage());
@@ -88,19 +88,19 @@ public class Dt_representanteLegal {
 		try {
 			c = poolConexion.getConnection(); 
 			this.llenaRsRepresentanteLegal(c);
-			this.rs.moveToCurrentRow();
+			this.rsRepresentantel.moveToInsertRow();
 			
 			
-			rs.updateInt("idRepresentantelegal", representante.getIdRepresentante());
-			rs.updateInt("idTipoIdentifiacion", representante.getIdTipoIdentifiacion());
-			rs.updateString("nombre", representante.getNombre());
-			rs.updateString("apellido", representante.getApellido());
-			rs.updateString("telefono", representante.getTelefono());
-			rs.updateString("correo", representante.getCorreo());
-			rs.updateInt("estado", representante.getEstado());
+			rsRepresentantel.updateInt("idRepresentante", representante.getIdRepresentante());
+			rsRepresentantel.updateInt("idTipoIdentifiacion", representante.getIdTipoIdentifiacion());
+			rsRepresentantel.updateString("nombre", representante.getNombre());
+			rsRepresentantel.updateString("apellido", representante.getApellido());
+			rsRepresentantel.updateString("telefono", representante.getTelefono());
+			rsRepresentantel.updateString("correo", representante.getCorreo());
+			rsRepresentantel.updateInt("estado", representante.getEstado());
 
-			rs.insertRow(); 
-			rs.moveToCurrentRow();
+			rsRepresentantel.insertRow(); 
+			rsRepresentantel.moveToCurrentRow();
 			guardado = true; 
 			
 		} catch (Exception e) {
