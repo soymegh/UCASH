@@ -143,14 +143,46 @@ public class Dt_rol {
 		return r;
 	}
 
+	public boolean modificarRol(Tbl_rol r) {
+		boolean modificado = false;
+
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement(
+					"UPDATE dbucash.rol\n" + "SET nombreRol=?, descripcion=?, estado=2\n" + "WHERE idRol=?;\n" + "");
+
+			ps.setString(1, r.getNombre());
+			ps.setString(2, r.getDescripcion());
+			ps.setInt(3, r.getIdRol());
+
+			int result = ps.executeUpdate();
+			modificado = (result > 0) ? true : false;
+			
+		} catch (Exception e) {
+			System.err.println("ERROR AL ACTUALIZAR EL ROL: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return modificado;
+	}
+
+	/**
+	 * Borra el rol de la base de datos a partir del id del mismo.
+	 */
 	public boolean eliminarRolPorId(int idEliminar) {
 		boolean borrado = false;
 
 		try {
 			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("UPDATE dbucash.rol\n"
-					+ "SET estado=3\n"
-					+ "WHERE idRol=?;",
+			this.ps = this.c.prepareStatement("UPDATE dbucash.rol\n" + "SET estado=3\n" + "WHERE idRol=?;",
 					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.ps.setInt(1, idEliminar);
 			int result = this.ps.executeUpdate();

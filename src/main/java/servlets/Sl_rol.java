@@ -50,10 +50,12 @@ public class Sl_rol extends HttpServlet {
 
 		rol.setNombre(request.getParameter("txtNombre"));
 		rol.setDescripcion(request.getParameter("descripcion"));
-		rol.setEstado(1);
 
 		switch (opc) {
 		case 1:
+			// Agregar rol
+			rol.setEstado(1);
+
 			try {
 				if (dtr.addRol(rol)) {
 					response.sendRedirect("production/tbl_rol.jsp?msj=1");
@@ -69,10 +71,24 @@ public class Sl_rol extends HttpServlet {
 			break;
 
 		case 2:
-			// TODO: Editar roles en el sistema
+			// Editar rol
+			
+			rol.setIdRol(Integer.parseInt(request.getParameter("idRolUpdate")));
+
+			try {
+				if (dtr.modificarRol(rol))
+					response.sendRedirect("production/tbl_rol.jsp?msj=3");
+				else
+					response.sendRedirect("production/tbl_rol.jsp?msj=4");
+			} catch (Exception e) {
+				System.err.println("ERROR EDITAR (Servlet) ROL: " + e.getMessage());
+				e.printStackTrace();
+			}
+
 			break;
 
 		case 3:
+			// Borrar rol (de forma lógica)
 			int idBorrar = Integer.parseInt(request.getParameter("idRolEliminar"));
 
 			try {
