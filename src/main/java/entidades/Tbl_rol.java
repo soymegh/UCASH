@@ -3,11 +3,25 @@ package entidades;
 public class Tbl_rol {
 
 	private int idRol;
+	private String nombre;
 	private String descripcion;
 	private int estado;
-	
+
 	public Tbl_rol() {
-		
+
+	}
+
+	public Tbl_rol(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public int getIdRol() {
@@ -33,5 +47,5 @@ public class Tbl_rol {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	
+
 }

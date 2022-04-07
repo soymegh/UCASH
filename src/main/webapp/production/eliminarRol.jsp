@@ -2,6 +2,14 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Tbl_rol r = new Tbl_rol();
+Dt_rol datosRol = new Dt_rol();
+
+int idR = (request.getParameter("idRol") != null) ? Integer.parseInt(request.getParameter("idRol")) : 0;
+
+r = datosRol.obtenerRolPorId(idR);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Rol</title>
+<title><%=r.getNombre()%> | Eliminar rol</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -145,7 +153,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar Rol</h3>
+							<h3><%=r.getNombre()%></h3>
 						</div>
 
 						<div class="title_right">
@@ -165,40 +173,41 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Rol</h2>
+									<h2>¿Está seguro que quiere eliminar a <%=r.getNombre() %>?</h2>
 
 									<div class="clearfix"></div>
 								</div>
 
 								<div class="x_content">
 									<form class="" action="../Sl_rol" method="post" novalidate>
-										<input type="hidden" value="1" name="opcion" id="opcion" />
+										<input type="hidden" value="3" name="opcion" id="opcion" />
+										<input type="hidden" value="<%=r.getIdRol() %>" name="idRolEliminar" id="idRolEliminar" />
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span
-												class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="txtNombre" type="text" required="required"
-													placeholder="ex. Invitado" />
+												<input class="form-control" name="txtNombre"
+													value="<%=r.getNombre()%>" id="txtNombre" type="text"
+													readonly />
 											</div>
 										</div>
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span
-												class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="descripcion" type="text" required="required"
-													placeholder="ex. Usuario invitado al sistema" />
+												<input class="form-control" name="descripcion"
+													value="<%=r.getDescripcion()%>" id="descripcion"
+													type="text" readonly />
 											</div>
 										</div>
 
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<a href="tbl_rol.jsp" class="btn btn-danger">Cancelar</a>
+													<a href="tbl_rol.jsp" class="btn btn-primary"> <i class="fa fa-arrow-left"></i>
+														Regresar
+													</a>
+													<button class="btn btn-danger">Eliminar <%=r.getNombre() %></button>
 												</div>
 											</div>
 										</div>
