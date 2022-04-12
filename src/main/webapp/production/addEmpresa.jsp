@@ -227,17 +227,41 @@
 															type="text" required="required" />
 													</div>
 												</div>
+												
+									
+												
+												
 												<div class="field item form-group">
 													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Tipo
+														class="col-form-label col-md-3 col-sm-3  label-align">Tipo de identificacion
 														<span class="required">*</span>
 													</label>
 													<div class="col-md-6 col-sm-6">
-														<input class="form-control" class='optional'
-															name="idTipoIdentifiacion" type="teUxt"
-															required="required" />
+													
+													<%
+													ArrayList<Tbl_tipoIdentificacion> listaTI = new ArrayList<Tbl_tipoIdentificacion>();
+													Dt_tipoIdentificacion dtTI = new Dt_tipoIdentificacion();
+													listaTI = dtTI.listarTipoIdentificacion();
+													%>
+													<select class="form-control js-example-basic-single"
+														name="idTipoIdentifiacion" id="idTipoIdentifiacion" required="required">
+														<option value="0">Seleccione...</option>
+														<%
+														for (Tbl_tipoIdentificacion identificacion : listaTI) {
+														%>
+														<option value="<%=identificacion.getIdTipoIdentifiacion()%>">
+															<%=identificacion.getTipo()%>
+														</option>
+														<%
+														}
+														%>
+
+													</select>
 													</div>
 												</div>
+												
+												
+												
 												<div class="field item form-group">
 													<label
 														class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
