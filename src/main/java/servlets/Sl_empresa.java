@@ -19,6 +19,7 @@ import entidades.Tbl_empresa;
 /**
  * Servlet implementation class SL_empresa
  */
+
 @WebServlet("/Sl_empresa")
 public class Sl_empresa extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -61,15 +62,16 @@ public class Sl_empresa extends HttpServlet {
 		empresa.setTelefono(request.getParameter("telefono"));
 		empresa.setDireccion(request.getParameter("direccion"));
 		empresa.setCorreo(request.getParameter("correo"));
-		int representanteLegal = Integer.parseInt(request.getParameter("representanteLegal"));
-		int periodoFiscal = Integer.parseInt(request.getParameter("idPeriodoFiscal"));
+		int representanteLegal = Integer.parseInt(request.getParameter("valueIdR"));
 		empresa.setIdRepresentanteLegal(representanteLegal);
-		int moneda = Integer.parseInt(request.getParameter("moneda"));
 		int departamento = Integer.parseInt(request.getParameter("departamento"));
 		empresa.setIdDepartamento(departamento);
 		int municipio = Integer.parseInt(request.getParameter("municipio"));
 		empresa.setIdMunicipio(municipio);
 
+		
+		int periodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));
+		empresa.setIdPeriodoFiscal(periodoFiscal);
 		empresa.setUsuarioCreacion(1);
 
 		long millis = System.currentTimeMillis();

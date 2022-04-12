@@ -128,5 +128,11 @@ public class Dt_empresa {
 
 		return guardado;
 	}
+	
+	public int getRepresentantelegalID(String correo) { 
+		
+		
+		return 0; 
+	}
 
 }
