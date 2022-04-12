@@ -22,7 +22,7 @@ public class Dt_tipoDocumento {
 	
 	public void llenaRsTipoDocumento(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_tipodocumento;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.tipodocumento;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsTipoDocumento = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
@@ -35,7 +35,7 @@ public class Dt_tipoDocumento {
 		ArrayList<Tbl_tipoDocumento> listTipoDocumento = new ArrayList<Tbl_tipoDocumento>();
 		try {
 			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_tipodocumento;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.tipodocumento;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.rs = this.ps.executeQuery();
 			
 			while(this.rs.next()) {
@@ -69,5 +69,40 @@ public class Dt_tipoDocumento {
 		}
 		
 		return listTipoDocumento;
+	}
+	
+	public boolean guardarTipoDocumento(Tbl_tipoDocumento ttd){
+		boolean guardado = false;
+		
+		try {
+			c = poolConexion.getConnection();
+			this.llenaRsTipoDocumento(c);
+			this.rsTipoDocumento.moveToInsertRow();
+			rsTipoDocumento.updateInt("idTipoDocumento", ttd.getIdTipoDocumento());
+			rsTipoDocumento.updateString("tipo", ttd.getTipo());
+			rsTipoDocumento.updateString("acronimo", ttd.getAcronimo());
+			rsTipoDocumento.insertRow();
+			rsTipoDocumento.moveToCurrentRow();
+			guardado = true;
+			
+		} catch (Exception e) {
+			System.err.println("ERROR AL GUARDAR tbl_tipoDocumento: "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rsTipoDocumento != null) {
+					rsTipoDocumento.close();
+				}
+				if(c != null) {
+					poolConexion.closeConnection(c);
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			}
+		
+		return guardado;
 	}
 }

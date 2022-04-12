@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,36 +177,59 @@
 							</div>
 							<div class="x_content">
 								<br />
-								<form class="form-horizontal form-label-left">
-
-									<div class="form-group row ">
-										<label class="control-label col-md-3 col-sm-3 ">Fecha de inicio</label>
-										<div class="col-md-9 col-sm-9 ">
-											<input type="text" class="form-control"
-												placeholder="Fecha de inicio">
+								<form class="" action="../Sl_periodoContable" method="post" novalidate >
+								  <input type="hidden" value="1" name="opcion" id="opcion"/>
+								<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
+												Inicio del Periodo Fiscal: <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<%
+												ArrayList<Tbl_periodoContable> listaPC = new ArrayList<Tbl_periodoContable>();
+												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
+												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
+												Dt_periodoContable dtpc = new Dt_periodoContable();	
+												listaPF = dtpf.listarperiodoFiscal();
+												listaPC = dtpc.listarperiodoContable();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDPF" id="cbxIDPF" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													
+														
+														for (Tbl_periodoFiscal pf: listaPF){
+														
+													%>
+													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getIdPeriodoFiscal()%></option>
+													<%
+													}	
+													
+													%>
+												</select>
+											</div>
+										</div>
+										
+																																							
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de inicio: </label>
+										<div class="col-md-6 col-sm-6">
+											<input type="date" class="form-control" placeholder="Fecha de inicio" name="fechainicioc">
 										</div>
 									</div>
-									<div class="form-group row ">
-										<label class="control-label col-md-3 col-sm-3 ">Fecha final</label>
-										<div class="col-md-9 col-sm-9 ">
-											<input type="text" class="form-control"
-												placeholder="Fecha final">
+									
+									
+									
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final: </label>
+										<div class="col-md-6 col-sm-6">
+											<input type="date" class="form-control" placeholder="Fecha de inicio" name="fechafinalc">
 										</div>
 									</div>
-									<div class="form-group row ">
-										<label class="control-label col-md-3 col-sm-3 ">Prorroga</label>
-										<div class="col-md-9 col-sm-9 ">
-											<input type="text" class="form-control"
-												placeholder="Prorroga">
-										</div>
-									</div>
-									<div class="form-group row ">
-										<label class="control-label col-md-3 col-sm-3 ">Tipo de Periodo Contable</label>
-										<div class="col-md-9 col-sm-9 ">
-											<input type="text" class="form-control"
-												placeholder="Tipo de periodo contable">
-										</div>
-									</div>
+									
+									
+									
+									
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">

@@ -172,19 +172,18 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-							<form class="" action="" method="post" novalidate>
+							<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
+							<input type="hidden" value="1" name="opcion" id="opcion"/>
 									<div class="field item form-group">
 										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control"
-												placeholder="">
+											<input type="text" class="form-control" name="txtTipo" placeholder="">
 										</div>
 									</div>
 									<div class="field item form-group">
 										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control"
-												placeholder="">
+											<input type="text" class="form-control" name="txtAcronimo" placeholder="">
 										</div>
 									</div>
 									<div class="ln_solid"></div>

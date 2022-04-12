@@ -211,31 +211,29 @@
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-                      								ArrayList<Vw_periodoContable> listaperiodoContable = new ArrayList<Vw_periodoContable>();
+                      								ArrayList<Tbl_periodoContable> listaperiodoContable = new ArrayList<Tbl_periodoContable>();
                       								Dt_periodoContable dtPC = new Dt_periodoContable();
                       								listaperiodoContable = dtPC.listarperiodoContable();
 	                  								%>
 													<thead>
 														<tr>
 															<th>ID</th>
+															<td>ID Periodo Fiscal</td>
 															<th>Fecha Inicio</th>
-															<th>Fecha Final</th>
-															<th>Prorroga</th>
-															<th>Tipo de Periodo Contable</th>															
+															<th>Fecha Final</th>																													
 															<th>Estado</th>
 															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
-                      									for(Vw_periodoContable PC :listaperiodoContable){
+                      									for(Tbl_periodoContable PC :listaperiodoContable){
                       									%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
+															<td><%=PC.getIdPeriodoFiscal()%></td>
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
-															<td><%=PC.getProrroga()%></td>
-															<td><%=PC.getTipoPeriodoContable()%></td>
 															<td><%=PC.getEstado()%></td>
 															<td><a href="editPeriodoContable.jsp" target="blank"> <i
 																	class="fa fa-edit" title="Editar Periodo Contable"></i></a>

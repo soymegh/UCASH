@@ -3,7 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,38 +32,39 @@ public class Sl_periodoFiscal extends HttpServlet {
 		Tbl_periodoFiscal periodofiscal = new Tbl_periodoFiscal();
 		Dt_periodoFiscal dpf = new Dt_periodoFiscal();
 		
+		
+		
 		//fechaInicio
-		try {
-            String fechaInicio = request.getParameter("fechaInicio").toString();
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		
+          try {
+        	  String fechaIniJsp = request.getParameter("fechaInicio").toString();
+              java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
+              periodofiscal.setFechaInicio(new java.sql.Date(date1.getTime()));
+              System.out.println("dateString:" + date1);
+          }catch(ParseException e) {
+        	  e.printStackTrace();
+          }
 
-            Date fInicio = formatter.parse(fechaInicio);
-
-            java.sql.Date sqlDate = new java.sql.Date(fInicio.getTime());
-
-            periodofiscal.setFechaInicio(sqlDate);
-
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    
         
         //fechaFinal
-		try {
-            String fechaFinal = request.getParameter("fechaFinal").toString();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-
-            Date fFinal = formatter.parse(fechaFinal);
-
-            java.sql.Date sqlDate = new java.sql.Date(fFinal.getTime());
-
-            periodofiscal.setFechaInicio(sqlDate);
-
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 		
+          try {
+        	  
+        	  String fechaFinJsp = request.getParameter("fechaFinal");
+        	  java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
+        	  periodofiscal.setFechaFinal(new java.sql.Date(date2.getTime()));        
+        	  
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+     
+             
+          
+            		
+
+       
 		switch(opc) {
 		case 1:
 			try {
