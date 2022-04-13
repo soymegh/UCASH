@@ -231,10 +231,9 @@
 															<td><%=ur.getDescripcion()%></td>
 															<td><%=ur.getNombreCompleto()%></td>
 															
-															<td><a href="editUsuarioRol.jsp" target="blank"> <i
-																	class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; <a
-																href="viewUsuarioRol.jsp" target="blank"> <i class="fa fa-eye"
-																	title="Ver"></i>
+															<td>
+															<a href="editUsuarioRol.jsp" target="blank"> <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
+															<a href="viewUsuarioRol.jsp" target="blank"> <i class="fa fa-eye" title="Ver"></i>
 															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
 																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
