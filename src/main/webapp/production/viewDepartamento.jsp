@@ -2,6 +2,16 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+
+String dept = "";
+dept = request.getParameter("idDp")==null?"0":request.getParameter("idDp");
+
+Tbl_departamento td = new Tbl_departamento();
+Dt_departamento dtdp = new Dt_departamento();
+td = dtdp.getDeptbyID(Integer.parseInt(dept));
+
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -178,35 +188,25 @@
 									<form class="" action="" method="post" novalidate>
 										<span class="section">Datos de Departamento</span>
 										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio
-												<span readonly>*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" readonly />
-											</div>
-										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span
-												readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span> </span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
 													class='email' name="confirm_email"
-													data-validate-linked='email' required='required' />
+													data-validate-linked='email' required='required' readonly/>
 											</div>
 										</div>
 										
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button class="btn btn-primary">Regresar</button>
-												</div>
-											</div>
-										</div>
+										 <div class="ln_solid">
+                                            <div class="form-group" align="center">
+                                                    <a href="tbl_departamento.jsp" title="Retornar a la página anterior">
+                                                    	<i class="fa fa-arrow-circle-o-left"></i>
+                                                    	Regresar
+                                                    </a>
+                                            </div>
+                                         </div>
 									</form>
 								</div>
 							</div>
