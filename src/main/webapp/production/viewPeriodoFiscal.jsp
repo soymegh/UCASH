@@ -159,16 +159,7 @@
 							<h3>Mostrar Periodo Fiscal</h3>
 						</div>
 
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
+						<div class="title_right">							
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -200,7 +191,7 @@
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
+								                 <select class="form-control js-example-basic-single" name="cbxFechaInicio" id="cbxFechaInicio" disabled="disabled">
 												  <option value="">Seleccione...</option>
 
 												  <option value="Prueba"></option>
@@ -213,7 +204,7 @@
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
+								                 <select class="form-control js-example-basic-single" name="cbxFechaFin" id="cbxFechafin" disabled="disabled">
 												  <option value="">Seleccione...</option>
 
 												  <option value="Prueba"></option>
@@ -224,7 +215,7 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button class="btn btn-primary">Regresar</button>
+													<a href="tbl_periodoFiscal.jsp" class="btn btn-primary">Regresar</a>
 												</div>
 											</div>
 										</div>
