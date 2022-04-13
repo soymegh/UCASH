@@ -209,4 +209,47 @@ public class Dt_tipoDocumento {
 				return modificado;
 	}
 	
+	public boolean EliminarTipocDoc(int idEliminar) {
+		 boolean borrado = false;
+		 
+		 try 
+		 {
+			 c = poolConexion.getConnection();
+			 this.ps = this.c.prepareStatement("delete from dbucash.tipodocumento   Where idTipoDocumento = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			 
+			 this.ps.setInt(1, idEliminar);
+				int result = this.ps.executeUpdate();
+
+				if (result > 0) {
+					borrado = true;
+				}
+		}
+		 catch (Exception e) 
+		 {
+			 System.err.println("ERROR AL BORRAR Tipo de Documento POR ID: " + e.getMessage());
+				e.printStackTrace();
+		}
+		 finally 
+		 {
+			try 
+			{
+				if (rsTipoDocumento != null)
+				{
+					rsTipoDocumento.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		 
+		 return borrado;
+	}
+	
+	
 }

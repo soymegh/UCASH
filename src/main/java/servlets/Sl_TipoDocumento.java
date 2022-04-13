@@ -76,6 +76,29 @@ public class Sl_TipoDocumento extends HttpServlet {
 			}
 			
 			break;
+			
+		case 3:
+			
+			int idBorrar = Integer.parseInt(request.getParameter("idTipoDocEliminar"));
+			
+			try 
+			{
+				if (dttd.EliminarTipocDoc(idBorrar))
+				{
+					response.sendRedirect("production/tbl_tipoDocumento.jsp?msj=5");
+				}
+				else
+				{
+					response.sendRedirect("production/tbl_tipoDocumento.jsp?msj=6");
+				}
+				
+			} catch (Exception e) {
+				System.err.println("ERROR AL BORRAR (Servlet) Tipo de documento: " + e.getMessage());
+				e.printStackTrace();
+			}
+			
+			
+			break;
 
 		default:
 			break;

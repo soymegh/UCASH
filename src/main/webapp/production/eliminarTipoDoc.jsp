@@ -1,15 +1,28 @@
+<%@page import="datos.Dt_tipoDocumento"%>
+<%@page import="entidades.Tbl_tipoDocumento"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<%
+
+Tbl_tipoDocumento td = new Tbl_tipoDocumento();
+Dt_tipoDocumento dtd = new Dt_tipoDocumento();
+
+int idtd = (request.getParameter("idTipoDocumento") != null) ? Integer.parseInt(request.getParameter("idTipoDocumento")) : 0;
+
+td = dtd.obtenerTipoDocPorId(idtd);
+
+
+%>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Tipo Documento</title>
+<title>Eliminar Tipo Documento</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -95,7 +108,7 @@
 									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                                            <li><a href="tbl_departamento.jsp">Departamento</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
@@ -149,134 +162,69 @@
 				</div>
 			</div>
 			<!-- /top navigation -->
-
+			
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>
-								Tipo <small>Documento</small>
-							</h3>
+							<h3>Eliminar tipo documento</h3>
 						</div>
 
-						<div class="title_right">
-							<div
-								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
-										class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
-						</div>
 					</div>
-
 					<div class="clearfix"></div>
-
 					<div class="row">
-						<div class="col-md-12 col-md-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Tipos de documentos registrados</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li class="dropdown"><a href="#" class="dropdown-toggle"
-											data-toggle="dropdown" role="button" aria-expanded="false"><i
-												class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a> <a
-													class="dropdown-item" href="#">Settings 2</a>
-											</div></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<div class="row">
-										<div class="col-md-12">
-											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-													<a href="addTipoDocumento.jsp"> <i class="fa fa-plus-square"></i>
-														Nuevo tipo de documento
-													</a> <br></br>
-												</div>
-												<table id="datatable-buttons"
-													class="table table-striped table-bordered"
-													style="width: 100%">
-													<%
-													ArrayList<Tbl_tipoDocumento> listarTDocumento = new ArrayList<Tbl_tipoDocumento>();
-													Dt_tipoDocumento dtd = new Dt_tipoDocumento();
-													listarTDocumento = dtd.listaTipoDocumento();
-													%>
-													<thead>
-														<tr>
-															<th>ID</th>
-															<th>Tipo</th>
-															<th>Acronimo</th>
-															<th>Acciones</th>
-														</tr>
-													</thead>
-													<tbody>
-														<%
-														for (Tbl_tipoDocumento tdoc : listarTDocumento) {
-														%>
-														<tr>
-															
-															<td><%=tdoc.getIdTipoDocumento() %></td>
-															<td><%=tdoc.getTipo() %></td>
-															<td><%=tdoc.getAcronimo() %></td>
-															<td>
-															
-															<a href="editTipoDocumento.jsp?idTipoDocumento=<%=tdoc.getIdTipoDocumento() %>" target="blank">
-															 <i class="fa fa-edit" title="Editar"></i>
-															 
-															 </a> &nbsp;&nbsp; <a 
-															  href="viewTipoDocumento.jsp" target="blank"> <i 
-															  class="fa fa-eye" title="Ver"></i>
-															  
-															</a> &nbsp;&nbsp; <a href="eliminarTipoDoc.jsp?idTipoDocumento=<%=tdoc.getIdTipoDocumento() %>" target="_blank"> <i
-																	class="fa fa-trash" title="Eliminar"></i>
-															</a></td>
-														</tr>
-														<%
-														}
-														%>
-													</tbody>
-
-												</table>
-											</div>
+					
+					<div class="col-md-12 col-sm-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>
+									Formulario tipo documento  
+								</h2>
+								
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+							<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
+							<input type="hidden" value="3" name="opcion" id="opcion"/>
+							
+							<input type="hidden" value="<%=td.getIdTipoDocumento() %>" name="idTipoDocEliminar" id="idTipoDocEliminar" />
+							
+									<div class="field item form-group">
+										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" placeholder="">
 										</div>
 									</div>
-								</div>
+									<div class="field item form-group">
+										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" placeholder="">
+										</div>
+									</div>
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<div class="col-md-9 col-sm-9  offset-md-3">
+										    <button type="submit" class="btn btn-success">Eliminar</button>
+											<button type="button" class="btn btn-primary">Cancelar</button>	
+										</div>
+									</div>
+
+								</form>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
+			  </div>
 			</div>
-		</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	<!-- /page content -->
-
-	<!-- footer content -->
-	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
-		<div class="clearfix"></div>
-	</footer>
-	<!-- /footer content -->
-	</div>
-	</div>
+			<!-- footer content -->
+            <footer>
+                <div class="pull-right">Sistema contable by Eldian's Software</div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -286,33 +234,33 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
 	<script
-		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script
-		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="../vendors/jszip/dist/jszip.min.js"></script>
-	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
