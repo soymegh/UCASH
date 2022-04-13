@@ -78,7 +78,27 @@ public class Sl_periodoFiscal extends HttpServlet {
 			}
 			break;
 		case 2:
+			
+			periodofiscal.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("idPFUpdate")));
+			
+			try 
+			{
+				if (dpf.modificarPeriodoFiscal(periodofiscal))
+				{
+					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=3");
+				}
+				else
+				{
+					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=4");
+				}
+			} 
+			catch (Exception e)
+			{
+				System.err.println("ERROR EDITAR (Servlet) Periodo Fiscal: " + e.getMessage());
+				e.printStackTrace();
+			}
 			break;
+			
 		default:
 			break;
 		}		

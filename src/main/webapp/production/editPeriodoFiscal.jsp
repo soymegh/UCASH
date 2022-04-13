@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1"import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+<%
 
+Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
+Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
+
+int idpfiscal = (request.getParameter("idPeriodoFiscal") != null) ? Integer.parseInt(request.getParameter("idPeriodoFiscal")) : 0;
+
+
+tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
+
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -156,20 +166,9 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Editar Periodo Fiscal</h3>
+							<h3>Editar Periodo Fiscal </h3>
 						</div>
 
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="clearfix"></div>
 
@@ -177,56 +176,38 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>
-										Formulario <small>Editar Periodo Fiscal</small>
-									</h2>
+									<h2>Editar Periodo Fiscal</h2>
 
 									<div class="clearfix"></div>
 								</div>
+								
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
+									  <input type="hidden" value="2" name="opcion" id="opcion"/>
+									  
+									  <input type="hidden" value="<%=tpfiscal.getIdPeriodoFiscal()%>" name="idPFUpdate" id="idPFUpdate" />
+									  
 										<span class="section">Datos de Periodo Fiscal</span>
+										
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">ID<span
-												readonly>*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
-													 readonly />
+												<input class="form-control" class='optional' name="fechaInicio" value="<%=tpfiscal.getFechaInicio() %>"  type="date" required="required" placeholder="Fecha de Inicio"/>
 											</div>
 										</div>
+										
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="fechaFinal" value="<%= tpfiscal.getFechaFinal() %>" type="date" required="required" placeholder="Fecha Final"/>
 											</div>
-                                        </div>
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
-											</div>
-                                        </div>										
+										</div>
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
 													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
@@ -240,41 +221,14 @@
 			</div>
 			<!-- /page content -->
 
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
-		</div>
+								
 	</div>
+</div>
 
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="../vendors/validator/multifield.js"></script>
-	<script src="../vendors/validator/validator.js"></script>
-
-	<!-- Javascript functions	-->
-	<script>
-		function hideshow() {
-			var password = document.getElementById("password1");
-			var slash = document.getElementById("slash");
-			var eye = document.getElementById("eye");
-
-			if (password.type === 'password') {
-				password.type = "text";
-				slash.style.display = "block";
-				eye.style.display = "none";
-			} else {
-				password.type = "password";
-				slash.style.display = "none";
-				eye.style.display = "block";
-			}
-
-		}
-	</script>
-
+<footer>
+		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="clearfix"></div>
+	</footer>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -284,12 +238,35 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- validator -->
-	<!-- <script src="../vendors/validator/validator.js"></script> -->
-
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
-
 </html>
