@@ -3,7 +3,7 @@ package entidades;
 import java.sql.Date;
 
 public class Vw_catalogocuenta_empresa {
-	private int idCatalogoCuenta;
+	private int idCatalogo;
 	private int idEmpresa;
 	private String nombreComercial;
 	private String titulo;
@@ -16,11 +16,11 @@ public class Vw_catalogocuenta_empresa {
 	private int usuarioEliminacion;
 	
 	
-	public int getIdCatalogoCuenta() {
-		return idCatalogoCuenta;
+	public int getIdCatalogo() {
+		return idCatalogo;
 	}
-	public void setIdCatalogoCuenta(int idCatalogoCuenta) {
-		this.idCatalogoCuenta = idCatalogoCuenta;
+	public void setIdCatalogo(int idCatalogo) {
+		this.idCatalogo = idCatalogo;
 	}
 	public int getIdEmpresa() {
 		return idEmpresa;

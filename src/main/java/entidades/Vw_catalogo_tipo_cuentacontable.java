@@ -8,6 +8,7 @@ public class Vw_catalogo_tipo_cuentacontable {
 	private String ssC;
 	private String sssC;
 	private String nombreCuenta;
+	private int nivel;
 	private String rubro;
 	private String tipoCuenta;
 	private String catalogoCuenta;
@@ -94,6 +95,14 @@ public class Vw_catalogo_tipo_cuentacontable {
 
 	public void setEstado(int estado) {
 		this.estado = estado;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
 	}	
 	
 }
