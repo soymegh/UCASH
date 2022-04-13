@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*,datos.*, java.util.*;"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -164,27 +164,28 @@
 								</div>
 								
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_cuentaContable" method="post" novalidate>
+									<input type="hidden" value="1" name="opcion" id="opcion" />
 										<span class="section">Datos de CC Maestro</span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero Cuenta<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Debe" data-validate-length-range="5,15" type="text" required="required" />
+												<input class="form-control" class='optional' id="numeroCuenta" name="numeroCuenta" type="text" required="required" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Cuenta<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Debe" data-validate-length-range="5,15" type="text" required="required" />
+												<input type="number" class="form-control" id="SC" name="SC" class="required" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Cuenta<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="tel" class='tel' name="phone" required='required' data-validate-length-range="8,20" />
+												<input type="number" class="form-control" id="SsC" name="SsC" class="required" />
 											</div>
 										</div>
 										
@@ -192,41 +193,83 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Sub-Cuenta<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,100" type="text" required="required"/>
+												<input type="number" class="form-control" id="SssC" name="SssC" class="required" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Cuenta<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input type="text" class="form-control" id="nombreCuenta" name="nombreCuenta" class="required" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nivel<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input type="number" class="form-control" id="nivel" name="nivel" class="required" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Rubro<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Debe" data-validate-length-range="5,15" type="text" required="required" />
+												<input type="number" class="form-control" id="rubro" name="rubro" class="required" />
 											</div>
 										</div>
 
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Tipo Cuenta<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Tipo Cuenta<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
+													
+													<% 
+													ArrayList<Tbl_tipocuenta> listaTc = new ArrayList<Tbl_tipocuenta>();
+													Dt_tipocuenta dtTc = new Dt_tipocuenta();
+													listaTc = dtTc.listaTipocuentaActivos();
+													%>
+													
+								                 <select class="form-control js-example-basic-single" 
+								                 		 name="tipoCuenta" id="tipoCuenta" required="required">
 												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
+												  	<%
+												  		for(Tbl_tipocuenta tc : listaTc){
+												  	%>
+												  <option value="<%=tc.getIdTipoCuenta()%>">
+													<%=tc.getTipoCuenta()%>
+												</option>
+													<%
+													}
+													%>
 												</select>
 											</div>
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Catalogo Cuenta<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
+												 	<% 
+													ArrayList<Vw_catalogocuenta_empresa> listaCat = new ArrayList<Vw_catalogocuenta_empresa>();
+													Dt_catalogocuenta dtCat = new Dt_catalogocuenta();
+													listaCat = dtCat.listarCatalogocuenta();
+													%>
+
+								                 <select class="form-control js-example-basic-single" 
+								                 		 name="catalogoCuenta" id="catalogoCuenta" required="required">
 												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
+												  	<%
+												  		for(Vw_catalogocuenta_empresa cat : listaCat){
+												  	%>
+												  <option value="<%=cat.getIdCatalogo()%>">
+													<%=cat.getTitulo()%>
+												</option>
+													<%
+													}
+													%>
 												</select>
 											</div>
                                         </div>
@@ -236,7 +279,7 @@
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Agregar</button>
 													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>

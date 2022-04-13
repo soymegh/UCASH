@@ -1,5 +1,7 @@
 package datos;
 
+import entidades.Tbl_cuentaContable;
+import entidades.Tbl_cuentaContable_Det;
 import entidades.Vw_cuentacontable_cuentacontable_det;
 
 import java.sql.Connection;
@@ -73,5 +75,44 @@ public class Dt_cuentaContable_Det {
 		}
 		
 		return listCuentaContableDet;
+	}
+	//Metodo para agregar una cuenta contable det
+	public boolean addCuentaContableDet(Tbl_cuentaContable_Det ccD) {
+		boolean guardado = false;
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContableDet(c);
+			this.rsCuentaContableDet.moveToInsertRow();
+			
+			rsCuentaContableDet.updateInt("idCuentaContableDet", ccD.getIdCuentaContableDet());
+			rsCuentaContableDet.updateDouble("debe", ccD.getDebe());
+			rsCuentaContableDet.updateDouble("haber", ccD.getHaber());
+			rsCuentaContableDet.updateDouble("saldoInicial", ccD.getSaldoInicial());
+			rsCuentaContableDet.updateDouble("saldoFinal", ccD.getSaldoFinal());
+			rsCuentaContableDet.updateInt("idCuentaContable", ccD.getIdCuentaContable());
+
+			rsCuentaContableDet.insertRow();
+			rsCuentaContableDet.moveToCurrentRow();
+			guardado = true;
+		}
+		catch(Exception e)
+		{
+			System.err.println("ERROR AL GUARDAR CUENTA CONTABLE DET: "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rsCuentaContableDet != null) {
+					rsCuentaContableDet.close();
+				}
+				if(c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return guardado;
 	}
 }

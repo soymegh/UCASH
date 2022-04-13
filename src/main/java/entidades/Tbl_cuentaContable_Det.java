@@ -5,7 +5,7 @@ public class Tbl_cuentaContable_Det {
 	private int idCuentaContableDet;
 	private int idCuentaContable;
 	private double saldoFinal;
-	private int saldo;
+	private double saldoInicial;
 	private double debe;
 	private double haber;
 	
@@ -56,13 +56,13 @@ public class Tbl_cuentaContable_Det {
 	}
 
 
-	public int getSaldo() {
-		return saldo;
+	public double getSaldoInicial() {
+		return saldoInicial;
 	}
 
 
-	public void setSaldo(int saldo) {
-		this.saldo = saldo;
+	public void setSaldoInicial(double saldoInicial) {
+		this.saldoInicial = saldoInicial;
 	}
 
 
