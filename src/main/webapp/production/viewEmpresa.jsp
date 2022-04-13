@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1"
+	import="entidades.Vw_empresa, datos.Dt_empresa, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="es">
+<%
+String empresa = "";
+empresa = request.getParameter("idEmpresa") == null ? "0" : request.getParameter("idEmpresa");
 
+Vw_empresa vwEmpresa = new Vw_empresa();
+Dt_empresa dtEmpresa = new Dt_empresa();
+vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -200,7 +208,7 @@
 												readonly>*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name" readonly />
+													data-validate-words="2" name="ruc" id="ruc" readonly />
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -209,16 +217,26 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" readonly />
+													name="razonSocial" id="razonSocial"
+													data-validate-length-range="5,15" type="text" readonly />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Comercial
+											<span readonly>*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional'
+													name="nombreComercial" id="nombreComercial"
+													data-validate-length-range="5,15" type="text" readonly />
 											</div>
 										</div>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
 												readonly>*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="email" class='email'
-													readonly type="email" />
+												<input class="form-control" name="correo" id="correo"
+													class='email' readonly type="email" />
 											</div>
 										</div>
 
@@ -227,7 +245,7 @@
 												readonly>*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="tel" class='tel'
-													name="phone" required='required'
+													name="telefono" id="telefono" required='required'
 													data-validate-length-range="8,20" />
 											</div>
 										</div>
@@ -237,8 +255,8 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,100"
-													type="text" readonly />
+													name="direccion" id="direccion"
+													data-validate-length-range="5,100" type="text" readonly />
 											</div>
 										</div>
 
@@ -248,17 +266,18 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
-													class='email' name="confirm_email"
-													data-validate-linked='email' required='required' />
+													class='email' name="representanteLegal"
+													id="representanteLegal" data-validate-linked='email'
+													required='required' />
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Moneda<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo fiscal<span
 												readonly>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
-													class='email' name="confirm_email"
+													class='email' name="periodoFiscal" id="periodoFiscal"
 													data-validate-linked='email' required='required' />
 											</div>
 										</div>
@@ -268,7 +287,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
-													class='email' name="confirm_email"
+													class='email' name="departamento" id="departamento"
 													data-validate-linked='email' required='required' />
 											</div>
 										</div>
@@ -278,7 +297,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
-													class='email' name="confirm_email"
+													class='email' name="municipio" id="municipio" class="municipio"
 													data-validate-linked='email' required='required' />
 											</div>
 										</div>
@@ -314,6 +333,26 @@
 	<script src="../vendors/validator/validator.js"></script>
 
 	<!-- Javascript functions	-->
+
+	<script>
+
+    function setForm(){
+    	document.getElementById("ruc").value = "<%=vwEmpresa.getRuc()%>";
+    	document.getElementById("razonSocial").value = "<%=vwEmpresa.getRazonSocial()%>";
+    	document.getElementById("nombreComercial").value = "<%=vwEmpresa.getNombreComercial()%>";
+    	document.getElementById("telefono").value = "<%=vwEmpresa.getTelefono()%>";
+    	document.getElementById("correo").value = "<%=vwEmpresa.getCorreo()%>";
+    	document.getElementById("direccion").value = "<%=vwEmpresa.getDireccion()%>";
+    	document.getElementById("periodoFiscal").value = "<%=vwEmpresa.getPeriodoFiscal()%>";
+    	document.getElementById("representanteLegal").value = "<%=vwEmpresa.getRepresentante()%>";
+    	document.getElementById("departamento").value = "<%=vwEmpresa.getDepartamentoNombre()%>";
+    	document.getElementById("municipio").value = "<%=vwEmpresa.getMunicipioNombre()%>";
+
+			console.log(document.getElementById("ruc").value);
+		}
+
+		window.onload = setForm;
+	</script>
 	<script>
 		function hideshow() {
 			var password = document.getElementById("password1");

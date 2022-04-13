@@ -254,9 +254,9 @@
 															<td><%=empresa.getTelefono()%></td>
 															<td><%=empresa.getCorreo()%></td>
 
-															<td><a href="editEmpresa.jsp" target="blank"> <i
+															<td><a href="editEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>"  target="blank"> <i
 																	class="fa fa-edit" title="Editar empresa"></i></a>
-																&nbsp;&nbsp; <a href="viewEmpresa.jsp" target="blank">
+																&nbsp;&nbsp; <a href="viewEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>" target="blank">
 																	<i class="fa fa-eye" title="Ver empresa"></i>
 															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
 																	class="fa fa-trash" title="Eliminar"></i>

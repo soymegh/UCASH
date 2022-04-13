@@ -11,7 +11,6 @@ public class Vw_empresa {
 	private int idRepresentanteLegal;
 	private int idDepartamento;
 	private int idMunicipio;
-	
 	private String periodoFiscal; 
 	private String Representante;
 	private String municipioNombre;

@@ -134,5 +134,54 @@ public class Dt_empresa {
 		
 		return 0; 
 	}
+	
+	public Vw_empresa getEmpresaByID(int idEmpresa) {
+		Vw_empresa empresa = new Vw_empresa(); 
+		try {
+			c = poolConexion.getConnection(); 
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_empresa WHERE idEmpresa =?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps.setInt(1, idEmpresa);
+			rs = ps.executeQuery(); 
+			
+			//Hace peticion a la base de datos, por lo que los nombres en parentesis son los de la base de datos. 
+			if(rs.next()) {
+				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
+				empresa.setRuc(rs.getString("ruc"));
+				empresa.setRazonSocial(rs.getString("razonSocial"));
+				empresa.setNombreComercial(rs.getString("nombreComercial"));
+				empresa.setTelefono(rs.getString("telefono"));
+				empresa.setCorreo(rs.getString("correo"));
+				empresa.setDireccion(rs.getString("direccion"));
+				empresa.setPeriodoFiscal(rs.getString("periodoFiscal"));
+				empresa.setRepresentante(rs.getString("Representante"));
+				empresa.setMunicipioNombre(rs.getString("municipio"));
+				empresa.setDepartamentoNombre(rs.getString("departamento"));
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("DATOS ERROR AL OBTENER EMPRESA POR ID: "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return empresa;
 
+}
+	
 }
