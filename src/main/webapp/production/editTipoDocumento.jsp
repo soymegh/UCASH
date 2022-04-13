@@ -1,8 +1,20 @@
+<%@page import="datos.Dt_tipoDocumento"%>
+<%@page import="entidades.Tbl_tipoDocumento"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+<%
 
+Tbl_tipoDocumento td = new Tbl_tipoDocumento();
+Dt_tipoDocumento dtd = new Dt_tipoDocumento();
+
+int idtd = (request.getParameter("idTipoDocumento") != null) ? Integer.parseInt(request.getParameter("idTipoDocumento")) : 0;
+
+td = dtd.obtenerTipoDocPorId(idtd);
+
+
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -10,7 +22,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Editar | Tipo Documento</title>
+<title>Nuevo Tipo Documento</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -96,7 +108,7 @@
 									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                                            <li><a href="tbl_departamento.jsp">Departamento</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
@@ -150,126 +162,69 @@
 				</div>
 			</div>
 			<!-- /top navigation -->
-
+			
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Editar tipo documento</h3>
+							<h3>Agregar nuevo tipo documento</h3>
 						</div>
 
-						<div class="title_right">
-							
-						</div>
 					</div>
 					<div class="clearfix"></div>
-
 					<div class="row">
-						<div class="col-md-12 col-sm-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>
-										Formulario <small>Editar tipo documento</small>
-									</h2>
+					
+					<div class="col-md-12 col-sm-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>
+									Formulario tipo documento  
+								</h2>
+								
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+							<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
+							<input type="hidden" value="2" name="opcion" id="opcion"/>
+							
+							<input type="hidden" value="<%=td.getIdTipoDocumento() %>" name="idTDUpdate" id="idTDUpdate" />
+							
+									<div class="field item form-group">
+										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" placeholder="">
+										</div>
+									</div>
+									<div class="field item form-group">
+										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" placeholder="">
+										</div>
+									</div>
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<div class="col-md-9 col-sm-9  offset-md-3">
+										    <button type="submit" class="btn btn-success">Editar</button>
+											<button type="button" class="btn btn-primary">Cancelar</button>	
+										</div>
+									</div>
 
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de tipo documento</span>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo<span
-												class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
-													placeholder="ex. 2347827431" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Acronimo<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" required="required" />
-											</div>
-										</div>
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
-												</div>
-											</div>
-										</div>
-									</form>
-								</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
+			  </div>
 			</div>
-			<!-- /page content -->
-
 			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
-		</div>
-	</div>
-
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="../vendors/validator/multifield.js"></script>
-	<script src="../vendors/validator/validator.js"></script>
-
-	<!-- Javascript functions	-->
-	<script>
-		function hideshow() {
-			var password = document.getElementById("password1");
-			var slash = document.getElementById("slash");
-			var eye = document.getElementById("eye");
-			if (password.type === 'password') {
-				password.type = "text";
-				slash.style.display = "block";
-				eye.style.display = "none";
-			} else {
-				password.type = "password";
-				slash.style.display = "none";
-				eye.style.display = "block";
-			}
-		}
-	</script>
-
-	<script>
-		// initialize a validator instance from the "FormValidator" constructor.
-		// A "<form>" element is optionally passed as an argument, but is not a must
-		var validator = new FormValidator({
-			"events" : [ 'blur', 'input', 'change' ]
-		}, document.forms[0]);
-		// on form "submit" event
-		document.forms[0].onsubmit = function(e) {
-			var submit = true, validatorResult = validator.checkAll(this);
-			console.log(validatorResult);
-			return !!validatorResult.valid;
-		};
-		// on form "reset" event
-		document.forms[0].onreset = function(e) {
-			validator.reset();
-		};
-		// stuff related ONLY for this demo page:
-		$('.toggleValidationTooltips').change(function() {
-			validator.settings.alerts = !this.checked;
-			if (this.checked)
-				$('form .alert').remove();
-		}).prop('checked', false);
-	</script>
+            <footer>
+                <div class="pull-right">Sistema contable by Eldian's Software</div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -279,12 +234,35 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- validator -->
-	<!-- <script src="../vendors/validator/validator.js"></script> -->
-
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
-
 </html>

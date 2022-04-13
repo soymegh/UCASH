@@ -105,4 +105,108 @@ public class Dt_tipoDocumento {
 		
 		return guardado;
 	}
+	
+	
+	public Tbl_tipoDocumento obtenerTipoDocPorId(int id){
+		
+		Tbl_tipoDocumento TR = new Tbl_tipoDocumento();
+		
+		try {
+			
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("Select * from dbucash.tipodocumento where idTipoDocumento = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			
+			this.ps.setInt(1, id);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				
+				TR.setIdTipoDocumento(rs.getInt("idTipoDocumento"));
+				TR.setTipo(rs.getString("tipo"));
+				TR.setAcronimo(rs.getString("acronimo"));
+				
+			}
+			
+		}
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER TIPO DE DOCUMENTO POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				
+				if (rsTipoDocumento != null)
+				{
+					rsTipoDocumento.close();
+				}
+				if(ps != null)
+				{
+					ps.close();
+				}
+				if (c != null)
+				{
+					poolConexion.closeConnection(c);
+				}
+				
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		return TR;
+	}
+	
+	public boolean modificarTipoDoc(Tbl_tipoDocumento td){
+		boolean modificado = false;
+		
+		try 
+		{
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("update dbucash.tipodocumento set tipo = ? , acronimo = ? where idTipoDocumento = ?;");
+			
+			ps.setString(1, td.getTipo());
+			ps.setString(2,td.getAcronimo());
+			ps.setInt(3, td.getIdTipoDocumento());
+			
+			int result = ps.executeUpdate();
+			modificado = (result > 0) ? true : false;
+			
+			
+		} 
+		catch (Exception e) 
+		{
+			System.err.println("ERROR AL modificarTipoDoc() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsTipoDocumento != null)
+				{
+					rsTipoDocumento.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+			}
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+				
+				
+				return modificado;
+	}
+	
 }

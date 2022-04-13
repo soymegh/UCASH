@@ -53,6 +53,29 @@ public class Sl_TipoDocumento extends HttpServlet {
 				}
 			
 			break;
+			
+		case 2:
+			
+			tipoDoc.setIdTipoDocumento(Integer.parseInt(request.getParameter("idTDUpdate")));
+		
+				
+			try 
+			{
+				if (dttd.modificarTipoDoc(tipoDoc))
+				{
+					response.sendRedirect("production/tbl_tipoDocumento.jsp?msj=3");
+				}
+				else
+				{
+					response.sendRedirect("production/tbl_tipoDocumento.jsp?msj=4");
+				}
+				
+			} catch (Exception e) {
+				System.err.println("ERROR EDITAR (Servlet) Tipo de documento: " + e.getMessage());
+				e.printStackTrace();
+			}
+			
+			break;
 
 		default:
 			break;

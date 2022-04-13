@@ -232,10 +232,15 @@
 															<td><%=tdoc.getIdTipoDocumento() %></td>
 															<td><%=tdoc.getTipo() %></td>
 															<td><%=tdoc.getAcronimo() %></td>
-															<td><a href="editTipoDocumento.jsp" target="blank"> <i
-																	class="fa fa-edit" title="Editar"></i></a>
-																&nbsp;&nbsp; <a href="viewTipoDocumento.jsp" target="blank">
-																	<i class="fa fa-eye" title="Ver"></i>
+															<td>
+															
+															<a href="editTipoDocumento.jsp?idTipoDocumento=<%=tdoc.getIdTipoDocumento() %>" target="blank">
+															 <i class="fa fa-edit" title="Editar"></i>
+															 
+															 </a> &nbsp;&nbsp; <a 
+															  href="viewTipoDocumento.jsp" target="blank"> <i 
+															  class="fa fa-eye" title="Ver"></i>
+															  
 															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
 																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
