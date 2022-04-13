@@ -22,7 +22,7 @@ td = dtd.obtenerTipoDocPorId(idtd);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nuevo Tipo Documento</title>
+<title>Editar Tipo Documento</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -168,7 +168,7 @@ td = dtd.obtenerTipoDocPorId(idtd);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar nuevo tipo documento</h3>
+							<h3>Editar tipo documento</h3>
 						</div>
 
 					</div>

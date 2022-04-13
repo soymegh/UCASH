@@ -104,4 +104,97 @@ public class Dt_periodoFiscal {
 			}
 		return guardado;
 		}
+	
+	public Tbl_periodoFiscal obtenerPFiscalPorId(int id)
+	{
+		Tbl_periodoFiscal pfiscal = new Tbl_periodoFiscal();
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodofiscal WHERE estado <> 3 AND idPeriodoFiscal = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, id);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				pfiscal.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				pfiscal.setFechaInicio(rs.getDate("fechaInicio"));
+				pfiscal.setFechaFinal(rs.getDate("fechaFinal"));
+				
+				
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER Periodo Fiscal POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsperiodoFiscal != null) 
+				{
+					rsperiodoFiscal.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+				if (ps != null) 
+				{
+					ps.close();
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return pfiscal;
+	}
+	
+	public boolean modificarPeriodoFiscal(Tbl_periodoFiscal tpfiscal)
+	{
+		boolean modificado = false;
+		
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("Update dbucash.periodofiscal set  fechaInicio = ?, fechaFinal = ?, estado = 2 WHERE idPeriodoFiscal = ? ;");
+			ps.setDate(1,tpfiscal.getFechaInicio());
+			ps.setDate(2, tpfiscal.getFechaFinal());
+			ps.setInt(3, tpfiscal.getIdPeriodoFiscal());
+			
+			int result = ps.executeUpdate();
+			modificado = (result > 0) ? true : false;
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL modificarPeriodoFiscal "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsperiodoFiscal != null)
+				{
+					rsperiodoFiscal.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return modificado;
+	}
+	
+	
 	}

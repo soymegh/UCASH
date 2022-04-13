@@ -224,9 +224,10 @@
 															<td><%=PF.getFechaFinal()%></td>
 															<td><%=PF.getEstado()%></td>
 															
-															<td><a href="editPeriodoFiscal.jsp" target="blank"> <i
-																	class="fa fa-edit" title="Editar Periodo Fiscal"></i></a>
-																&nbsp;&nbsp; <a href="viewPeriodoFiscal.jsp" target="blank">
+															<td><a href="editPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>" target="blank"> <i
+																	class="fa fa-edit" title="Editar Periodo Fiscal"></i>
+																	
+																	</a>&nbsp;&nbsp; <a href="viewPeriodoFiscal.jsp" target="blank">
 																	<i class="fa fa-eye" title="Ver Periodo Fiscal"></i>
 															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
 																	class="fa fa-trash" title="Eliminar"></i>
