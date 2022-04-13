@@ -343,8 +343,8 @@
 															<td><%=ccD.getIdCuentaContableDet()%></td>
 															<td><%=ccD.getDebe()%></td>
 															<td><%=ccD.getHaber()%></td>
+															<td><%=ccD.getSaldoInicial()%></td>
 															<td><%=ccD.getSaldoFinal()%></td>
-															<td><%=ccD.getSaldo()%></td>
 															<td><%=ccD.getNombreCuenta()%></td>
 															<td><a href="editCuentaContableDet.jsp" target="blank">
 																	<i class="fa fa-edit" title="Editar">Editar</i>

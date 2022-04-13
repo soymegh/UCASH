@@ -3,11 +3,13 @@ package entidades;
 public class Tbl_cuentaContable_Det {
 	
 	private int idCuentaContableDet;
-	private double debe;
-	private double haber;
+	private int idCuentaContable;
 	private double saldoFinal;
 	private int saldo;
-	private int idCuentaContable;
+	private double debe;
+	private double haber;
+	
+	
 	
 	
 	public Tbl_cuentaContable_Det() {
