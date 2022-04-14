@@ -157,6 +157,96 @@ public class Dt_usuario {
 
 		return user;
 	}
+	
+	// Metodo para modificar usuario
+		public boolean modificarUsuario(Tbl_usuario tus)
+		{
+			boolean modificado=false;	
+			try
+			{
+				c = poolConexion.getConnection();
+				llenaRsUsuario(c);
+				rsUsuario.beforeFirst();
+				while (rsUsuario.next())
+				{
+					if(rsUsuario.getInt(1)==tus.getIdUsuario())
+					{
+						rsUsuario.updateString("usuario", tus.getUsuario());
+						rsUsuario.updateString("nombre", tus.getNombre());
+						rsUsuario.updateString("apellido", tus.getApellidos());
+						rsUsuario.updateString("email",tus.getEmail());
+						rsUsuario.updateTimestamp("fechaModificacion", tus.getFechaModificacion());
+						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioCreacion());
+						rsUsuario.updateInt("estado", 2);
+						rsUsuario.updateRow();
+						modificado=true;
+						break;
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println("ERROR AL modificarUser() "+e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try {
+					if(rsUsuario != null){
+						rsUsuario.close();
+					}
+					if(c != null){
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return modificado;
+		}
+		
+		// Metodo para eliminar usuario
+		public boolean eliminarUsuario(Tbl_usuario tus)
+		{
+			boolean eliminado=false;	
+			try
+			{
+				c = poolConexion.getConnection();
+				this.llenaRsUsuario(c);
+				rsUsuario.beforeFirst();
+				while (rsUsuario.next()){
+					if(rsUsuario.getInt(1)==tus.getIdUsuario()){
+						rsUsuario.updateTimestamp("fechaEliminacion", tus.getFechaEliminacion());
+						rsUsuario.updateInt("usuarioEliminacion", tus.getUsuarioEliminacion());
+						rsUsuario.updateInt("estado", 3);
+						rsUsuario.updateRow();
+						eliminado=true;
+						break;
+					}
+				}
+			}
+			catch (Exception e){
+				System.err.println("ERROR AL eliminarUser() "+e.getMessage());
+				e.printStackTrace();
+			}
+			finally{
+				try {
+					if(rsUsuario != null){
+						rsUsuario.close();
+					}
+					if(c != null){
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return eliminado;
+		}
 
 	// METODO PARA GENERAR UN CODIGO DE VERIFICACION //
 	public static String randomAlphaNumeric(int count) {

@@ -17,7 +17,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title><%=user.getNombre()%> | Detalle Usuarios</title>
+<title><%=user.getNombre()%> | Eliminar Usuarios</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -160,7 +160,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Ver Usuario</h3>
+							<h3>Eliminar Usuario</h3>
 						</div>
 					</div>
 					
@@ -194,7 +194,14 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 							</div>
 							<div class="x_content">
 								<form class="" action="../Sl_usuario" method="post" novalidate>
-
+									
+									<input type="hidden" value="3" name="opcion" id="opcion" />
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" name="txtid" class="form-control" placeholder="Id Usuario" value="<%=user.getIdUsuario()%>" readonly>
+										</div>
+									</div>
 									<div class="form-group row ">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
 										<div class="col-md-6 col-sm-6 ">
@@ -223,8 +230,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
-										<button type="button" onClick="window.location.href='editUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Editar este usuario</button>
-										<button type="button" onClick="window.location.href='eliminarUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Eliminar este usuario</button>	
+										<button type="submit" class="btn btn-primary">Eliminar este usuario</button>	
 									</div>
 
 								</form>

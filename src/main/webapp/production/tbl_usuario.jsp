@@ -243,10 +243,9 @@
 															<td><%=tu.getEmail()%></td>
 															<td><%=estado%></td>
 															<td>
-															<a href="editUsuario.jsp" target="blank">  <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
-															<a href="viewUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>" target="blank"> <i class="fa fa-eye" title="Ver"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
-																	class="fa fa-trash" title="Eliminar"></i>
+															<a href="editUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>" target="blank">  <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
+															<a href="viewUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>" target="blank"> <i class="fa fa-eye" title="Ver"></i></a> &nbsp;&nbsp; 
+															<a href="eliminarUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>" target="_blank"> <i class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%

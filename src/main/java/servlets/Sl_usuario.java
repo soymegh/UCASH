@@ -91,7 +91,6 @@ public class Sl_usuario extends HttpServlet {
 				}else {
 					tus2.setId_user(dtu.addUsuario(user));
 					if(tus2.getId_user()>0) {
-						System.out.println(""+tus2.getId_user()+"");
 						if(dtus2.guardarUser(tus2)) {
 							response.sendRedirect("production/tbl_usuario.jsp?msj=1");
 						}
@@ -105,6 +104,44 @@ public class Sl_usuario extends HttpServlet {
 				e.printStackTrace();
 			}
 
+			break;
+		case 2: 
+			// CONSTRUIMOS EL OBJETO CON LOS VALORES DE LOS CONTROLES
+			user.setIdUsuario(Integer.parseInt(request.getParameter("txtid")));
+			user.setUsuario(request.getParameter("txtusuario"));
+			user.setNombre(request.getParameter("txtnombres"));
+			user.setApellidos(request.getParameter("txtapellidos"));
+			user.setEmail(request.getParameter("txtemail"));
+			try {
+				user.setFechaModificacion(new java.sql.Timestamp(fechaSistema.getTime()));
+				user.setUsuarioModificacion(1);//1 valor temporal mientras se programa la sesion
+				if(dtu.modificarUsuario(user)) {
+					response.sendRedirect("production/tbl_usuario.jsp?msj=3");
+				}
+				else {
+					response.sendRedirect("production/tbl_usuario.jsp?msj=4");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_gestionUser opc2: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+			
+		case 3: 
+			user.setIdUsuario(Integer.parseInt(request.getParameter("txtid")));
+			try {
+				user.setFechaEliminacion(new java.sql.Timestamp(fechaSistema.getTime()));
+				user.setUsuarioEliminacion(1);//1 valor temporal mientras se programa la sesion
+				if(dtu.eliminarUsuario(user)) {
+					response.sendRedirect("production/tbl_usuario.jsp?msj=5");
+				}
+				else {
+					response.sendRedirect("production/tbl_usuario.jsp?msj=6");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_gestionUser opc3: "+e.getMessage());
+				e.printStackTrace();
+			}
 			break;
 
 		default:

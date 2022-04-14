@@ -228,7 +228,7 @@
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="pwd"
-													type="text" required="required" placeholder="Contraseña" />
+													type="password" required="required" placeholder="Contraseña" />
 											</div>
 										</div>
 
