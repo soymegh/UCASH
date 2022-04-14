@@ -206,9 +206,9 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 										
 										<div class="ln_solid">
 											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
+												<div class="col-md-6 offset-md-3">													
 													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type='submit' class="btn btn-primary">Editar</button>
 												</div>
 											</div>
 										</div>

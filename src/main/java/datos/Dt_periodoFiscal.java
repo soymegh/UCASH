@@ -197,4 +197,50 @@ public class Dt_periodoFiscal {
 	}
 	
 	
+	public boolean EliminarPFiscalPorId(int idEliminar)
+	{
+		boolean borrado = false;
+		
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("Update dbucash.periodofiscal Set estado = 3 where idPeriodoFiscal = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEliminar);
+			int result = this.ps.executeUpdate();
+
+			if (result > 0) {
+				borrado = true;
+			}
+			
+			
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL BORRAR Periodo Fiscal POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				if (rsperiodoFiscal != null) 
+				{
+					rsperiodoFiscal.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+			} 
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return borrado;
+	}
+	
+	
 	}

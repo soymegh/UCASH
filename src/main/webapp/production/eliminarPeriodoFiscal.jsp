@@ -1,18 +1,16 @@
-<%@page import="datos.Dt_tipoDocumento"%>
-<%@page import="entidades.Tbl_tipoDocumento"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="en">
 <%
 
-Tbl_tipoDocumento td = new Tbl_tipoDocumento();
-Dt_tipoDocumento dtd = new Dt_tipoDocumento();
+Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
+Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
 
-int idtd = (request.getParameter("idTipoDocumento") != null) ? Integer.parseInt(request.getParameter("idTipoDocumento")) : 0;
+int idpfiscal = (request.getParameter("idPeriodoFiscal") != null) ? Integer.parseInt(request.getParameter("idPeriodoFiscal")) : 0;
 
-td = dtd.obtenerTipoDocPorId(idtd);
 
+tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 
 %>
 <head>
@@ -22,7 +20,7 @@ td = dtd.obtenerTipoDocPorId(idtd);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Editar Tipo Documento</title>
+<title>Periodo | Periodo Fiscal</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -162,69 +160,75 @@ td = dtd.obtenerTipoDocPorId(idtd);
 				</div>
 			</div>
 			<!-- /top navigation -->
-			
+
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Editar tipo documento</h3>
+							<h3>Borrar Periodo Fiscal </h3>
 						</div>
 
 					</div>
 					<div class="clearfix"></div>
-					<div class="row">
-					
-					<div class="col-md-12 col-sm-12">
-						<div class="x_panel">
-							<div class="x_title">
-								<h2>
-									Formulario tipo documento  
-								</h2>
-								
-								<div class="clearfix"></div>
-							</div>
-							<div class="x_content">
-							<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
-							<input type="hidden" value="2" name="opcion" id="opcion"/>
-							
-							<input type="hidden" value="<%=td.getIdTipoDocumento() %>" name="idTDUpdate" id="idTDUpdate" />
-							
-									<div class="field item form-group">
-										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
-										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" placeholder="">
-										</div>
-									</div>
-									<div class="field item form-group">
-										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
-										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" placeholder="">
-										</div>
-									</div>
-									<div class="ln_solid"></div>
-									<div class="form-group">
-										<div class="col-md-9 col-sm-9  offset-md-3">									    
-											<button type="button" class="btn btn-primary">Cancelar</button>	
-											<button type="submit" class="btn btn-success">Editar</button>
-										</div>
-									</div>
 
-								</form>
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Borrar Periodo Fiscal</h2>
+
+									<div class="clearfix"></div>
+								</div>
+								
+								<div class="x_content">
+									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
+									  <input type="hidden" value="3" name="opcion" id="opcion"/>
+									  
+									  <input type="hidden" value="<%=tpfiscal.getIdPeriodoFiscal()%>" name="idPFiscalEliminar" id="idPFiscalEliminar" />
+									  
+										<span class="section">Datos de Periodo Fiscal</span>
+										
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="fechaInicio" value="<%=tpfiscal.getFechaInicio() %>"  type="date" required="required" placeholder="Fecha de Inicio"/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="fechaFinal" value="<%= tpfiscal.getFechaFinal() %>" type="date" required="required" placeholder="Fecha Final"/>
+											</div>
+										</div>
+										
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">											
+													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type='submit' class="btn btn-primary">Borrar</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			  </div>
 			</div>
-			<!-- footer content -->
-            <footer>
-                <div class="pull-right">Sistema contable by Eldian's Software</div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
-        </div>
-    </div>
+			<!-- /page content -->
+
+								
+	</div>
+</div>
+
+<footer>
+		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="clearfix"></div>
+	</footer>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

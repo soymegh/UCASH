@@ -99,6 +99,29 @@ public class Sl_periodoFiscal extends HttpServlet {
 			}
 			break;
 			
+		case 3:
+			
+			int idBorrar = Integer.parseInt(request.getParameter("idPFiscalEliminar"));
+			
+			try 
+			{
+				if (dpf.EliminarPFiscalPorId(idBorrar))
+				{
+					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=5");
+				}
+				else
+				{
+					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=6");
+				}
+			} 
+			catch (Exception e)
+			{
+				System.err.println("ERROR Borrar (Servlet) Periodo Fiscal: " + e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+			
+			
 		default:
 			break;
 		}		
