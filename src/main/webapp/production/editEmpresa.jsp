@@ -2,7 +2,18 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="es">
+<%
+String empresa = "";
+empresa = request.getParameter("idEmpresa") == null ? "0" : request.getParameter("idEmpresa");
 
+Tbl_empresa tEmpresa = new Tbl_empresa();
+Vw_empresa vEmpresa = new Vw_empresa();
+
+Dt_empresa dtEmpresa = new Dt_empresa();
+
+tEmpresa = dtEmpresa.getTableEmpresaByID(Integer.parseInt(empresa));
+vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -60,8 +71,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -92,32 +102,35 @@
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-building"></i>Gestion Empresa<span
+								<li><a><i class="fa fa-building"></i>Gestion Empresa<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-file"></i>Gestion Cuenta Contable<span
-										class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-file"></i>Gestion Cuenta
+										Contable<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
+								<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i>Gestion Asiento Contable<span
-										class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i>Gestion Asiento
+										Contable<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -154,7 +167,8 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -250,14 +264,18 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de empresa</span>
+									<form class="" action="../Sl_empresa" method="post" novalidate>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input
+											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>" name="idEmpresa"
+											id="idEmpresa" /> 
+											<span class="section">Datos de
+											empresa</span>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
+												<input name="ruc" class="form-control" id="ruc"
 													placeholder="ex. 2347827431" required="required" />
 											</div>
 										</div>
@@ -266,8 +284,18 @@
 												social<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
+												<input name="razonSocial" class="form-control"
+													id="razonSocial" class='optional' type="text"
+													required="required" />
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+												comercial<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input name="nombreComercial" class="form-control"
+													id="nombreComercial" class='optional' name="occupation"
 													type="text" required="required" />
 											</div>
 										</div>
@@ -275,97 +303,164 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="email" class='email'
-													required="required" type="email" />
+												<input name="correo" class="form-control" class='email'
+													id="correo" required="required" type="email" />
 											</div>
 										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Confirmar
-												correo<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="email" class='email'
-													name="confirm_email" data-validate-linked='email'
-													required='required' />
-											</div>
-										</div>
+
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="tel" class='tel'
-													name="phone" required='required'
-													data-validate-length-range="8,20" />
+												<input name="telefono" class="form-control" type="tel"
+													id="telefono" class='tel' required='required' />
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span
+												class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,100"
-													type="text" required="required"/>
+												<input id="direccion" name="direccion" class="form-control"
+													class='optional' name="occupation"
+													data-validate-length-range="5,100" type="text"
+													required="required" />
 											</div>
 										</div>
 
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Representante legal: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
 
-												  <option value="Prueba"></option>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Representante
+												legal: <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<!--                                                 
+												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+												<%
+												ArrayList<Vw_representanteLegal> listaRep = new ArrayList<Vw_representanteLegal>();
+												Dt_representanteLegal dtRep = new Dt_representanteLegal();
+												listaRep = dtRep.listarRepresentanteLegal();
+												%>
 
-												</select>
-											</div>
-                                        </div>
-                                          <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Moneda: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
-											</div>
-                                        </div>
-                                          <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Departamento: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
+												<select id="representanteLegal"
+													class="form-control js-example-basic-single"
+													name="representanteLegal" required="required">
+													<option value="0">Seleccione...</option>
+													<%
+													for (Vw_representanteLegal representante : listaRep) {
+													%>
+													<option value="<%=representante.getIdRepresentante()%>">
+														<%=representante.getNombreCompleto()%>
+													</option>
+													<%
+													}
+													%>
 
 												</select>
 											</div>
-                                        </div>
-                                          <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Municipio: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+										</div>
 
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
 
-												  <option value="Prueba"></option>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo
+												fiscal: <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<!--                                                 
+												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+												<%
+												ArrayList<Tbl_periodoFiscal> listaPeriodo = new ArrayList<Tbl_periodoFiscal>();
+												Dt_periodoFiscal dtPeriodo = new Dt_periodoFiscal();
+												listaPeriodo = dtPeriodo.listarperiodoFiscal();
+												%>
+
+												<select class="form-control js-example-basic-single"
+													name="periodoFiscal" id="periodoFiscal" required="required">
+													<option value="0">Seleccione...</option>
+													<%
+													for (Tbl_periodoFiscal periodo : listaPeriodo) {
+													%>
+													<option value="<%=periodo.getIdPeriodoFiscal()%>">
+														<%=periodo.getFechaInicio()%> ->
+														<%=periodo.getFechaFinal()%>
+													</option>
+													<%
+													}
+													%>
 
 												</select>
 											</div>
-                                        </div>
+										</div>
+
+
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento:
+												<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+												<%
+												ArrayList<Tbl_departamento> listaDep = new ArrayList<Tbl_departamento>();
+												Dt_departamento dtDep = new Dt_departamento();
+												listaDep = dtDep.listarDepartamento();
+												%>
+												<select id="departamento"
+													class="form-control js-example-basic-single"
+													name="departamento" id="departamento" required="required">
+													<option value="0">Seleccione...</option>
+													<%
+													for (Tbl_departamento depa : listaDep) {
+													%>
+													<option value="<%=depa.getIdDepartamento()%>">
+														<%=depa.getDepartamento()%>
+													</option>
+													<%
+													}
+													%>
+
+												</select>
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio:
+												<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+												<%
+												ArrayList<Vw_municipio> listaMuni = new ArrayList<Vw_municipio>();
+												Dt_municipio dtMunicipio = new Dt_municipio();
+												listaMuni = dtMunicipio.listarMunicipio();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="municipio" id="municipio" required="required">
+													<option value="0">Seleccione...</option>
+													<%
+													for (Vw_municipio muni : listaMuni) {
+													%>
+													<option value="<%=muni.getIdMunicipio()%>">
+														<%=muni.getMunicipio()%>
+													</option>
+													<%
+													}
+													%>
+
+												</select>
+											</div>
+										</div>
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button id="agregarE" type='submit' class="btn btn-primary">Agregar</button>
+													<button id="reiniciarE" type='reset'
+														class="btn btn-success">Reiniciar</button>
+													<button id="cancelarE" type="button"
+														class="btn btn-primary">Cancelar</button>
+													<button onClick={test()} type="button"
+														class="btn btn-primary">Test</button>
 												</div>
 											</div>
 										</div>
@@ -434,7 +529,33 @@
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
+	<script>
+    function setForm(){
+    	document.getElementById("ruc").value = "<%=vEmpresa.getRuc()%>";
+    	document.getElementById("razonSocial").value = "<%=vEmpresa.getRazonSocial()%>";
+    	document.getElementById("nombreComercial").value = "<%=vEmpresa.getNombreComercial()%>";
+    	document.getElementById("telefono").value = "<%=vEmpresa.getTelefono()%>";
+    	document.getElementById("correo").value = "<%=vEmpresa.getCorreo()%>";
+    	document.getElementById("direccion").value = "<%=vEmpresa.getDireccion()%>";
+    	
+    	
+    	
+    	document.getElementById("periodoFiscal").value = "<%=tEmpresa.getIdPeriodoFiscal()%>";
+    	document.getElementById("representanteLegal").value = "<%=tEmpresa.getIdRepresentanteLegal()%>";
+    	document.getElementById("departamento").value = "<%=tEmpresa.getIdDepartamento()%>";
+    	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>";
 
+			console.log(document.getElementById("representanteLegal").value);
+			console.log(document.getElementById("ruc").value);
+		}
+
+		function test() {
+			console.log(document.getElementById("representanteLegal").value);
+
+		}
+
+		window.onload = setForm;
+	</script>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

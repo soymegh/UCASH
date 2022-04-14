@@ -128,23 +128,24 @@ public class Dt_empresa {
 
 		return guardado;
 	}
-	
-	public int getRepresentantelegalID(String correo) { 
-		
-		
-		return 0; 
+
+	public int getRepresentantelegalID(String correo) {
+
+		return 0;
 	}
-	
+
 	public Vw_empresa getEmpresaByID(int idEmpresa) {
-		Vw_empresa empresa = new Vw_empresa(); 
+		Vw_empresa empresa = new Vw_empresa();
 		try {
-			c = poolConexion.getConnection(); 
-			ps = c.prepareStatement("SELECT * FROM dbucash.vw_empresa WHERE idEmpresa =?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_empresa WHERE idEmpresa =?",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			ps.setInt(1, idEmpresa);
-			rs = ps.executeQuery(); 
-			
-			//Hace peticion a la base de datos, por lo que los nombres en parentesis son los de la base de datos. 
-			if(rs.next()) {
+			rs = ps.executeQuery();
+
+			// Hace peticion a la base de datos, por lo que los nombres en parentesis son
+			// los de la base de datos.
+			if (rs.next()) {
 				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
 				empresa.setRuc(rs.getString("ruc"));
 				empresa.setRazonSocial(rs.getString("razonSocial"));
@@ -156,25 +157,24 @@ public class Dt_empresa {
 				empresa.setRepresentante(rs.getString("Representante"));
 				empresa.setMunicipioNombre(rs.getString("municipio"));
 				empresa.setDepartamentoNombre(rs.getString("departamento"));
-				
+
 			}
-			
+
 		} catch (Exception e) {
-			System.out.println("DATOS ERROR AL OBTENER EMPRESA POR ID: "+ e.getMessage());
+			System.out.println("DATOS ERROR AL OBTENER EMPRESA POR ID: " + e.getMessage());
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
-				if(rs != null){
+				if (rs != null) {
 					rs.close();
 				}
-				if(ps != null){
+				if (ps != null) {
 					ps.close();
 				}
-				if(c != null){
+				if (c != null) {
 					poolConexion.closeConnection(c);
 				}
-				
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -182,6 +182,103 @@ public class Dt_empresa {
 		}
 		return empresa;
 
-}
-	
+	}
+
+	public Tbl_empresa getTableEmpresaByID(int idEmpresa) {
+		Tbl_empresa empresa = new Tbl_empresa();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.empresa WHERE idEmpresa =?",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps.setInt(1, idEmpresa);
+			rs = ps.executeQuery();
+
+			// Hace peticion a la base de datos, por lo que los nombres en parentesis son
+			// los de la base de datos.
+			if (rs.next()) {
+				empresa.setIdEmpresa(rs.getInt("idEmpresa"));
+				empresa.setIdDepartamento(rs.getInt("idDepartamento"));
+				empresa.setIdMunicipio(rs.getInt("idMunicipio"));
+				empresa.setIdRepresentanteLegal(rs.getInt("idRepresentante"));
+				empresa.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				empresa.setRuc(rs.getString("ruc"));
+				empresa.setRazonSocial(rs.getString("razonSocial"));
+				empresa.setNombreComercial(rs.getString("nombreComercial"));
+				empresa.setTelefono(rs.getString("telefono"));
+				empresa.setCorreo(rs.getString("correo"));
+				empresa.setDireccion(rs.getString("direccion"));
+				
+				System.out.println(empresa); 
+			}
+
+		} catch (Exception e) {
+			System.out.println("DATOS ERROR AL OBTENER TABLA EMPRESA POR ID: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return empresa;
+
+	}
+
+	public boolean modificarEmpresa(Tbl_empresa empresa) {
+		boolean modificado = false;
+		try {
+			c = poolConexion.getConnection();
+			this.llenar_rsEmpresa(c);
+			rsEmpresa.beforeFirst();
+			while (rsEmpresa.next()) {
+				if (rsEmpresa.getInt(1) == empresa.getIdEmpresa()) {
+					rsEmpresa.updateInt("idDepartamento", empresa.getIdDepartamento());
+					rsEmpresa.updateInt("idMunicipio", empresa.getIdMunicipio());
+					rsEmpresa.updateInt("idRepresentante", empresa.getIdRepresentanteLegal());
+					rsEmpresa.updateInt("idPeriodoFiscal", empresa.getIdPeriodoFiscal());
+					rsEmpresa.updateString("ruc", empresa.getRuc());
+					rsEmpresa.updateString("razonSocial", empresa.getRazonSocial());
+					rsEmpresa.updateString("nombreComercial", empresa.getNombreComercial());
+					rsEmpresa.updateString("telefono", empresa.getTelefono());
+					rsEmpresa.updateString("correo", empresa.getCorreo());
+					rsEmpresa.updateString("direccion", empresa.getDireccion());
+					rsEmpresa.updateInt("usuarioModificacion", empresa.getUsuarioModificacion());
+					rsEmpresa.updateDate("fechaModificacion", empresa.getFechaModificacion());
+
+					rsEmpresa.updateRow();
+					modificado = true;
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("ERROR AL  modificar Empresa() " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return modificado;
+	}
+
 }
