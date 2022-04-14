@@ -40,7 +40,7 @@ public class Sl_periodoFiscal extends HttpServlet {
         	  String fechaIniJsp = request.getParameter("fechaInicio").toString();
               java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
               periodofiscal.setFechaInicio(new java.sql.Date(date1.getTime()));
-              System.out.println("dateString:" + date1);
+              
           }catch(ParseException e) {
         	  e.printStackTrace();
           }

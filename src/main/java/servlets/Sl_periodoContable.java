@@ -46,7 +46,7 @@ public class Sl_periodoContable extends HttpServlet {
 					String fechaIniPCJsp = request.getParameter("fechainicioc").toString();
 					java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPCJsp);
 					periodocontable.setFechaInicio(new java.sql.Date(date1.getTime()));
-					System.out.println("dateString:" + date1);
+					
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -57,9 +57,7 @@ public class Sl_periodoContable extends HttpServlet {
 		        	String fechaFinPCJsp = request.getParameter("fechafinalc").toString();
 		        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPCJsp);
 		        	periodocontable.setFechaFinal(new java.sql.Date(date2.getTime()));
-		        	System.out.println("dateString:" + date2);
-		        	
-					
+
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}

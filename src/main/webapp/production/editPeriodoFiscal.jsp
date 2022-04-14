@@ -207,7 +207,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">													
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a href="tbl_periodoFiscal.jsp" type="button" class="btn btn-primary">Cancelar</a>
 													<button type='submit' class="btn btn-primary">Editar</button>
 												</div>
 											</div>

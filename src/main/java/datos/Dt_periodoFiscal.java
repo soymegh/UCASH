@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entidades.Tbl_periodoFiscal;
@@ -40,8 +41,20 @@ public class Dt_periodoFiscal {
 			while(this.rs.next()) {
 				Tbl_periodoFiscal periodofiscal = new Tbl_periodoFiscal();
 				periodofiscal.setIdPeriodoFiscal(rs.getInt("idperiodoFiscal"));
-				periodofiscal.setFechaInicio(rs.getDate("fechaInicio"));
-				periodofiscal.setFechaFinal(rs.getDate("fechaFinal"));
+				
+				//Fecha inicio\
+				//Se realiza este metodo para que no reste un dia
+				String fechaIniJsp = rs.getString("fechaInicio");
+	            java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
+	            periodofiscal.setFechaInicio(new java.sql.Date(date1.getTime()));
+				
+				
+				//Fecha final
+	            //Se realiza este metodo para que no reste un dia
+				String fechaFinJsp = rs.getString("fechaFinal");
+	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
+	        	periodofiscal.setFechaFinal(new java.sql.Date(date2.getTime()));
+	        	
 				periodofiscal.setEstado(rs.getInt("estado"));
 				listperiodoFiscal.add(periodofiscal);
 			}

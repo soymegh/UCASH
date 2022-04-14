@@ -228,13 +228,19 @@
 													<tbody>
 														<%
                       									for(Tbl_periodoContable PC :listaperiodoContable){
+                      										String estado = "";
+    														if (PC.getEstado() != 3) {
+    															estado = "ABIERTO";
+    														} else {
+    															estado = "CERRADO";
+    														}
                       									%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
 															<td><%=PC.getIdPeriodoFiscal()%></td>
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
-															<td><%=PC.getEstado()%></td>
+															<td><%=estado%></td>
 															<td><a href="editPeriodoContable.jsp" target="blank"> <i
 																	class="fa fa-edit" title="Editar Periodo Contable"></i></a>
 																&nbsp;&nbsp; <a href="viewPeriodoContable.jsp" target="blank">

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -42,8 +43,19 @@ public class Dt_periodoContable {
 				Tbl_periodoContable periodocontable = new Tbl_periodoContable();
 				periodocontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
 				periodocontable.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
-				periodocontable.setFechaInicio(rs.getDate("fechaInicio"));
-				periodocontable.setFechaFinal(rs.getDate("fechaFinal"));
+				
+				//Fecha inicio
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaIniPCJsp = rs.getString("fechaInicio");
+				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPCJsp);
+				periodocontable.setFechaInicio(new java.sql.Date(date1.getTime()));
+				
+				//Fecha Final
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaFinPCJsp = rs.getString("fechaFinal");
+	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPCJsp);
+	        	periodocontable.setFechaFinal(new java.sql.Date(date2.getTime()));
+				
 				periodocontable.setEstado(rs.getInt("estado"));
 				listperiodoContable.add(periodocontable);
 			}

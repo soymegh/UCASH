@@ -217,12 +217,18 @@
 													<tbody>
 														<%
                       									for(Tbl_periodoFiscal PF :listarperiodoFiscal){
+                      										String estado = "";
+    														if (PF.getEstado() != 3) {
+    															estado = "ABIERTO";
+    														} else {
+    															estado = "CERRADO";
+    														}
                       									%>
 														<tr>
 															<td><%=PF.getIdPeriodoFiscal()%></td>
 															<td><%=PF.getFechaInicio()%></td>
 															<td><%=PF.getFechaFinal()%></td>
-															<td><%=PF.getEstado()%></td>
+															<td><%=estado%></td>
 															
 															<td><a href="editPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i
 																	class="fa fa-edit" title="Editar Periodo Fiscal"></i>

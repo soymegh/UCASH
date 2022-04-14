@@ -233,7 +233,7 @@
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">
-											<button type="button" class="btn btn-primary">Cancelar</button>
+											<a href="tbl_periodoContable.jsp" type="button" class="btn btn-primary">Cancelar</a>
 											<button type="reset" class="btn btn-primary">Reiniciar</button>
 											<button type="submit" class="btn btn-success">Agregar</button>
 										</div>
