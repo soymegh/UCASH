@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Tbl_usuario user = new Tbl_usuario();
+Dt_usuario datosUsuario = new Dt_usuario();
+
+int idUser = (request.getParameter("idUsuario") != null) ? Integer.parseInt(request.getParameter("idUsuario")) : 0;
+
+user = datosUsuario.ObtenerUsuarioPorId(idUser);
+%>
 <head>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -182,40 +190,40 @@
 							</div>
 							<div class="x_content">
 								<form class="" action="../Sl_usuario" method="post" novalidate>
-								<input type="hidden" value="1" name="opcion" id="opcion"/>
+								<input type="hidden" value="2" name="opcion" id="opcion"/>
+								
+									<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="txtid" value="<%=user.getIdUsuario()%>"  type="text" required="required" placeholder="Id de Usuario" readonly/>
+											</div>
+										</div>
 
 									<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="usuario"  type="text" required="required" placeholder="Nombre de Usuario"/>
+												<input class="form-control" class='optional' name="txtusuario" value="<%=user.getUsuario()%>"  type="text" required="required" placeholder="Nombre de Usuario"/>
 											</div>
 										</div>
 									
 									<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="nombres"  type="text" required="required" placeholder="Nombres"/>
+												<input class="form-control" class='optional' name="txtnombres" value="<%=user.getNombre()%>"  type="text" required="required" placeholder="Nombres"/>
 											</div>
 										</div>
 									
 									<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Apellidos<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="apellidos"  type="text" required="required" placeholder="Apellidos"/>
+												<input class="form-control" class='optional' name="txtapellidos" value="<%=user.getApellidos()%>"  type="text" required="required" placeholder="Apellidos"/>
 											</div>
 										</div>
 									
 									<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo Electronico<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="email"  type="text" required="required" placeholder="Correo Electronico"/>
-											</div>
-										</div>
-									
-									<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Contraseña<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="pwd"  type="text" required="required" placeholder="Contraseña"/>
+												<input class="form-control" class='optional' name="txtemail"  type="text" value="<%=user.getEmail()%>" required="required" placeholder="Correo Electronico"/>
 											</div>
 										</div>
 

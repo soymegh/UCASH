@@ -217,9 +217,9 @@
 													<thead>
 														<tr>
 															<th>Id</th>
+															<th>Nombre</th>
 															<th>Descripcion</th>
 															<th>Estado</th>
-															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -234,9 +234,11 @@
 														%>
 														<tr>
 															<td><%=to.getIdOpciones()%></td>
+															<td><%=to.getNombreOpcion()%></td>
 															<td><%=to.getDescripcion()%></td>
 															<td><%=estado%></td>
-															<td><a href="editOpciones.jsp" target="blank"> <i
+															<td><a href="editOpciones.jsp?idOpciones=<%=to.getIdOpciones() %>" 
+															 target="blank"> <i
 																	class="fa fa-edit" title="Editar"></i></a>
 																&nbsp;&nbsp; <a href="viewOpciones.jsp" target="blank">
 																	<i class="fa fa-eye" title="Ver"></i>

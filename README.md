@@ -39,7 +39,7 @@ The primary objective of this software is the ability to optimize and automate t
 
 ## Importing
 
-Simply this repository from Github:
+Simply clone this repository from Github:
 ```bash
 git clone https://github.com/ISW-IAW/UCASH
 ```
