@@ -22,7 +22,7 @@ public class Dt_opciones {
 	
 	public void llenaRsOpciones(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_opciones;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.opciones;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsOpc = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
@@ -34,15 +34,16 @@ public class Dt_opciones {
 	public ArrayList<Tbl_opciones> listaOpcionesActivas(){
 		ArrayList<Tbl_opciones> listOpc = new ArrayList<Tbl_opciones>();
 		try {
-			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_opciones WHERE estado<>3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			this.rs = this.ps.executeQuery();
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.opciones WHERE estado<>3;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			rs = ps.executeQuery();
 			
-			while(this.rs.next()) {
+			while(rs.next()) {
 				Tbl_opciones opc = new Tbl_opciones();
-				opc.setIdOpciones(this.rs.getInt("idOpciones"));
-				opc.setDescripcion(this.rs.getString("descripcion"));
-				opc.setEstado(this.rs.getInt("estado"));
+				opc.setIdOpciones(rs.getInt("idOpciones"));
+				opc.setNombreOpcion(rs.getString("nombreOpcion"));
+				opc.setDescripcion(rs.getString("descripcion"));
+				opc.setEstado(rs.getInt("estado"));
 				listOpc.add(opc);
 			}
 			} catch(Exception e) {
@@ -71,14 +72,15 @@ public class Dt_opciones {
 		return listOpc;
 	}
 	
-	public boolean addOpciones(Tbl_opciones Opciones) {
+	public boolean addOpciones(Tbl_opciones opciones) {
 		boolean guardado = false;
 		try {
 			c = poolConexion.getConnection();
 			this.llenaRsOpciones(c);
 			this.rsOpc.moveToInsertRow();
-			rsOpc.updateString("descripcion", Opciones.getDescripcion());
-			rsOpc.updateInt("estado", Opciones.getEstado());
+			rsOpc.updateString("nombreOpcion", opciones.getNombreOpcion());
+			rsOpc.updateString("descripcion", opciones.getDescripcion());
+			rsOpc.updateInt("estado", opciones.getEstado());
 			
 			rsOpc.insertRow();
 			rsOpc.moveToCurrentRow();

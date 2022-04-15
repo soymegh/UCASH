@@ -217,9 +217,9 @@
 													<thead>
 														<tr>
 															<th>Id</th>
+															<th>Nombre</th>
 															<th>Descripcion</th>
 															<th>Estado</th>
-															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -234,6 +234,7 @@
 														%>
 														<tr>
 															<td><%=to.getIdOpciones()%></td>
+															<td><%=to.getNombreOpcion()%></td>
 															<td><%=to.getDescripcion()%></td>
 															<td><%=estado%></td>
 															<td><a href="editOpciones.jsp" target="blank"> <i
