@@ -211,23 +211,25 @@
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-                      								ArrayList<Tbl_periodoContable> listaperiodoContable = new ArrayList<Tbl_periodoContable>();
+                      								ArrayList<Vw_periodoContable> listaperiodoContable = new ArrayList<Vw_periodoContable>();
                       								Dt_periodoContable dtPC = new Dt_periodoContable();
                       								listaperiodoContable = dtPC.listarperiodoContable();
 	                  								%>
 													<thead>
 														<tr>
 															<th>ID</th>
-															<td>ID Periodo Fiscal</td>
+															<th>ID Periodo Fiscal</th>
+															<th>Fecha Inicio del Periodo Fiscal</th>
+															<th>Fecha Final del Periodo Fiscal</th>
 															<th>Fecha Inicio</th>
-															<th>Fecha Final</th>																													
+															<th>Fecha Final</th>
 															<th>Estado</th>
-															<th>Acciones</th>
+															<th>Opciones</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
-                      									for(Tbl_periodoContable PC :listaperiodoContable){
+                      									for(Vw_periodoContable PC :listaperiodoContable){
                       										String estado = "";
     														if (PC.getEstado() != 3) {
     															estado = "ABIERTO";
@@ -238,6 +240,8 @@
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
 															<td><%=PC.getIdPeriodoFiscal()%></td>
+															<td><%=PC.getFechaInicioPF() %></td>
+															<td><%=PC.getFechaFinalPF() %></td>
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
 															<td><%=estado%></td>

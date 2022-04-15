@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 
 import entidades.Tbl_periodoContable;
+import entidades.Vw_periodoContable;
 
 
 public class Dt_periodoContable {
@@ -24,7 +25,7 @@ public class Dt_periodoContable {
 	
 	public void llenaRsPeriodoContable(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM dbucash.periodocontable;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsperiodocontable = this.ps.executeQuery();
 			
 		} catch(Exception e) {
@@ -32,29 +33,38 @@ public class Dt_periodoContable {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Tbl_periodoContable> listarperiodoContable(){
-		ArrayList<Tbl_periodoContable> listperiodoContable = new ArrayList<Tbl_periodoContable>();
+	public ArrayList<Vw_periodoContable> listarperiodoContable(){
+		ArrayList<Vw_periodoContable> listperiodoContable = new ArrayList<Vw_periodoContable>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM dbucash.periodocontable;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
-				Tbl_periodoContable periodocontable = new Tbl_periodoContable();
+				Vw_periodoContable periodocontable = new Vw_periodoContable();
 				periodocontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
 				periodocontable.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
 				
+				String fechaIniPF = rs.getString("Fecha_Inicio_del_Periodo_Fiscal");
+				java.util.Date date0 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPF);
+				periodocontable.setFechaInicioPF(new java.sql.Date(date0.getTime()));;
+				
+				String fechaFinPF = rs.getString("Fecha_Final_del_Periodo_Fiscal");
+				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPF);
+				periodocontable.setFechaFinalPF(new java.sql.Date(date1.getTime()));;
+				
+				
 				//Fecha inicio
 				//Se utiliza este metodo para evitar que reste un dia
-				String fechaIniPCJsp = rs.getString("fechaInicio");
-				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPCJsp);
-				periodocontable.setFechaInicio(new java.sql.Date(date1.getTime()));
+				String fechaIniPC = rs.getString("fechaInicio");
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPC);
+				periodocontable.setFechaInicio(new java.sql.Date(date2.getTime()));
 				
 				//Fecha Final
 				//Se utiliza este metodo para evitar que reste un dia
-				String fechaFinPCJsp = rs.getString("fechaFinal");
-	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPCJsp);
-	        	periodocontable.setFechaFinal(new java.sql.Date(date2.getTime()));
+				String fechaFinPC = rs.getString("fechaFinal");
+	        	java.util.Date date3 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPC);
+	        	periodocontable.setFechaFinal(new java.sql.Date(date3.getTime()));
 				
 				periodocontable.setEstado(rs.getInt("estado"));
 				listperiodoContable.add(periodocontable);

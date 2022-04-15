@@ -2,6 +2,12 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="es">
+<%
+Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
+Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
+int idpfiscal = (request.getParameter("idPeriodoFiscal") != null) ? Integer.parseInt(request.getParameter("idPeriodoFiscal")) : 0;
+tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
+%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -175,43 +181,36 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
 										<span class="section">Datos de Periodo Fiscal</span>
+										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">ID<span
 												readonly>*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
+												<input value="<%=tpfiscal.getIdPeriodoFiscal()%>" class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="name"
 													 readonly />
 											</div>
 										</div>
+										
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxFechaInicio" id="cbxFechaInicio" disabled="disabled">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="fechaInicio" value="<%=tpfiscal.getFechaInicio() %>"  type="date" disabled="disabled" placeholder="Fecha de Inicio"/>
 											</div>
-                                        </div>
+										</div>
+										
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxFechaFin" id="cbxFechafin" disabled="disabled">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="fechaFinal" value="<%= tpfiscal.getFechaFinal() %>" type="date" disabled="disabled" placeholder="Fecha Final"/>
 											</div>
-                                        </div>																
+										</div>	
+										
+										
+										
+																							
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">

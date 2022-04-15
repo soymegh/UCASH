@@ -1,26 +1,29 @@
 package entidades;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Vw_periodoContable {
+	//Atributos 
 	private int idPeriodoContable;
-	private Date fechaInicio;
+	private int idPeriodoFiscal;
+	private Date fechaInicioPF;
+	private Date fechaFinalPF;
+	private Date fechaInicio; 
 	private Date fechaFinal;
-	private String prorroga;
-	private int tipoPeriodoContable;
-	private String periodofiscal;
 	private int estado;
+	
+	//Metodos
 	public int getIdPeriodoContable() {
 		return idPeriodoContable;
 	}
 	public void setIdPeriodoContable(int idPeriodoContable) {
 		this.idPeriodoContable = idPeriodoContable;
 	}
-	public Date getFechaInicio() {
-		return fechaInicio;
+	public int getIdPeriodoFiscal() {
+		return idPeriodoFiscal;
 	}
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
+	public void setIdPeriodoFiscal(int idPeriodoFiscal) {
+		this.idPeriodoFiscal = idPeriodoFiscal;
 	}
 	public Date getFechaFinal() {
 		return fechaFinal;
@@ -28,23 +31,11 @@ public class Vw_periodoContable {
 	public void setFechaFinal(Date fechaFinal) {
 		this.fechaFinal = fechaFinal;
 	}
-	public String getProrroga() {
-		return prorroga;
+	public Date getFechaInicio() {
+		return fechaInicio;
 	}
-	public void setProrroga(String prorroga) {
-		this.prorroga = prorroga;
-	}
-	public int getTipoPeriodoContable() {
-		return tipoPeriodoContable;
-	}
-	public void setTipoPeriodoContable(int tipoPeriodoContable) {
-		this.tipoPeriodoContable = tipoPeriodoContable;
-	}
-	public String getPeriodofiscal() {
-		return periodofiscal;
-	}
-	public void setPeriodofiscal(String periodofiscal) {
-		this.periodofiscal = periodofiscal;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
 	public int getEstado() {
 		return estado;
@@ -52,8 +43,17 @@ public class Vw_periodoContable {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
-	public void setIdPeriodoFiscal(int int1) {
-		// TODO Auto-generated method stub
-		
+	public Date getFechaInicioPF() {
+		return fechaInicioPF;
 	}
+	public void setFechaInicioPF(Date fechaInicioPF) {
+		this.fechaInicioPF = fechaInicioPF;
+	}
+	public Date getFechaFinalPF() {
+		return fechaFinalPF;
+	}
+	public void setFechaFinalPF(Date fechaFinalPF) {
+		this.fechaFinalPF = fechaFinalPF;
+	}
+
 }
