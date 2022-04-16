@@ -45,21 +45,18 @@ public class Sl_cuentaContableDet extends HttpServlet {
 		Tbl_cuentaContable_Det ccD = new Tbl_cuentaContable_Det();
 		Dt_cuentaContable_Det dtccD = new Dt_cuentaContable_Det();
 
-		// Se tienen que usar los ID de los formularios Add
-		int idCuentaContable = Integer.parseInt(request.getParameter("idCuentaContable"));
-		ccD.setIdCuentaContable(idCuentaContable);
-		Double debe = Double.parseDouble(request.getParameter("debe"));
-		ccD.setDebe(debe);
-		Double haber = Double.parseDouble(request.getParameter("haber"));
-		ccD.setHaber(haber);
-		Double saldoInicial = Double.parseDouble(request.getParameter("saldoInicial"));
-		ccD.setSaldoInicial(saldoInicial);
-		Double saldoFinal = Double.parseDouble(request.getParameter("saldoFinal"));
-		ccD.setSaldoFinal(saldoFinal);
-		
 
 		switch (opc) {
 		case 1:
+			Double debe = Double.parseDouble(request.getParameter("debe"));
+			ccD.setDebe(debe);
+			Double haber = Double.parseDouble(request.getParameter("haber"));
+			ccD.setHaber(haber);
+			Double saldoInicial = Double.parseDouble(request.getParameter("saldoInicial"));
+			ccD.setSaldoInicial(saldoInicial);
+			Double saldoFinal = Double.parseDouble(request.getParameter("saldoFinal"));
+			ccD.setSaldoFinal(saldoFinal);
+			ccD.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
 			try {
 				if (dtccD.addCuentaContableDet(ccD)) {
 					response.sendRedirect("production/tbl_cuentaContable.jsp?msj=1");

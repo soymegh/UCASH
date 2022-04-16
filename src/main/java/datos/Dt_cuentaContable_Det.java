@@ -86,12 +86,12 @@ public class Dt_cuentaContable_Det {
 			this.rsCuentaContableDet.moveToInsertRow();
 			
 			rsCuentaContableDet.updateInt("idCuentaContableDet", ccD.getIdCuentaContableDet());
+			rsCuentaContableDet.updateInt("idCuenta", ccD.getIdCuenta());
 			rsCuentaContableDet.updateDouble("debe", ccD.getDebe());
 			rsCuentaContableDet.updateDouble("haber", ccD.getHaber());
 			rsCuentaContableDet.updateDouble("saldoInicial", ccD.getSaldoInicial());
 			rsCuentaContableDet.updateDouble("saldoFinal", ccD.getSaldoFinal());
-			rsCuentaContableDet.updateInt("idCuentaContable", ccD.getIdCuentaContable());
-
+			
 			rsCuentaContableDet.insertRow();
 			rsCuentaContableDet.moveToCurrentRow();
 			guardado = true;
