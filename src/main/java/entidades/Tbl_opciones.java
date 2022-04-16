@@ -3,12 +3,26 @@ package entidades;
 public class Tbl_opciones {
 
 	private int idOpciones;
+	private String nombreOpcion;
 	private String descripcion;
 	private int estado;
 	
 	public Tbl_opciones() {
 		
 	}
+	
+
+	public String getNombreOpcion() {
+		return nombreOpcion;
+	}
+	
+	
+
+
+	public void setNombreOpcion(String nombreOpcion) {
+		this.nombreOpcion = nombreOpcion;
+	}
+
 
 	public int getIdOpciones() {
 		return idOpciones;
@@ -33,4 +47,13 @@ public class Tbl_opciones {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Tbl_opciones [idOpciones=" + idOpciones + ", nombreOpcion=" + nombreOpcion + ", descripcion="
+				+ descripcion + ", estado=" + estado + "]";
+	}
+	
+	
 }

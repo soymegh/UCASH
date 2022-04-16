@@ -1,18 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Tbl_usuario user = new Tbl_usuario();
+Dt_usuario datosUsuario = new Dt_usuario();
+
+int idUser = (request.getParameter("idUsuario") != null) ? Integer.parseInt(request.getParameter("idUsuario")) : 0;
+
+user = datosUsuario.ObtenerUsuarioPorId(idUser);
+%>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Usuario Rol</title>
+<title><%=user.getNombre()%> | Eliminar Usuarios</title>
 
 <!-- Bootstrap -->
-<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
@@ -22,22 +29,19 @@
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 <!-- iCheck -->
 <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-<!-- Datatables -->
-
-<link
-	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
+<!-- bootstrap-wysiwyg -->
+<link href="../vendors/google-code-prettify/bin/prettify.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+<!-- Switchery -->
+<link href="../vendors/switchery/dist/switchery.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+<!-- starrr -->
+<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css"
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
@@ -156,119 +160,87 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Usuario Rol</h3>
+							<h3>Eliminar Usuario</h3>
 						</div>
-
-						<div class="title_right">
-							<div
-								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+					</div>
+					
+					<div class="title_right">
+							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
 										placeholder="Buscar..."> <span
 										class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Go!</button>
+										<button class="btn btn-default" type="button">Go!</button>
 									</span>
 								</div>
 							</div>
 						</div>
-					</div>
-
+						
 					<div class="clearfix"></div>
 
+
+
+
+
 					<div class="row">
-						<div class="col-md-12 col-sm-12 ">
+						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
-								<div class="x_title">
-									<h2>Usuarios Roles registrados</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li class="dropdown"><a href="#" class="dropdown-toggle"
-											data-toggle="dropdown" role="button" aria-expanded="false"><i
-												class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a> <a
-													class="dropdown-item" href="#">Settings 2</a>
-											</div></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<div class="row">
-										<div class="col-sm-12">
-											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-													<a href="addUsuarioRol.jsp"> <i
-														class="fa fa-plus-square"></i> Nueva Usuario Rol
-													</a> <br></br>
-												</div>
-												<table id="datatable-buttons"
-													class="table table-striped table-bordered"
-													style="width: 100%">
-													<%
-													ArrayList<Vw_usuariorol> listaUserRol = new ArrayList<Vw_usuariorol>();
-													Dt_usuarioRol dtur = new Dt_usuarioRol();
-													listaUserRol = dtur.listarUserRol();
-													%>
-													<thead>
-														<tr>
-															<th>Id</th>
-															<th>Rol Descripcion</th>
-															<th>Nombre Completo</th>
-															<th>Acciones</th>
-														</tr>
-													</thead>
-													<tbody>
-														<%
-														for (Vw_usuariorol ur : listaUserRol) {
-														%>
-														<tr>
-															<td><%=ur.getIdUsuarioRol()%></td>
-															<td><%=ur.getDescripcion()%></td>
-															<td><%=ur.getNombreCompleto()%></td>
-															
-															<td>
-															<a href="editUsuarioRol.jsp" target="blank"> <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
-															<a href="viewUsuarioRol.jsp" target="blank"> <i class="fa fa-eye" title="Ver"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
-																	class="fa fa-trash" title="Eliminar"></i>
-															</a></td>
-														</tr>
-														<%
-														}
-														%>
-													</tbody>
-													
-												</table>
-											</div>
+							<div class="x_title">
+								<h2>
+									Formulario de usuarios  
+								</h2>
+								
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<form class="" action="../Sl_usuario" method="post" novalidate>
+									
+									<input type="hidden" value="3" name="opcion" id="opcion" />
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" name="txtid" class="form-control" placeholder="Id Usuario" value="<%=user.getIdUsuario()%>" readonly>
 										</div>
 									</div>
-								</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" placeholder="Nombre de usuario" value="<%=user.getUsuario()%>" readonly>
+										</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=user.getNombre()%>" placeholder="Nombres" readonly>
+										</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=user.getApellidos()%>" placeholder="Apellidos" readonly>
+										</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=user.getEmail()%>" placeholder="Correo electrónico" readonly>
+										</div>
+									</div>
+
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
+										<button type="submit" class="btn btn-primary">Eliminar este usuario</button>	
+									</div>
+
+								</form>
 							</div>
 						</div>
-
-
 					</div>
+
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	<!-- /page content -->
-
-	<!-- footer content -->
-	<footer>
-		<div class="pull-right">Sistema contable multi-empresa by
-			Eldian's Software.</div>
-		<div class="clearfix"></div>
-	</footer>
-	<!-- /footer content -->
 	</div>
 	</div>
 
@@ -280,33 +252,33 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
 	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
 	<script
-		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script
-		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="../vendors/jszip/dist/jszip.min.js"></script>
-	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 

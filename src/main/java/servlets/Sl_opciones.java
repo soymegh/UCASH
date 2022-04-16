@@ -42,7 +42,7 @@ public class Sl_opciones extends HttpServlet {
 		opc = Integer.parseInt(request.getParameter("opcion"));
 		
 		Tbl_opciones Opcion = new Tbl_opciones();
-		Dt_opciones dto = new Dt_opciones();
+		Dt_opciones dtoOpciones = new Dt_opciones();
 		
 		Opcion.setDescripcion(request.getParameter("descripcion"));
 		Opcion.setEstado(1);
@@ -50,7 +50,7 @@ public class Sl_opciones extends HttpServlet {
 		switch (opc) {
 		case 1:
 				try {
-						if(dto.addOpciones(Opcion)) {
+						if(dtoOpciones.addOpciones(Opcion)) {
 							response.sendRedirect("production/tbl_opciones.jsp?msj=1");
 						} else {
 							response.sendRedirect("production/tbl_opciones.jsp?msj=2");
@@ -62,7 +62,6 @@ public class Sl_opciones extends HttpServlet {
 				}
 			
 			break;
-
 		default:
 			break;
 		}
