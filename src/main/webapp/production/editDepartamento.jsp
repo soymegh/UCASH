@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String dept = "";
+dept = request.getParameter("idDp") == null ? "0" : request.getParameter("idDp");
+
+Tbl_departamento td = new Tbl_departamento();
+Dt_departamento dtdp = new Dt_departamento();
+td = dtdp.getDeptbyID(Integer.parseInt(dept));
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -194,18 +204,19 @@
 								<div class="x_content">
 									<form class="" action="../Sl_departamento" method="post"
 										novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> <span
-											class="section">Datos de Departamento</span>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=td.getIdDepartamento() %>" name="idDepartamento" id="idDepartamento" />
+										<span class="section">Datos de Departamento</span>
 
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento
-												<span class="required">*</span>
+												<span class="required"></span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													data-validate-length-range="5,15" name="departamento"
-													id="departamento" type="text" required="required" />
+												<input class="form-control" class='optional' value="<%=td.getDepartamento()%>"
+													name="txtdepartamento" id="txtdepartamento" type="text"
+													required="required" />
 											</div>
 										</div>
 
@@ -215,8 +226,7 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
+													<button type='submit' class="btn btn-primary">Editar</button>
 													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>

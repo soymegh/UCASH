@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
-<html lang="es">
 
+<%
+String mun = "";
+mun = request.getParameter("idM") == null ? "0" : request.getParameter("idM");
+
+Tbl_municipio tm = new Tbl_municipio();
+Dt_municipio dtmun = new Dt_municipio();
+tm = dtmun.getMunbyID(Integer.parseInt(mun));
+
+Tbl_departamento td = new Tbl_departamento();
+Dt_departamento dtdp = new Dt_departamento();
+td = dtdp.getDeptbyID(tm.getIdDepartamento());
+%>
+
+<html lang="es">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -184,39 +197,48 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate></form>
+									<form class="" action="../Sl_municipio" method="post"
+										novalidate>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=tm.getIdMunicipio() %>" name="idMunicipio" id="idMunicipio" />
 										<span class="section">Datos de Municipio</span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio
-											<span class="required">*</span>
+												<span>8</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" required="required" />
+													name="txtmunicipio" id="txtmunicipio" value="<%=tm.getMunicipio() %>"
+													type="text" />
 											</div>
 										</div>
 										
-										
-								
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,100"
-													type="text" required="required"/>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Departamento<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                 <%
+							                      	ArrayList<Tbl_departamento> listDept = new ArrayList<Tbl_departamento>();
+							                      	Dt_departamento dtdept = new Dt_departamento();
+							                      	listDept = dtdept.listarDepartamento();
+								                 %>
+								                 <select class="form-control js-example-basic-single" name="cbxDept" id="cbxDept" required="required">
+												  <option value="<%=td.getIdDepartamento()%>"><%=td.getDepartamento()%>...</option>
+												  <% 
+												  	for(Tbl_departamento dept :listDept){
+												  %>
+												  <option value="<%=dept.getIdDepartamento()%>"><%=dept.getDepartamento()%></option>
+												  <%
+												  	}
+												  %>
+												</select>
 											</div>
-										</div>
-
-                                       
                                         </div>
+										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
 													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>

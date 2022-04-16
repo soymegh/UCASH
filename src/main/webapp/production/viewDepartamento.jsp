@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
 <html>
 <%
-
 String dept = "";
-dept = request.getParameter("idDp")==null?"0":request.getParameter("idDp");
+dept = request.getParameter("idDp") == null ? "0" : request.getParameter("idDp");
 
 Tbl_departamento td = new Tbl_departamento();
 Dt_departamento dtdp = new Dt_departamento();
 td = dtdp.getDeptbyID(Integer.parseInt(dept));
-
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -37,10 +35,18 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 <link
 	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
 	rel="stylesheet">
-<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+<link
+	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -61,8 +67,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -81,11 +86,12 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
-						
+
 						<div class="menu_section">
 							<h3>Gestión</h3>
 							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
 										<li><a href="tbl_rol.jsp">Roles</a></li>
@@ -93,32 +99,39 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                                            <li><a href="tbl_departamento.jsp">Departamento</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -140,10 +153,13 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -163,9 +179,8 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 						<div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar..."> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" placeholder="Buscar...">
+									<span class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
 								</div>
@@ -187,26 +202,27 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
 										<span class="section">Datos de Departamento</span>
-										
-										
+
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span> </span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span>
+											</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input readonly class="form-control" type="email"
-													class='email' name="confirm_email"
-													data-validate-linked='email' required='required' readonly/>
+												<input readonly class="form-control" type="text" class='optional'
+													name="txtdepartamento" id="txtdepartamento" value="<%=td.getDepartamento() %>"
+													required='required' readonly />
 											</div>
 										</div>
-										
-										 <div class="ln_solid">
-                                            <div class="form-group" align="center">
-                                                    <a href="tbl_departamento.jsp" title="Retornar a la página anterior">
-                                                    	<i class="fa fa-arrow-circle-o-left"></i>
-                                                    	Regresar
-                                                    </a>
-                                            </div>
-                                         </div>
+
+										<div class="ln_solid">
+											<div class="form-group" align="center">
+												<a href="tbl_departamento.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-arrow-circle-o-left"></i> Regresar
+												</a>
+											</div>
+										</div>
 									</form>
 								</div>
 							</div>
@@ -233,6 +249,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 	<!-- Javascript functions	-->
 	<script>
+		
 		function hideshow() {
 			var password = document.getElementById("password1");
 			var slash = document.getElementById("slash");

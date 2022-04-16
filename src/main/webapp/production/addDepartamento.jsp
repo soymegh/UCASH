@@ -204,7 +204,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' data-validate-length-range="5,15"
-													type="text" name="departamento" id="departamento" required="required" />
+													type="text" name="txtdepartamento" id="txtdepartamento" required="required" />
 											</div>
 										</div>
 
