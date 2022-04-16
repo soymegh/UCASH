@@ -209,7 +209,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
-													name="txtmunicipio" id="txtmunicipio" value="<%=tm.getMunicipio() %>"
+													name="municipio" id="municipio" value="<%=tm.getMunicipio() %>"
 													type="text" />
 											</div>
 										</div>
@@ -222,7 +222,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 							                      	Dt_departamento dtdept = new Dt_departamento();
 							                      	listDept = dtdept.listarDepartamento();
 								                 %>
-								                 <select class="form-control js-example-basic-single" name="cbxDept" id="cbxDept" required="required">
+								                 <select class="form-control js-example-basic-single" name="idDepartamento" id="idDepartamento" required="required">
 												  <option value="<%=td.getIdDepartamento()%>"><%=td.getDepartamento()%>...</option>
 												  <% 
 												  	for(Tbl_departamento dept :listDept){

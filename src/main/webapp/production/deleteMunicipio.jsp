@@ -201,7 +201,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
-													name="txt" value="<%=tm.getMunicipio() %>"
+													 value="<%=tm.getMunicipio() %>"
 													type="text" readonly />
 											</div>
 										</div>
@@ -211,7 +211,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="text"
-													class='optional' name="txt" value="<%=td.getDepartamento() %>"
+													class='optional'  value="<%=td.getDepartamento() %>"
 													 readonly />
 											</div>
 										</div>
