@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Vw_usuariorol userRol = new Vw_usuariorol();
+Dt_usuarioRol datosUsuarioRol = new Dt_usuarioRol();
+
+int idUser = (request.getParameter("idUR") != null) ? Integer.parseInt(request.getParameter("idUR")) : 0;
+
+userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Usuario Rol</title>
+<title><%=userRol.getNombre()%> | Detalle Usuarios</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -19,6 +27,22 @@
 	rel="stylesheet">
 <!-- NProgress -->
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- bootstrap-wysiwyg -->
+<link href="../vendors/google-code-prettify/bin/prettify.min.css"
+	rel="stylesheet">
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
+	rel="stylesheet">
+<!-- Switchery -->
+<link href="../vendors/switchery/dist/switchery.min.css"
+	rel="stylesheet">
+<!-- starrr -->
+<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css"
+	rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -129,16 +153,18 @@
 				</div>
 			</div>
 			<!-- /top navigation -->
-			
+			<!-- /top navigation -->
+
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar Usuario Rol</h3>
+							<h3>Ver Usuario</h3>
 						</div>
-
-						<div class="title_right">
+					</div>
+					
+					<div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
@@ -149,126 +175,72 @@
 								</div>
 							</div>
 						</div>
-					</div>
+						
 					<div class="clearfix"></div>
+
+
+
+
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
-								<div class="x_title">
-									<h2>Agregar Usuario Rol</h2>
-
-									<div class="clearfix"></div>
-								</div>
+							<div class="x_title">
+								<h2>
+									Formulario de usuarios  
+								</h2>
 								
-								<div class="x_content">
-									<form class="" action="../Sl_usuarioRol" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
-										<span class="section">Datos de Usuario Rol</span>
-			
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Rol<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-												<%
-							                      	ArrayList<Tbl_rol> listRol = new ArrayList<Tbl_rol>();
-							                      	Dt_rol dtr = new Dt_rol();
-							                      	listRol = dtr.listaRolesActivos();
-								                 %>
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
-												  <% 
-												  	for(Tbl_rol trol :listRol){
-												  %>
-												  <option value="<%=trol.getIdRol()%>"><%=trol.getDescripcion()%></option>
-												  <%
-												  	}
-												  %>
-								                
-												</select>
-											</div>
-                                        </div>
-                                        
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-	                                             <%
-							                      	ArrayList<Tbl_usuario> listaUsuario = new ArrayList<Tbl_usuario>();
-							                      	Dt_usuario dtu = new Dt_usuario();
-							                      	listaUsuario = dtu.listaUserActivos();
-								                 %>
-								                 <select class="form-control js-example-basic-single" name="cbxUser" id="cbxUser" required="required">
-												  <option value="">Seleccione...</option>
-												  <% 
-												  	for(Tbl_usuario tu :listaUsuario){
-												  %>
-												  <option value="<%=tu.getIdUsuario()%>"><%=tu.getUsuario()%></option>
-												  <%
-												  	}
-												  %>
-
-												</select>
-											</div>
-                                        </div>
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button type="button" onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-primary">Cancelar</button>
-													<button type='submit' class="btn btn-primary">Agregar</button>
-												</div>
-											</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<form class="" action="../Sl_usuarioRol" method="post" novalidate>
+									<input type="hidden" value="3" name="opcion" id="opcion"/>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">ID de asignación<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" name="idUserRol" placeholder="Nombre de usuario" value="<%=userRol.getIdUsuarioRol()%>" readonly>
 										</div>
-									</form>
-								</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=userRol.getUsuario()%>" placeholder="Nombres" readonly>
+										</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=userRol.getNombre()%>" placeholder="Apellidos" readonly>
+										</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=userRol.getApellido()%>" placeholder="Correo electrónico" readonly>
+										</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Rol<span class="required">*</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=userRol.getDescripcion()%>" placeholder="Correo electrónico" readonly>
+										</div>
+									</div>
+									<div class="ln_solid"></div>
+									<div class="form-group">
+										<button type='button' onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-primary">Regresar</button>	
+										<button type="submit" class="btn btn-primary">Eliminar esta asignación</button>
+									</div>
+
+								</form>
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
-			<!-- /page content -->
-
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
 		</div>
 	</div>
-
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="../vendors/validator/multifield.js"></script>
-	<script src="../vendors/validator/validator.js"></script>
-
-	<!-- Javascript functions	-->
-
-	<script>
-		// initialize a validator instance from the "FormValidator" constructor.
-		// A "<form>" element is optionally passed as an argument, but is not a must
-		var validator = new FormValidator({
-			"events" : [ 'blur', 'input', 'change' ]
-		}, document.forms[0]);
-		// on form "submit" event
-		document.forms[0].onsubmit = function(e) {
-			var submit = true, validatorResult = validator.checkAll(this);
-			console.log(validatorResult);
-			return !!validatorResult.valid;
-		};
-		// on form "reset" event
-		document.forms[0].onreset = function(e) {
-			validator.reset();
-		};
-		// stuff related ONLY for this demo page:
-		$('.toggleValidationTooltips').change(function() {
-			validator.settings.alerts = !this.checked;
-			if (this.checked)
-				$('form .alert').remove();
-		}).prop('checked', false);
-	</script>
+	</div>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -278,9 +250,33 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- validator -->
-	<!-- <script src="../vendors/validator/validator.js"></script> -->
-
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 

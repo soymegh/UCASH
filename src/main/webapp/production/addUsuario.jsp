@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Tasa Cambio</title>
+<title>Agregar | Usuario</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -248,8 +248,8 @@
 										<div class="ln_solid"></div>
 										<div class="form-group">
 											<div class="col-md-9 col-sm-9  offset-md-3">
+												<button type="button" onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Cancelar</button>
 												<button type='submit' class="btn btn-primary">Agregar</button>
-												<button type="button" class="btn btn-primary">Cancelar</button>
 											</div>
 										</div>
 

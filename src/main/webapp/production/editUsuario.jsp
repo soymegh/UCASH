@@ -230,8 +230,8 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">
+											<button type="button" onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Cancelar</button>
 											<button type='submit' class="btn btn-primary">Editar</button>
-											<button type="button" class="btn btn-primary">Cancelar</button>
 										</div>
 									</div>
 

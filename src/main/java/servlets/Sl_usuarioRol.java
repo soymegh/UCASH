@@ -44,13 +44,16 @@ public class Sl_usuarioRol extends HttpServlet {
 		Tbl_usuarioRol tur = new Tbl_usuarioRol();
 		Dt_usuarioRol dtur = new Dt_usuarioRol(); 
 		
-		tur.setIdUsuario(Integer.parseInt(request.getParameter("cbxUser")));
-		tur.setIdRol(Integer.parseInt(request.getParameter("cbxRol")));
+		
 		
 		////////////////////////////////////////////////////////////////////
 		
 		switch(opc) {
 		case 1:
+			
+			tur.setIdUsuario(Integer.parseInt(request.getParameter("cbxUser")));
+			tur.setIdRol(Integer.parseInt(request.getParameter("cbxRol")));
+			
 			try {
 				if(dtur.asignarRol(tur)) {
 					response.sendRedirect("production/tbl_usuarioRol.jsp?msj=1");
@@ -63,7 +66,36 @@ public class Sl_usuarioRol extends HttpServlet {
 			}
 			break;
 		case 2:
-			//codigo
+			
+			tur.setIdUsuario(Integer.parseInt(request.getParameter("cbxUser")));
+			tur.setIdRol(Integer.parseInt(request.getParameter("cbxRol")));
+			tur.setIdUsuarioRol(Integer.parseInt(request.getParameter("idUserRol")));
+			
+			try {
+				if(dtur.modificarUsuarioRol(tur)) {
+					response.sendRedirect("production/tbl_usuarioRol.jsp?msj=3");
+				}else {
+					response.sendRedirect("production/tbl_usuarioRol.jsp?msj=4");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_usuarioRol opc2: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+		case 3:
+			
+			tur.setIdUsuarioRol(Integer.parseInt(request.getParameter("idUserRol")));
+			
+			try {
+				if(dtur.eliminarUsuarioRol(tur.getIdUsuarioRol())) {
+					response.sendRedirect("production/tbl_usuarioRol.jsp?msj=3");
+				}else {
+					response.sendRedirect("production/tbl_usuarioRol.jsp?msj=4");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_usuarioRol opc2: "+e.getMessage());
+				e.printStackTrace();
+			}
 			break;
 		default:
 			//codigo
