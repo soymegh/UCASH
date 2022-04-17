@@ -73,6 +73,8 @@ public class Sl_rolOpciones extends HttpServlet {
 			tro.setIdRol(Integer.parseInt(request.getParameter("cbxRol")));
 			tro.setIdRolOpciones(Integer.parseInt(request.getParameter("idRolOpciones")));
 			
+			System.out.println("Id de la asginación (SERVLET): "+tro.getIdRolOpciones()+"");
+			
 			try {
 				if(dtro.modificarRolOpcion(tro)) {
 					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=3");
@@ -87,7 +89,7 @@ public class Sl_rolOpciones extends HttpServlet {
 			break;
 	case 3:
 			
-			tro.setIdRolOpciones(Integer.parseInt(request.getParameter("idUserRol")));
+			tro.setIdRolOpciones(Integer.parseInt(request.getParameter("idRolOpciones")));
 			
 			try {
 				if(dtro.eliminarRolOpcion(tro.getIdRolOpciones())) {

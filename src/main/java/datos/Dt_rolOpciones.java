@@ -153,6 +153,7 @@ public class Dt_rolOpciones {
 	
 	public boolean modificarRolOpcion(Tbl_rolOpciones rolOpcion)
 	{
+		System.out.println("Id de la asginación: "+rolOpcion.getIdRolOpciones()+"");
 		boolean modificado=false;	
 		try
 		{
@@ -164,7 +165,7 @@ public class Dt_rolOpciones {
 				if(rsRolOpcion.getInt(1)==rolOpcion.getIdRolOpciones())
 				{
 					rsRolOpcion.updateInt("idRol", rolOpcion.getIdRol());
-					rsRolOpcion.updateInt("idUsuario", rolOpcion.getIdOpciones());
+					rsRolOpcion.updateInt("idOpciones", rolOpcion.getIdOpciones());
 					rsRolOpcion.updateRow();
 					modificado=true;
 					break;

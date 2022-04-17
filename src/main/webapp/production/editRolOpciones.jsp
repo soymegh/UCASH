@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Vw_rolopciones rolOpciones = new Vw_rolopciones();
+Dt_rolOpciones datosUsuarioRol = new Dt_rolOpciones();
+
+int idRolOp = (request.getParameter("idRolOpciones") != null) ? Integer.parseInt(request.getParameter("idRolOpciones")) : 0;
+
+rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -164,7 +172,8 @@
 								
 								<div class="x_content">
 									<form class="" action="../Sl_rolOpciones" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
+									  <input type="hidden" value="2" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=rolOpciones.getIdRolOpciones()%>" name="idRolOpciones"/>
 										<span class="section">Datos de Rol Opciones</span>
 			
 										<div class="field item form-group">
