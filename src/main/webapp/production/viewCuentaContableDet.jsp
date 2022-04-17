@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    import="entidades.Vw_cuentacontable_cuentacontable_det, datos.Dt_cuentaContable_Det, java.util.*;"%>
+    
+ <%
+String CCD = "";
+
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+
+int idCCD = request.getParameter("idCuentaContableDet") != null ? Integer.parseInt(request.getParameter("idCuentaContableDet")): 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -233,35 +245,34 @@
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input class="form-control"  name="debe" id="debe" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input type="text" class="form-control" name="haber" id="haber" readonly/>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial*</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="saldoInicial" id="saldoInicial" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
-											</div>
-										</div>
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo*</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="saldoFinal" id="saldoFinal" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta contable*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="CuentaContable" id="CuentaContable" readonly/>
 											</div>
 										</div>
 										
@@ -288,7 +299,43 @@
 		<div class="pull-right">Sistema contable by Eldian's Software</div>
 		<div class="clearfix"></div>
 	</footer>
-
+	<script>
+	    $(document).ready(function() {
+	        $('.js-example-basic-single').select2();
+	        
+	        ///CARGAMOS VALORES EN LOS CONTROLES///
+	        $("#debe").val("<%=vwCCD.getDebe()%>");
+	        $("#haber").val("<%=vwCCD.getHaber()%>");
+	        $("#saldoInicial").val("<%=vwCCD.getSaldoInicial()%>");
+	        $("#saldoFinal").val("<%=vwCCD.getSaldoFinal()%>");
+	        $("#CuentaContable").val("<%=vwCCD.getNombreCuenta()%>");
+			///////////////////////////////////////
+	    });
+    
+        // initialize a validator instance from the "FormValidator" constructor.
+        // A "<form>" element is optionally passed as an argument, but is not a must
+        var validator = new FormValidator({
+            "events": ['blur', 'input', 'change']
+        }, document.forms[0]);
+        // on form "submit" event
+        document.forms[0].onsubmit = function(e) {
+            var submit = true,
+                validatorResult = validator.checkAll(this);
+            console.log(validatorResult);
+            return !!validatorResult.valid;
+        };
+        // on form "reset" event
+        document.forms[0].onreset = function(e) {
+            validator.reset();
+        };
+        // stuff related ONLY for this demo page:
+        $('.toggleValidationTooltips').change(function() {
+            validator.settings.alerts = !this.checked;
+            if (this.checked)
+                $('form .alert').remove();
+        }).prop('checked', false);
+    </script>
+	 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
