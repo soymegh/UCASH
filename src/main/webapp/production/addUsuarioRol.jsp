@@ -167,7 +167,7 @@
 										<span class="section">Datos de Usuario Rol</span>
 			
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Rol<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Rol<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 												<%
@@ -190,7 +190,7 @@
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 

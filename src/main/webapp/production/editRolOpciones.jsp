@@ -181,7 +181,7 @@
 												  <% 
 												  	for(Tbl_rol trol :listRol){
 												  %>
-												  <option value="<%=trol.getIdRol()%>"><%=trol.getDescripcion()%></option>
+												  <option value="<%=trol.getIdRol()%>"><%=trol.getNombre()%></option>
 												  <%
 												  	}
 												  %>
@@ -205,7 +205,7 @@
 												  <% 
 												  	for(Tbl_opciones to :listOpc){
 												  %>
-												  <option value="<%=to.getIdOpciones()%>"><%=to.getDescripcion()%></option>
+												  <option value="<%=to.getIdOpciones()%>"><%=to.getNombreOpcion()%></option>
 												  <%
 												  	}
 												  %>

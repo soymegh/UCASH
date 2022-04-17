@@ -45,7 +45,6 @@ public class Sl_usuarioRol extends HttpServlet {
 		Dt_usuarioRol dtur = new Dt_usuarioRol(); 
 		
 		
-		
 		////////////////////////////////////////////////////////////////////
 		
 		switch(opc) {
