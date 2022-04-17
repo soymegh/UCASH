@@ -185,12 +185,9 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<%
-												ArrayList<Tbl_periodoContable> listaPC = new ArrayList<Tbl_periodoContable>();
 												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
 												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-												Dt_periodoContable dtpc = new Dt_periodoContable();	
 												listaPF = dtpf.listarperiodoFiscal();
-												listaPC = dtpc.listarperiodoContable();
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDPF" id="cbxIDPF" required="required">
@@ -201,7 +198,7 @@
 														for (Tbl_periodoFiscal pf: listaPF){
 														
 													%>
-													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getIdPeriodoFiscal()%></option>
+													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaInicio()%></option>
 													<%
 													}	
 													

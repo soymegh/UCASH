@@ -2,6 +2,26 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="es">
+<%
+
+Tbl_periodoContable tpcontable = new Tbl_periodoContable();
+Dt_periodoContable dtpcontable = new Dt_periodoContable();
+
+int idpcontable = (request.getParameter("contablever") != null) ? Integer.parseInt(request.getParameter("contablever")) : 0;
+
+tpcontable = dtpcontable.obtenerPContablePorId(idpcontable);
+
+
+Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
+Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
+
+int idpfiscal = tpcontable.getIdPeriodoFiscal();
+
+
+tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
+
+
+%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

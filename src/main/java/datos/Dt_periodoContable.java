@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 
 import entidades.Tbl_periodoContable;
+import entidades.Tbl_periodoFiscal;
 import entidades.Vw_periodoContable;
 
 
@@ -25,7 +26,7 @@ public class Dt_periodoContable {
 	
 	public void llenaRsPeriodoContable(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.periodocontable;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsperiodocontable = this.ps.executeQuery();
 			
 		} catch(Exception e) {
@@ -106,7 +107,7 @@ public class Dt_periodoContable {
 			rsperiodocontable.updateInt("idPeriodoFiscal", tpc.getIdPeriodoFiscal());
 			rsperiodocontable.updateDate("fechaInicio", tpc.getFechaInicio());
 			rsperiodocontable.updateDate("fechaFinal", tpc.getFechaFinal());
-			rsperiodocontable.updateInt("estado", tpc.getEstado());
+			rsperiodocontable.updateInt("estado", 1);
 			rsperiodocontable.insertRow();
 			rsperiodocontable.moveToCurrentRow();
 			guardado = true;
@@ -129,5 +130,107 @@ public class Dt_periodoContable {
 			}
 		}
 		return guardado;
+	}
+	
+	public Tbl_periodoContable obtenerPContablePorId(int id)
+	{
+		Tbl_periodoContable pcontable = new Tbl_periodoContable();
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodocontable WHERE estado <> 3 AND idPeriodocontable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, id);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				pcontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
+				pcontable.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				//Fecha inicio
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaIniPC = rs.getString("fechaInicio");
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPC);
+				pcontable.setFechaInicio(new java.sql.Date(date2.getTime()));
+				
+				//Fecha Final
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaFinPC = rs.getString("fechaFinal");
+	        	java.util.Date date3 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPC);
+	        	pcontable.setFechaFinal(new java.sql.Date(date3.getTime()));
+				
+				
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER Periodo Fiscal POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsperiodocontable != null) 
+				{
+					rsperiodocontable.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+				if (ps != null) 
+				{
+					ps.close();
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return pcontable;
+	}
+	
+	public boolean modificarPeriodoContable(Tbl_periodoContable tpcontable)
+	{
+		boolean modificado = false;
+		
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("Update dbucash.periodocontable set  idPeriodoFiscal = ?, fechaInicio = ?, fechaFinal = ?, estado = 2 WHERE idPeriodoContable = ? ;");
+			ps.setInt(1, tpcontable.getIdPeriodoFiscal());
+			ps.setDate(2,tpcontable.getFechaInicio());
+			ps.setDate(3, tpcontable.getFechaFinal());
+			ps.setInt(4, tpcontable.getIdPeriodoFiscal());
+			
+			int result = ps.executeUpdate();
+			modificado = (result > 0) ? true : false;
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL modificarPeriodoFiscal "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsperiodocontable != null)
+				{
+					rsperiodocontable.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return modificado;
 	}
 }

@@ -93,7 +93,7 @@ public class Dt_periodoFiscal {
 			rsperiodoFiscal.updateInt("idPeriodoFiscal", tpf.getIdPeriodoFiscal());
 			rsperiodoFiscal.updateDate("fechaInicio", (Date) tpf.getFechaInicio());
 			rsperiodoFiscal.updateDate("fechaFinal", tpf.getFechaFinal());
-			rsperiodoFiscal.updateInt("estado", tpf.getEstado());
+			rsperiodoFiscal.updateInt("estado", 1);
 			rsperiodoFiscal.insertRow();
 			rsperiodoFiscal.moveToCurrentRow();
 			guardado = true;
@@ -131,8 +131,18 @@ public class Dt_periodoFiscal {
 			if (rs.next()) 
 			{
 				pfiscal.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
-				pfiscal.setFechaInicio(rs.getDate("fechaInicio"));
-				pfiscal.setFechaFinal(rs.getDate("fechaFinal"));
+				//Fecha inicio\
+				//Se realiza este metodo para que no reste un dia
+				String fechaIniJsp = rs.getString("fechaInicio");
+	            java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
+	            pfiscal.setFechaInicio(new java.sql.Date(date1.getTime()));
+				
+				
+				//Fecha final
+	            //Se realiza este metodo para que no reste un dia
+				String fechaFinJsp = rs.getString("fechaFinal");
+	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
+	        	pfiscal.setFechaFinal(new java.sql.Date(date2.getTime()));
 				
 				
 			}

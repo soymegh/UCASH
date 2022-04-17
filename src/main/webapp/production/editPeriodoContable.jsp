@@ -3,6 +3,27 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<%
+
+Tbl_periodoContable tpcontable = new Tbl_periodoContable();
+Dt_periodoContable dtpcontable = new Dt_periodoContable();
+
+int idpcontable = (request.getParameter("contable") != null) ? Integer.parseInt(request.getParameter("contable")) : 0;
+
+tpcontable = dtpcontable.obtenerPContablePorId(idpcontable);
+
+
+Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
+Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
+
+int idpfiscal = tpcontable.getIdPeriodoFiscal();
+
+
+tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
+
+
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -159,16 +180,7 @@
 							<h3>Editar Periodo Contable</h3>
 						</div>
 
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
+						<div class="title_right">							
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -184,66 +196,58 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de Periodo Contable</span>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">ID<span
-												readonly>*</span></label>
+									<form class="" action="../Sl_periodoContable" method="post" novalidate >
+								  <input type="hidden" value="2" name="opcion" id="opcion"/>
+								  <input type="hidden" value="<%= tpcontable.getIdPeriodoContable() %>" name="txtidpcontable" id="txtidpcontable"/>
+								<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
+												Inicio del Periodo Fiscal: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
-													 readonly />
-											</div>
-										</div>
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
+												<%
+												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
+												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
+												listaPF = dtpf.listarperiodoFiscal();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDPF" id="cbxIDPF" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													
+														
+														for (Tbl_periodoFiscal pf: listaPF){
+														
+													%>
+													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaInicio()%></option>
+													<%
+													}	
+													
+													%>
 												</select>
 											</div>
-                                        </div>
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final: <span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
-											</div>
-                                        </div>	
-                                        <div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Prorroga<span
-												readonly>*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
-													 />
-											</div>
-										</div>									
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de periodo contable<span
-												readonly>*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
-													 />
-											</div>
 										</div>
+										
+																																							
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de inicio: </label>
+										<div class="col-md-6 col-sm-6">
+											<input type="date" value="<%= tpcontable.getFechaInicio() %>" class="form-control" placeholder="Fecha de inicio" name="fechainicioc">
+										</div>
+									</div>
+									
+									
+									
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final: </label>
+										<div class="col-md-6 col-sm-6">
+											<input type="date" value="<%= tpcontable.getFechaFinal() %>" class="form-control" placeholder="Fecha de inicio" name="fechafinalc">
+										</div>
+									</div>
+										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
 													<a href="tbl_periodoContable.jsp" type="button" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
@@ -291,6 +295,18 @@
 
 		}
 	</script>
+
+<script>
+        ///SOLO ESTE VALOR NO LO PUEDO PONER DE OTRA MANERA
+        function setValores() {
+            $("#cbxIDPF").val("<%= tpcontable.getIdPeriodoFiscal()%>");
+        }
+
+        $(document).ready(function() {
+            ////CARGAMOS LOS VALORES EN LOS CONTROLES 
+            setValores();
+        });
+    </script>
 
 
 	<!-- jQuery -->

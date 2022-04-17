@@ -75,6 +75,24 @@ public class Sl_periodoContable extends HttpServlet {
 					}
 					break;
 				case 2:
+					periodocontable.setIdPeriodoContable(Integer.parseInt(request.getParameter("txtidpcontable")));
+					
+					try 
+					{
+						if (dpc.modificarPeriodoContable(periodocontable))
+						{
+							response.sendRedirect("production/tbl_periodoContable.jsp?msj=3");
+						}
+						else
+						{
+							response.sendRedirect("production/tbl_periodoContable.jsp?msj=4");
+						}
+					} 
+					catch (Exception e)
+					{
+						System.err.println("ERROR EDITAR (Servlet) Periodo Fiscal: " + e.getMessage());
+						e.printStackTrace();
+					}
 					break;
 				default:
 					break;
