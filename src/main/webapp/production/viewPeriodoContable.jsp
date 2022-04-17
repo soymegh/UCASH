@@ -213,24 +213,8 @@
 													data-validate-length-range="8,20" />
 											</div>
 										</div>										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Prorroga<span
-												readonly>*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input readonly class="form-control" type="tel" class='tel'
-													name="phone" required='required'
-													data-validate-length-range="8,20" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de Periodo Contable<span
-												readonly>*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input readonly class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,100"
-													type="text" readonly />
-											</div>
-										</div>
+										
+										
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal<span 

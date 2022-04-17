@@ -233,7 +233,7 @@
 															<td><a href="editPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i
 																	class="fa fa-edit" title="Editar Periodo Fiscal"></i>
 																	
-																	</a>&nbsp;&nbsp; <a href="viewPeriodoFiscal.jsp" target="blank">
+																	</a>&nbsp;&nbsp; <a href="viewPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>">
 																	<i class="fa fa-eye" title="Ver Periodo Fiscal"></i>
 															</a> &nbsp;&nbsp;
 															 <a href="eliminarPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i	class="fa fa-trash" title="Eliminar"></i>

@@ -238,7 +238,7 @@
 															 <i class="fa fa-edit" title="Editar"></i>
 															 
 															 </a> &nbsp;&nbsp; <a 
-															  href="viewTipoDocumento.jsp" target="blank"> <i 
+															  href="viewTipoDocumento.jsp?idTipoDocumento=<%=tdoc.getIdTipoDocumento() %>"> <i 
 															  class="fa fa-eye" title="Ver"></i>
 															  
 															</a> &nbsp;&nbsp; <a href="eliminarTipoDoc.jsp?idTipoDocumento=<%=tdoc.getIdTipoDocumento() %>" > <i

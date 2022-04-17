@@ -182,6 +182,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 								</div>
 								<div class="x_content">
 									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
+									<input type="hidden" value="1" name="opcion" id="opcion"/>
 										<span class="section">Datos de Periodo Fiscal</span>
 										
 										<div class="field item form-group">

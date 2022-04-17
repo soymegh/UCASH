@@ -2,6 +2,17 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="es">
+<%
+
+Tbl_tipoDocumento td = new Tbl_tipoDocumento();
+Dt_tipoDocumento dtd = new Dt_tipoDocumento();
+
+int idtd = (request.getParameter("idTipoDocumento") != null) ? Integer.parseInt(request.getParameter("idTipoDocumento")) : 0;
+
+td = dtd.obtenerTipoDocPorId(idtd);
+
+
+%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -176,20 +187,25 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
+							        <input type="hidden" value="1" name="opcion" id="opcion"/>
+									
+									
 										<span class="section">Datos de tipo documento</span>
+	
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo<span class="required"></span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="" data-validate-length-range="5,15" type="number"  readonly />
-											</div>
+										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" readonly="readonly"  placeholder="">
 										</div>
+									</div>
+									
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Acronimo<span class="required"></span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="" data-validate-length-range="5,15" type="number" readonly />
-											</div>
+										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
+										<div class="col-md-6 col-sm-6">
+											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" readonly="readonly" placeholder="">
 										</div>
+									</div>
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
