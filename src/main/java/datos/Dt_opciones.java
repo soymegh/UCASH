@@ -147,5 +147,90 @@ public class Dt_opciones {
 		}
 		return guardado;
 	}
+	
+	// Metodo para modificar opcion
+			public boolean modificarOpcion(Tbl_opciones tus)
+			{
+				boolean modificado=false;	
+				try
+				{
+					connection = poolConexion.getConnection();
+					llenaRsOpciones(connection);
+					rsOpc.beforeFirst();
+					while (rsOpc.next())
+					{
+						if(rsOpc.getInt(1)==tus.getIdOpciones())
+						{
+							rsOpc.updateString("nombreOpcion", tus.getNombreOpcion());
+							rsOpc.updateString("descripcion", tus.getDescripcion());
+							rsOpc.updateInt("estado", 2);
+							rsOpc.updateRow();
+							modificado=true;
+							break;
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					System.err.println("ERROR AL modificarUser() "+e.getMessage());
+					e.printStackTrace();
+				}
+				finally
+				{
+					try {
+						if(rsOpc != null){
+							rsOpc.close();
+						}
+						if(connection != null){
+							poolConexion.closeConnection(connection);
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				return modificado;
+			}
+			
+			// Metodo para eliminar usuario
+			public boolean eliminarOpcion(Tbl_opciones toc)
+			{
+				boolean eliminado=false;	
+				try
+				{
+					connection = poolConexion.getConnection();
+					this.llenaRsOpciones(connection);
+					rsOpc.beforeFirst();
+					while (rsOpc.next()){
+						if(rsOpc.getInt(1)==toc.getIdOpciones()){
+							rsOpc.updateInt("estado", 3);
+							rsOpc.updateRow();
+							eliminado=true;
+							break;
+						}
+					}
+				}
+				catch (Exception e){
+					System.err.println("ERROR AL eliminarUser() "+e.getMessage());
+					e.printStackTrace();
+				}
+				finally{
+					try {
+						if(rsOpc != null){
+							rsOpc.close();
+						}
+						if(connection != null){
+							poolConexion.closeConnection(connection);
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				return eliminado;
+			}
+	
 
 }

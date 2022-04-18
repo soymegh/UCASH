@@ -17,7 +17,7 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Editar | Detalle Opciones</title>
+<title>Ver | Detalle Opciones</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -143,7 +143,7 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Editar Opciones </h3>
+							<h3>Agregar Opciones </h3>
 						</div>
 
 						<div class="title_right">
@@ -164,17 +164,17 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Editar Opciones</h2>
+									<h2>Agregar Opciones</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								
 								<div class="x_content">
 									<form class="" action="../Sl_opciones" method="post" novalidate>
-									  <input type="hidden" value="2" name="opcion" id="opcion"/>
+									  <input type="hidden" value="3" name="opcion" id="opcion"/>
 									
 										<span class="section">Datos de Opciones</span>
-									
+										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Opcion<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
@@ -188,7 +188,7 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" 
 												 value="<%=user.getNombreOpcion()%>"
-												class='optional' name="txtOpcion" type="text" required="required" placeholder="Nombre de Opcion"/>
+												class='optional' name="txtOpcion" type="text" required="required" placeholder="Nombre de Opcion" readonly readonly/>
 											</div>
 										</div>
 											
@@ -196,17 +196,16 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" value="<%=user.getDescripcion()%>"  class='optional' name="txtDescripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<input class="form-control" value="<%=user.getDescripcion()%>"  class='optional' name="txtDescripcion" data-validate-length-range="5,15" type="text" required="required" readonly/>
 											</div>
 										</div>
 										
-							
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-												<button type="button" class="btn btn-primary">Cancelar</button>
-												<button type='submit' class="btn btn-primary">Editar</button>
+													<button type="button" class="btn btn-primary">Cancelar</button>
+												<button type='submit' class="btn btn-primary">Eliminar</button>
 												</div>
 											</div>
 										</div>
