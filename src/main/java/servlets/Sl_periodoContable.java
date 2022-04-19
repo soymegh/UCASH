@@ -38,7 +38,7 @@ public class Sl_periodoContable extends HttpServlet {
 		Dt_periodoContable dpc = new Dt_periodoContable();
 		
 		
-		periodocontable.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("cbxIDPF")));
+
 		
 		//Fecha Inicio del Periodo Contable
 				try {
@@ -94,6 +94,33 @@ public class Sl_periodoContable extends HttpServlet {
 						e.printStackTrace();
 					}
 					break;
+					
+				case 3:
+					
+					int idBorrar = Integer.parseInt(request.getParameter("idPContableEliminar"));
+					
+					try {
+						
+						if (dpc.EliminarPContablePorId(idBorrar)) {
+							
+							response.sendRedirect("production/tbl_periodoContable.jsp?msj=5");
+							
+						}
+						else {
+							
+							response.sendRedirect("production/tbl_periodoContable.jsp?msj=6");
+							
+						}
+							
+					} catch (Exception e) {
+						System.err.println("ERROR ELIMINAR (Servlet) Periodo Fiscal: " + e.getMessage());
+						e.printStackTrace();
+					}
+					
+					
+					break;
+					
+					
 				default:
 					break;
 				}	

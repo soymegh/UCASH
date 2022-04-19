@@ -233,4 +233,49 @@ public class Dt_periodoContable {
 		
 		return modificado;
 	}
+	
+	public boolean EliminarPContablePorId(int idEliminar){
+		
+		boolean borrado = false;
+		
+		try {
+			
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("UPDATE dbucash.periodocontable SET estado = 3 WHERE idPeriodoContable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEliminar);
+			int result = this.ps.executeUpdate();
+
+			if (result > 0) {
+				borrado = true;
+			}
+			
+		} catch (Exception e) {
+			
+			System.err.println("ERROR AL BORRAR Periodo Contable POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			
+			try {
+				
+				if (rsperiodocontable != null) {
+					
+					rsperiodocontable.close();
+					
+				}
+				if (c != null) {
+					
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+	
+		return borrado;
+		
+	}
 }
