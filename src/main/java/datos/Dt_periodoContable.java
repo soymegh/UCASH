@@ -38,7 +38,7 @@ public class Dt_periodoContable {
 		ArrayList<Vw_periodoContable> listperiodoContable = new ArrayList<Vw_periodoContable>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable WHERE estado <> 3;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
@@ -202,7 +202,7 @@ public class Dt_periodoContable {
 			ps.setInt(1, tpcontable.getIdPeriodoFiscal());
 			ps.setDate(2,tpcontable.getFechaInicio());
 			ps.setDate(3, tpcontable.getFechaFinal());
-			ps.setInt(4, tpcontable.getIdPeriodoFiscal());
+			ps.setInt(4, tpcontable.getIdPeriodoContable());
 			
 			int result = ps.executeUpdate();
 			modificado = (result > 0) ? true : false;

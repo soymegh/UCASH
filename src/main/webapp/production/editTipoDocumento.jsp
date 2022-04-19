@@ -5,15 +5,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <%
-
 Tbl_tipoDocumento td = new Tbl_tipoDocumento();
 Dt_tipoDocumento dtd = new Dt_tipoDocumento();
 
-int idtd = (request.getParameter("idTipoDocumento") != null) ? Integer.parseInt(request.getParameter("idTipoDocumento")) : 0;
+int idtd = (request.getParameter("idTipoDocumento") != null) ? Integer.parseInt(request.getParameter("idTipoDocumento"))
+		: 0;
 
 td = dtd.obtenerTipoDocPorId(idtd);
-
-
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -72,8 +70,7 @@ td = dtd.obtenerTipoDocPorId(idtd);
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -92,11 +89,12 @@ td = dtd.obtenerTipoDocPorId(idtd);
 								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
-						
+
 						<div class="menu_section">
 							<h3>Gestión</h3>
 							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
 										<li><a href="tbl_rol.jsp">Roles</a></li>
@@ -104,32 +102,39 @@ td = dtd.obtenerTipoDocPorId(idtd);
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -151,10 +156,13 @@ td = dtd.obtenerTipoDocPorId(idtd);
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -162,7 +170,7 @@ td = dtd.obtenerTipoDocPorId(idtd);
 				</div>
 			</div>
 			<!-- /top navigation -->
-			
+
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
@@ -174,57 +182,58 @@ td = dtd.obtenerTipoDocPorId(idtd);
 					</div>
 					<div class="clearfix"></div>
 					<div class="row">
-					
-					<div class="col-md-12 col-sm-12">
-						<div class="x_panel">
-							<div class="x_title">
-								<h2>
-									Formulario tipo documento  
-								</h2>
-								
-								<div class="clearfix"></div>
-							</div>
-							<div class="x_content">
-							<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
-							<input type="hidden" value="2" name="opcion" id="opcion"/>
-							
-							<input type="hidden" value="<%=td.getIdTipoDocumento() %>" name="idTDUpdate" id="idTDUpdate" />
-							
-									<div class="field item form-group">
-										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
-										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" placeholder="">
-										</div>
-									</div>
-									<div class="field item form-group">
-										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
-										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" placeholder="">
-										</div>
-									</div>
-									<div class="ln_solid"></div>
-									<div class="form-group">
-										<div class="col-md-9 col-sm-9  offset-md-3">									    
-											<button type="button" class="btn btn-primary">Cancelar</button>	
-											<button type="submit" class="btn btn-success">Editar</button>
-										</div>
-									</div>
 
-								</form>
+						<div class="col-md-12 col-sm-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Formulario tipo documento</h2>
+
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<form class="" action="../Sl_TipoDocumento" method="post"
+										novalidate>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
+											type="hidden" value="<%=td.getIdTipoDocumento()%>"
+											name="idTDUpdate" id="idTDUpdate" />
+
+										<div class="field item form-group">
+											<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
+											<div class="col-md-6 col-sm-6">
+												<input type="text" class="form-control" name="txtTipo"
+													value="<%=td.getTipo()%>" placeholder="">
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
+											<div class="col-md-6 col-sm-6">
+												<input type="text" class="form-control" name="txtAcronimo"
+													value="<%=td.getAcronimo()%>" placeholder="">
+											</div>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-9 col-sm-9  offset-md-3">
+												<a href="tbl_tipoDocumento.jsp" class="btn btn-danger">Cancelar</a>
+												<button type="submit" class="btn btn-success">Editar</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			  </div>
 			</div>
 			<!-- footer content -->
-            <footer>
-                <div class="pull-right">Sistema contable by Eldian's Software</div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
-        </div>
-    </div>
+			<footer>
+				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
+		</div>
+	</div>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

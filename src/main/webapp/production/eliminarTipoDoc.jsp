@@ -205,8 +205,8 @@ td = dtd.obtenerTipoDocPorId(idtd);
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">										    
-											<button type="button" class="btn btn-primary">Cancelar</button>	
-											<button type="submit" class="btn btn-success">Eliminar</button>
+											<a href="tbl_tipoDocumento.jsp" class="btn btn-primary">Cancelar</a>
+											<button type="submit" class="btn btn-danger">Eliminar</button>
 										</div>
 									</div>
 
