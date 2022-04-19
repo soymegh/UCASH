@@ -233,7 +233,7 @@
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
 															<td><%=estado%></td>
-															<td><a href="editPeriodoContable.jsp?contable=<%=PC.getIdPeriodoContable() %>" target="blank"> <i
+															<td><a href="editPeriodoContable.jsp?contable=<%=PC.getIdPeriodoContable() %>"> <i
 																	class="fa fa-edit" title="Editar Periodo Contable"></i></a>
 																&nbsp;&nbsp; <a href="viewPeriodoContable.jsp?contablever=<%=PC.getIdPeriodoContable() %>">
 																	<i class="fa fa-eye" title="Ver Periodo Contable"></i>

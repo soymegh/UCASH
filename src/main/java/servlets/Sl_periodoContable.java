@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,6 +66,7 @@ public class Sl_periodoContable extends HttpServlet {
 		        switch(opc) {
 				case 1:
 					try {
+						periodocontable.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("cbxIDPF")));
 						if(dpc.agregarPeriodoContable(periodocontable)) {
 							response.sendRedirect("production/tbl_periodoContable.jsp?msj=1");
 						}else {
@@ -76,7 +78,7 @@ public class Sl_periodoContable extends HttpServlet {
 					break;
 				case 2:
 					periodocontable.setIdPeriodoContable(Integer.parseInt(request.getParameter("txtidpcontable")));
-					
+					periodocontable.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("cbxIDPF")));
 					try 
 					{
 						if (dpc.modificarPeriodoContable(periodocontable))

@@ -4,7 +4,6 @@
 <html lang="es">
 
 <%
-
 Tbl_periodoContable tpcontable = new Tbl_periodoContable();
 Dt_periodoContable dtpcontable = new Dt_periodoContable();
 
@@ -12,16 +11,12 @@ int idpcontable = (request.getParameter("contable") != null) ? Integer.parseInt(
 
 tpcontable = dtpcontable.obtenerPContablePorId(idpcontable);
 
-
 Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
 Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
 
 int idpfiscal = tpcontable.getIdPeriodoFiscal();
 
-
 tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
-
-
 %>
 
 <head>
@@ -81,8 +76,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -101,11 +95,12 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
-						
+
 						<div class="menu_section">
 							<h3>Gestión</h3>
 							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
 										<li><a href="tbl_rol.jsp">Roles</a></li>
@@ -113,32 +108,39 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -160,10 +162,13 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -180,8 +185,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 							<h3>Editar Periodo Contable</h3>
 						</div>
 
-						<div class="title_right">							
-						</div>
+						<div class="title_right"></div>
 					</div>
 					<div class="clearfix"></div>
 
@@ -196,10 +200,12 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="../Sl_periodoContable" method="post" novalidate >
-								  <input type="hidden" value="2" name="opcion" id="opcion"/>
-								  <input type="hidden" value="<%= tpcontable.getIdPeriodoContable() %>" name="txtidpcontable" id="txtidpcontable"/>
-								<div class="field item form-group">
+									<form class="" action="../Sl_periodoContable" method="post"
+										novalidate>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
+											type="hidden" value="<%=tpcontable.getIdPeriodoContable()%>"
+											name="txtidpcontable" id="txtidpcontable" />
+										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
 												Inicio del Periodo Fiscal: <span class="required">*</span>
 											</label>
@@ -210,45 +216,69 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 												listaPF = dtpf.listarperiodoFiscal();
 												%>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDPF" id="cbxIDPF" required="required">
+													name="cbxIDPF" id="cbxIDPF" required="required"
+													onchange="ShowSelected();">
 													<option value="">Seleccione...</option>
 													<%
-													
-														
-														for (Tbl_periodoFiscal pf: listaPF){
-														
+													for (Tbl_periodoFiscal pf : listaPF) {
 													%>
 													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaInicio()%></option>
 													<%
-													}	
-													
+													}
 													%>
 												</select>
 											</div>
 										</div>
-										
-																																							
-									<div class="field item form-group">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de inicio: </label>
-										<div class="col-md-6 col-sm-6">
-											<input type="date" value="<%= tpcontable.getFechaInicio() %>" class="form-control" placeholder="Fecha de inicio" name="fechainicioc">
+
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
+												Final del Periodo Fiscal: <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<select class="form-control js-example-basic-single"
+													name="cbxIDPFFF" id="cbxIDPFFF" disabled="disabled">
+													<option value="">Seleccione...</option>
+													<%
+													for (Tbl_periodoFiscal pf : listaPF) {
+													%>
+													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaFinal()%></option>
+													<%
+													}
+													%>
+												</select>
+											</div>
 										</div>
-									</div>
-									
-									
-									
-									<div class="field item form-group">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final: </label>
-										<div class="col-md-6 col-sm-6">
-											<input type="date" value="<%= tpcontable.getFechaFinal() %>" class="form-control" placeholder="Fecha de inicio" name="fechafinalc">
+
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
+												de inicio: </label>
+											<div class="col-md-6 col-sm-6">
+												<input type="date" value="<%=tpcontable.getFechaInicio()%>"
+													class="form-control" placeholder="Fecha de inicio"
+													name="fechainicioc">
+											</div>
 										</div>
-									</div>
-										
+
+
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
+												Final: </label>
+											<div class="col-md-6 col-sm-6">
+												<input type="date" value="<%=tpcontable.getFechaFinal()%>"
+													class="form-control" placeholder="Fecha de inicio"
+													name="fechafinalc">
+											</div>
+										</div>
+
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<a href="tbl_periodoContable.jsp" type="button" class="btn btn-primary">Cancelar</a>
+													<a href="tbl_periodoContable.jsp" type="button"
+														class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>
@@ -296,19 +326,26 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 		}
 	</script>
 
-<script>
+	<script>
         ///SOLO ESTE VALOR NO LO PUEDO PONER DE OTRA MANERA
         function setValores() {
-            $("#cbxIDPF").val("<%= tpcontable.getIdPeriodoFiscal()%>");
-        }
+            $("#cbxIDPF").val("<%=tpcontable.getIdPeriodoFiscal()%>");
+            $("#cbxIDPFFF").val("<%=tpcontable.getIdPeriodoFiscal()%>");
+		}
 
-        $(document).ready(function() {
-            ////CARGAMOS LOS VALORES EN LOS CONTROLES 
-            setValores();
-        });
-    </script>
+		$(document).ready(function() {
+			////CARGAMOS LOS VALORES EN LOS CONTROLES 
+			setValores();
+		});
+	</script>
 
-
+	<script type="text/javascript">
+		function ShowSelected() {
+			/* Para obtener el valor */
+			var cod = document.getElementById("cbxIDPF").value;
+			$("#cbxIDPFFF").val("" + cod);
+		}
+	</script>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
