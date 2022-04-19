@@ -183,7 +183,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Asiento Contable</h3>
+							<h3>Eliminar Asiento Contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -193,7 +193,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Formulario <small>Mostrar Periodo Contable</small>
+										Formulario <small>Eliminar Periodo Contable</small>
 									</h2>
 
 									<div class="clearfix"></div>
