@@ -13,6 +13,7 @@ import datos.Dt_usuario;
 import entidades.Tbl_user2;
 import entidades.Tbl_usuario;
 import datos.Encrypt;
+import datos.Dt_enviarEmail;
 import datos.Dt_user2;
 import negocio.Ng_usuario;
 
@@ -55,6 +56,7 @@ public class Sl_usuario extends HttpServlet {
 		Tbl_user2 tus2 = new Tbl_user2();
 		Dt_usuario dtu = new Dt_usuario();
 		Dt_user2 dtus2 = new Dt_user2();
+		Dt_enviarEmail dtem = new Dt_enviarEmail();
 		Encrypt dtenc = new Encrypt();
 		Ng_usuario ngu = new Ng_usuario();
 		Date fechaSistema = new Date();
@@ -92,7 +94,9 @@ public class Sl_usuario extends HttpServlet {
 					tus2.setId_user(dtu.addUsuario(user));
 					if(tus2.getId_user()>0) {
 						if(dtus2.guardarUser(tus2)) {
+							if(dtem.enviarEmailVerificacion(user.getUsuario(), user.getEmail(), user.getCodVerificacion())){
 							response.sendRedirect("production/tbl_usuario.jsp?msj=1");
+						}
 						}
 					}else {
 						response.sendRedirect("production/tbl_usuario.jsp?msj=2");
