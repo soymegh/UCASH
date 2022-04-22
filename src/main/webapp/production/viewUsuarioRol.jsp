@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Vw_usuariorol userRol = new Vw_usuariorol();
+Dt_usuarioRol datosUsuarioRol = new Dt_usuarioRol();
+
+int idUserRol = (request.getParameter("idUR") != null) ? Integer.parseInt(request.getParameter("idUR")) : 0;
+
+userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUserRol);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -169,20 +177,36 @@
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Rol<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="IdRol" data-validate-length-range="5,15" type="number" required="required" readonly />
+												<input class="form-control" class='optional' name="IdRol" value="<%=userRol.getIdUsuarioRol() %>" data-validate-length-range="5,15" type="number" required="required" readonly />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="idUsuario" data-validate-length-range="5,15" type="number" required="required" readonly />
+												<input class="form-control" class='optional' name="Descripcion"  value="<%=userRol.getDescripcion()%>" required="required" readonly />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="Nombre"  value="<%=userRol.getNombre()%>" required="required" readonly />
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="Apellido"  value="<%=userRol.getApellido()%>" required="required" readonly />
 											</div>
 										</div>
 			
 										<div class="ln_solid">
 											<div class="form-group">
-												
+												<button type='button' onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-primary">Regresar</button>
+												<button type="button" onClick="window.location.href='editUsuarioRol.jsp?idUR=<%=userRol.getIdUsuarioRol()%>'" class="btn btn-primary">Editar esta asignación</button>
+												<button type="button" onClick="window.location.href='deleteUsuarioRol.jsp?idUR=<%=userRol.getIdUsuarioRol()%>'" class="btn btn-primary">Eliminar esta asignación</button>	
 											</div>
 										</div>
 									</form>

@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Vw_usuariorol userRol = new Vw_usuariorol();
+Dt_usuarioRol datosUsuarioRol = new Dt_usuarioRol();
+
+int idUser = (request.getParameter("idUR") != null) ? Integer.parseInt(request.getParameter("idUR")) : 0;
+
+userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -156,14 +164,15 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Editar Usuario Rol</h2>
+									<h2><%= "Usuario: " + userRol.getUsuario() + "<br> Puesto: " + userRol.getDescripcion()%></h2>
 
 									<div class="clearfix"></div>
 								</div>
 								
 								<div class="x_content">
 									<form class="" action="../Sl_usuarioRol" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
+									  <input type="hidden" value="2" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=userRol.getIdUsuarioRol()%>" name="idUserRol"/>
 										<span class="section">Datos de Usuario Rol</span>
 			
 										<div class="field item form-group">
@@ -180,7 +189,7 @@
 												  <% 
 												  	for(Tbl_rol trol :listRol){
 												  %>
-												  <option value="<%=trol.getIdRol()%>"><%=trol.getDescripcion()%></option>
+												  <option value="<%=trol.getIdRol()%>"><%=trol.getNombre()%></option>
 												  <%
 												  	}
 												  %>
@@ -215,8 +224,8 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
+													<button type="button" onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-primary">Cancelar</button>
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
 										</div>
