@@ -63,7 +63,7 @@ public class Sl_municipio extends HttpServlet {
 			
 			break;
 		case 2:
-			/*mun.setIdMunicipio(Integer.parseInt(request.getParameter("idMunicipio")));
+			mun.setIdMunicipio(Integer.parseInt(request.getParameter("idMunicipio")));
 			mun.setIdDepartamento(Integer.parseInt(request.getParameter("idDepartamento")));
 			mun.setMunicipio(request.getParameter("municipio"));
 			try {
@@ -77,12 +77,12 @@ public class Sl_municipio extends HttpServlet {
 				// TODO: handle exception
 				System.out.println("ERROR Sl_municipio opc2: "+ e.getMessage());
 				e.printStackTrace();
-			}*/
+			}
 		
 			break;
 			
 		case 3:
-			/*mun.setIdMunicipio(Integer.parseInt(request.getParameter("idMunicipio")));
+			mun.setIdMunicipio(Integer.parseInt(request.getParameter("idMunicipio")));
 			try {
 				if (dtMun.eliminarMunicipio(mun)) {
 						response.sendRedirect("production/tbl_municipio.jsp?msj=5");
@@ -94,7 +94,7 @@ public class Sl_municipio extends HttpServlet {
 				// TODO: handle exception
 				System.out.println("ERROR Sl_municipio opc3: "+ e.getMessage());
 				e.printStackTrace();
-			}*/
+			}
 		
 			break;
 

@@ -123,6 +123,7 @@ public class Dt_municipio {
 				rs = ps.executeQuery();
 				
 				if (rs.next()) {
+					tm.setIdMunicipio(rs.getInt("idMunicipio"));
 					tm.setIdDepartamento(rs.getInt("idDepartamento"));
 					tm.setMunicipio(rs.getString("municipio"));
 				}
