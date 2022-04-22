@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1"import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="en">
+<%
+
+Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
+Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
+
+int idpfiscal = (request.getParameter("idPeriodoFiscal") != null) ? Integer.parseInt(request.getParameter("idPeriodoFiscal")) : 0;
+
+
+tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
+
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +20,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Periodo Contable</title>
+<title>Periodo | Periodo Fiscal</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -59,7 +70,8 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
+							<img src="img.jpg" alt="..."
+								class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -78,12 +90,11 @@
 								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
-
+						
 						<div class="menu_section">
 							<h3>Gestión</h3>
 							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span
-										class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
 										<li><a href="tbl_rol.jsp">Roles</a></li>
@@ -91,39 +102,32 @@
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-
-								<li><a><i class="fa fa-building"></i> Empresa<span
-										class="fa fa-chevron-down"></span></a>
+									
+									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante
-												Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
-
-								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
-										class="fa fa-chevron-down"></span></a>
+									
+									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-
-								<li><a><i class="fa fa-dollar"></i> Moneda<span
-										class="fa fa-chevron-down"></span></a>
+									
+									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span
-										class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento
-												Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo
-												Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -145,13 +149,10 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
-									José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -165,105 +166,52 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar nuevo periodo contable</h3>
+							<h3>Borrar Periodo Fiscal </h3>
 						</div>
-
 
 					</div>
 					<div class="clearfix"></div>
-
-
-
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Formulario de periodos contables</h2>
+									<h2>Borrar Periodo Fiscal</h2>
 
 									<div class="clearfix"></div>
 								</div>
+								
 								<div class="x_content">
-									<br />
-									<form class="" action="../Sl_periodoContable" method="post"
-										novalidate>
-										<input type="hidden" value="1" name="opcion" id="opcion" />
+									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
+									  <input type="hidden" value="3" name="opcion" id="opcion"/>
+									  
+									  <input type="hidden" value="<%=tpfiscal.getIdPeriodoFiscal()%>" name="idPFiscalEliminar" id="idPFiscalEliminar" />
+									  
+										<span class="section">Datos de Periodo Fiscal</span>
+										
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Inicio del Periodo Fiscal: <span class="required">*</span>
-											</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<%
-												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
-												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-												listaPF = dtpf.listarperiodoFiscal();
-												%>
-												<select class="form-control js-example-basic-single"
-													name="cbxIDPF" id="cbxIDPF" required="required" onchange="ShowSelected();">
-													<option value="">Seleccione...</option>
-													<%
-													for (Tbl_periodoFiscal pf : listaPF) {
-													%>
-													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaInicio()%></option>
-													<%
-													}
-													%>
-												</select>
+												<input class="form-control" class='optional' name="fechaInicio" value="<%=tpfiscal.getFechaInicio() %>"  type="date" required="required" placeholder="Fecha de Inicio"/>
 											</div>
 										</div>
-
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Final del Periodo Fiscal: <span class="required">*</span>
-											</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<select class="form-control js-example-basic-single"
-													name="cbxIDPFFF" id="cbxIDPFFF" disabled="disabled">
-													<option value="">Seleccione...</option>
-													<%
-													for (Tbl_periodoFiscal pf : listaPF) {
-													%>
-													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaFinal()%></option>
-													<%
-													}
-													%>
-												</select>
+												<input class="form-control" class='optional' name="fechaFinal" value="<%= tpfiscal.getFechaFinal() %>" type="date" required="required" placeholder="Fecha Final"/>
 											</div>
 										</div>
-
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												de inicio: </label>
-											<div class="col-md-6 col-sm-6">
-												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechainicioc">
+										
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">											
+													<a href="tbl_periodoFiscal.jsp" type="button" class="btn btn-primary">Cancelar</a>
+													<button type='submit' class="btn btn-primary">Borrar</button>
+												</div>
 											</div>
 										</div>
-
-
-
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Final: </label>
-											<div class="col-md-6 col-sm-6">
-												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechafinalc">
-											</div>
-										</div>
-
-
-
-
-										<div class="ln_solid"></div>
-										<div class="form-group">
-											<div class="col-md-9 col-sm-9  offset-md-3">
-												<a href="tbl_periodoContable.jsp" type="button"
-													class="btn btn-primary">Cancelar</a>
-												<button type="reset" class="btn btn-primary">Reiniciar</button>
-												<button type="submit" class="btn btn-success">Agregar</button>
-											</div>
-										</div>
-
 									</form>
 								</div>
 							</div>
@@ -271,18 +219,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
+			<!-- /page content -->
+
+								
 	</div>
+</div>
 
-	<script type="text/javascript">
-		function ShowSelected() {
-			/* Para obtener el valor */
-			var cod = document.getElementById("cbxIDPF").value;
-			$("#cbxIDPFFF").val(""+cod);
-		}
-	</script>
-
-	<footer>
+<footer>
 		<div class="pull-right">Sistema contable by Eldian's Software</div>
 		<div class="clearfix"></div>
 	</footer>

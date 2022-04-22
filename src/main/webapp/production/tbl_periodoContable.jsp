@@ -161,16 +161,6 @@
 						</div>
 
 						<div class="title_right">
-							<div
-								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
-										class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
 						</div>
 					</div>
 
@@ -217,31 +207,37 @@
 	                  								%>
 													<thead>
 														<tr>
-															<th>ID</th>
+															<th>ID</th>															
+															<th>Fecha Inicio del Periodo Fiscal</th>
+															<th>Fecha Final del Periodo Fiscal</th>
 															<th>Fecha Inicio</th>
 															<th>Fecha Final</th>
-															<th>Prorroga</th>
-															<th>Tipo de Periodo Contable</th>															
 															<th>Estado</th>
-															<th>Acciones</th>
+															<th>Opciones</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
                       									for(Vw_periodoContable PC :listaperiodoContable){
+                      										String estado = "";
+    														if (PC.getEstado() != 3) {
+    															estado = "ABIERTO";
+    														} else {
+    															estado = "CERRADO";
+    														}
                       									%>
 														<tr>
-															<td><%=PC.getIdPeriodoContable()%></td>
+															<td><%=PC.getIdPeriodoContable()%></td>															
+															<td><%=PC.getFechaInicioPF() %></td>
+															<td><%=PC.getFechaFinalPF() %></td>
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
-															<td><%=PC.getProrroga()%></td>
-															<td><%=PC.getTipoPeriodoContable()%></td>
-															<td><%=PC.getEstado()%></td>
-															<td><a href="editPeriodoContable.jsp" target="blank"> <i
+															<td><%=estado%></td>
+															<td><a href="editPeriodoContable.jsp?contable=<%=PC.getIdPeriodoContable() %>"> <i
 																	class="fa fa-edit" title="Editar Periodo Contable"></i></a>
-																&nbsp;&nbsp; <a href="viewPeriodoContable.jsp" target="blank">
+																&nbsp;&nbsp; <a href="viewPeriodoContable.jsp?contablever=<%=PC.getIdPeriodoContable() %>">
 																	<i class="fa fa-eye" title="Ver Periodo Contable"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
+															</a> &nbsp;&nbsp; <a href="eliminarPeriodoContable.jsp?contableeliminar=<%=PC.getIdPeriodoContable() %>"> <i
 																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>

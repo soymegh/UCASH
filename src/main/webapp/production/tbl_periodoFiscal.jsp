@@ -160,17 +160,7 @@
 							</h3>
 						</div>
 
-						<div class="title_right">
-							<div
-								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
-										class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
+						<div class="title_right">			
 						</div>
 					</div>
 
@@ -227,19 +217,26 @@
 													<tbody>
 														<%
                       									for(Tbl_periodoFiscal PF :listarperiodoFiscal){
+                      										String estado = "";
+    														if (PF.getEstado() != 3) {
+    															estado = "ABIERTO";
+    														} else {
+    															estado = "CERRADO";
+    														}
                       									%>
 														<tr>
 															<td><%=PF.getIdPeriodoFiscal()%></td>
 															<td><%=PF.getFechaInicio()%></td>
 															<td><%=PF.getFechaFinal()%></td>
-															<td><%=PF.getEstado()%></td>
+															<td><%=estado%></td>
 															
-															<td><a href="editPeriodoFiscal.jsp" target="blank"> <i
-																	class="fa fa-edit" title="Editar Periodo Fiscal"></i></a>
-																&nbsp;&nbsp; <a href="viewPeriodoFiscal.jsp" target="blank">
+															<td><a href="editPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i
+																	class="fa fa-edit" title="Editar Periodo Fiscal"></i>
+																	
+																	</a>&nbsp;&nbsp; <a href="viewPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>">
 																	<i class="fa fa-eye" title="Ver Periodo Fiscal"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
-																	class="fa fa-trash" title="Eliminar"></i>
+															</a> &nbsp;&nbsp;
+															 <a href="eliminarPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%

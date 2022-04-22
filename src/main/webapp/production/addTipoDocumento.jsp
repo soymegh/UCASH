@@ -172,25 +172,24 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-							<form class="" action="" method="post" novalidate>
+							<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
+							<input type="hidden" value="1" name="opcion" id="opcion"/>
 									<div class="field item form-group">
 										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control"
-												placeholder="">
+											<input type="text" class="form-control" name="txtTipo" placeholder="">
 										</div>
 									</div>
 									<div class="field item form-group">
 										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control"
-												placeholder="">
+											<input type="text" class="form-control" name="txtAcronimo" placeholder="">
 										</div>
 									</div>
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">
-											<button type="button" class="btn btn-primary">Cancelar</button>
+											<a href="tbl_tipoDocumento.jsp" class="btn btn-danger">Cancelar</a>
 											<button type="reset" class="btn btn-primary">Reiniciar</button>
 											<button type="submit" class="btn btn-success">Guardar</button>
 										</div>

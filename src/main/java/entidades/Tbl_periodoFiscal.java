@@ -1,6 +1,6 @@
 package entidades;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Tbl_periodoFiscal {
 	private int idPeriodoFiscal;
