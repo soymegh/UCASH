@@ -3,13 +3,11 @@
     import="entidades.Vw_cuentacontable_cuentacontable_det, datos.Dt_cuentaContable_Det, java.util.*;"%>
     
  <%
-String CCD = "";
-
+String cc = "";
 Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
 Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
 
-
-int idCCD = request.getParameter("idCuentaContableDet") != null ? Integer.parseInt(request.getParameter("idCuentaContableDet")): 0;
+int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")): 0;
 vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 <!DOCTYPE html>
@@ -240,39 +238,41 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 								</div>
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de Detalle Cuenta Contable</span>
-										
+										<span class="section">Datos de Detalle Cuenta Contable</span>								
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control"  name="debe" id="debe" readonly/>
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" readonly/>
 											</div>
-										</div>
-										
+										</div>									
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber*</label>
-											<div class="col-md-6 col-sm-6">
-												<input type="text" class="form-control" name="haber" id="haber" readonly/>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber*</label>											<div class="col-md-6 col-sm-6">
+
+												<input type="text" class="form-control" value="<%=vwCCD.getHaber()%>" name="haber" id="haber" readonly/>
+											
 											</div>
 										</div>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="saldoInicial" id="saldoInicial" readonly/>
+
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="saldoFinal" id="saldoFinal" readonly/>
+
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal" readonly/>
+
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta contable*</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="CuentaContable" id="CuentaContable" readonly/>
+										<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getNombreCuenta()%>" name="CuentaContable" id="CuentaContable" readonly/>
 											</div>
 										</div>
 										
