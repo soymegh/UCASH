@@ -258,9 +258,7 @@
 																	class="fa fa-edit" title="Editar empresa"></i></a>
 																&nbsp;&nbsp; <a href="viewEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>" target="blank">
 																	<i class="fa fa-eye" title="Ver empresa"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
-																	class="fa fa-trash" title="Eliminar"></i>
-															</a></td>
+															</a> &nbsp;&nbsp;</td>
 														</tr>
 														<%
 														}
