@@ -277,9 +277,9 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
+													<button id="AgregarCC" type='submit' class="btn btn-primary">Agregar</button>
+													<button id="ResetCC" type='reset' class="btn btn-success">Reiniciar</button>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCC" type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
 										</div>
@@ -373,9 +373,9 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button id="AgregarCCD" type='submit' class="btn btn-primary">Agregar</button>
+													<button id="ResetCCD" type='reset' class="btn btn-success">Reiniciar</button>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
 										</div>
@@ -428,6 +428,71 @@
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
+	
+	<script>
+			function getURL() {
+				const url = window.location.href;
+				const idCC = url.substring(url.indexOf('=') + 1);
+				if (url == "http://localhost:8080/SistemaContable/production/addCuentaContable.jsp?msj="
+						+ idCC) {
+					console.log("Test");
+					document.getElementById("numeroCuenta").disabled = true;
+					document.getElementById("SC").disabled = true;
+					document.getElementById("SsC").disabled = true;
+					document.getElementById("SssC").disabled = true;
+					document.getElementById("nombreCuenta").disabled = true;
+					document.getElementById("nivel").disabled = true;
+					document.getElementById("rubro").disabled = true;
+					document.getElementById("tipoCuenta").disabled = true;
+					document.getElementById("catalogoCuenta").disabled = true;
+					
+
+					document.getElementById("AgregarCCD").disabled = false;
+					document.getElementById("ResetCCD").disabled = false;
+					document.getElementById("CancelarCCD").disabled = false;
+					
+					document.getElementById("AgregarCC").disabled = true;
+					document.getElementById("ResetCC").disabled = true;
+					document.getElementById("CancelarCC").disabled = true;
+				} else if (url == "http://localhost:8080/SistemaContable/production/addCuentaContable.jsp") {
+					console.log("Test");
+					document.getElementById("numeroCuenta").disabled = false;
+					document.getElementById("SC").disabled = false;
+					document.getElementById("SsC").disabled = false;
+					document.getElementById("SssC").disabled = false;
+					document.getElementById("nombreCuenta").disabled = false;
+					document.getElementById("nivel").disabled = false;
+					document.getElementById("rubro").disabled = false;
+					document.getElementById("tipoCuenta").disabled = false;
+					document.getElementById("catalogoCuenta").disabled = false;
+
+					document.getElementById("AgregarCCD").disabled = true;
+					document.getElementById("ResetCCD").disabled = true;
+					document.getElementById("CancelarCCD").disabled = true;
+				}
+			}
+
+			window.onload = getURL();
+		</script>
+		<script>
+			function returnIdR() {
+				const url = window.location.href;
+				const idR = url.substring(url.indexOf('=') + 1);
+
+				if (url == "http://localhost:8080/SistemaContable/production/addEmpresa.jsp") {
+					document.getElementById('valueIdR').value = "Se ingresara automaticamente cuando guarde el representante legal";
+
+				} else {
+					
+					document.getElementById('valueIdR').value = idR;
+
+				}
+
+				console.log(document.getElementById('valueIdR').value);
+			}
+
+			window.onload = returnIdR();
+		</script>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
