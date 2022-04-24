@@ -162,37 +162,49 @@
 								</div>
 								
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos del catalogo</span>
-			
-								
+									<form class="" action="../Sl_catalogoCuenta" method="post"
+										novalidate>
+										<input type="hidden" value="1" name="opcion" id="opcion" /> 
+										<span class="section">Datos de Catalogo de Cuenta</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Id del catalogo<span
-												class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6"
-													data-validate-words="2" name="name"
-													placeholder="" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">titulo<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Titulo<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
+													name="titulo" id="titulo"
 													type="text" required="required" />
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">descripcion<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="name" class='name'
+												<input class="form-control" name="descripcion" id="descripcion" class='name'
 													required="required" type="text" />
 											</div>
 										</div>
+										<div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Empresa<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                 <%
+							                      	ArrayList<Vw_empresa> listEmpresa = new ArrayList<Vw_empresa>();
+							                      	Dt_empresa dtemp = new Dt_empresa();
+							                      	listEmpresa = dtemp.listarEmpresa();
+								                 %>
+								                 <select class="form-control js-example-basic-single" name="idEmpresa" id="idEmpresa" required="required">
+												  <option value="">Seleccione...</option>
+												  <% 
+												  	for(Vw_empresa EMP :listEmpresa){
+												  %>
+												  <option value="<%=EMP.getIdEmpresa()%>"><%=EMP.getNombreComercial()%></option>
+												  <%
+												  	}
+												  %>
+												</select>
+											</div>
+                                        </div>
+										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">

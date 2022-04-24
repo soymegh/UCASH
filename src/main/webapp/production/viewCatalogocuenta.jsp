@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*"%>
 <!DOCTYPE html>
+
+<%
+String catalogo = "";
+catalogo = request.getParameter("IdCatalogo") == null ? "0" : request.getParameter("IdCatalogo");
+
+Tbl_catalogocuenta tCatalogo = new Tbl_catalogocuenta();
+Dt_catalogocuenta dtCatalogo = new Dt_catalogocuenta();
+tCatalogo = dtCatalogo.getTableCatalogocuentaByID(Integer.parseInt(catalogo));
+
+Tbl_empresa tEmpresa = new Tbl_empresa();
+Dt_empresa dtEmpresa = new Dt_empresa();
+tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
+%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,6 +33,18 @@
 	rel="stylesheet">
 <!-- NProgress -->
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+
+<link
+	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
+	rel="stylesheet">
+<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -135,14 +161,14 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Ver Catalogo de cuenta</h3>
+							<h3>Mostrar Catalogo de cuenta</h3>
 						</div>
 
 						<div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
+										placeholder="Buscar..."> <span
 										class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
@@ -166,33 +192,40 @@
 										<span class="section">Datos del catalogo</span>
 			
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Id del catalogo<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Id del catalogo de cuenta<span></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Idcatalogocuenta" data-validate-length-range="5,15" type="text"  readonly/>
+												<input class="form-control" class='optional' name="IdCatalogo" type="text" value="<%=tCatalogo.getIdCatalogo()%>" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">titulo<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Titulo<span></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Titulo" data-validate-length-range="5,15" type="text"  readonly/>
+												<input class="form-control" class='optional' name="titulo" type="text" value="<%=tCatalogo.getTitulo()%>" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descricpcion" data-validate-length-range="5,15" type="text"  readonly/>
+												<input class="form-control" class='optional' name="descripcion" type="text" value="<%=tCatalogo.getDescripcion()%>" readonly/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Empresa<span></span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="idEmpresa" type="text" value="<%=tEmpresa.getNombreComercial()%>" readonly/>
 											</div>
 										</div>
 										
 										
 									<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<p> </p>
-													<button class="btn btn-primary">Regresar</button>
-												</div>
+											<div class="form-group" align="center">
+												<a href="tbl_catalogocuenta.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-arrow-circle-o-left"></i> Regresar
+												</a>
 											</div>
 										</div>
 									</form>
@@ -219,29 +252,23 @@
 	<script src="../vendors/validator/validator.js"></script>
 
 	<!-- Javascript functions	-->
-
 	<script>
-		// initialize a validator instance from the "FormValidator" constructor.
-		// A "<form>" element is optionally passed as an argument, but is not a must
-		var validator = new FormValidator({
-			"events" : [ 'blur', 'input', 'change' ]
-		}, document.forms[0]);
-		// on form "submit" event
-		document.forms[0].onsubmit = function(e) {
-			var submit = true, validatorResult = validator.checkAll(this);
-			console.log(validatorResult);
-			return !!validatorResult.valid;
-		};
-		// on form "reset" event
-		document.forms[0].onreset = function(e) {
-			validator.reset();
-		};
-		// stuff related ONLY for this demo page:
-		$('.toggleValidationTooltips').change(function() {
-			validator.settings.alerts = !this.checked;
-			if (this.checked)
-				$('form .alert').remove();
-		}).prop('checked', false);
+		function hideshow() {
+			var password = document.getElementById("password1");
+			var slash = document.getElementById("slash");
+			var eye = document.getElementById("eye");
+
+			if (password.type === 'password') {
+				password.type = "text";
+				slash.style.display = "block";
+				eye.style.display = "none";
+			} else {
+				password.type = "password";
+				slash.style.display = "none";
+				eye.style.display = "block";
+			}
+
+		}
 	</script>
 
 	<!-- jQuery -->

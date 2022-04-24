@@ -3,23 +3,22 @@ package entidades;
 import java.sql.Date;
 
 public class Tbl_catalogocuenta {
-	private int idCatalogoCuenta;
+	private int IdCatalogo;
 	private int idEmpresa;
 	private String titulo;
 	private String descripcion;
-	private Date fechaCreacion;
-	private Date fechaModificacion;
-	private Date fechaEliminacion;
+	private Date fecha;
 	private int usuarioCreacion;
+	private Date fechaCreacion;
 	private int usuarioModificacion;
+	private Date fechaModificacion;
 	private int usuarioEliminacion;
-	
-	
-	public int getIdCatalogoCuenta() {
-		return idCatalogoCuenta;
+	private Date fechaEliminacion;
+	public int getIdCatalogo() {
+		return IdCatalogo;
 	}
-	public void setIdCatalogoCuenta(int idCatalogoCuenta) {
-		this.idCatalogoCuenta = idCatalogoCuenta;
+	public void setIdCatalogo(int idCatalogo) {
+		IdCatalogo = idCatalogo;
 	}
 	public int getIdEmpresa() {
 		return idEmpresa;
@@ -39,23 +38,11 @@ public class Tbl_catalogocuenta {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Date getFechaCreacion() {
-		return fechaCreacion;
+	public Date getFecha() {
+		return fecha;
 	}
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-	public Date getFechaModificacion() {
-		return fechaModificacion;
-	}
-	public void setFechaModificacion(Date fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
-	public Date getFechaEliminacion() {
-		return fechaEliminacion;
-	}
-	public void setFechaEliminacion(Date fechaEliminacion) {
-		this.fechaEliminacion = fechaEliminacion;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 	public int getUsuarioCreacion() {
 		return usuarioCreacion;
@@ -63,11 +50,23 @@ public class Tbl_catalogocuenta {
 	public void setUsuarioCreacion(int usuarioCreacion) {
 		this.usuarioCreacion = usuarioCreacion;
 	}
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
 	public int getUsuarioModificacion() {
 		return usuarioModificacion;
 	}
 	public void setUsuarioModificacion(int usuarioModificacion) {
 		this.usuarioModificacion = usuarioModificacion;
+	}
+	public Date getFechaModificacion() {
+		return fechaModificacion;
+	}
+	public void setFechaModificacion(Date fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
 	}
 	public int getUsuarioEliminacion() {
 		return usuarioEliminacion;
@@ -75,7 +74,10 @@ public class Tbl_catalogocuenta {
 	public void setUsuarioEliminacion(int usuarioEliminacion) {
 		this.usuarioEliminacion = usuarioEliminacion;
 	}
-	
-	
-	
+	public Date getFechaEliminacion() {
+		return fechaEliminacion;
+	}
+	public void setFechaEliminacion(Date fechaEliminacion) {
+		this.fechaEliminacion = fechaEliminacion;
+	}	
 }

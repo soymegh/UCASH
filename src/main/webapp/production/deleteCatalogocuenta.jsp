@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
+<html>
+
 <%
 String catalogo = "";
 catalogo = request.getParameter("IdCatalogo") == null ? "0" : request.getParameter("IdCatalogo");
@@ -13,17 +15,18 @@ Tbl_empresa tEmpresa = new Tbl_empresa();
 Dt_empresa dtEmpresa = new Dt_empresa();
 tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 %>
-<html lang="es">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Editar | Catalogo de cuenta</title>
+<title>Eliminar | Catalogo de Cuenta</title>
 
 <!-- Bootstrap -->
+<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
@@ -31,7 +34,6 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 	rel="stylesheet">
 <!-- NProgress -->
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-
 <!-- iCheck -->
 <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <!-- Datatables -->
@@ -39,23 +41,15 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 <link
 	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
-	rel="stylesheet">
-	
+<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
-	
+
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -160,21 +154,21 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 					</nav>
 				</div>
 			</div>
-			<!-- top navigation -->
-			
+			<!-- /top navigation -->
+
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Editar Catalogo cuenta</h3>
+							<h3>Eliminar Catalogo de Cuenta</h3>
 						</div>
 
 						<div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
+										placeholder="Buscar..."> <span
 										class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
@@ -188,21 +182,21 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Editar Catalogo</h2>
+									<h2>Eliminar Catalogo</h2>
 
 									<div class="clearfix"></div>
 								</div>
-								
 								<div class="x_content">
-									<form class="" action="../Sl_catalogoCuenta" method="post" novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> 
-										<input type="hidden" value="<%=tCatalogo.getIdCatalogo()%>" name="IdCatalogo" id="IdCatalogo" /> 
-										<span class="section">Datos del catalogo de la cuenta</span>		
+									<form class="" action="../Sl_catalogoCuenta" method="post"
+										novalidate>
+										<input type="hidden" value="3" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=tCatalogo.getIdCatalogo() %>" name="IdCatalogo" id="IdCatalogo" />
+										<span class="section">Datos de Catalogo de Cuenta</span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Titulo<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="titulo" id="titulo" value="<%=tCatalogo.getTitulo() %>" type="text" />
+												<input class="form-control" class='optional' name="titulo" id="titulo" value="<%=tCatalogo.getTitulo() %>" type="text" readonly="readonly" />
 											</div>
 										</div>
 										
@@ -210,35 +204,22 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" id="descripcion" value="<%=tCatalogo.getDescripcion() %>" type="text"/>
+												<input class="form-control" class='optional' name="descripcion" id="descripcion" value="<%=tCatalogo.getDescripcion() %>" type="text" readonly="readonly"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Empresa<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                                 <%
-							                      	ArrayList<Vw_empresa> listEmpresa = new ArrayList<Vw_empresa>();
-							                      	Dt_empresa dtemp = new Dt_empresa();
-							                      	listEmpresa = dtemp.listarEmpresa();
-								                 %>
-								                 <select class="form-control js-example-basic-single" name="idEmpresa" id="idEmpresa" required="required">
-												  <option value="">Seleccione...</option>
-												  <% 
-												  	for(Vw_empresa EMP :listEmpresa){
-												  %>
-												  <option value="<%=EMP.getIdEmpresa()%>"><%=EMP.getNombreComercial()%></option>
-												  <%
-												  	}
-												  %>
-												</select>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Empresa<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="idEmpresa" id="idEmpresa" value="<%=tEmpresa.getNombreComercial() %>" type="text" readonly="readonly"/>
 											</div>
-                                        </div>
-							
+										</div>
+										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
+													<button type='submit' class="btn btn-danger">Eliminar</button>
 													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
@@ -273,6 +254,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 			var password = document.getElementById("password1");
 			var slash = document.getElementById("slash");
 			var eye = document.getElementById("eye");
+
 			if (password.type === 'password') {
 				password.type = "text";
 				slash.style.display = "block";
@@ -282,41 +264,11 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 				slash.style.display = "none";
 				eye.style.display = "block";
 			}
+
 		}
 	</script>
-	<script>
-		// initialize a validator instance from the "FormValidator" constructor.
-		// A "<form>" element is optionally passed as an argument, but is not a must
-		var validator = new FormValidator({
-			"events" : [ 'blur', 'input', 'change' ]
-		}, document.forms[0]);
-		// on form "submit" event
-		document.forms[0].onsubmit = function(e) {
-			var submit = true, validatorResult = validator.checkAll(this);
-			console.log(validatorResult);
-			return !!validatorResult.valid;
-		};
-		// on form "reset" event
-		document.forms[0].onreset = function(e) {
-			validator.reset();
-		};
-		// stuff related ONLY for this demo page:
-		$('.toggleValidationTooltips').change(function() {
-			validator.settings.alerts = !this.checked;
-			if (this.checked)
-				$('form .alert').remove();
-		}).prop('checked', false);
-	</script>
-	// 
-	<script>
-    function setForm(){
-    	document.getElementById("idEmpresa").value = "<%=tCatalogo.getIdEmpresa()%>";
-
-    }
 
 
-		window.onload = setForm;
-	</script>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -332,4 +284,5 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
+
 </html>
