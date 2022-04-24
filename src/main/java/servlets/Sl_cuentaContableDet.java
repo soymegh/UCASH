@@ -59,13 +59,52 @@ public class Sl_cuentaContableDet extends HttpServlet {
 			ccD.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
 			try {
 				if (dtccD.addCuentaContableDet(ccD)) {
-					response.sendRedirect("production/tbl_cuentaContable.jsp?msj=1");
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=1");
 				} else {
-					response.sendRedirect("production/tbl_cuentaContable.jsp?msj=2");
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=2");
 
 				}
 			} catch (Exception e) {
 				System.out.println("Error al guardar cuenta contable det: " + e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+			
+		case 2:
+			ccD.setIdCuentaContableDet(Integer.parseInt(request.getParameter("idCuentaContableDet")));
+			Double debeU = Double.parseDouble(request.getParameter("debe"));
+			ccD.setDebe(debeU);
+			Double haberU = Double.parseDouble(request.getParameter("haber"));
+			ccD.setHaber(haberU);
+			Double saldoInicialU = Double.parseDouble(request.getParameter("saldoInicial"));
+			ccD.setSaldoInicial(saldoInicialU);
+			Double saldoFinalU = Double.parseDouble(request.getParameter("saldoFinal"));
+			ccD.setSaldoFinal(saldoFinalU);
+			ccD.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
+			try {
+				if (dtccD.editarCuentaContableDet(ccD)) {
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=3");
+				} else {
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=4");
+
+				}
+			} catch (Exception e) {
+				System.out.println("Error al editar cuenta contable det: " + e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+		
+		case 3:
+			ccD.setIdCuentaContableDet(Integer.parseInt(request.getParameter("idCuentaContableDet")));
+			try {
+				if (dtccD.eliminarCuentaContableDet(ccD)) {
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=5");
+				} else {
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=6");
+
+				}
+			} catch (Exception e) {
+				System.out.println("Error al eliminar cuenta contable det: " + e.getMessage());
 				e.printStackTrace();
 			}
 			break;

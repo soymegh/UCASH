@@ -158,4 +158,89 @@ public class Dt_cuentaContable_Det {
 		}
 		return guardado;
 	}
+	
+	//Metodo para editar cuentaContableDet
+	
+	public boolean editarCuentaContableDet(Tbl_cuentaContable_Det ccD) {
+		boolean modificado = false;
+		try {
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContableDet(c);
+			rsCuentaContableDet.beforeFirst();
+			while (rsCuentaContableDet.next()) {
+				if (rsCuentaContableDet.getInt(1)==ccD.getIdCuentaContableDet()) {
+					rsCuentaContableDet.updateInt("idCuenta", ccD.getIdCuenta());
+					rsCuentaContableDet.updateDouble("debe", ccD.getDebe());
+					rsCuentaContableDet.updateDouble("haber", ccD.getHaber());
+					rsCuentaContableDet.updateDouble("saldoInicial", ccD.getSaldoInicial());
+					rsCuentaContableDet.updateDouble("saldoFinal", ccD.getSaldoFinal());
+					rsCuentaContableDet.updateRow();
+					modificado=true;
+					break;
+				}
+				
+			}
+		} catch (Exception e) {
+			System.err.println("ERROR AL EDITAR CUENTA CONTABLE DET() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if(rsCuentaContableDet != null){
+					rsCuentaContableDet.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return modificado;
+	}
+	//Metodo para eliminar cuentaContableDet
+	
+	public boolean eliminarCuentaContableDet(Tbl_cuentaContable_Det ccD)
+	{
+		boolean eliminado=false;	
+		try
+		{
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContableDet(c);
+			rsCuentaContableDet.beforeFirst();
+			while (rsCuentaContableDet.next()){
+				if(rsCuentaContableDet.getInt(1)==ccD.getIdCuentaContableDet()){
+					rsCuentaContableDet.deleteRow();
+					eliminado=true;
+					break;
+				}
+			}
+		}
+		catch (Exception e){
+			System.err.println("ERROR AL eliminarCuentaContableDet "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(rsCuentaContableDet != null){
+					rsCuentaContableDet.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return eliminado;
+	}
+	
+	
+	
 }

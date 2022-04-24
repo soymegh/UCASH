@@ -3,7 +3,7 @@
     import="entidades.Vw_cuentacontable_cuentacontable_det, datos.Dt_cuentaContable_Det, java.util.*;"%>
     
  <%
-String cc = "";
+String CCD = "";
 Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
 Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
 

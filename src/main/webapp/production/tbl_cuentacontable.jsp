@@ -371,11 +371,11 @@
 															<td><%=ccD.getSaldoInicial()%></td>
 															<td><%=ccD.getSaldoFinal()%></td>
 															<td><%=ccD.getNombreCuenta()%></td>
-															<td><a href="editCuentaContableDet.jsp" target="blank">
+															<td><a href="editCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>" target="blank">
 																	<i class="fa fa-edit" title="Editar">Editar</i>
 															</a> &nbsp;&nbsp; <a href="viewCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>"
 																target="blank"> <i class="fa fa-eye" title="Mostrar"> Mostrar</i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
+															</a> &nbsp;&nbsp; <a href="deleteCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>" target="_blank"> <i
 																	class="fa fa-trash" title="Eliminar"> Eliminar</i>
 															</a></td>
 														</tr>
