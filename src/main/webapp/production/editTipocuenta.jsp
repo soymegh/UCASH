@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+<%
+String tipocuenta = "";
+tipocuenta = request.getParameter("idTipoCuenta") == null ? "0" : request.getParameter("idTipoCuenta");
+
+Tbl_tipocuenta tTipocuenta = new Tbl_tipocuenta();
+Dt_tipocuenta dttipocuenta = new Dt_tipocuenta();
+tTipocuenta = dttipocuenta.getTableTipocuentaByID(Integer.parseInt(tipocuenta));
+
+
+%>
+<html lang="es">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -162,43 +171,27 @@
 								</div>
 								
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_tipocuenta" method="post" novalidate>
+									<input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=tTipocuenta.getIdTipoCuenta()%>" name="idTipoCuenta" id="idTipoCuenta" /> 
 										<span class="section">Datos del tipo de cuenta</span>
-			
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id del tipo de cuenta<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="c12O" id="c23" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
+										
+										
+									
+										
+						<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de cuenta<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="tipoCuenta"" id="tipoCuenta"" value="<%=tTipocuenta.getTipoCuenta() %>" type="text" />
 											</div>
-                                        </div>
-                                        
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de la cuenta<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="debito" id="credito" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
-												</select>
-											</div>
-                                        </div>
+										</div>
+                                       
 										
 							
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
+													<button type='submit' class="btn btn-primary">Editar</button>
 													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>

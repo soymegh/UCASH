@@ -22,3 +22,7 @@ public class Tbl_tipocuenta {
 	
 	
 }
+
+
+
+

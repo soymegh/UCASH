@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*"%>
 <!DOCTYPE html>
+
+<%
+String tipocuenta = "";
+tipocuenta = request.getParameter("idTipoCuenta") == null ? "0" : request.getParameter("idTipoCuenta");
+
+Tbl_tipocuenta tTipocuenta = new Tbl_tipocuenta();
+Dt_tipocuenta dttipocuenta = new Dt_tipocuenta();
+tTipocuenta = dttipocuenta.getTableTipocuentaByID(Integer.parseInt(tipocuenta));
+ 
+%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -162,25 +173,28 @@
 								</div>
 								
 								<div class="x_content">
+								
 									<form class="" action="" method="post" novalidate>
 										<span class="section">Datos de Tipo de cuenta</span>
 			
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Id de la cuenta<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Id del tipo de cuenta<span></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="IdTipoCuenta" data-validate-length-range="5,15" type="text"  readonly/>
+												<input class="form-control" class='optional' name="Idtipocuenta" type="text" value="<%=tTipocuenta.getIdTipoCuenta()%>" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de cuenta<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de cuenta<span></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="TipoCuenta" data-validate-length-range="5,15" type="text" readonly/>
+												<input class="form-control" class='optional' name="tipoCuenta"" id="tipoCuenta"" value="<%=tTipocuenta.getTipoCuenta()%>" readonly/>
 											</div>
 										</div>
-									<div class="col-md-6 offset-md-3">
-													<button class="btn btn-primary">Regresar</button>
-												</div>
+											<div class="form-group" align="center">
+												<a href="tbl_tipocuenta.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-arrow-circle-o-left"></i> Regresar
+												</a>
 											</div>
 										</div>
 									</form>
