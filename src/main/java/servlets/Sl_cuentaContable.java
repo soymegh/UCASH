@@ -44,23 +44,25 @@ public class Sl_cuentaContable extends HttpServlet {
 		Tbl_cuentaContable cc = new Tbl_cuentaContable();
 		Dt_cuentaContable dtCc = new Dt_cuentaContable();
 		
-		cc.setNumeroCuenta(request.getParameter("numeroCuenta"));
-		cc.setsC(request.getParameter("SC"));
-		cc.setSsC(request.getParameter("SsC"));
-		cc.setSssC(request.getParameter("SssC"));
-		cc.setNombreCuenta(request.getParameter("nombreCuenta"));
-		int nivel = Integer.parseInt(request.getParameter("nivel"));
-		cc.setNivel(nivel);
-		int rubro = Integer.parseInt(request.getParameter("rubro"));
-		cc.setRubro(rubro);
-		int tipoCuenta = Integer.parseInt(request.getParameter("tipoCuenta"));
-		cc.setIdTipoCuenta(tipoCuenta);
-		int catalogoCuenta = Integer.parseInt(request.getParameter("catalogoCuenta"));
-		cc.setIdCatalogo(catalogoCuenta);
 		
 		switch (opc) {
 		
 		case 1:
+			
+			cc.setNumeroCuenta(request.getParameter("numeroCuenta"));
+			cc.setsC(request.getParameter("SC"));
+			cc.setSsC(request.getParameter("SsC"));
+			cc.setSssC(request.getParameter("SssC"));
+			cc.setNombreCuenta(request.getParameter("nombreCuenta"));
+			int nivel = Integer.parseInt(request.getParameter("nivel"));
+			cc.setNivel(nivel);
+			int rubro = Integer.parseInt(request.getParameter("rubro"));
+			cc.setRubro(rubro);
+			int tipoCuenta = Integer.parseInt(request.getParameter("tipoCuenta"));
+			cc.setIdTipoCuenta(tipoCuenta);
+			int catalogoCuenta = Integer.parseInt(request.getParameter("catalogoCuenta"));
+			cc.setIdCatalogo(catalogoCuenta);
+			
 			try
 			{
 				if(dtCc.addCuentaContable(cc)) {
@@ -73,16 +75,54 @@ public class Sl_cuentaContable extends HttpServlet {
 			}
 			catch(Exception e)
 			{
-				
+				System.out.println("ERROR AL CREAR CUENTA CONTABLE: "+ e.getMessage());
+				e.printStackTrace();
 			}
 			
 			break;
 			
 		case 2:
 			
+			cc.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
+			cc.setNumeroCuenta(request.getParameter("numeroCuenta"));
+			cc.setsC(request.getParameter("SC"));
+			cc.setSsC(request.getParameter("SsC"));
+			cc.setSssC(request.getParameter("SssC"));
+			cc.setNombreCuenta(request.getParameter("nombreCuenta"));
+			cc.setNivel(Integer.parseInt(request.getParameter("nivel")));
+			cc.setRubro(Integer.parseInt(request.getParameter("rubro")));
+			cc.setIdTipoCuenta(Integer.parseInt(request.getParameter("cbxTipoCuenta")));
+			cc.setIdCatalogo(Integer.parseInt(request.getParameter("cbxCatalogoCuenta")));
+			
+			try {
+				if(dtCc.editCuentaContable(cc)) { 
+					response.sendRedirect("production/tbl_cuentaContable.jsp?msj=3"); 
+				} else {
+					response.sendRedirect("production/tbl_cuentaContable.jsp?msj=4"); 
+
+				}
+			} catch(Exception e) {
+				System.out.println("ERROR AL MODIFICAR CUENTA CONTABLE "+e.getMessage());
+				e.printStackTrace();
+			}
+			
 			break;
 			
 		case 3:
+			
+			cc.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
+			try {
+				if (dtCc.deleteCuentaContable(cc)) {
+						response.sendRedirect("production/tbl_cuentaContable.jsp?msj=5");
+				} else {
+						response.sendRedirect("production/tbl_cuentaContable.jsp?msj=6");
+				}
+				
+			} catch (Exception e) {
+				System.out.println("ERROR AL ELIMINAR CUENTA CONTABLE: "+ e.getMessage());
+				e.printStackTrace();
+			}
+			
 			break;
 		}
 	}

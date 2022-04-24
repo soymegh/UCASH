@@ -2,7 +2,7 @@ package entidades;
 
 public class Tbl_cuentaContable {
 
-	private int idCuentaContable;
+	private int idCuenta;
 	private String numeroCuenta;
 	private String sC;
 	private String ssC;
@@ -17,12 +17,12 @@ public class Tbl_cuentaContable {
 	public Tbl_cuentaContable() {
 	}
 
-	public int getIdCuentaContable() {
-		return idCuentaContable;
+	public int getIdCuenta() {
+		return idCuenta;
 	}
 
-	public void setIdCuentaContable(int idCuentaContable) {
-		this.idCuentaContable = idCuentaContable;
+	public void setIdCuenta(int idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 
 	public String getNumeroCuenta() {

@@ -267,15 +267,21 @@
 														<%
 														for (Vw_catalogo_tipo_cuentacontable cc : listaCuentasContables) {
 															String estado = "";
-															if (cc.getEstado() != 3){
+															if (cc.getEstado() == 1){
 																estado = "ACTIVO";
 															}else{
-																estado = "INACTIVO";
+																if(cc.getEstado() == 2)
+																{
+																estado = "MODIFICADO";
+																}
+																else{
+																	estado = "INACTIVO";
+																}
 															}
 														%>
 														<tr>
 
-															<td><%=cc.getIdCuentaContable()%></td>
+															<td><%=cc.getIdCuenta()%></td>
 															<td><%=cc.getNumeroCuenta()%></td>
 															<td><%=cc.getsC()%></td>
 															<td><%=cc.getSsC()%></td>
@@ -286,11 +292,12 @@
 															<td><%=cc.getTipoCuenta()%></td>
 															<td><%=cc.getCatalogoCuenta()%></td>
 															<td><%=estado%></td>
-															<td><a href="editCuentaContable.jsp" target="blank">
+															
+															<td><a href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>" target="blank">
 																	<i class="fa fa-edit" title="Editar">Editar</i>
-															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp"
-																target="blank"> <i class="fa fa-eye" title="Mostrar"> Mostrar</i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
+															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"
+																target="blank"> <i class="fa fa-eye" title="Mostrar" > Mostrar</i>
+															</a> &nbsp;&nbsp; <a href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>" target="_blank"> <i
 																	class="fa fa-trash" title="Eliminar"> Eliminar</i>
 															</a></td>
 														</tr>

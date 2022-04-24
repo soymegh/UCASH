@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*" %>
 <!DOCTYPE html>
 <html>
+<%
+String cc = "";
+cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCuenta");
+
+Vw_catalogo_tipo_cuentacontable vwCc = new Vw_catalogo_tipo_cuentacontable();
+Dt_cuentaContable dtCc = new Dt_cuentaContable();
+vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
+
+
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -227,48 +237,67 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_cuentaContable" method="post" novalidate>
+										<input type="hidden" value="2" name="opcion" id="opcion"/>
+										<input type="hidden" value="<%= vwCc.getIdCuenta()%>" name="idCuenta" id="idCuenta" />
+										
 										<span class="section">Datos de Cuenta Contable Maestro</span>
+										
+										
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero de Cuenta:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" type="number" class="optional" name="numeroCuenta" id="numeroCuenta"
+												value="<%= vwCc.getNumeroCuenta() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Cuenta:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" type="text" class="optional" name="SC" id="SC" 
+												value="<%= vwCc.getsC() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Cuenta:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" type="text" class="optional" name="SsC" id="SsC" 
+												value="<%= vwCc.getSsC() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Sub-Cuenta:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" type="text" class="optional" name="SssC" id="SssC" 
+												value="<%= vwCc.getSssC() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Cuenta:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" type="text" class="optional" name="nombreCuenta" id="nombreCuenta" 
+												value="<%= vwCc.getNombreCuenta() %>"/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nivel</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="number" class="optional" name="nivel" id="nivel" 
+												value="<%= vwCc.getNivel() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Rubro:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" type="number" class="optional" name="rubro" id="rubro" 
+												value="<%= vwCc.getRubro() %>"/>
 											</div>
 										</div>
 										
@@ -277,11 +306,23 @@
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-								                 <select class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required">
-												  <option value="">Seleccione...</option>
+													<% 
+													ArrayList<Tbl_tipocuenta> listaTc = new ArrayList<Tbl_tipocuenta>();
+													Dt_tipocuenta dtTc = new Dt_tipocuenta();
+													listaTc = dtTc.listaTipocuentaActivos();
+													%>
 
-												  <option value="Prueba"></option>
-
+								                 <select class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
+												  <option value=""><%= vwCc.getTipoCuenta() %>...</option>
+													<%
+												  		for(Tbl_tipocuenta tc : listaTc){
+												  	%>
+												  	<option value="<%=tc.getIdTipoCuenta()%>">
+													<%=tc.getTipoCuenta()%>
+													</option>
+													<%
+													}
+													%>
 												</select>
 											</div>
                                         </div>
@@ -291,11 +332,25 @@
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-								                 <select class="form-control js-example-basic-single" name="cbxCuentaContable" id="cbxCuentaContable" required="required">
-												  <option value="">Seleccione...</option>
+								                 	<% 
+													ArrayList<Vw_catalogocuenta_empresa> listaCat = new ArrayList<Vw_catalogocuenta_empresa>();
+													Dt_catalogocuenta dtCat = new Dt_catalogocuenta();
+													listaCat = dtCat.listarCatalogocuenta();
+													%>
 
-												  <option value="Prueba"></option>
-
+								                 <select class="form-control js-example-basic-single" 
+								                 		 name="cbxCatalogoCuenta" id="cbxCatalogoCuenta" required="required">
+												  <option value=""><%= vwCc.getCatalogoCuenta() %>...</option>
+												  	<%
+												  		for(Vw_catalogocuenta_empresa cat : listaCat){
+												  	%>
+												  <option value="<%=cat.getIdCatalogo()%>">
+													<%=cat.getTitulo()%>
+												</option>
+													<%
+													}
+													%>
+													
 												</select>
 											</div>
                                         </div>
@@ -304,7 +359,8 @@
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<p> </p>
-													<button class="btn btn-primary">Regresar</button>
+													<button type='submit' class="btn btn-primary">Editar</button>
+													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>

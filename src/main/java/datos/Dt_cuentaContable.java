@@ -42,14 +42,14 @@ public class Dt_cuentaContable {
 			
 			while(this.rs.next()) {
 				Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
-				cc.setIdCuentaContable(this.rs.getInt("idCuenta"));
+				cc.setIdCuenta(this.rs.getInt("idCuenta"));
 				cc.setNumeroCuenta(this.rs.getString("numeroCuenta"));
 				cc.setsC(this.rs.getString("SC"));
 				cc.setSsC(this.rs.getString("SsC"));
 				cc.setSssC(this.rs.getString("SssC"));
 				cc.setNombreCuenta(this.rs.getString("nombreCuenta"));
 				cc.setNivel(this.rs.getInt("nivel"));
-				cc.setRubro(this.rs.getString("rubro"));
+				cc.setRubro(this.rs.getInt("rubro"));
 				cc.setTipoCuenta(this.rs.getString("tipoCuenta"));
 				cc.setCatalogoCuenta(this.rs.getString("titulo"));
 				cc.setEstado(this.rs.getInt("estado"));
@@ -72,13 +72,66 @@ public class Dt_cuentaContable {
 	                if (this.c != null) {
 	                    poolConexion.closeConnection(this.c);
 	                }
-	            } catch (SQLException var10) {
-	                var10.printStackTrace();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
 	            }
 
 		}
 		
 		return listCuentaContable;
+	}
+	
+	//Método para ver cuenta contable por id
+	
+	public Vw_catalogo_tipo_cuentacontable getCuentaContableById(int idCuenta) {
+		Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
+		try {
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_catalogo_tipo_cuentacontable WHERE idCuenta =?", 
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, idCuenta);
+			rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				cc.setIdCuenta(this.rs.getInt("idCuenta"));
+				
+				cc.setNumeroCuenta(this.rs.getString("numeroCuenta"));
+				cc.setsC(this.rs.getString("SC"));
+				cc.setSsC(this.rs.getString("SsC"));
+				cc.setSssC(this.rs.getString("SssC"));
+				cc.setNombreCuenta(this.rs.getString("nombreCuenta"));
+				cc.setNivel(this.rs.getInt("nivel"));
+				cc.setRubro(this.rs.getInt("rubro"));
+				cc.setTipoCuenta(this.rs.getString("tipoCuenta"));
+				cc.setCatalogoCuenta(this.rs.getString("titulo"));
+				
+				System.out.println(cc);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("DATOS: ERROR EN VER CUENTAS CONTABLES "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally 
+		{
+		try {
+			if (this.rs != null) {
+				this.rs.close();
+			}
+				if (this.ps != null) {
+				this.ps.close();
+			}
+
+			if (this.c != null) {
+				poolConexion.closeConnection(this.c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+		
+		return cc;
 	}
 	
 	//Método para agregar una cuenta contable
@@ -124,5 +177,95 @@ public class Dt_cuentaContable {
 			}
 		}
 		return guardado;
+	}
+	
+	//Método para editar cuenta contable
+	
+	public boolean editCuentaContable(Tbl_cuentaContable cc) {
+		boolean modificado = false;
+		try {
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContable(c);
+			rsCuentaContable.beforeFirst();
+			while (rsCuentaContable.next()) {
+				if (rsCuentaContable.getInt(1) == cc.getIdCuenta()) {
+					rsCuentaContable.updateString("numeroCuenta", cc.getNumeroCuenta());
+					rsCuentaContable.updateString("SC", cc.getsC());
+					rsCuentaContable.updateString("SsC", cc.getSsC());
+					rsCuentaContable.updateString("SssC", cc.getSssC());
+					rsCuentaContable.updateString("nombreCuenta", cc.getNombreCuenta());
+					rsCuentaContable.updateInt("nivel", cc.getNivel());
+					rsCuentaContable.updateInt("rubro", cc.getRubro());
+					rsCuentaContable.updateInt("idTipoCuenta", cc.getIdTipoCuenta());
+					rsCuentaContable.updateInt("IdCatalogo", cc.getIdCatalogo());
+					rsCuentaContable.updateInt("estado", 2);
+					
+					rsCuentaContable.updateRow();
+					modificado = true;
+					break;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.err.println("ERROR AL MODIFICAR CUENTA CONTABLE"+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return modificado;
+	}
+	
+	//Método para elminar cuenta contable
+	
+	public boolean deleteCuentaContable(Tbl_cuentaContable cc) {
+		boolean eliminado = false;
+		
+		try {
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContable(c);
+			rsCuentaContable.beforeFirst();
+			while(rsCuentaContable.next()) {
+				if(rsCuentaContable.getInt(1) == cc.getIdCuenta()) {
+					rsCuentaContable.updateInt("estado",3);
+					rsCuentaContable.updateRow();
+					eliminado = true;
+					break;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.err.println("ERROR AL ELIMINAR CUENTA CONTABLE"+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if(rsCuentaContable != null){
+					rsCuentaContable.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return eliminado;
 	}
 }
