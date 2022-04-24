@@ -134,6 +134,42 @@ public class Dt_cuentaContable {
 		return cc;
 	}
 	
+	public int idCuentaContable() {
+	    int idCC = 0;
+	    
+	    try {
+	    	c = poolConexion.getConnection(); 
+	    	ps = c.prepareStatement("SELECT idCuenta FROM dbucash.cuentacontable ORDER BY idCuenta DESC LIMIT 1",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	    	rs = ps.executeQuery();
+	    	if(rs.next()) { 
+	    		idCC = Integer.parseInt(rs.getObject(1).toString());
+	    	}
+	    } catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR idCuenta " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (this.rs != null) {
+					this.rs.close();
+				}
+
+				if (this.ps != null) {
+					this.ps.close();
+				}
+
+				if (this.c != null) {
+					poolConexion.closeConnection(this.c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+	    
+		return idCC;
+	}
+	
 	//Método para agregar una cuenta contable
 	
 	public boolean addCuentaContable(Tbl_cuentaContable cc) {

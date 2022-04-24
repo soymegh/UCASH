@@ -288,6 +288,102 @@
 							</div>
 						</div>
 					</div>
+					
+					
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Agregar Detalle CC</h2>
+
+									<div class="clearfix"></div>
+								</div>
+
+								<div class="x_content">
+									<form class="" action="../Sl_cuentaContableDet" method="post" novalidate>
+									<input type="hidden" value="1" name="opcion" id="opcion" /> 
+										<span class="section">Datos de Detalle CC</span>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="debe" id="debe"
+													 type="text"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="haber" id="haber"
+													 type="text"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial<span
+												class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional'
+													name="saldoInicial" id="saldoInicial"
+													type="text" required="required" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo
+												Final<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="tel" class='optional'
+													name="saldoFinal" id="saldoFinal" required='required'
+													/>
+											</div>
+										</div>
+
+									<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de cuenta<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<%
+												ArrayList<Vw_catalogo_tipo_cuentacontable> listaNc = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+												Dt_cuentaContable dtidCuenta = new Dt_cuentaContable();
+												listaNc = dtidCuenta.listaCuentasContables();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="idCuenta" id="idCuenta" required="required">
+													<option value="0">Seleccione...</option>
+													<%
+													for (Vw_catalogo_tipo_cuentacontable ccDS : listaNc){
+													%>
+													<option value="<%=ccDS.getIdCuenta()%>">
+													<%=ccDS.getNombreCuenta()%>
+												</option>
+													<%
+													}
+													%>
+												</select>
+											</div>
+										</div> 
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button type='submit' class="btn btn-primary">Agregar</button>
+													<button type='reset' class="btn btn-success">Reiniciar</button>
+													<button type="button" class="btn btn-primary">Cancelar</button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- /page content -->

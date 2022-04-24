@@ -66,7 +66,8 @@ public class Sl_cuentaContable extends HttpServlet {
 			try
 			{
 				if(dtCc.addCuentaContable(cc)) {
-					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=1");
+					int idCC = dtCc.idCuentaContable();
+					response.setHeader("Refresh","0; URL=http://localhost:8080/SistemaContable/production/addCuentaContable.jsp?msj="+ idCC);
 				}
 				else
 				{
@@ -96,9 +97,9 @@ public class Sl_cuentaContable extends HttpServlet {
 			
 			try {
 				if(dtCc.editCuentaContable(cc)) { 
-					response.sendRedirect("production/tbl_cuentaContable.jsp?msj=3"); 
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=3"); 
 				} else {
-					response.sendRedirect("production/tbl_cuentaContable.jsp?msj=4"); 
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=4"); 
 
 				}
 			} catch(Exception e) {
@@ -113,9 +114,9 @@ public class Sl_cuentaContable extends HttpServlet {
 			cc.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
 			try {
 				if (dtCc.deleteCuentaContable(cc)) {
-						response.sendRedirect("production/tbl_cuentaContable.jsp?msj=5");
+						response.sendRedirect("production/tbl_cuentacontable.jsp?msj=5");
 				} else {
-						response.sendRedirect("production/tbl_cuentaContable.jsp?msj=6");
+						response.sendRedirect("production/tbl_cuentacontable.jsp?msj=6");
 				}
 				
 			} catch (Exception e) {
