@@ -264,7 +264,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<p> </p>
-													<button class="btn btn-primary">Regresar</button>
+													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>

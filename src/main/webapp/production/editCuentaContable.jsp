@@ -11,6 +11,19 @@ Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
+
+Tbl_tipocuenta ttc = new Tbl_tipocuenta();
+Dt_tipocuenta dtTcc = new Dt_tipocuenta();
+ttc = dtTcc.getTableTipocuentaByID(Integer.parseInt(cc));
+
+
+
+Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
+Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
+cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
+
+
+
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -313,7 +326,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 													%>
 
 								                 <select class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
-												  <option value=""><%= vwCc.getTipoCuenta() %>...</option>
+												  <option value="<%=ttc.getIdTipoCuenta()%>">Seleccione...</option>
 													<%
 												  		for(Tbl_tipocuenta tc : listaTc){
 												  	%>
@@ -340,7 +353,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 								                 <select class="form-control js-example-basic-single" 
 								                 		 name="cbxCatalogoCuenta" id="cbxCatalogoCuenta" required="required">
-												  <option value=""><%= vwCc.getCatalogoCuenta() %>...</option>
+												  <option value="<%=cata.getIdCatalogo()%>">Seleccione...</option>
 												  	<%
 												  		for(Vw_catalogocuenta_empresa cat : listaCat){
 												  	%>
@@ -379,6 +392,50 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 		<div class="pull-right">Sistema contable by Eldian's Software</div>
 		<div class="clearfix"></div>
 	</footer>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../vendors/validator/multifield.js"></script>
+	<script src="../vendors/validator/validator.js"></script>
+	
+	<!-- JavaScript Functions -->
+
+	<script>
+		// initialize a validator instance from the "FormValidator" constructor.
+		// A "<form>" element is optionally passed as an argument, but is not a must
+		var validator = new FormValidator({
+			"events" : [ 'blur', 'input', 'change' ]
+		}, document.forms[0]);
+		// on form "submit" event
+		document.forms[0].onsubmit = function(e) {
+			var submit = true, validatorResult = validator.checkAll(this);
+			console.log(validatorResult);
+			return !!validatorResult.valid;
+		};
+		// on form "reset" event
+		document.forms[0].onreset = function(e) {
+			validator.reset();
+		};
+		// stuff related ONLY for this demo page:
+		$('.toggleValidationTooltips').change(function() {
+			validator.settings.alerts = !this.checked;
+			if (this.checked)
+				$('form .alert').remove();
+		}).prop('checked', false);
+	</script>
+
+	<!-- Script cbx -->
+	
+	<script>
+	
+	function setForm(){
+    	
+    	document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo()%>";
+    	document.getElementById("cbxTipoCuenta").value = "<%=ttc.getIdTipoCuenta()%>";
+		}
+	window.onload = setForm;
+	
+	</script>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
