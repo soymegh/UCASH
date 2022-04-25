@@ -459,8 +459,6 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 														class="btn btn-success">Reiniciar</button>
 													<button id="cancelarE" type="button"
 														class="btn btn-primary">Cancelar</button>
-													<button onClick={test()} type="button"
-														class="btn btn-primary">Test</button>
 												</div>
 											</div>
 										</div>
@@ -547,11 +545,6 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 
 			console.log(document.getElementById("representanteLegal").value);
 			console.log(document.getElementById("ruc").value);
-		}
-
-		function test() {
-			console.log(document.getElementById("representanteLegal").value);
-
 		}
 
 		window.onload = setForm;
