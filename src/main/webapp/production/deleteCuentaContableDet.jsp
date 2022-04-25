@@ -282,7 +282,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-danger">Eliminar</button>
-													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Regresar</button></a>
+													<a  href="tbl_cuentacontable.jsp"><button  type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
 										</div>

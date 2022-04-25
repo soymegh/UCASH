@@ -8,9 +8,14 @@ String CCD = "";
 Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
 Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
 
-Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
 
 int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")): 0;
+
+Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+Dt_cuentaContable_Det dtCcd = new Dt_cuentaContable_Det();
+ccd = dtCcd.getCcdbyID(idCCD);
+
+
 vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 <html>
@@ -325,13 +330,24 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 	</footer>
 	
 	<script>
+	
+	function setForm(){
+    	
+    	document.getElementById("idCuenta").value = "<%=ccd.getIdCuenta()%>";
+    	
+		}
+	window.onload = setForm;
+	
+	</script>
+	
+	<!-- <script>
 			function getURL() {
 				const url = window.location.href;
 				var idCD = url.substring(url.indexOf('=') + 1);
 				document.getElementById("idCuenta").value = idCD;
 			}
 			window.onload = getURL();
-		</script>
+		</script> -->
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

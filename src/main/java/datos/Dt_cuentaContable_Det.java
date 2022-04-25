@@ -78,6 +78,49 @@ public class Dt_cuentaContable_Det {
 	}
 	
 	
+	public Tbl_cuentaContable_Det getCcdbyID(int idCuentaContableDet) {
+		Tbl_cuentaContable_Det ccD = new Tbl_cuentaContable_Det();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.cuentacontabledet WHERE idCuentaContableDet=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps.setInt(1, idCuentaContableDet);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				ccD.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
+				ccD.setIdCuenta(this.rs.getInt("idCuenta"));
+				ccD.setDebe(this.rs.getDouble("debe"));
+				ccD.setHaber(this.rs.getDouble("haber"));
+				ccD.setSaldoInicial(this.rs.getDouble("saldoInicial"));
+				ccD.setSaldoFinal(this.rs.getDouble("saldoFinal"));
+				
+			}
+		}catch (Exception e)
+		{
+			System.out.println("DATOS ERROR getCcdbyID(): "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return ccD;
+	}
+	
+	
 	public Vw_cuentacontable_cuentacontable_det getCCDbyID(int idCuentaContableDet) {
 		Vw_cuentacontable_cuentacontable_det ccD = new Vw_cuentacontable_cuentacontable_det();
 		try {

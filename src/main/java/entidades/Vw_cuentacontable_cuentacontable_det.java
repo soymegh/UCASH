@@ -8,6 +8,8 @@ public class Vw_cuentacontable_cuentacontable_det {
 	private double saldoFinal;
 	private double saldoInicial;
 	private String nombreCuenta;
+	
+	
 	public int getIdCuentaContableDet() {
 		return idCuentaContableDet;
 	}
