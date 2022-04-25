@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,7 +193,7 @@
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a href="tbl_periodoFiscal.jsp" type="button" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>

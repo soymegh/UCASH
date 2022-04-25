@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Tbl_usuario user = new Tbl_usuario();
+Dt_usuario datosUsuario = new Dt_usuario();
+
+int idUser = (request.getParameter("idUsuario") != null) ? Integer.parseInt(request.getParameter("idUsuario")) : 0;
+
+user = datosUsuario.ObtenerUsuarioPorId(idUser);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ver | Detalle Usuarios</title>
+<title><%=user.getNombre()%> | Detalle Usuarios</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -185,48 +193,38 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form class="">
+								<form class="" action="../Sl_usuario" method="post" novalidate>
 
 									<div class="form-group row ">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
 										<div class="col-md-6 col-sm-6 ">
-											<input type="text" class="form-control"
-												placeholder="Nombre de usuario" readonly>
+											<input type="text" class="form-control" placeholder="Nombre de usuario" value="<%=user.getUsuario()%>" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
 										<div class="col-md-6 col-sm-6 ">
-											<input type="text" class="form-control"
-												placeholder="Nombres" readonly>
+											<input type="text" class="form-control" value="<%=user.getNombre()%>" placeholder="Nombres" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
 										<div class="col-md-6 col-sm-6 ">
-											<input type="text" class="form-control"
-												placeholder="Apellidos" readonly>
+											<input type="text" class="form-control" value="<%=user.getApellidos()%>" placeholder="Apellidos" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">*</span></label>
 										<div class="col-md-6 col-sm-6 ">
-											<input type="text" class="form-control"
-												placeholder="Correo electrónico" readonly>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Password<span class="required">*</span></label>
-										<div class="col-md-6 col-sm-6 ">
-											<input type="password" class="form-control"
-												placeholder="Contraseña"
-												value="" readonly>
+											<input type="text" class="form-control" value="<%=user.getEmail()%>" placeholder="Correo electrónico" readonly>
 										</div>
 									</div>
 
 									<div class="ln_solid"></div>
 									<div class="form-group">
-										
+										<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
+										<button type="button" onClick="window.location.href='editUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Editar este usuario</button>
+										<button type="button" onClick="window.location.href='eliminarUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Eliminar este usuario</button>	
 									</div>
 
 								</form>

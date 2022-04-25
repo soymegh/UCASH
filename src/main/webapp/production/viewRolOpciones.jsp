@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Vw_rolopciones rolOpciones = new Vw_rolopciones();
+Dt_rolOpciones datosUsuarioRol = new Dt_rolOpciones();
+
+int idRolOp = (request.getParameter("idRolOpciones") != null) ? Integer.parseInt(request.getParameter("idRolOpciones")) : 0;
+
+rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -169,14 +177,14 @@
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align"">Id Rol<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="IdRol" data-validate-length-range="5,15" type="number" required="required" readonly />
+												<input class="form-control" class='optional' value="<%=rolOpciones.getRol() %>" name="IdRol" type="text" required="required" readonly />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align"">Id Opciones<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="idOpciones" data-validate-length-range="5,15" type="number" required="required" readonly />
+												<input class="form-control" class='optional' value="<%=rolOpciones.getOpciones() %>" name="idOpciones" type="text" required="required" readonly />
 											</div>
 										</div>
 										<div class="ln_solid">
