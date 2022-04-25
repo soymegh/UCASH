@@ -269,11 +269,11 @@
 															
 															<td>
 															<a href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>">
-																	<i class="fa fa-edit" title="Editar">Editar</i>
+																	<i class="fa fa-edit" title="Editar"></i>
 															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
-																	<i class="fa fa-eye" title="Mostrar" > Mostrar</i>
+																	<i class="fa fa-eye" title="Mostrar" ></i>
 															</a> &nbsp;&nbsp; <a href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
-																	<i class="fa fa-trash" title="Eliminar"> Eliminar</i>
+																	<i class="fa fa-trash" title="Eliminar"></i>
 															</a>
 															</td>
 														</tr>
@@ -336,11 +336,11 @@
 															<td><%=ccD.getSaldoFinal()%></td>
 															<td><%=ccD.getNombreCuenta()%></td>
 															<td><a href="editCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>">
-																	<i class="fa fa-edit" title="Editar">Editar</i>
+																	<i class="fa fa-edit" title="Editar"></i>
 															</a> &nbsp;&nbsp; <a href="viewCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>" > 
-																	<i class="fa fa-eye" title="Mostrar"> Mostrar</i>
+																	<i class="fa fa-eye" title="Mostrar"></i>
 															</a> &nbsp;&nbsp; <a href="deleteCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>"> 
-																	<i class="fa fa-trash" title="Eliminar"> Eliminar</i>
+																	<i class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%

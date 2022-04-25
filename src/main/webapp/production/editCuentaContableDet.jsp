@@ -8,6 +8,8 @@ String CCD = "";
 Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
 Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
 
+Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+
 int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")): 0;
 vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
@@ -288,7 +290,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 													<%
 													for (Vw_catalogo_tipo_cuentacontable ccDS : listaNc){
 													%>
-													<option value="<%=ccDS.getIdCuentaContable()%>">
+													<option value="<%=ccDS.getIdCuenta()%>">
 													<%=ccDS.getNombreCuenta()%>
 												</option>
 													<%
@@ -302,7 +304,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
 										</div>
@@ -321,6 +323,15 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 		<div class="pull-right">Sistema contable by Eldian's Software</div>
 		<div class="clearfix"></div>
 	</footer>
+	
+	<script>
+			function getURL() {
+				const url = window.location.href;
+				var idCD = url.substring(url.indexOf('=') + 1);
+				document.getElementById("idCuenta").value = idCD;
+			}
+			window.onload = getURL();
+		</script>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

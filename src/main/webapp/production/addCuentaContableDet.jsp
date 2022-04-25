@@ -235,7 +235,7 @@
 													<%
 													for (Vw_catalogo_tipo_cuentacontable ccDS : listaNc){
 													%>
-													<option value="<%=ccDS.getIdCuentaContable()%>">
+													<option value="<%=ccDS.getIdCuenta()%>">
 													<%=ccDS.getNombreCuenta()%>
 												</option>
 													<%
