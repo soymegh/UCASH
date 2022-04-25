@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entidades.Tbl_representanteLegal;
+import entidades.Tbl_tipoIdentificacion;
 import entidades.Vw_representanteLegal;
 
 public class Dt_representanteLegal {
@@ -114,7 +115,10 @@ public class Dt_representanteLegal {
 
 		return listRL;
 	}
+	
 
+	//Metodo para Agregar Representante Legal
+	
 	public boolean addRepresentanteLegal(Tbl_representanteLegal representante) {
 		boolean guardado = false;
 
@@ -155,5 +159,187 @@ public class Dt_representanteLegal {
 
 		return guardado;
 	}
+	
 
+	//Metodo para modificar Representante Legal
+	public boolean modificarRepresentanteLegal(Tbl_representanteLegal mRepresentanteL) {
+		   boolean modificado = false;
+		   try{
+			   c = poolConexion.getConnection();
+			   this.llenaRsRepresentanteLegal(c);
+			   rsRepresentantel.beforeFirst();
+			   while (rsRepresentantel.next()) {
+				   if(rsRepresentantel.getInt(1)==mRepresentanteL.getIdRepresentante()){
+					   rsRepresentantel.updateInt("idRepresentante", mRepresentanteL.getIdRepresentante());
+					   rsRepresentantel.updateInt("idTipoIdentifiacion", mRepresentanteL.getIdTipoIdentifiacion());
+					   rsRepresentantel.updateString("nombre", mRepresentanteL.getNombre());
+					   rsRepresentantel.updateString("apellido", mRepresentanteL.getApellido());
+					   rsRepresentantel.updateString("telefono", mRepresentanteL.getTelefono());
+					   rsRepresentantel.updateString("correo", mRepresentanteL.getCorreo());
+					   rsRepresentantel.updateInt("estado", 2 );
+					   rsRepresentantel.updateRow();
+					   modificado=true;
+					   break;
+				   }
+			   }
+	} catch (Exception e) {
+		System.err.println("ERROR AL modificar Representante Legal() "+e.getMessage());
+		e.printStackTrace();
+	}
+	 finally
+	 {
+		 try {
+			  if(rsRepresentantel !=null) {
+				  rsRepresentantel.close();
+			  }
+			  if(rsRepresentantel !=null) {
+				  poolConexion.closeConnection(c);
+			  }
+			  
+		 } catch (SQLException e) {
+			 //Todo Auto-generated catch block
+			 e.printStackTrace();
+		 }
+	 }
+		   return modificado;
+}
+	
+	
+	
+	//Metodo para eliminar un Representante Legal
+	public boolean eliminarRepresentanteLegal(Tbl_representanteLegal eliRepresentanteL)
+	{
+		boolean eliminado=false;	
+		try
+		{
+			c = poolConexion.getConnection();
+			this.llenaRsRepresentanteLegal(c);
+			rsRepresentantel.beforeFirst();
+			while (rsRepresentantel.next()){
+				if(rsRepresentantel.getInt(1)==eliRepresentanteL.getIdRepresentante()){
+					rsRepresentantel.updateInt("estado", 3);
+					rsRepresentantel.updateRow();
+					eliminado=true;
+					break;
+				}
+			}
+		}
+		catch (Exception e){
+			System.err.println("ERROR AL Representante Legal() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(rsRepresentantel != null){
+					rsRepresentantel.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return eliminado;
+	}
+	
+	//Metodo GetByID
+	public Tbl_representanteLegal getRepresentanteLegalbyID(int idR) {
+		Tbl_representanteLegal REL = new Tbl_representanteLegal();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.representantelegal where idRepresentante = " +idR, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			//ps.setInt(1, idTC);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				REL.setIdRepresentante(rs.getInt("idRepresentante"));
+				
+				REL.setIdTipoIdentifiacion(rs.getInt("idTipoIdentifiacion"));
+				
+				REL.setNombre(rs.getString("nombre"));
+				
+				REL.setApellido(rs.getString("apellido"));
+				
+				REL.setTelefono(rs.getString("telefono"));
+				
+				REL.setCorreo(rs.getString("correo"));
+				
+				REL.setEstado(rs.getInt("estado"));
+				
+			}
+		}catch (Exception e)
+		{
+			System.out.println("DATOS ERROR getRepresentanteLegalbyID(): "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return REL;
+	}
+	
+	public Vw_representanteLegal getViewRepresentanteLegalbyID(int idVw) {
+		Vw_representanteLegal viewR = new Vw_representanteLegal();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_representantelegal where idRepresentante = " +idVw, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			//ps.setInt(1, idTC);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				viewR.setIdRepresentante(rs.getInt("idRepresentante"));
+				
+				viewR.setNombreCompleto(rs.getString("nombre completo"));
+
+				viewR.setTipo(rs.getString("tipo"));
+				
+				viewR.setCorreo(rs.getString("correo"));
+				
+				viewR.setTelefono(rs.getString("telefono"));
+				
+				viewR.setEstado(rs.getInt("estado"));
+				
+				
+			}
+		}catch (Exception e)
+		{
+			System.out.println("DATOS ERROR getViewRepresentanteLegalbyID(): "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return viewR;
+	}
 }

@@ -52,17 +52,19 @@ public class Sl_representanteLegal extends HttpServlet {
 		representante.setTelefono(request.getParameter("telefono"));
 		representante.setCorreo(request.getParameter("correo"));
 
-		int identificacion = Integer.parseInt(request.getParameter("idTipoIdentifiacion"));
-		representante.setIdTipoIdentifiacion(identificacion); 
+		
+		
 		representante.setEstado(1);
 
 		switch (opc) {
 		case 1:
+			int identificacion = Integer.parseInt(request.getParameter("idTipoIdentifiacion"));
+			representante.setIdTipoIdentifiacion(identificacion); 
 			try {
 				if (dtRepresentante.addRepresentanteLegal(representante)) {
 					
 					int idR = dtRepresentante.idRepresentanteLegal(); 
-					response.setHeader("Refresh", "0; URL=http://localhost:8080/SistemaContable/production/addEmpresa.jsp?msj="+ idR);
+					response.setHeader("Refresh", "0; production/addEmpresa.jsp?msj="+ idR);
 					
 
 				} else {
@@ -73,6 +75,57 @@ public class Sl_representanteLegal extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case 2:
+			int Identificacion = Integer.parseInt(request.getParameter("idTipoIdentifiacion"));
+			representante.setIdTipoIdentifiacion(Identificacion); 
+			try {
+				if (dtRepresentante.addRepresentanteLegal(representante)) {
+					response.sendRedirect("production/tbl_representanteLegal.jsp?msj=3");
+					
+				} else {
+					response.sendRedirect("production/tbl_representanteLegal.jsp?msj=4");
+				}
+			} catch (Exception e) {
+				System.out.println("Error al guardar representante legal: " + e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+		case 3:
+			int identificacion2 = Integer.parseInt(request.getParameter("idTipoIdentifiacion"));
+			representante.setIdTipoIdentifiacion(identificacion2); 
+			try {
+				representante.setIdRepresentante(Integer.parseInt(request.getParameter("idRepresentanteLegal")));
+				
+				if(dtRepresentante.modificarRepresentanteLegal(representante)) {
+					response.sendRedirect("production/tbl_representanteLegal.jsp?msj=5");
+				}else {
+					response.sendRedirect("production/tbl_representanteLegal.jsp?msj=6");
+				}
+			}catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("ERROR al editar representante legal : "+ e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+		case 4:
+			
+				representante.setIdRepresentante(Integer.parseInt(request.getParameter("idRepresentanteLegal")));
+			
+			try {
+				if (dtRepresentante.eliminarRepresentanteLegal(representante)) {
+						response.sendRedirect("production/tbl_representanteLegal.jsp?msj=7");
+				} else {
+						response.sendRedirect("production/tbl_representanteLegal.jsp?msj=8");
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("ERROR Sl_tipoIdentificacion opc3: "+ e.getMessage());
+				e.printStackTrace();
+			}
+		
+			break;
+			
 		default:
 			break;
 

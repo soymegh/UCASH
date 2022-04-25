@@ -89,6 +89,7 @@
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
                                                             <li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
 									
@@ -173,20 +174,7 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Representante Legal</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li class="dropdown"><a href="#" class="dropdown-toggle"
-											data-toggle="dropdown" role="button" aria-expanded="false"><i
-												class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a> <a
-													class="dropdown-item" href="#">Settings 2</a>
-											</div></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
+									
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -221,7 +209,13 @@
 													<tbody>
 														<%
 														for (Vw_representanteLegal RL : listarRepresentanteLegal) {
-															
+															String estado = "";
+															if (RL.getEstado() != 3) {
+																estado = "ACTIVO";
+															} else {
+																estado = "INACTIVO";
+															}
+														
 														%>
 														<tr>
 															
@@ -230,14 +224,16 @@
 															<td><%=RL.getTipo() %></td>
 															<td><%=RL.getCorreo() %></td>
 															<td><%=RL.getTelefono() %></td>
-															<td><%=RL.getEstado() %></td>
+															<td><%=estado %></td>
 															
 															
-															<td><a href="editRepresentanteLegal.jsp" target="blank"> <i
+															<td><a href="editRepresentanteLegal.jsp?idRepresentanteLegal=<%= RL.getIdRepresentante() %>" > <i
 																	class="fa fa-edit" title="Editar"></i></a>
-																&nbsp;&nbsp; <a href="viewRepresentanteLegal.jsp" target="blank">
+																	
+																&nbsp;&nbsp; <a href="viewRepresentanteLegal.jsp?idRepresentanteLegal=<%= RL.getIdRepresentante() %>"  >
 																	<i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
+																	
+															</a> &nbsp;&nbsp; <a href="deleteRepresentanteLegal.jsp?idRepresentanteLegal=<%= RL.getIdRepresentante() %>" > <i
 																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>

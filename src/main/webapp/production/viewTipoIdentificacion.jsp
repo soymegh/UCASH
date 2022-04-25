@@ -219,9 +219,15 @@ tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
 
 										<div class="ln_solid">
 											<div class="form-group" align="center">
-												<a  href="tbl_TipoIdentificacion.jsp" class="btn btn-primary" > Cancelar</a>
+												<div class="col-md-6 offset-md-3">
+												<a href="tbl_representanteLegal.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-2x fa-arrow-circle-o-left"></i> Regresar
+												</a>
+												</div>
 											</div>
 										</div>
+										
 									</form>
 								</div>
 							</div>

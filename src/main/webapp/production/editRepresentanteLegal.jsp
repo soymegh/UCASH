@@ -3,6 +3,26 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<%
+String Representante = "";
+Representante = request.getParameter("idRepresentanteLegal") == null ? "0" : request.getParameter("idRepresentanteLegal");
+
+Vw_representanteLegal vRL = new Vw_representanteLegal();
+Tbl_representanteLegal tRL = new Tbl_representanteLegal();
+
+Dt_representanteLegal dtRl = new Dt_representanteLegal();
+
+vRL = dtRl.getViewRepresentanteLegalbyID(Integer.parseInt(Representante));
+tRL = dtRl.getRepresentanteLegalbyID(Integer.parseInt(Representante));
+
+Tbl_tipoIdentificacion tipI = new Tbl_tipoIdentificacion();
+Dt_tipoIdentificacion dtTId = new Dt_tipoIdentificacion();
+tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
+
+
+%>
+
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -98,6 +118,7 @@
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
                                                             <li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
 									
@@ -184,37 +205,79 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+								
+								
+								
+								<form class="" action="../Sl_representanteLegal" method="post" novalidate>
+								
+									<input type="hidden" value="3" name="opcion" id="opcion" />
+									
 										<span class="section">Datos de Representante Legal</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
-												Completo<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" required="required" />
-											</div>
-										</div>
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
+											<label class="col-form-label col-md-3 col-sm-3  label-align">ID
 												<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
+												
+											<input value= "<%= tRL.getIdRepresentante() %>"class="form-control" class='optional' readonly
+													name="idRepresentanteLegal" id="idRepresentanteLegal"
 													type="text" required="required" />
 											</div>
-										</div>
+									</div>
+										
+									<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+														<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6">
+														<input value="<%= tRL.getNombre() %>" class="form-control" class='optional' name="nombre"
+															data-validate-length-range="5,15" type="text"
+															required="required" />
+													</div>
+									</div>
+									
+									
+									<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Apellido
+														<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6">
+														<input value="<%= tRL.getApellido() %>"class="form-control" class='optional'
+															name="apellido" data-validate-length-range="5,15"
+															type="text" required="required" />
+													</div>
+									</div>
+										
+										<div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Tipo <span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                 <%
+							                      	ArrayList<Tbl_tipoIdentificacion> listTI = new ArrayList<Tbl_tipoIdentificacion>();
+							                      	Dt_tipoIdentificacion dtTI = new Dt_tipoIdentificacion();
+							                      	listTI = dtTI.listarTipoIdentificacion();
+								                 %>
+								                 <select class="form-control js-example-basic-single" name="idTipoIdentifiacion" id="idTipoIdentifiacion" required="required">
+												  <option value="<%=tipI.getIdTipoIdentifiacion()%>"><%=tipI.getTipo()%></option>
+												  <% 
+												  for(Tbl_tipoIdentificacion TI: listTI){
+												  %>
+												  <option value="<%=TI.getIdTipoIdentifiacion()%>"><%=TI.getTipo()%></option>
+												  <%
+												  	}
+												  %>
+												</select>
+											</div>
+                                        </div>
 										
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="email" class='email'
+												<input value="<%= tRL.getCorreo() %>"  class="form-control" name="correo" class='email'
 													required="required" type="email" />
 											</div>
 										</div>
@@ -223,17 +286,18 @@
 												correo<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="email" class='email'
-													name="confirm_email" data-validate-linked='email'
+												<input value="<%= tRL.getCorreo() %>" class="form-control" type="email" class='email'
+													name="confirm_email" data-validate-linked='correo'
 													required='required' />
 											</div>
 										</div>
+										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="tel" class='tel'
-													name="phone" required='required'
+												<input value="<%= tRL.getTelefono() %>" class="form-control" type="tel" class='tel'
+													name="telefono" required='required'
 													data-validate-length-range="8,20" />
 											</div>
 										</div>
@@ -245,9 +309,11 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
+													<button type='submit' class="btn btn-primary">Agregar</button>
+													
 													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													
+													<a  href="tbl_representanteLegal.jsp" class="btn btn-primary" > Cancelar</a>
 												</div>
 											</div>
 										</div>
@@ -315,8 +381,13 @@
 			if (this.checked)
 				$('form .alert').remove();
 		}).prop('checked', false);
+		
+		//Codigo para visualizar las opciones del select
+		
 	</script>
-
+	
+	
+	
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
