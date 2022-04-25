@@ -220,7 +220,14 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-danger">Eliminar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+											<div class="ln_solid">
+											<div class="form-group" align="center">
+												<a href="tbl_catalogocuenta.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-arrow-circle-o-left"></i> Cancelar
+												</a>
+											</div>
+											</div>
 												</div>
 											</div>
 										</div>
