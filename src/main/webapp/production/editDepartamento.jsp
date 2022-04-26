@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String dept = "";
+dept = request.getParameter("idDp") == null ? "0" : request.getParameter("idDp");
+
+Tbl_departamento td = new Tbl_departamento();
+Dt_departamento dtdp = new Dt_departamento();
+td = dtdp.getDeptbyID(Integer.parseInt(dept));
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -27,10 +37,18 @@
 <link
 	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
 	rel="stylesheet">
-<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+<link
+	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -51,8 +69,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -71,11 +88,12 @@
 								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
-						
+
 						<div class="menu_section">
 							<h3>Gestión</h3>
 							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
 										<li><a href="tbl_rol.jsp">Roles</a></li>
@@ -83,32 +101,39 @@
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                                            <li><a href="tbl_departamento.jsp">Departamento</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -130,10 +155,13 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -153,9 +181,8 @@
 						<div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar..."> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" placeholder="Buscar...">
+									<span class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
 								</div>
@@ -175,30 +202,31 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_departamento" method="post"
+										novalidate>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=td.getIdDepartamento() %>" name="idDepartamento" id="idDepartamento" />
 										<span class="section">Datos de Departamento</span>
-										
-										
-										
-									<div class="field item form-group">
+
+
+										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento
-												<span class="required">*</span>
+												<span class="required"></span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" required="required" />
+												<input class="form-control" class='optional' value="<%=td.getDepartamento()%>"
+													name="txtdepartamento" id="txtdepartamento" type="text"
+													required="required" />
 											</div>
 										</div>
-										
-									
-	
-                                       
-                                          										<div class="ln_solid">
+
+
+
+
+										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
+													<button type='submit' class="btn btn-primary">Editar</button>
 													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>

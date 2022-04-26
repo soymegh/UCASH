@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Tasa Cambio</title>
+<title>Agregar | Usuario</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -164,17 +164,16 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Formulario de usuarios</h2>
-
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="../Sl_usuario" method="post" novalidate>
+									<form class="" action="../Sl_usuario" method="post" id="myForm" novalidate>
 										<input type="hidden" value="1" name="opcion" id="opcion" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="nombres"
+												<input id="txt_nombre" class="form-control" class='optional' name="nombres"
 													type="text" required="required" placeholder="Nombres" />
 											</div>
 										</div>
@@ -183,7 +182,7 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Apellidos<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
+												<input id="txt_apellido" class="form-control" class='optional'
 													name="apellidos" type="text" required="required"
 													placeholder="Apellidos" />
 											</div>
@@ -194,7 +193,7 @@
 												Electronico<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="email"
+												<input id="txt_email" class="form-control" class='optional' name="email"
 													type="text" required="required"
 													placeholder="Correo Electronico" />
 											</div>
@@ -217,7 +216,7 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="usuario"
+												<input id="txt_usuario" class="form-control" class='optional' name="usuario"
 													type="text" required="required"
 													placeholder="Nombre de Usuario" />
 											</div>
@@ -227,7 +226,7 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Contraseña<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="pwd"
+												<input id="txt_password" class="form-control" class='optional' name="pwd"
 													type="password" required="required" placeholder="Contraseña" />
 											</div>
 										</div>
@@ -248,8 +247,8 @@
 										<div class="ln_solid"></div>
 										<div class="form-group">
 											<div class="col-md-9 col-sm-9  offset-md-3">
-												<button type='submit' class="btn btn-primary">Agregar</button>
-												<button type="button" class="btn btn-primary">Cancelar</button>
+												<button type="button" id="button_cancel" onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Cancelar</button>
+												<button type='submit' id="button_execute" class="btn btn-primary">Agregar</button>
 											</div>
 										</div>
 
@@ -304,7 +303,10 @@
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
-
+	
+	<!--Keyboard Navigation-->
+	<script src="js/navigation/addUsuarioNav.js"></script>
+	
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

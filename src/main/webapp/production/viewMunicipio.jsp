@@ -1,7 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String mun = "";
+mun = request.getParameter("idM") == null ? "0" : request.getParameter("idM");
+
+Tbl_municipio tm = new Tbl_municipio();
+Dt_municipio dtmun = new Dt_municipio();
+tm = dtmun.getMunbyID(Integer.parseInt(mun));
+
+Tbl_departamento td = new Tbl_departamento();
+Dt_departamento dtdp = new Dt_departamento();
+td = dtdp.getDeptbyID(tm.getIdDepartamento());
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -178,33 +192,34 @@
 									<form class="" action="" method="post" novalidate>
 										<span class="section">Datos de Municipio</span>
 										
+										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio
-												<span readonly>*</span>
+												<span></span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
+													name="txt" value="<%=tm.getMunicipio() %>"
 													type="text" readonly />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span
-												readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span></span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input readonly class="form-control" type="email"
-													class='email' name="confirm_email"
-													data-validate-linked='email' required='required' />
+												<input readonly class="form-control" type="text"
+													class='optional' name="txt" value="<%=td.getDepartamento() %>"
+													 readonly />
 											</div>
 										</div>
 										
 										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button class="btn btn-primary">Regresar</button>
-												</div>
+											<div class="form-group" align="center">
+												<a href="tbl_municipio.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-arrow-circle-o-left"></i> Regresar
+												</a>
 											</div>
 										</div>
 									</form>

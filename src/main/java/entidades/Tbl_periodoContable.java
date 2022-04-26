@@ -1,21 +1,29 @@
 package entidades;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Tbl_periodoContable {
 	private int idPeriodoContable;
+	private int idPeriodoFiscal;
 	private Date fechaInicio;
 	private Date fechaFinal;
-	private String prorroga;
-	private int tipoPeriodoContable;
 	private int estado;
 	
+		
 	public int getIdPeriodoContable() {
 		return idPeriodoContable;
 	}
 	public void setIdPeriodoContable(int idPeriodoContable) {
 		this.idPeriodoContable = idPeriodoContable;
 	}
+	
+	public int getIdPeriodoFiscal() {
+		return idPeriodoFiscal;
+	}
+	public void setIdPeriodoFiscal(int idPeriodoFiscal) {
+		this.idPeriodoFiscal = idPeriodoFiscal;
+	}
+	
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
@@ -28,18 +36,7 @@ public class Tbl_periodoContable {
 	public void setFechaFinal(Date fechaFinal) {
 		this.fechaFinal = fechaFinal;
 	}
-	public String getProrroga() {
-		return prorroga;
-	}
-	public void setProrroga(String prorroga) {
-		this.prorroga = prorroga;
-	}
-	public int getTipoPeriodoContable() {
-		return tipoPeriodoContable;
-	}
-	public void setTipoPeriodoContable(int tipoPeriodoContable) {
-		this.tipoPeriodoContable = tipoPeriodoContable;
-	}
+	
 	public int getEstado() {
 		return estado;
 	}

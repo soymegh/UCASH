@@ -46,13 +46,15 @@ public class Sl_rolOpciones extends HttpServlet {
 		Tbl_rolOpciones tro = new Tbl_rolOpciones();
 		Dt_rolOpciones dtro = new Dt_rolOpciones(); 
 		
-		tro.setIdRol(Integer.parseInt(request.getParameter("cbxRol")));
-		tro.setIdOpciones(Integer.parseInt(request.getParameter("cbxOpciones")));
 		
 		////////////////////////////////////////////////////////////////////
 		
 		switch(opc) {
 		case 1:
+			
+			tro.setIdRol(Integer.parseInt(request.getParameter("cbxRol")));
+			tro.setIdOpciones(Integer.parseInt(request.getParameter("cbxOpciones")));
+			
 			try {
 				if(dtro.asignarOpcion(tro)) {
 					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=1");
@@ -65,7 +67,40 @@ public class Sl_rolOpciones extends HttpServlet {
 			}
 			break;
 		case 2:
-			//codigo
+		
+			
+			tro.setIdOpciones(Integer.parseInt(request.getParameter("cbxOpciones")));
+			tro.setIdRol(Integer.parseInt(request.getParameter("cbxRol")));
+			tro.setIdRolOpciones(Integer.parseInt(request.getParameter("idRolOpciones")));
+			
+			System.out.println("Id de la asginación (SERVLET): "+tro.getIdRolOpciones()+"");
+			
+			try {
+				if(dtro.modificarRolOpcion(tro)) {
+					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=3");
+				}else {
+					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=4");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_usuarioRol opc2: "+e.getMessage());
+				e.printStackTrace();
+			}
+			
+			break;
+	case 3:
+			
+			tro.setIdRolOpciones(Integer.parseInt(request.getParameter("idRolOpciones")));
+			
+			try {
+				if(dtro.eliminarRolOpcion(tro.getIdRolOpciones())) {
+					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=3");
+				}else {
+					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=4");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_usuarioRol opc2: "+e.getMessage());
+				e.printStackTrace();
+			}
 			break;
 		default:
 			//codigo

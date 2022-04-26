@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entidades.Tbl_usuario;
 import entidades.Tbl_usuarioRol;
 import entidades.Vw_usuariorol;
 
@@ -24,7 +25,7 @@ public class Dt_usuarioRol {
 	//Metodo para llenar el ResultSet
 	public void llenarRsUserRol(Connection c) {
 		try {
-			ps = c.prepareStatement("Select * from tbl_usuariorol;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps = c.prepareStatement("SELECT * FROM usuariorol;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			rsUserRol = ps.executeQuery();
 		} catch(Exception e) {
 			System.out.println("DATOS: ERROR EN LISTAR USUARIO ROL" + e.getMessage());
@@ -42,9 +43,11 @@ public class Dt_usuarioRol {
 			rs = ps.executeQuery();
 			while(rs.next()) { 
 				Vw_usuariorol tblUserRol = new Vw_usuariorol();
-				tblUserRol.setIdUsuarioRol(this.rs.getInt("idUsuarioRol"));
-				tblUserRol.setDescripcion(this.rs.getString("descripcion"));
-				tblUserRol.setNombreCompleto(this.rs.getString("Nombre Completo"));
+				tblUserRol.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
+				tblUserRol.setDescripcion(rs.getString("nombreRol"));
+				tblUserRol.setNombre(rs.getString("nombre"));
+				tblUserRol.setApellido(rs.getString("apellido"));
+				tblUserRol.setUsuario(rs.getString("usuario"));
 				listUserRol.add(tblUserRol);
 			}
 		} 
@@ -77,8 +80,8 @@ public class Dt_usuarioRol {
 		boolean guardado = false;
 		try{
 			c = poolConexion.getConnection();
-			this.llenarRsUserRol(c);
-			this.rsUserRol.moveToInsertRow();
+			llenarRsUserRol(c);
+			rsUserRol.moveToInsertRow();
 			
 			rsUserRol.updateInt("idRol", UserRol.getIdRol());
 			rsUserRol.updateInt("idUsuario", UserRol.getIdUsuario());
@@ -107,4 +110,129 @@ public class Dt_usuarioRol {
 		}
 		return guardado;
 	}
+	
+	public Vw_usuariorol ObtenerUsuarioRolPorId(int id) {
+		Vw_usuariorol userRol = new Vw_usuariorol();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_usuariorol WHERE  idUsuarioRol = ?;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				userRol.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
+				userRol.setDescripcion(rs.getString("nombreRol"));
+				userRol.setNombre(rs.getString("nombre"));
+				userRol.setApellido(rs.getString("apellido"));
+				userRol.setUsuario(rs.getString("usuario"));
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR USUARIOS " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return userRol;
+	}
+	
+	public boolean modificarUsuarioRol(Tbl_usuarioRol userRol)
+	{
+		boolean modificado=false;	
+		try
+		{
+			c = poolConexion.getConnection();
+			llenarRsUserRol(c);
+			rsUserRol.beforeFirst();
+			while (rsUserRol.next())
+			{
+				if(rsUserRol.getInt(1)==userRol.getIdUsuarioRol())
+				{
+					rsUserRol.updateInt("idRol", userRol.getIdRol());
+					rsUserRol.updateInt("idUsuario", userRol.getIdUsuario());
+					rsUserRol.updateRow();
+					modificado=true;
+					break;
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL modificarUser() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if(rsUserRol != null){
+					rsUserRol.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return modificado;
+	}
+	
+	public boolean eliminarUsuarioRol(int id){
+		 boolean eliminado = false;
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("DELETE FROM dbucash.usuariorol WHERE idUsuarioRol = ?; ",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, id);
+			
+			if(ps.executeUpdate() > 0) {
+				eliminado = true;
+			}
+		} 
+		catch (Exception e){
+			System.out.println("DATOS: ERROR EN ELIMINAR USUARIO ROL "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return eliminado;
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		Dt_usuarioRol dt = new Dt_usuarioRol();
+		dt.eliminarUsuarioRol(3);
+    }
 }

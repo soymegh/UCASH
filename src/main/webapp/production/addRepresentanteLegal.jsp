@@ -27,10 +27,18 @@
 <link
 	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
 	rel="stylesheet">
-<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+<link
+	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -51,8 +59,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -83,32 +90,36 @@
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-building"></i>Gestion Empresa<span
+								<li><a><i class="fa fa-building"></i>Gestion Empresa<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-file"></i>Gestion Cuenta Contable<span
-										class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-file"></i>Gestion Cuenta
+										Contable<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
+								<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i>Gestion Asiento Contable<span
-										class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i>Gestion Asiento
+										Contable<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -145,7 +156,8 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -207,7 +219,7 @@
 				</div>
 			</div>
 			<!-- /top navigation -->
-			
+
 
 			<!-- page content -->
 			<div class="right_col" role="main">
@@ -242,70 +254,115 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de Representante Legal</span>
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
-												Completo<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
-												<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
-												class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="email" class='email'
-													required="required" type="email" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Confirmar
-												correo<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="email" class='email'
-													name="confirm_email" data-validate-linked='email'
-													required='required' />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
-												class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="tel" class='tel'
-													name="phone" required='required'
-													data-validate-length-range="8,20" />
-											</div>
-										</div>
-										
+									<div class="x_content">
+										<form class="" action="../Sl_representanteLegal" method="post" novalidate>
+												
+												<input type="hidden" value="2" name="opcion" id="opcion" />
+												
+												<span class="section">Datos de Representante Legal</span>
 
-                                        
-                                        </div>
+												<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+														<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6">
+														<input class="form-control" class='optional' name="nombre"
+															 type="text"
+															required="required" />
+													</div>
+												</div>
+												<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Apellido
+														<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6">
+														<input class="form-control" class='optional'
+															name="apellido" 
+															type="text" required="required" />
+													</div>
+												</div>
+												
+									
+												
+												
+												<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Tipo de identificacion
+														<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6">
+													
+													<%
+													ArrayList<Tbl_tipoIdentificacion> listaTI = new ArrayList<Tbl_tipoIdentificacion>();
+													Dt_tipoIdentificacion dtTI = new Dt_tipoIdentificacion();
+													listaTI = dtTI.listarTipoIdentificacion();
+													%>
+													<select class="form-control js-example-basic-single"
+														name="idTipoIdentifiacion" id="idTipoIdentifiacion" required="required">
+														<option value="0">Seleccione...</option>
+														<%
+														for (Tbl_tipoIdentificacion identificacion : listaTI) {
+														%>
+														<option value="<%=identificacion.getIdTipoIdentifiacion()%>">
+															<%=identificacion.getTipo()%>
+														</option>
+														<%
+														}
+														%>
+
+													</select>
+													</div>
+												</div>
+												
+												
+												
+												<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
+														class="required">*</span></label>
+													<div class="col-md-6 col-sm-6">
+														<input id="correo" class="form-control" name="correo"
+															class='email' required="required" type="email" />
+													</div>
+												</div>
+												<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Confirmar
+														correo<span class="required">*</span>
+													</label>
+													<div class="col-md-6 col-sm-6">
+														<input class="form-control" type="email" class='email'
+															name="confirm_email" data-validate-linked='email'
+															required='required' />
+													</div>
+												</div>
+												<div class="field item form-group">
+													<label
+														class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
+														class="required">*</span></label>
+													<div class="col-md-6 col-sm-6">
+														<input class="form-control" type="tel" class='tel'
+															name="telefono" required='required'
+															data-validate-length-range="8,20" />
+													</div>
+												</div>
+										</div>
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
+												
 													<button type='submit' class="btn btn-primary">Agregar</button>
+													
 													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													
+													<a  href="tbl_representanteLegal.jsp" class="btn btn-primary" > Cancelar</a>
+														
 												</div>
 											</div>
 										</div>
-									</form>
+										</form>
 								</div>
 							</div>
 						</div>
@@ -390,4 +447,3 @@
 </body>
 
 </html>
-    

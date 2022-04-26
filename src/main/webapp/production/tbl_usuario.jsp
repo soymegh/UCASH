@@ -64,7 +64,7 @@
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2>Lic. Jose Ortega.</h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -138,10 +138,10 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic. Josï¿½ Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesiï¿½n</a>
 								</div>
 							</li>
 						</ul>
@@ -165,11 +165,9 @@
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar..."> <span
-										class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Go!</button>
-									</span>
+									<!--<h3>Accesos rapidos:</h3>
+									<p>Agregar un nuevo usuario: Numpad 1 <br> Editar un usuario: Numpad 2
+									<br> Visualizar un usuario: Numpad 3 <br> Dar de baja un usuario: Numpad 0 <br></p>-->
 								</div>
 							</div>
 						</div>
@@ -280,7 +278,8 @@
 	<!-- /footer content -->
 	</div>
 	</div>
-
+	<!--Keyboard navigation-->
+	<script src="js/navigation/userTableNav.js"></script>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

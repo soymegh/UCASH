@@ -12,9 +12,8 @@ public class Vw_empresa {
 	private int idMoneda;
 	private int idDepartamento;
 	private int idMunicipio;
-	
-	private String representanteLegalNombre;
-	private String monedaNombre;
+	private String periodoFiscal; 
+	private String Representante;
 	private String municipioNombre;
 	private String departamentoNombre;
 	public int getIdEmpresa() {
@@ -83,12 +82,6 @@ public class Vw_empresa {
 	public void setIdMunicipio(int idMunicipio) {
 		this.idMunicipio = idMunicipio;
 	}
-	public String getRepresentanteLegalNombre() {
-		return representanteLegalNombre;
-	}
-	public void setRepresentanteLegalNombre(String representanteLegalNombre) {
-		this.representanteLegalNombre = representanteLegalNombre;
-	}
 	public String getMunicipioNombre() {
 		return municipioNombre;
 	}
@@ -106,6 +99,12 @@ public class Vw_empresa {
 	}
 	public void setPeriodoFiscal(String periodoFiscal) {
 		this.periodoFiscal = periodoFiscal;
+	}
+	public String getRepresentante() {
+		return Representante;
+	}
+	public void setRepresentante(String representante) {
+		Representante = representante;
 	}
 	
 	
