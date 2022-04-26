@@ -235,21 +235,17 @@
 															
 
 															<td><a
-																href= "editCatalogocuenta.jsp"
-																target="blank"> <i class="fa fa-edit"
-																	title="Editar Catalogo"></i></a> &nbsp;&nbsp; <a
-																href="viewCatalogocuenta.jsp"
-																target="blank"> <i class="fa fa-eye"
-																	title="Ver Catalogo"></i></a> &nbsp;&nbsp; <a
-																href=""
-																target="_blank"> <i class="fa fa-trash"
-																	title="Eliminar"></i></a> 
-		
+																href="viewCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogoCuenta()%>"
+																target="blank"> <i class="fa fa-eye" title="Mostrar"></i>
+															</a> &nbsp; <a href="editCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogoCuenta()%>" target="blank"> <i
+																	class="fa fa-edit" title="Editar"></i></a> &nbsp; <a
+																href="deleteCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogoCuenta()%>" target="blank"> <i class="fa fa-trash"
+																	title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%
-                      	}
-                        %>
+                      									}
+                        								%>
 													</tbody>
 													
 												</table>

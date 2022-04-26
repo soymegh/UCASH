@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
-<html>
+<%
+String catalogo = "";
+catalogo = request.getParameter("IdCatalogo") == null ? "0" : request.getParameter("IdCatalogo");
+
+Tbl_catalogocuenta tCatalogo = new Tbl_catalogocuenta();
+Dt_catalogocuenta dtCatalogo = new Dt_catalogocuenta();
+tCatalogo = dtCatalogo.getTableCatalogocuentaByID(Integer.parseInt(catalogo));
+
+Tbl_empresa tEmpresa = new Tbl_empresa();
+Dt_empresa dtEmpresa = new Dt_empresa();
+tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
+%>
+<html lang="es">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -20,10 +32,30 @@
 <!-- NProgress -->
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+
+<link
+	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+	rel="stylesheet">
+	
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
-
+	
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -142,7 +174,7 @@
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
+										placeholder="Buscar por..."> <span
 										class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
@@ -162,22 +194,15 @@
 								</div>
 								
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos del catalogo de la cuenta</span>
-			
-					
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Id del catalogo de la cuenta<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="catalogo" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
+									<form class="" action="../Sl_catalogoCuenta" method="post" novalidate>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=tCatalogo.getIdCatalogo()%>" name="IdCatalogo" id="IdCatalogo" /> 
+										<span class="section">Datos del catalogo de la cuenta</span>		
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Titulo<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Titulo" data-validate-length-range="8,20" type="text" required='required' />
+												<input class="form-control" class='optional' name="titulo" id="titulo" value="<%=tCatalogo.getTitulo() %>" type="text" />
 											</div>
 										</div>
 										
@@ -185,18 +210,43 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Descripcion" data-validate-length-range="5,100" type="text" required="required"/>
+												<input class="form-control" class='optional' name="descripcion" id="descripcion" value="<%=tCatalogo.getDescripcion() %>" type="text"/>
 											</div>
 										</div>
 										
-										
+										<div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Empresa<span class="required">*</span></label>
+                                            <div class="col-md-6 col-sm-6">
+                                                 <%
+							                      	ArrayList<Vw_empresa> listEmpresa = new ArrayList<Vw_empresa>();
+							                      	Dt_empresa dtemp = new Dt_empresa();
+							                      	listEmpresa = dtemp.listarEmpresa();
+								                 %>
+								                 <select class="form-control js-example-basic-single" name="idEmpresa" id="idEmpresa" required="required">
+												  <option value="">Seleccione...</option>
+												  <% 
+												  	for(Vw_empresa EMP :listEmpresa){
+												  %>
+												  <option value="<%=EMP.getIdEmpresa()%>"><%=EMP.getNombreComercial()%></option>
+												  <%
+												  	}
+												  %>
+												</select>
+											</div>
+                                        </div>
 							
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type='submit' class="btn btn-primary">Editar</button>
+											<div class="ln_solid">
+											<div class="form-group" align="center">
+												<a href="tbl_catalogocuenta.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-arrow-circle-o-left"></i> Cancelar
+												</a>
+											</div>
+											</div>
 												</div>
 											</div>
 										</div>
@@ -225,7 +275,22 @@
 	<script src="../vendors/validator/validator.js"></script>
 
 	<!-- Javascript functions	-->
-
+	<script>
+		function hideshow() {
+			var password = document.getElementById("password1");
+			var slash = document.getElementById("slash");
+			var eye = document.getElementById("eye");
+			if (password.type === 'password') {
+				password.type = "text";
+				slash.style.display = "block";
+				eye.style.display = "none";
+			} else {
+				password.type = "password";
+				slash.style.display = "none";
+				eye.style.display = "block";
+			}
+		}
+	</script>
 	<script>
 		// initialize a validator instance from the "FormValidator" constructor.
 		// A "<form>" element is optionally passed as an argument, but is not a must
@@ -249,7 +314,16 @@
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
+	// 
+	<script>
+    function setForm(){
+    	document.getElementById("idEmpresa").value = "<%=tCatalogo.getIdEmpresa()%>";
 
+    }
+
+
+		window.onload = setForm;
+	</script>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,30 +173,36 @@
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<br />
-								<form class="form-horizontal form-label-left">
-
-									<div class="form-group row ">
-										<label class="control-label col-md-3 col-sm-3 ">Id del tipo de cuenta</label>
-										<div class="col-md-9 col-sm-9 ">
-											<input type="text" class="form-control"
-												placeholder="Identificacion">
+									<form class="" action="../Sl_tipocuenta" method="post" novalidate>
+									<input type="hidden" value="1" name="opcion" id="opcion"/>
+										<span class="section">Datos del tipo de cuenta</span>
+										
+							
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de la cuenta
+											<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input name="tipoCuenta" class="form-control"
+													class='optional' type="text"
+													required="required" />
+											</div>
 										</div>
-									</div>
-									<div class="form-group row ">
-										<label class="control-label col-md-3 col-sm-3 ">Tipo de la cuenta</label>
-										<div class="col-md-9 col-sm-9 ">
-											<input type="text" class="form-control"
-												placeholder="Tipo de cuenta">
-										</div>
-									</div>
+		
 
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">
-											<button type="button" class="btn btn-primary">Agregar</button>
-											<button type="reset" class="btn btn-primary">Reiniciar</button>
-											<button type="submit" class="btn btn-success">cancelar</button>
+											<button type="submit" class="btn btn-primary">Agregar</button>
+											<div class="ln_solid">
+											<div class="form-group" align="center">
+												<a href="tbl_tipocuenta.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-arrow-circle-o-left"></i> Cancelar
+												</a>
+											</div>
+											</div>
 										</div>
 									</div>
 
@@ -215,6 +222,37 @@
 		</div>
 	</div>
 
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../vendors/validator/multifield.js"></script>
+	<script src="../vendors/validator/validator.js"></script>
+
+	<!-- Javascript functions	-->
+
+	<script>
+		// initialize a validator instance from the "FormValidator" constructor.
+		// A "<form>" element is optionally passed as an argument, but is not a must
+		var validator = new FormValidator({
+			"events" : [ 'blur', 'input', 'change' ]
+		}, document.forms[0]);
+		// on form "submit" event
+		document.forms[0].onsubmit = function(e) {
+			var submit = true, validatorResult = validator.checkAll(this);
+			console.log(validatorResult);
+			return !!validatorResult.valid;
+		};
+		// on form "reset" event
+		document.forms[0].onreset = function(e) {
+			validator.reset();
+		};
+		// stuff related ONLY for this demo page:
+		$('.toggleValidationTooltips').change(function() {
+			validator.settings.alerts = !this.checked;
+			if (this.checked)
+				$('form .alert').remove();
+		}).prop('checked', false);
+	</script>
+
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -223,35 +261,12 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- bootstrap-progressbar -->
-	<script
-		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-	<!-- iCheck -->
-	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- bootstrap-daterangepicker -->
-	<script src="../vendors/moment/min/moment.min.js"></script>
-	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap-wysiwyg -->
-	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
-	<!-- jQuery Tags Input -->
-	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-	<!-- Switchery -->
-	<script src="../vendors/switchery/dist/switchery.min.js"></script>
-	<!-- Select2 -->
-	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-	<!-- Parsley -->
-	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-	<!-- Autosize -->
-	<script src="../vendors/autosize/dist/autosize.min.js"></script>
-	<!-- jQuery autocomplete -->
-	<script
-		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-	<!-- starrr -->
-	<script src="../vendors/starrr/dist/starrr.js"></script>
+	<!-- validator -->
+	<!-- <script src="../vendors/validator/validator.js"></script> -->
+
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
+
 </html>
