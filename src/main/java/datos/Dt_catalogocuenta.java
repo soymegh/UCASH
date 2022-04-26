@@ -23,7 +23,7 @@ public class Dt_catalogocuenta {
 	//Metodo para llenar el ResultSet
 	public void llenar_rsCatalogo(Connection c) {
 		try {
-			ps = c.prepareStatement("SELECT * FROM dbucash.catalogocuenta;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_catalogocuenta_empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			rsCatalogocuenta = ps.executeQuery();
 		} catch(Exception e) {
 			System.out.println("DATOS: ERROR EN LISTAR catalogocuenta" + e.getMessage());
@@ -42,7 +42,7 @@ public class Dt_catalogocuenta {
 			rs = ps.executeQuery();
 			while(rs.next()) { 
 				Vw_catalogocuenta_empresa tblCatalogocuenta = new Vw_catalogocuenta_empresa();
-			tblCatalogocuenta.setIdCatalogoCuenta(rs.getInt("idCatalogo"));
+			tblCatalogocuenta.setIdCatalogo(rs.getInt("idCatalogo"));
 			tblCatalogocuenta.setIdEmpresa(rs.getInt("idEmpresa"));
 			tblCatalogocuenta.setnombreComercial(rs.getString("nombreComercial"));
 			tblCatalogocuenta.setTitulo(rs.getString("titulo"));
@@ -137,7 +137,7 @@ public class Dt_catalogocuenta {
 
 				// Hace peticion a la base de datos, por lo que los nombres en parentesis son los de la base de datos
 				if (rs.next()) {
-					catalogo.setIdCatalogoCuenta(rs.getInt("idCatalogo"));
+					catalogo.setIdCatalogo(rs.getInt("idCatalogo"));
 					catalogo.setIdEmpresa(rs.getInt("idEmpresa"));
 					catalogo.setnombreComercial(rs.getString("nombreComercial"));
 					catalogo.setTitulo(rs.getString("titulo"));
@@ -148,7 +148,6 @@ public class Dt_catalogocuenta {
 					catalogo.setUsuarioCreacion(rs.getInt("usuarioCreacion"));
 					catalogo.setUsuarioModificacion(rs.getInt("usuarioModificacion"));
 					catalogo.setUsuarioEliminacion(rs.getInt("usuarioEliminacion"));
-
 				}
 
 			} catch (Exception e) {

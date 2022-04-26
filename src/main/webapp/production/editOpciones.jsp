@@ -2,6 +2,14 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
+<%
+Tbl_opciones user = new Tbl_opciones();
+Dt_opciones datosUsuario = new Dt_opciones();
+
+int idUser = (request.getParameter("idOpciones") != null) ? Integer.parseInt(request.getParameter("idOpciones")) : 0;
+
+user = datosUsuario.obtenerOpcionPorId(idUser);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -163,22 +171,42 @@
 								
 								<div class="x_content">
 									<form class="" action="../Sl_opciones" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
+									  <input type="hidden" value="2" name="opcion" id="opcion"/>
 									
 										<span class="section">Datos de Opciones</span>
-										
+									
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Opcion<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=user.getIdOpciones()%>" class='optional' name="txtId"  type="text" required="required" placeholder="Id de Usuario" readonly/>
+											</div>
+										</div>
+									
+									
+											<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de Opcion<span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" 
+												 value="<%=user.getNombreOpcion()%>"
+												class='optional' name="txtOpcion" type="text" required="required" placeholder="Nombre de Opcion"/>
+											</div>
+										</div>
+											
+							
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<input class="form-control" value="<%=user.getDescripcion()%>"  class='optional' name="txtDescripcion" data-validate-length-range="5,15" type="text" required="required" />
 											</div>
 										</div>
+										
+							
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+												<button type="button" class="btn btn-primary">Cancelar</button>
+												<button type='submit' class="btn btn-primary">Editar</button>
 												</div>
 											</div>
 										</div>

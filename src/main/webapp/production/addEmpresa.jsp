@@ -271,17 +271,7 @@
 															class='email' required="required" type="email" />
 													</div>
 												</div>
-												<div class="field item form-group">
-													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Confirmar
-														correo<span class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6">
-														<input class="form-control" type="email" class='email'
-															name="confirm_email" data-validate-linked='email'
-															required='required' />
-													</div>
-												</div>
+												
 												<div class="field item form-group">
 													<label
 														class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
@@ -289,7 +279,7 @@
 													<div class="col-md-6 col-sm-6">
 														<input class="form-control" type="tel" class='tel'
 															name="telefono" required='required'
-															data-validate-length-range="8,20" />
+															data-validate-length-range="8,8" />
 													</div>
 												</div>
 										</div>
@@ -299,7 +289,7 @@
 													<button id="agregarRL" type='submit'
 														class="btn btn-primary">Agregar</button>
 													<button id="reiniciarRL" type='reset'
-														class="btn btn-success">Reiniciar</button>
+													onClick=(location.reload()) class="btn btn-success">Reiniciar</button>
 													<button id="cancelarRL" type="button"
 														class="btn btn-primary">Cancelar</button>
 												</div>
@@ -328,7 +318,7 @@
 												<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
 													class="required">*</span></label>
 												<div class="col-md-6 col-sm-6">
-													<input name="ruc" class="form-control"
+													<input required name="ruc" class="form-control"
 														placeholder="ex. 2347827431" required="required" />
 												</div>
 											</div>
@@ -365,7 +355,7 @@
 													class="required">*</span></label>
 												<div class="col-md-6 col-sm-6">
 													<input name="telefono" class="form-control" type="tel"
-														class='tel' required='required' />
+														class='tel' required='required' data-validate-length-range="8,8" />
 												</div>
 											</div>
 											<div class="field item form-group">
@@ -487,7 +477,7 @@
 														<button id="agregarE" type='submit'
 															class="btn btn-primary">Agregar</button>
 														<button id="reiniciarE" type='reset'
-															class="btn btn-success">Reiniciar</button>
+														onClick=(location.reload())	class="btn btn-success">Reiniciar</button>
 														<button id="cancelarE" type="button"
 															class="btn btn-primary">Cancelar</button>
 													</div>

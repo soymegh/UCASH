@@ -41,16 +41,17 @@ public class Sl_opciones extends HttpServlet {
 		int opc = 0;
 		opc = Integer.parseInt(request.getParameter("opcion"));
 		
-		Tbl_opciones Opcion = new Tbl_opciones();
-		Dt_opciones dto = new Dt_opciones();
+		Tbl_opciones opcion = new Tbl_opciones();
+		Dt_opciones dtoOpciones = new Dt_opciones();
 		
-		Opcion.setDescripcion(request.getParameter("descripcion"));
-		Opcion.setEstado(1);
+		opcion.setNombreOpcion(request.getParameter("nombreOpcion"));
+		opcion.setDescripcion(request.getParameter("descripcion"));
+		opcion.setEstado(1);
 		
 		switch (opc) {
 		case 1:
 				try {
-						if(dto.addOpciones(Opcion)) {
+						if(dtoOpciones.addOpciones(opcion)) {
 							response.sendRedirect("production/tbl_opciones.jsp?msj=1");
 						} else {
 							response.sendRedirect("production/tbl_opciones.jsp?msj=2");
@@ -62,7 +63,40 @@ public class Sl_opciones extends HttpServlet {
 				}
 			
 			break;
-
+		case 2: 
+			
+			try {
+				opcion.setIdOpciones(Integer.parseInt(request.getParameter("txtId")));
+				opcion.setNombreOpcion(request.getParameter("txtOpcion"));
+				opcion.setDescripcion(request.getParameter("txtDescripcion"));
+				opcion.setEstado(2);
+				if(dtoOpciones.modificarOpcion(opcion)) {
+					response.sendRedirect("production/tbl_opciones.jsp?msj=3");
+				}
+				else {
+					response.sendRedirect("production/tbl_opciones.jsp?msj=4");
+				}
+			} catch(Exception e) {
+				System.out.println("Error Sl_opciones opc2: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+			
+		case 3:
+			opcion.setIdOpciones(Integer.parseInt(request.getParameter("txtId")));
+			try {
+				if(dtoOpciones.eliminarOpcion(opcion)) {
+					response.sendRedirect("production/tbl_opciones.jsp?msj=5");
+				}
+				else {
+					response.sendRedirect("production/tbl_opciones.jsp?msj=6");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_gestionUser opc3: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+			
 		default:
 			break;
 		}

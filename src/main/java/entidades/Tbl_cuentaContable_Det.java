@@ -3,74 +3,52 @@ package entidades;
 public class Tbl_cuentaContable_Det {
 	
 	private int idCuentaContableDet;
+	private int idCuenta;
+	private double saldoFinal;
+	private double saldoInicial;
 	private double debe;
 	private double haber;
-	private double saldoFinal;
-	private int saldo;
-	private int idCuentaContable;
 	
 	
-	public Tbl_cuentaContable_Det() {
-	}
-
-
 	public int getIdCuentaContableDet() {
 		return idCuentaContableDet;
 	}
-
-
 	public void setIdCuentaContableDet(int idCuentaContableDet) {
 		this.idCuentaContableDet = idCuentaContableDet;
 	}
-
-
-	public double getDebe() {
-		return debe;
+	public int getIdCuenta() {
+		return idCuenta;
 	}
-
-
-	public void setDebe(double debe) {
-		this.debe = debe;
+	public void setIdCuenta(int idCuenta) {
+		this.idCuenta = idCuenta;
 	}
-
-
-	public double getHaber() {
-		return haber;
-	}
-
-
-	public void setHaber(double haber) {
-		this.haber = haber;
-	}
-
-
 	public double getSaldoFinal() {
 		return saldoFinal;
 	}
-
-
 	public void setSaldoFinal(double saldoFinal) {
 		this.saldoFinal = saldoFinal;
 	}
-
-
-	public int getSaldo() {
-		return saldo;
+	public double getSaldoInicial() {
+		return saldoInicial;
 	}
-
-
-	public void setSaldo(int saldo) {
-		this.saldo = saldo;
+	public void setSaldoInicial(double saldoInicial) {
+		this.saldoInicial = saldoInicial;
 	}
-
-
-	public int getIdCuentaContable() {
-		return idCuentaContable;
+	public double getDebe() {
+		return debe;
 	}
-
-
-	public void setIdCuentaContable(int idCuentaContable) {
-		this.idCuentaContable = idCuentaContable;
+	public void setDebe(double debe) {
+		this.debe = debe;
 	}
+	public double getHaber() {
+		return haber;
+	}
+	public void setHaber(double haber) {
+		this.haber = haber;
+	}
+	
+	
+	
+	
 
 }

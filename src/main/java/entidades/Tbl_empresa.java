@@ -70,7 +70,6 @@ public class Tbl_empresa {
 	public void setIdRepresentanteLegal(int idRepresentanteLegal) {
 		this.idRepresentanteLegal = idRepresentanteLegal;
 	}
-
 	
 	public int getIdPeriodoFiscal() {
 		return idPeriodoFiscal;

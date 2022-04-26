@@ -23,7 +23,7 @@ public class Dt_tipocuenta {
 	
 	public void llenaRsTipocuenta(Connection c) {
 		try {
-			this.ps = c.prepareStatement("SELECT * FROM dbucash.tipocuenta;", 1005, 1008, 1);
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.tipocuenta;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rsTipocuenta = this.ps.executeQuery();
 			
 		} catch(Exception var3) {
@@ -33,10 +33,10 @@ public class Dt_tipocuenta {
 	}
 	
 	public ArrayList<Tbl_tipocuenta> listaTipocuentaActivos(){
-		ArrayList listTipocuenta = new ArrayList();
+		ArrayList<Tbl_tipocuenta> listTipocuenta = new ArrayList<Tbl_tipocuenta>();
 		try {
 			this.c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.tipocuenta;", 1005, 1007);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.tipocuenta;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			this.rs = this.ps.executeQuery();
 			
 			while(this.rs.next()) {

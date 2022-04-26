@@ -2,13 +2,14 @@ package entidades;
 
 public class Vw_catalogo_tipo_cuentacontable {
 	
-	private int idCuentaContable;
+	private int idCuenta;
 	private String numeroCuenta;
 	private String sC;
 	private String ssC;
 	private String sssC;
 	private String nombreCuenta;
-	private String rubro;
+	private int nivel;
+	private int rubro;
 	private String tipoCuenta;
 	private String catalogoCuenta;
 	private int estado;
@@ -16,12 +17,12 @@ public class Vw_catalogo_tipo_cuentacontable {
 	public Vw_catalogo_tipo_cuentacontable() {
 	}
 
-	public int getIdCuentaContable() {
-		return idCuentaContable;
+	public int getIdCuenta() {
+		return idCuenta;
 	}
 
-	public void setIdCuentaContable(int idCuentaContable) {
-		this.idCuentaContable = idCuentaContable;
+	public void setIdCuenta(int idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 
 	public String getNumeroCuenta() {
@@ -64,11 +65,11 @@ public class Vw_catalogo_tipo_cuentacontable {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public String getRubro() {
+	public int getRubro() {
 		return rubro;
 	}
 
-	public void setRubro(String rubro) {
+	public void setRubro(int rubro) {
 		this.rubro = rubro;
 	}
 
@@ -94,6 +95,14 @@ public class Vw_catalogo_tipo_cuentacontable {
 
 	public void setEstado(int estado) {
 		this.estado = estado;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
 	}	
 	
 }

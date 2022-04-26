@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+
+    
 <!DOCTYPE html>
-<html>
+<html lang="es">
+<%
+String cc = "";
+cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCuenta");
+
+Vw_catalogo_tipo_cuentacontable vwCc = new Vw_catalogo_tipo_cuentacontable();
+Dt_cuentaContable dtCc = new Dt_cuentaContable();
+vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
+
+
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -53,13 +65,14 @@
 					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
-							<h3>Control General</h3>
 							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a>
-									<ul class="nav child_menu">
-										<li><a href="index.html">Página Principal</a></li>
-									</ul></li>
+								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
+							</ul>
+						</div>
 
+						<div class="menu_section">
+							<h3>Gestión</h3>
+							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
@@ -69,32 +82,39 @@
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-building"></i>Gestion Empresa<span
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-file"></i>Gestion Cuenta Contable<span
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-										<li><a href="tbl_tipocuenta.jsp">Tipo cuenta</a></li>
+										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i>Gestion Asiento Contable<span
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -103,20 +123,6 @@
 					</div>
 					<!-- /sidebar menu -->
 
-					<!-- /menu footer buttons -->
-					<div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
-							aria-hidden="true"></span>
-						</a>
-					</div>
-					<!-- /menu footer buttons -->
 				</div>
 			</div>
 
@@ -131,63 +137,15 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="javascript:;"> Profile</a> <a
-										class="dropdown-item" href="javascript:;"> <span
-										class="badge bg-red pull-right">50%</span> <span>Settings</span>
-									</a> <a class="dropdown-item" href="javascript:;">Help</a> <a
-										class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i> Log Out</a>
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
-
-							<li role="presentation" class="nav-item dropdown open"><a
-								href="javascript:;" class="dropdown-toggle info-number"
-								id="navbarDropdown1" data-toggle="dropdown"
-								aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span
-									class="badge bg-green">6</span>
-							</a>
-								<ul class="dropdown-menu list-unstyled msg_list" role="menu"
-									aria-labelledby="navbarDropdown1">
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item">
-										<div class="text-center">
-											<a class="dropdown-item"> <strong>See All Alerts</strong>
-												<i class="fa fa-angle-right"></i>
-											</a>
-										</div>
-									</li>
-								</ul></li>
 						</ul>
 					</nav>
 				</div>
@@ -206,7 +164,7 @@
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
+										placeholder="Buscar por..."> <span
 										class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
@@ -231,58 +189,74 @@
 										<span class="section">Datos de Cuenta Contable Maestro</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero de Cuenta*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero de Cuenta</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="number" class="optional" name="numeroCuenta" id="numeroCuenta" 
+												value="<%= vwCc.getNumeroCuenta() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Cuenta*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Cuenta</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="text" class="optional" name="SC" id="SC"
+												value="<%= vwCc.getsC() %>" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Cuenta*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Cuenta</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="text" class="optional" name="SsC" id="SsC" 
+												value="<%= vwCc.getSsC() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Sub-Cuenta*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Sub-Cuenta</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="text" class="optional" name="SssC" id="SssC" 
+												value="<%= vwCc.getSssC() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Cuenta*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Cuenta</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="text" class="optional" name="nombreCuenta" id="nombreCuenta" 
+												value="<%= vwCc.getNombreCuenta() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Rubro*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nivel</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="number" class="optional" name="nivel" id="nivel" 
+												value="<%= vwCc.getNivel() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo Cuenta*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Rubro</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="number" class="optional" name="rubro" id="rubro" 
+												value="<%= vwCc.getRubro() %>"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo Cuenta</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input readonly class="form-control" type="text" class="optional" name="tipoCuenta" id="tipoCuenta" 
+												value="<%= vwCc.getTipoCuenta() %>"/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta</label>
+											<div class="col-md-6 col-sm-6">
+												<input readonly class="form-control" type="text" class="optional" name="catalogoCuenta" id="catalogoCuenta" 
+												value="<%= vwCc.getCatalogoCuenta() %>"/>
 											</div>
 										</div>
 										
@@ -290,20 +264,22 @@
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<p> </p>
-													<button class="btn btn-primary">Regresar</button>
+													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>
 									</form>
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /page content -->
 		</div>
-	</div>
+		</div>
+		</div>
+			
+
+			<!-- /page content -->
 	
 	<footer>
 		<div class="pull-right">Sistema contable by Eldian's Software</div>

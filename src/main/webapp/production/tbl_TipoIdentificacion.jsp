@@ -89,6 +89,7 @@
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
                                                             <li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
 									
@@ -173,20 +174,7 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Tipo Identificacion</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li class="dropdown"><a href="#" class="dropdown-toggle"
-											data-toggle="dropdown" role="button" aria-expanded="false"><i
-												class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a> <a
-													class="dropdown-item" href="#">Settings 2</a>
-											</div></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
+									
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -195,7 +183,7 @@
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addRepresentanteLegal.jsp"> <i class="fa fa-plus-square"></i>
+													<a href="addTipoIdentificacion.jsp"> <i class="fa fa-plus-square"></i>
 														Nuevo Tipo Identificacion
 													</a> <br></br>
 												</div>
@@ -221,7 +209,12 @@
 													<tbody>
 														<%
 														for (Tbl_tipoIdentificacion TI : listarTipoIdentificacion) {
-															
+															String estado = "";
+															if (TI.getEstado() != 3) {
+																estado = "ACTIVO";
+															} else {
+																estado = "INACTIVO";
+															}
 														%>
 														<tr>
 															
@@ -229,15 +222,18 @@
 														
 															<td><%=TI.getTipo() %></td>
 															
-															<td><%=TI.getEstado() %></td>
+															<td><%=estado %></td>
 															
 															
-															<td><a href="editRepresentanteLegal.jsp" target="blank"> <i
+															<td><a href="editTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion() %> "> <i
 																	class="fa fa-edit" title="Editar"></i></a>
-																&nbsp;&nbsp; <a href="viewRepresentanteLegal.jsp" target="blank">
+																	
+																&nbsp;&nbsp; <a href="viewTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion()  %>" >
 																	<i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
+																	
+															</a> &nbsp;&nbsp; <a href="deleteTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion() %>" > <i
 																	class="fa fa-trash" title="Eliminar"></i>
+																	
 															</a></td>
 														</tr>
 														<%

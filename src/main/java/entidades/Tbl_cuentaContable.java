@@ -2,26 +2,27 @@ package entidades;
 
 public class Tbl_cuentaContable {
 
-	private int idCuentaContable;
+	private int idCuenta;
 	private String numeroCuenta;
 	private String sC;
 	private String ssC;
 	private String sssC;
 	private String nombreCuenta;
-	private String rubro;
+	private int nivel;
+	private int rubro;
 	private int idTipoCuenta;
-	private int idCatalogoCuenta;
+	private int idCatalogo;
 	private int estado;
 	
 	public Tbl_cuentaContable() {
 	}
 
-	public int getIdCuentaContable() {
-		return idCuentaContable;
+	public int getIdCuenta() {
+		return idCuenta;
 	}
 
-	public void setIdCuentaContable(int idCuentaContable) {
-		this.idCuentaContable = idCuentaContable;
+	public void setIdCuenta(int idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 
 	public String getNumeroCuenta() {
@@ -64,28 +65,20 @@ public class Tbl_cuentaContable {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public String getRubro() {
+	public int getRubro() {
 		return rubro;
 	}
 
-	public void setRubro(String rubro) {
+	public void setRubro(int rubro) {
 		this.rubro = rubro;
 	}
 
-	public int getIdTipoCuenta() {
-		return idTipoCuenta;
+	public int getIdCatalogo() {
+		return idCatalogo;
 	}
 
-	public void setIdTipoCuenta(int idTipoCuenta) {
-		this.idTipoCuenta = idTipoCuenta;
-	}
-
-	public int getIdCatalogoCuenta() {
-		return idCatalogoCuenta;
-	}
-
-	public void setIdCatalogoCuenta(int idCatalogoCuenta) {
-		this.idCatalogoCuenta = idCatalogoCuenta;
+	public void setIdCatalogo(int idCatalogo) {
+		this.idCatalogo = idCatalogo;
 	}
 
 	public int getEstado() {
@@ -94,6 +87,22 @@ public class Tbl_cuentaContable {
 
 	public void setEstado(int estado) {
 		this.estado = estado;
+	}
+
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
+	public int getIdTipoCuenta() {
+		return idTipoCuenta;
+	}
+
+	public void setIdTipoCuenta(int idTipoCuenta) {
+		this.idTipoCuenta = idTipoCuenta;
 	}
 	
 }

@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.Tbl_rol, datos.Dt_rol;"%>
 <!DOCTYPE html>
 <html>
+<%
+Tbl_rol r = new Tbl_rol();
+Dt_rol datosRol = new Dt_rol();
+
+int idR = (request.getParameter("idRol") != null) ? Integer.parseInt(request.getParameter("idRol")) : 0;
+
+r = datosRol.obtenerRolPorId(idR);
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -39,8 +48,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -59,11 +67,12 @@
 								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
-						
+
 						<div class="menu_section">
 							<h3>Gestión</h3>
 							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
 										<li><a href="tbl_rol.jsp">Roles</a></li>
@@ -71,32 +80,39 @@
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                                            <li><a href="tbl_departamento.jsp">Departamento</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -118,10 +134,13 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -129,21 +148,20 @@
 				</div>
 			</div>
 			<!-- /top navigation -->
-			
+
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Editar Rol </h3>
+							<h3>Editar Rol</h3>
 						</div>
 
 						<div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar..."> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" placeholder="Buscar...">
+									<span class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
 								</div>
@@ -160,24 +178,37 @@
 
 									<div class="clearfix"></div>
 								</div>
-								
+
 								<div class="x_content">
 									<form class="" action="../Sl_rol" method="post" novalidate>
-									<input type="hidden" value="1" name="opcion" id="opcion"/>
-										<span class="section">Datos de Rol</span>
-										
+										<input type="hidden" value="2" name="opcion" id="opcion" />
+										<input type="hidden" value="<%=r.getIdRol() %>" name="idRolUpdate" id="idRolUpdate" />
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span
+												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" type="text" required="required" placeholder=""/>
+												<input class="form-control" class='optional'
+													name="txtNombre" type="text" value="<%=r.getNombre() %>" required="required"
+													placeholder="ex. Invitado" />
 											</div>
 										</div>
-										
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional'
+													name="descripcion" type="text" value="<%=r.getDescripcion() %>" required="required"
+													placeholder="ex. Usuario invitado al sistema" />
+											</div>
+										</div>
+
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a href="tbl_rol.jsp" class="btn btn-danger">Cancelar</a>
 												</div>
 											</div>
 										</div>

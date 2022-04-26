@@ -192,16 +192,6 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 									<form class="" action="" method="post" novalidate>
 										<span class="section">Datos de Municipio</span>
 										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">ID Municipio
-												<span></span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="txt" value="<%= tm.getIdMunicipio() %>"
-													type="text" readonly />
-											</div>
-										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio

@@ -454,13 +454,10 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button id="agregarE" type='submit' class="btn btn-primary">Agregar</button>
-													<button id="reiniciarE" type='reset'
-														class="btn btn-success">Reiniciar</button>
+													<button id="agregarE" type='submit' class="btn btn-primary">Editar</button>
+													
 													<button id="cancelarE" type="button"
-														class="btn btn-primary">Cancelar</button>
-													<button onClick={test()} type="button"
-														class="btn btn-primary">Test</button>
+														onclick="history.back()" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
 										</div>
@@ -547,11 +544,6 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 
 			console.log(document.getElementById("representanteLegal").value);
 			console.log(document.getElementById("ruc").value);
-		}
-
-		function test() {
-			console.log(document.getElementById("representanteLegal").value);
-
 		}
 
 		window.onload = setForm;

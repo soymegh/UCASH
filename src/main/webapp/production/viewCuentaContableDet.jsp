@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    import="entidades.Vw_cuentacontable_cuentacontable_det, datos.Dt_cuentaContable_Det, java.util.*;"%>
+    
+ <%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")): 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -228,40 +238,41 @@
 								</div>
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de Detalle Cuenta Contable</span>
-										
+										<span class="section">Datos de Detalle Cuenta Contable</span>								
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" readonly/>
+											</div>
+										</div>									
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber*</label>											<div class="col-md-6 col-sm-6">
+
+												<input type="text" class="form-control" value="<%=vwCCD.getHaber()%>" name="haber" id="haber" readonly/>
+											
 											</div>
 										</div>
-										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final*</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
-											</div>
-										</div>
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo*</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal" readonly/>
+
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta contable*</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name" readonly/>
+										<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getNombreCuenta()%>" name="CuentaContable" id="CuentaContable" readonly/>
 											</div>
 										</div>
 										
@@ -269,7 +280,7 @@
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<p> </p>
-													<button class="btn btn-primary">Regresar</button>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Regresar</button></a>
 												</div>
 											</div>
 										</div>
@@ -288,7 +299,43 @@
 		<div class="pull-right">Sistema contable by Eldian's Software</div>
 		<div class="clearfix"></div>
 	</footer>
-
+	<script>
+	    $(document).ready(function() {
+	        $('.js-example-basic-single').select2();
+	        
+	        ///CARGAMOS VALORES EN LOS CONTROLES///
+	        $("#debe").val("<%=vwCCD.getDebe()%>");
+	        $("#haber").val("<%=vwCCD.getHaber()%>");
+	        $("#saldoInicial").val("<%=vwCCD.getSaldoInicial()%>");
+	        $("#saldoFinal").val("<%=vwCCD.getSaldoFinal()%>");
+	        $("#CuentaContable").val("<%=vwCCD.getNombreCuenta()%>");
+			///////////////////////////////////////
+	    });
+    
+        // initialize a validator instance from the "FormValidator" constructor.
+        // A "<form>" element is optionally passed as an argument, but is not a must
+        var validator = new FormValidator({
+            "events": ['blur', 'input', 'change']
+        }, document.forms[0]);
+        // on form "submit" event
+        document.forms[0].onsubmit = function(e) {
+            var submit = true,
+                validatorResult = validator.checkAll(this);
+            console.log(validatorResult);
+            return !!validatorResult.valid;
+        };
+        // on form "reset" event
+        document.forms[0].onreset = function(e) {
+            validator.reset();
+        };
+        // stuff related ONLY for this demo page:
+        $('.toggleValidationTooltips').change(function() {
+            validator.settings.alerts = !this.checked;
+            if (this.checked)
+                $('form .alert').remove();
+        }).prop('checked', false);
+    </script>
+	 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

@@ -3,6 +3,25 @@
 <!DOCTYPE html>
 <html lang="es">
 
+<%
+String Representante = "";
+Representante = request.getParameter("idRepresentanteLegal") == null ? "0" : request.getParameter("idRepresentanteLegal");
+
+Vw_representanteLegal vRL = new Vw_representanteLegal();
+Tbl_representanteLegal tRL = new Tbl_representanteLegal();
+
+Dt_representanteLegal dtRl = new Dt_representanteLegal();
+
+vRL = dtRl.getViewRepresentanteLegalbyID(Integer.parseInt(Representante));
+tRL = dtRl.getRepresentanteLegalbyID(Integer.parseInt(Representante));
+
+Tbl_tipoIdentificacion tipI = new Tbl_tipoIdentificacion();
+Dt_tipoIdentificacion dtTId = new Dt_tipoIdentificacion();
+tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
+
+
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -98,6 +117,7 @@
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
                                                             <li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
 									
@@ -188,42 +208,43 @@
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
-												Completo<span readonly>*</span>
+												Completo<span >*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
+												<input value="<%= vRL.getNombreCompleto() %>" class="form-control" class='optional'
+													name="nombre completo" data-validate-length-range="5,15"
 													type="text" readonly />
 											</div>
 										</div>
 										
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
-												<span readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo<span></span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="occupation" data-validate-length-range="5,15"
-													type="text" readonly />
+												<input  class="form-control" type="text"
+													class='optional' name="tipo" value="<%=vRL.getTipo()%>" readonly />
+													 
 											</div>
 										</div>
+										
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
-												readonly>*</span></label>
+												>*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" name="email" class='email'
-													readonly type="email" />
+												<input value="<%= vRL.getCorreo() %>"  class="form-control" name="correo" class='email'
+													required="required" type="email" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
-												readonly>*</span></label>
+												>*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input readonly class="form-control" type="tel" class='tel'
-													name="phone" required='required'
-													data-validate-length-range="8,20" />
+												<input value="<%= vRL.getTelefono() %>" class="form-control" type="tel" class='tel'
+													name="telefono" required='required'
+													data-validate-length-range="8,20" readonly/>
 											</div>
 										</div>
 										
@@ -232,9 +253,12 @@
 										
 										
 										<div class="ln_solid">
-											<div class="form-group">
+											<div class="form-group" align="center">
 												<div class="col-md-6 offset-md-3">
-													<button class="btn btn-primary">Regresar</button>
+												<a href="tbl_representanteLegal.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-2x fa-arrow-circle-o-left"></i> Regresar
+												</a>
 												</div>
 											</div>
 										</div>

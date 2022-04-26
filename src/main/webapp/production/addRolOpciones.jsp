@@ -167,7 +167,7 @@
 										<span class="section">Datos de Rol Opciones</span>
 			
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Rol<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Rol<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 												<%
@@ -180,7 +180,7 @@
 												  <% 
 												  	for(Tbl_rol trol :listRol){
 												  %>
-												  <option value="<%=trol.getIdRol()%>"><%=trol.getDescripcion()%></option>
+												  <option value="<%=trol.getIdRol()%>"><%=trol.getNombre()%></option>
 												  <%
 												  	}
 												  %>
@@ -190,7 +190,7 @@
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Opciones<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Opción<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
                                                   <%
@@ -204,7 +204,7 @@
 												  <% 
 												  	for(Tbl_opciones to :listOpc){
 												  %>
-												  <option value="<%=to.getIdOpciones()%>"><%=to.getDescripcion()%></option>
+												  <option value="<%=to.getIdOpciones()%>"><%=to.getNombreOpcion()%></option>
 												  <%
 												  	}
 												  %>
@@ -216,8 +216,9 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
+												<button type="button" onClick="window.location.href='tbl_rolOpciones.jsp'" class="btn btn-primary">Cancelar</button>
 													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+												
 												</div>
 											</div>
 										</div>

@@ -204,8 +204,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 									<form class="" action="" method="post" novalidate>
 										<span class="section">Datos de empresa</span>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
-												readonly>*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span>*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" data-validate-length-range="6"
 													data-validate-words="2" name="ruc" id="ruc" readonly />
@@ -213,7 +212,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										</div>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Razón
-												social<span readonly>*</span>
+												social<span>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
@@ -222,8 +221,8 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Comercial
-											<span readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+												Comercial <span>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
@@ -232,8 +231,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
-												readonly>*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span>*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" name="correo" id="correo"
 													class='email' readonly type="email" />
@@ -241,8 +239,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										</div>
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
-												readonly>*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span>*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="tel" class='tel'
 													name="telefono" id="telefono" required='required'
@@ -250,8 +247,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span
-												readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" class='optional'
@@ -262,7 +258,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Representante
-												legal<span readonly>*</span>
+												legal<span>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
@@ -272,8 +268,8 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo fiscal<span
-												readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo
+												fiscal<span>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
@@ -282,8 +278,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span
-												readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento<span>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
@@ -292,20 +287,21 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio<span
-												readonly>*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio<span>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="email"
-													class='email' name="municipio" id="municipio" class="municipio"
-													data-validate-linked='email' required='required' />
+													class='email' name="municipio" id="municipio"
+													class="municipio" data-validate-linked='email'
+													required='required' />
 											</div>
 										</div>
 										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button class="btn btn-primary">Regresar</button>
-												</div>
+											<div class="form-group" align="center">
+												<a href="tbl_empresa.jsp"
+													title="Retornar a la página anterior"> <i
+													class="fa fa-2x fa-arrow-circle-o-left"></i> Regresar
+												</a>
 											</div>
 										</div>
 									</form>
@@ -347,8 +343,6 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
     	document.getElementById("representanteLegal").value = "<%=vwEmpresa.getRepresentante()%>";
     	document.getElementById("departamento").value = "<%=vwEmpresa.getDepartamentoNombre()%>";
     	document.getElementById("municipio").value = "<%=vwEmpresa.getMunicipioNombre()%>";
-
-			console.log(document.getElementById("ruc").value);
 		}
 
 		window.onload = setForm;
