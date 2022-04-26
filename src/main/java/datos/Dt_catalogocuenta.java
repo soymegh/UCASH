@@ -20,7 +20,7 @@ public class Dt_catalogocuenta {
 	//Metodo para llenar el ResultSet
 	public void llenar_rsCatalogo(Connection c) {
 		try {
-			ps = c.prepareStatement("SELECT * FROM sistemacontablebd.tbl_catalogocuenta;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_catalogocuenta_empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			rsCatalogocuenta = ps.executeQuery();
 		} catch(Exception e) {
 			System.out.println("DATOS: ERROR EN LISTAR tbl_catalogocuenta " + e.getMessage());
@@ -34,11 +34,11 @@ public class Dt_catalogocuenta {
 		ArrayList<Vw_catalogocuenta_empresa> listCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM sistemacontablebd.Vw_catalogocuenta_empresa;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_catalogocuenta_empresa;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = ps.executeQuery();
 			while(rs.next()) { 
 				Vw_catalogocuenta_empresa tblCatalogocuenta = new Vw_catalogocuenta_empresa();
-			tblCatalogocuenta.setIdCatalogoCuenta(rs.getInt("idCatalogoCuenta"));
+			tblCatalogocuenta.setIdCatalogo(rs.getInt("idCatalogo"));
 			tblCatalogocuenta.setIdEmpresa(rs.getInt("idEmpresa"));
 			tblCatalogocuenta.setnombreComercial(rs.getString("nombreComercial"));
 			tblCatalogocuenta.setTitulo(rs.getString("titulo"));

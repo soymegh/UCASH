@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
-
-    
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
-<html lang="es">
+<html>
+
 <%
 String cc = "";
 cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCuenta");
@@ -11,24 +10,45 @@ cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCu
 Vw_catalogo_tipo_cuentacontable vwCc = new Vw_catalogo_tipo_cuentacontable();
 Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
-
-
 %>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ver | Cuenta Contable</title>
+<title>Eliminar | Departamento</title>
 
 <!-- Bootstrap -->
-<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <!-- Font Awesome -->
-<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="../vendors/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
 <!-- NProgress -->
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+<!-- iCheck -->
+<link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<!-- Datatables -->
+
+<link
+	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -40,7 +60,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
+						<a href="index.html" class="site_title"><i class="fa fa-money"></i>
 							<span>Sistema Contable</span></a>
 					</div>
 
@@ -49,8 +69,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -122,7 +141,6 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 						</div>
 					</div>
 					<!-- /sidebar menu -->
-
 				</div>
 			</div>
 
@@ -152,20 +170,19 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 			</div>
 			<!-- /top navigation -->
 
-<!-- page content -->
+			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Cuenta Contable</h3>
+							<h3>Eliminar Departamento</h3>
 						</div>
 
 						<div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" placeholder="Buscar...">
+									<span class="input-group-btn">
 										<button class="btn btn-default" type="button">Go!</button>
 									</span>
 								</div>
@@ -179,15 +196,19 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Mostrar Cuenta Contable
+										Formulario <small>Eliminar Departamento</small>
 									</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de Cuenta Contable Maestro</span>
-										
+									<form class="" action="../Sl_cuentaContable" method="post"
+										novalidate>
+										<input type="hidden" value="3" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=vwCc.getIdCuenta() %>" name="idCuenta" id="idCuenta" />
+										<span class="section">Datos de Departamento</span>
+
+
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero de Cuenta</label>
 											<div class="col-md-6 col-sm-6">
@@ -259,32 +280,80 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 												value="<%= vwCc.getCatalogoCuenta() %>"/>
 											</div>
 										</div>
-										
+
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<p> </p>
-													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
+													<button type='submit' class="btn btn-danger">Eliminar</button>
+													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
 										</div>
 									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		</div>
-		</div>
-			
-
 			<!-- /page content -->
-	
-	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
-		<div class="clearfix"></div>
-	</footer>
+
+			<!-- footer content -->
+			<footer>
+				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../vendors/validator/multifield.js"></script>
+	<script src="../vendors/validator/validator.js"></script>
+
+	<!-- Javascript functions	-->
+	<script>
+		function hideshow() {
+			var password = document.getElementById("password1");
+			var slash = document.getElementById("slash");
+			var eye = document.getElementById("eye");
+			if (password.type === 'password') {
+				password.type = "text";
+				slash.style.display = "block";
+				eye.style.display = "none";
+			} else {
+				password.type = "password";
+				slash.style.display = "none";
+				eye.style.display = "block";
+			}
+		}
+	</script>
+
+	<script>
+		// initialize a validator instance from the "FormValidator" constructor.
+		// A "<form>" element is optionally passed as an argument, but is not a must
+		var validator = new FormValidator({
+			"events" : [ 'blur', 'input', 'change' ]
+		}, document.forms[0]);
+		// on form "submit" event
+		document.forms[0].onsubmit = function(e) {
+			var submit = true, validatorResult = validator.checkAll(this);
+			console.log(validatorResult);
+			return !!validatorResult.valid;
+		};
+		// on form "reset" event
+		document.forms[0].onreset = function(e) {
+			validator.reset();
+		};
+		// stuff related ONLY for this demo page:
+		$('.toggleValidationTooltips').change(function() {
+			validator.settings.alerts = !this.checked;
+			if (this.checked)
+				$('form .alert').remove();
+		}).prop('checked', false);
+	</script>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -294,27 +363,12 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- iCheck -->
-	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="../vendors/jszip/dist/jszip.min.js"></script>
-	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+	<!-- validator -->
+	<!-- <script src="../vendors/validator/validator.js"></script> -->
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
+
 </html>

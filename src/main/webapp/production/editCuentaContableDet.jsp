@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"
+    import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
+
+<%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+
+int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")): 0;
+
+Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+Dt_cuentaContable_Det dtCcd = new Dt_cuentaContable_Det();
+ccd = dtCcd.getCcdbyID(idCCD);
+
+
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -199,7 +216,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Detalle Cuenta Contable</h3>
+							<h3>Editar Detalle Cuenta Contable</h3>
 						</div>
 
 						<div class="title_right">
@@ -221,62 +238,78 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Mostrar Detalle Cuenta Contable
+										Editar Detalle Cuenta Contable
 									</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_cuentaContableDet" method="post" novalidate>
+									    <input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
+										
 										<span class="section">Datos de Detalle Cuenta Contable</span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control"  value="<%=vwCCD.getHaber()%>" name="haber" id="haber"/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal"/>
 											</div>
 										</div>
 										
+										
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo:</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de cuenta<span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" data-validate-length-range="6" data-validate-words="2" name="name"/>
-											</div>
-										</div>
-										
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta Contable:</label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxCuentaContable" id="cbxCuentaContable" required="required">
-												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
+												<%
+												ArrayList<Vw_catalogo_tipo_cuentacontable> listaNc = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+												Dt_cuentaContable dtidCuenta = new Dt_cuentaContable();
+												listaNc = dtidCuenta.listaCuentasContables();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="idCuenta" id="idCuenta" required="required">
+													<option value="0">Seleccione...</option>
+													<%
+													for (Vw_catalogo_tipo_cuentacontable ccDS : listaNc){
+													%>
+													<option value="<%=ccDS.getIdCuenta()%>">
+													<%=ccDS.getNombreCuenta()%>
+												</option>
+													<%
+													}
+													%>
 												</select>
 											</div>
-                                        </div>
+										</div> 
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<p> </p>
-													<button class="btn btn-primary">Regresar</button>
+													<button type='submit' class="btn btn-primary">Editar</button>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
 										</div>
@@ -295,6 +328,26 @@
 		<div class="pull-right">Sistema contable by Eldian's Software</div>
 		<div class="clearfix"></div>
 	</footer>
+	
+	<script>
+	
+	function setForm(){
+    	
+    	document.getElementById("idCuenta").value = "<%=ccd.getIdCuenta()%>";
+    	
+		}
+	window.onload = setForm;
+	
+	</script>
+	
+	<!-- <script>
+			function getURL() {
+				const url = window.location.href;
+				var idCD = url.substring(url.indexOf('=') + 1);
+				document.getElementById("idCuenta").value = idCD;
+			}
+			window.onload = getURL();
+		</script> -->
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

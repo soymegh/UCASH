@@ -1,0 +1,131 @@
+package servlets;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import datos.Dt_cuentaContable;
+import entidades.Tbl_cuentaContable;
+
+/**
+ * Servlet implementation class Sl_cuentaContable
+ */
+@WebServlet("/Sl_cuentaContable")
+public class Sl_cuentaContable extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Sl_cuentaContable() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int opc = 0;
+		opc = Integer.parseInt(request.getParameter("opcion"));
+		
+		Tbl_cuentaContable cc = new Tbl_cuentaContable();
+		Dt_cuentaContable dtCc = new Dt_cuentaContable();
+		
+		
+		switch (opc) {
+		
+		case 1:
+			
+			cc.setNumeroCuenta(request.getParameter("numeroCuenta"));
+			cc.setsC(request.getParameter("SC"));
+			cc.setSsC(request.getParameter("SsC"));
+			cc.setSssC(request.getParameter("SssC"));
+			cc.setNombreCuenta(request.getParameter("nombreCuenta"));
+			int nivel = Integer.parseInt(request.getParameter("nivel"));
+			cc.setNivel(nivel);
+			int rubro = Integer.parseInt(request.getParameter("rubro"));
+			cc.setRubro(rubro);
+			int tipoCuenta = Integer.parseInt(request.getParameter("tipoCuenta"));
+			cc.setIdTipoCuenta(tipoCuenta);
+			int catalogoCuenta = Integer.parseInt(request.getParameter("catalogoCuenta"));
+			cc.setIdCatalogo(catalogoCuenta);
+			
+			try
+			{
+				if(dtCc.addCuentaContable(cc)) {
+					int idCC = dtCc.idCuentaContable();
+					response.setHeader("Refresh","0; URL=production/addCuentaContable.jsp?msj="+ idCC);
+				}
+				else
+				{
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=2");
+				}
+			}
+			catch(Exception e)
+			{
+				System.out.println("ERROR AL CREAR CUENTA CONTABLE: "+ e.getMessage());
+				e.printStackTrace();
+			}
+			
+			break;
+			
+		case 2:
+			
+			cc.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
+			cc.setNumeroCuenta(request.getParameter("numeroCuenta"));
+			cc.setsC(request.getParameter("SC"));
+			cc.setSsC(request.getParameter("SsC"));
+			cc.setSssC(request.getParameter("SssC"));
+			cc.setNombreCuenta(request.getParameter("nombreCuenta"));
+			cc.setNivel(Integer.parseInt(request.getParameter("nivel")));
+			cc.setRubro(Integer.parseInt(request.getParameter("rubro")));
+			cc.setIdTipoCuenta(Integer.parseInt(request.getParameter("cbxTipoCuenta")));
+			cc.setIdCatalogo(Integer.parseInt(request.getParameter("cbxCatalogoCuenta")));
+			
+			try {
+				if(dtCc.editCuentaContable(cc)) { 
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=3"); 
+				} else {
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=4"); 
+
+				}
+			} catch(Exception e) {
+				System.out.println("ERROR AL MODIFICAR CUENTA CONTABLE "+e.getMessage());
+				e.printStackTrace();
+			}
+			
+			break;
+			
+		case 3:
+			
+			cc.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
+			try {
+				if (dtCc.deleteCuentaContable(cc)) {
+						response.sendRedirect("production/tbl_cuentacontable.jsp?msj=5");
+				} else {
+						response.sendRedirect("production/tbl_cuentacontable.jsp?msj=6");
+				}
+				
+			} catch (Exception e) {
+				System.out.println("ERROR AL ELIMINAR CUENTA CONTABLE: "+ e.getMessage());
+				e.printStackTrace();
+			}
+			
+			break;
+		}
+	}
+
+}

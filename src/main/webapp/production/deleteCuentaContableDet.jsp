@@ -19,7 +19,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ver | Cuenta Contable</title>
+<title>Eliminar | Detalle Cuenta Contable</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -209,7 +209,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Detalle Cuenta Contable</h3>
+							<h3>Eliminar Detalle Cuenta Contable</h3>
 						</div>
 
 						<div class="title_right">
@@ -231,13 +231,15 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Mostrar Detalle Cuenta Contable
+										Eliminar Detalle Cuenta Contable
 									</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_cuentaContableDet" method="post" novalidate>
+									    <input type="hidden" value="3" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
 										<span class="section">Datos de Detalle Cuenta Contable</span>								
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe*</label>
@@ -279,8 +281,8 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<p> </p>
-													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Regresar</button></a>
+													<button type='submit' class="btn btn-danger">Eliminar</button>
+													<a  href="tbl_cuentacontable.jsp"><button type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
 										</div>

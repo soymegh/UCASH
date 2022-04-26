@@ -1,10 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*,datos.*, java.util.*;"%>
+	
+	
+<%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+String Ccd = "";
+Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+
+int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")): 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
+<style>
+.select[readonly] option, select[readonly] optgroup {
+    display: none;
+}
+
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
 <meta charset="utf-8">
@@ -46,7 +67,7 @@
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2>Lic. Josï¿½ Ortega.</h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -63,7 +84,7 @@
 						</div>
 						
 						<div class="menu_section">
-							<h3>Gestión</h3>
+							<h3>Gestiï¿½n</h3>
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
@@ -120,10 +141,10 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic. Josï¿½ Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesiï¿½n</a>
 								</div>
 							</li>
 						</ul>
@@ -164,27 +185,28 @@
 								</div>
 								
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_cuentaContable" method="post" novalidate>
+									<input type="hidden" value="1" name="opcion" id="opcion" />
 										<span class="section">Datos de CC Maestro</span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero Cuenta<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Debe" data-validate-length-range="5,15" type="text" required="required" />
+												<input class="form-control" class='optional' id="numeroCuenta" name="numeroCuenta" type="text" required="required" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Cuenta<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Debe" data-validate-length-range="5,15" type="text" required="required" />
+												<input type="number" class="form-control" id="SC" name="SC" class="required" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Cuenta<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" type="tel" class='tel' name="phone" required='required' data-validate-length-range="8,20" />
+												<input type="number" class="form-control" id="SsC" name="SsC" class="required" />
 											</div>
 										</div>
 										
@@ -192,41 +214,83 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Sub-Sub-Sub-Cuenta<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,100" type="text" required="required"/>
+												<input type="number" class="form-control" id="SssC" name="SssC" class="required" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Cuenta<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input type="text" class="form-control" id="nombreCuenta" name="nombreCuenta" class="required" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nivel<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input type="number" class="form-control" id="nivel" name="nivel" class="required" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Rubro<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Debe" data-validate-length-range="5,15" type="text" required="required" />
+												<input type="number" class="form-control" id="rubro" name="rubro" class="required" />
 											</div>
 										</div>
 
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Tipo Cuenta<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Tipo Cuenta<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
+													
+													<% 
+													ArrayList<Tbl_tipocuenta> listaTc = new ArrayList<Tbl_tipocuenta>();
+													Dt_tipocuenta dtTc = new Dt_tipocuenta();
+													listaTc = dtTc.listaTipocuentaActivos();
+													%>
+													
+								                 <select class="form-control js-example-basic-single" 
+								                 		 name="tipoCuenta" id="tipoCuenta" required="required">
 												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
+												  	<%
+												  		for(Tbl_tipocuenta tc : listaTc){
+												  	%>
+												  <option value="<%=tc.getIdTipoCuenta()%>">
+													<%=tc.getTipoCuenta()%>
+												</option>
+													<%
+													}
+													%>
 												</select>
 											</div>
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Catalogo Cuenta<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
-								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
+												 	<% 
+													ArrayList<Vw_catalogocuenta_empresa> listaCat = new ArrayList<Vw_catalogocuenta_empresa>();
+													Dt_catalogocuenta dtCat = new Dt_catalogocuenta();
+													listaCat = dtCat.listarCatalogocuenta();
+													%>
+
+								                 <select class="form-control js-example-basic-single" 
+								                 		 name="catalogoCuenta" id="catalogoCuenta" required="required">
 												  <option value="">Seleccione...</option>
-
-												  <option value="Prueba"></option>
-
+												  	<%
+												  		for(Vw_catalogocuenta_empresa cat : listaCat){
+												  	%>
+												  <option value="<%=cat.getIdCatalogo()%>">
+													<%=cat.getTitulo()%>
+												</option>
+													<%
+													}
+													%>
 												</select>
 											</div>
                                         </div>
@@ -234,9 +298,106 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button id="AgregarCC" type='submit' class="btn btn-primary">Agregar</button>
+													<button id="ResetCC" type='reset' class="btn btn-success">Reiniciar</button>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCC" type="button" class="btn btn-primary">Cancelar</button></a>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Agregar Detalle CC</h2>
+
+									<div class="clearfix"></div>
+								</div>
+
+								<div class="x_content">
+									<form class="" action="../Sl_cuentaContableDet" method="post" novalidate>
+									<input type="hidden" value="1" name="opcion" id="opcion" /> 
+										<span class="section">Datos de Detalle CC</span>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="debe" id="debe"
+													 type="text"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="haber" id="haber"
+													 type="text"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial<span
+												class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional'
+													name="saldoInicial" id="saldoInicial"
+													type="text" required="required" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo
+												Final<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="tel" class='optional'
+													name="saldoFinal" id="saldoFinal" required='required'
+													/>
+											</div>
+										</div>
+										
+										
+									<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de cuenta<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<%
+												ArrayList<Vw_catalogo_tipo_cuentacontable> listaNc = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+												Dt_cuentaContable dtidCuenta = new Dt_cuentaContable();
+												listaNc = dtidCuenta.listaCuentasContables();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="idCuenta" id="idCuenta" required="required" style="pointer-events: none;">
+													<option id="idCuentaC" value="0" >Seleccione...</option>
+													<%
+													for (Vw_catalogo_tipo_cuentacontable ccDS : listaNc){
+													%>
+													<option value="<%=ccDS.getIdCuenta()%>">
+													<%=ccDS.getNombreCuenta()%>
+												</option>
+													<%
+													}
+													%>
+												</select>
+											</div>
+										</div>
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button id="AgregarCCD" type='submit' class="btn btn-primary">Agregar</button>
+													<button id="ResetCCD" type='reset' class="btn btn-success">Reiniciar</button>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
 										</div>
@@ -289,6 +450,66 @@
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
+	
+	<script>
+			function getURL() {
+				const url = window.location.href;
+				var idCC = url.substring(url.indexOf('=') + 1);
+				document.getElementById("idCuenta").value = idCC;
+				
+				
+				if (url == "http://localhost:8080/SistemaContable/production/addCuentaContable.jsp?msj="
+						+ idCC) {
+					document.getElementById("numeroCuenta").disabled = true;
+					document.getElementById("SC").disabled = true;
+					document.getElementById("SsC").disabled = true;
+					document.getElementById("SssC").disabled = true;
+					document.getElementById("nombreCuenta").disabled = true;
+					document.getElementById("nivel").disabled = true;
+					document.getElementById("rubro").disabled = true;
+					document.getElementById("tipoCuenta").disabled = true;
+					document.getElementById("catalogoCuenta").disabled = true;
+					
+					document.getElementById("AgregarCCD").disabled = false;
+					document.getElementById("ResetCCD").disabled = false;
+					document.getElementById("CancelarCCD").disabled = false;
+					document.getElementById("idCuenta").disabled = false;
+					
+					document.getElementById("AgregarCC").disabled = true;
+					document.getElementById("ResetCC").disabled = true;
+					document.getElementById("CancelarCC").disabled = true;
+				} else if (url == "http://localhost:8080/SistemaContable/production/addCuentaContable.jsp") {
+					console.log("Test");
+					document.getElementById("numeroCuenta").disabled = false;
+					document.getElementById("SC").disabled = false;
+					document.getElementById("SsC").disabled = false;
+					document.getElementById("SssC").disabled = false;
+					document.getElementById("nombreCuenta").disabled = false;
+					document.getElementById("nivel").disabled = false;
+					document.getElementById("rubro").disabled = false;
+					document.getElementById("tipoCuenta").disabled = false;
+					document.getElementById("catalogoCuenta").disabled = false;
+					document.getElementById("AgregarCCD").disabled = true;
+					document.getElementById("ResetCCD").disabled = true;
+					document.getElementById("CancelarCCD").disabled = true;
+				}
+			}
+			window.onload = getURL();
+		</script>
+		<script>
+			function returnidCC() {
+				const url = window.location.href;
+				const idCC = url.substring(url.indexOf('=') + 1);
+				if (url == "http://localhost:8080/SistemaContable/production/addCuentaContable.jsp") {
+					document.getElementById('valueidCC').value = "Se ingresara automaticamente cuando guarde Cuenta Contable";
+				} else {
+					
+					document.getElementById('valueidCC').value = idCC;
+				}
+				console.log(document.getElementById('valueidCC').value);
+			}
+			window.onload = returnidCC();
+		</script>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

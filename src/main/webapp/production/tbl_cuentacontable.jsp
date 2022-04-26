@@ -189,20 +189,17 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Cuentas Contables Registradas</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li class="dropdown"><a href="#" class="dropdown-toggle"
-											data-toggle="dropdown" role="button" aria-expanded="false"><i
-												class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a> <a
-													class="dropdown-item" href="#">Settings 2</a>
-											</div></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
+									
+									<div class="clearfix"></div>
+								</div>
+
+								<div class="x_content">
+									<div class="row">
+						<div class="col-md-12 col-md-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Cuentas Contables Registradas</h2>
+									
 									<div class="clearfix"></div>
 								</div>
 
@@ -232,6 +229,7 @@
 															<th>Sub-Sub Cuenta</th>
 															<th>Sub-Sub-Sub Cuenta</th>
 															<th>Nombre Cuenta</th>
+															<th>Nivel</th>
 															<th>Rubro</th>
 															<th>Tipo de Cuenta</th>
 															<th>Catalogo de Cuenta</th>
@@ -243,31 +241,41 @@
 														<%
 														for (Vw_catalogo_tipo_cuentacontable cc : listaCuentasContables) {
 															String estado = "";
-															if (cc.getEstado() != 3){
+															if (cc.getEstado() == 1){
 																estado = "ACTIVO";
 															}else{
-																estado = "INACTIVO";
+																if(cc.getEstado() == 2)
+																{
+																estado = "MODIFICADO";
+																}
+																else{
+																	estado = "INACTIVO";
+																}
 															}
 														%>
 														<tr>
 
-															<td><%=cc.getIdCuentaContable()%></td>
+															<td><%=cc.getIdCuenta()%></td>
 															<td><%=cc.getNumeroCuenta()%></td>
 															<td><%=cc.getsC()%></td>
 															<td><%=cc.getSsC()%></td>
 															<td><%=cc.getSssC()%></td>
 															<td><%=cc.getNombreCuenta()%></td>
+															<th><%=cc.getNivel()%></th>
 															<td><%=cc.getRubro()%></td>
 															<td><%=cc.getTipoCuenta()%></td>
 															<td><%=cc.getCatalogoCuenta()%></td>
 															<td><%=estado%></td>
-															<td><a href="editCuentaContable.jsp" target="blank">
-																	<i class="fa fa-edit" title="Editar">Editar</i>
-															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp"
-																target="blank"> <i class="fa fa-eye" title="Mostrar"> Mostrar</i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
-																	class="fa fa-trash" title="Eliminar"> Eliminar</i>
-															</a></td>
+															
+															<td>
+															<a href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>">
+																	<i class="fa fa-edit" title="Editar"></i>
+															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
+																	<i class="fa fa-eye" title="Mostrar" ></i>
+															</a> &nbsp;&nbsp; <a href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
+																	<i class="fa fa-trash" title="Eliminar"></i>
+															</a>
+															</td>
 														</tr>
 														<%
 														}
@@ -289,33 +297,14 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Detalles de Cuenta Contable Registrados</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li class="dropdown"><a href="#" class="dropdown-toggle"
-											data-toggle="dropdown" role="button" aria-expanded="false"><i
-												class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a> <a
-													class="dropdown-item" href="#">Settings 2</a>
-											</div></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
+									
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<div class="row">
 										<div class="col-md-12">
 											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-													<a href="addCuentaContableDet.jsp"> <i
-														class="fa fa-plus-square"></i> Nuevo Detalle de Cuenta
-														Contable
-													</a> <br></br>
-												</div>
+												
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
@@ -343,15 +332,15 @@
 															<td><%=ccD.getIdCuentaContableDet()%></td>
 															<td><%=ccD.getDebe()%></td>
 															<td><%=ccD.getHaber()%></td>
+															<td><%=ccD.getSaldoInicial()%></td>
 															<td><%=ccD.getSaldoFinal()%></td>
-															<td><%=ccD.getSaldo()%></td>
 															<td><%=ccD.getNombreCuenta()%></td>
-															<td><a href="editCuentaContableDet.jsp" target="blank">
-																	<i class="fa fa-edit" title="Editar">Editar</i>
-															</a> &nbsp;&nbsp; <a href="viewCuentaContableDet.jsp"
-																target="blank"> <i class="fa fa-eye" title="Mostrar"> Mostrar</i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
-																	class="fa fa-trash" title="Eliminar"> Eliminar</i>
+															<td><a href="editCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>">
+																	<i class="fa fa-edit" title="Editar"></i>
+															</a> &nbsp;&nbsp; <a href="viewCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>" > 
+																	<i class="fa fa-eye" title="Mostrar"></i>
+															</a> &nbsp;&nbsp; <a href="deleteCuentaContableDet.jsp?idCD=<%=ccD.getIdCuentaContableDet()%>"> 
+																	<i class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%
@@ -370,6 +359,10 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	</div>
+	</div>
+	</div>
 	</div>
 	<!-- /page content -->
 
