@@ -35,6 +35,7 @@ public class Dt_periodoFiscal {
 		ArrayList<Tbl_periodoFiscal> listperiodoFiscal = new ArrayList<Tbl_periodoFiscal>();
 		try {
 			c = poolConexion.getConnection();
+
 			ps = c.prepareStatement("SELECT * FROM dbucash.periodofiscal;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = ps.executeQuery();
 			

@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String dept = "";
+dept = request.getParameter("idDp") == null ? "0" : request.getParameter("idDp");
+
+Tbl_departamento td = new Tbl_departamento();
+Dt_departamento dtdp = new Dt_departamento();
+td = dtdp.getDeptbyID(Integer.parseInt(dept));
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +19,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Municipio</title>
+<title>Eliminar | Departamento</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -165,7 +175,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar Municipio</h3>
+							<h3>Eliminar Departamento</h3>
 						</div>
 
 						<div class="title_right">
@@ -186,47 +196,29 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Formulario <small>Agregar Municipio</small>
+										Formulario <small>Eliminar Departamento</small>
 									</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="../Sl_municipio" method="post"
+									<form class="" action="../Sl_departamento" method="post"
 										novalidate>
-										<input type="hidden" value="1" name="opcion" id="opcion" /> 
-										<span class="section">Datos de Municipio</span>
+										<input type="hidden" value="3" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=td.getIdDepartamento() %>" name="idDepartamento" id="idDepartamento" />
+										<span class="section">Datos de Departamento</span>
+
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">
-												Municipio<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento
+												<span class="required"></span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="txtmunicipio" id="txtmunicipio"
-													type="text" required="required" />
+												<input class="form-control" class='optional' value="<%=td.getDepartamento()%>"
+													name="txtdepartamento" id="txtdepartamento" type="text"
+													required="required" />
 											</div>
 										</div>
-
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Departamento<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                                 <%
-							                      	ArrayList<Tbl_departamento> listDept = new ArrayList<Tbl_departamento>();
-							                      	Dt_departamento dtdept = new Dt_departamento();
-							                      	listDept = dtdept.listarDepartamento();
-								                 %>
-								                 <select class="form-control js-example-basic-single" name="cbxDept" id="cbxDept" required="required">
-												  <option value="">Seleccione...</option>
-												  <% 
-												  	for(Tbl_departamento dept :listDept){
-												  %>
-												  <option value="<%=dept.getIdDepartamento()%>"><%=dept.getDepartamento()%></option>
-												  <%
-												  	}
-												  %>
-												</select>
-											</div>
-                                        </div>
 
 
 
@@ -234,7 +226,7 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
+													<button type='submit' class="btn btn-danger">Eliminar</button>
 													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>

@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String TipIde = "";
+TipIde = request.getParameter("idTipoIdentificacion") == null ? "0" : request.getParameter("idTipoIdentificacion");
+Tbl_tipoIdentificacion tipI = new Tbl_tipoIdentificacion();
+Dt_tipoIdentificacion dtTId = new Dt_tipoIdentificacion();
+tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +18,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Municipio</title>
+<title>Eliminar | Tipo Identificacion</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -98,8 +107,11 @@
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante
 												Legal</a></li>
+										
+												
 									</ul></li>
 
 								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
@@ -165,7 +177,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar Municipio</h3>
+							<h3>Mostrar Tipo Identificacion</h3>
 						</div>
 
 						<div class="title_right">
@@ -186,57 +198,50 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Formulario <small>Agregar Municipio</small>
+										Formulario <small>Mostrar Tipo Identificacion</small>
 									</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="../Sl_municipio" method="post"
-										novalidate>
-										<input type="hidden" value="1" name="opcion" id="opcion" /> 
-										<span class="section">Datos de Municipio</span>
+								
+								<form class="" action="../Sl_tipoIdentificacion" method="post" novalidate>
+									
+									
+										<span class="section">Datos de Tipo Identificacion</span>
 
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">
-												Municipio<span class="required">*</span>
+										<input type="hidden" value="3" name="opcion" id="opcion" />
+
+									<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">ID
+												<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="txtmunicipio" id="txtmunicipio"
+												<input value= "<%= tipI.getIdTipoIdentifiacion() %>"class="form-control" class='optional' readonly
+													name="idTipoIdentifiacion" id="idTipoIdentifiacion"
 													type="text" required="required" />
+											</div>
+									</div>
+
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo<span>
+											</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input readonly class="form-control" type="text" class='optional'
+													name="tipoIdentificacion" id="tipoIdentificacion" value="<%=tipI.getTipo() %>"
+													required='required' readonly />
 											</div>
 										</div>
 
-										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Departamento<span class="required">*</span></label>
-                                            <div class="col-md-6 col-sm-6">
-                                                 <%
-							                      	ArrayList<Tbl_departamento> listDept = new ArrayList<Tbl_departamento>();
-							                      	Dt_departamento dtdept = new Dt_departamento();
-							                      	listDept = dtdept.listarDepartamento();
-								                 %>
-								                 <select class="form-control js-example-basic-single" name="cbxDept" id="cbxDept" required="required">
-												  <option value="">Seleccione...</option>
-												  <% 
-												  	for(Tbl_departamento dept :listDept){
-												  %>
-												  <option value="<%=dept.getIdDepartamento()%>"><%=dept.getDepartamento()%></option>
-												  <%
-												  	}
-												  %>
-												</select>
-											</div>
-                                        </div>
-
-
-
-
 										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
-												</div>
+											<div class="form-group" align="center">
+											
+											<button type='submit' class="btn btn-danger">Eliminar</button>
+											
+											<a  href="tbl_TipoIdentificacion.jsp" class="btn btn-primary" > Cancelar</a>
+												
 											</div>
 										</div>
 									</form>
@@ -265,11 +270,11 @@
 
 	<!-- Javascript functions	-->
 	<script>
+		
 		function hideshow() {
 			var password = document.getElementById("password1");
 			var slash = document.getElementById("slash");
 			var eye = document.getElementById("eye");
-
 			if (password.type === 'password') {
 				password.type = "text";
 				slash.style.display = "block";
@@ -279,33 +284,9 @@
 				slash.style.display = "none";
 				eye.style.display = "block";
 			}
-
 		}
 	</script>
 
-	<script>
-		// initialize a validator instance from the "FormValidator" constructor.
-		// A "<form>" element is optionally passed as an argument, but is not a must
-		var validator = new FormValidator({
-			"events" : [ 'blur', 'input', 'change' ]
-		}, document.forms[0]);
-		// on form "submit" event
-		document.forms[0].onsubmit = function(e) {
-			var submit = true, validatorResult = validator.checkAll(this);
-			console.log(validatorResult);
-			return !!validatorResult.valid;
-		};
-		// on form "reset" event
-		document.forms[0].onreset = function(e) {
-			validator.reset();
-		};
-		// stuff related ONLY for this demo page:
-		$('.toggleValidationTooltips').change(function() {
-			validator.settings.alerts = !this.checked;
-			if (this.checked)
-				$('form .alert').remove();
-		}).prop('checked', false);
-	</script>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

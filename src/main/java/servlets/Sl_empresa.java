@@ -19,6 +19,7 @@ import entidades.Tbl_empresa;
 /**
  * Servlet implementation class SL_empresa
  */
+
 @WebServlet("/Sl_empresa")
 public class Sl_empresa extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -55,29 +56,30 @@ public class Sl_empresa extends HttpServlet {
 		Dt_empresa dtEmpresa = new Dt_empresa();
 
 		// Se tienen que usar los ID de los formularios Add
-		empresa.setRuc(request.getParameter("ruc"));
-		empresa.setNombreComercial(request.getParameter("nombreComercial"));
-		empresa.setRazonSocial(request.getParameter("razonSocial"));
-		empresa.setTelefono(request.getParameter("telefono"));
-		empresa.setDireccion(request.getParameter("direccion"));
-		empresa.setCorreo(request.getParameter("correo"));
-		int representanteLegal = Integer.parseInt(request.getParameter("representanteLegal"));
-		empresa.setIdRepresentanteLegal(representanteLegal);
-		int moneda = Integer.parseInt(request.getParameter("moneda"));
-		empresa.setIdMoneda(moneda);
-		int departamento = Integer.parseInt(request.getParameter("departamento"));
-		empresa.setIdDepartamento(departamento);
-		int municipio = Integer.parseInt(request.getParameter("municipio"));
-		empresa.setIdMunicipio(municipio);
 
-		empresa.setUsuarioCreacion(1);
-
+        
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
-		empresa.setFechaCreacion(date);
 
 		switch (opc) {
 		case 1:
+			empresa.setRuc(request.getParameter("ruc"));
+			empresa.setNombreComercial(request.getParameter("nombreComercial"));
+			empresa.setRazonSocial(request.getParameter("razonSocial"));
+			empresa.setTelefono(request.getParameter("telefono"));
+			empresa.setDireccion(request.getParameter("direccion"));
+			empresa.setCorreo(request.getParameter("correo"));
+			int representanteLegal = Integer.parseInt(request.getParameter("valueIdR"));
+			empresa.setIdRepresentanteLegal(representanteLegal);
+			int departamento = Integer.parseInt(request.getParameter("departamento"));
+			empresa.setIdDepartamento(departamento);
+			int municipio = Integer.parseInt(request.getParameter("municipio"));
+			empresa.setIdMunicipio(municipio);
+			int periodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));
+			empresa.setIdPeriodoFiscal(periodoFiscal);
+			empresa.setUsuarioCreacion(1);
+			empresa.setFechaCreacion(date);
+
 			try {
 				if (dtEmpresa.addEmpresa(empresa)) {
 					response.sendRedirect("production/tbl_empresa.jsp?msj=1");
@@ -90,6 +92,42 @@ public class Sl_empresa extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case 2: 
+			
+			int idEmpresa = Integer.parseInt(request.getParameter("idEmpresa")); 
+			int idDepartamento = Integer.parseInt(request.getParameter("departamento")); 
+			int idRepresentanteLegal = Integer.parseInt(request.getParameter("representanteLegal")); 
+			int idMunicipio  = Integer.parseInt(request.getParameter("municipio")); 
+			int idPeriodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));  
+			
+			empresa.setIdEmpresa(idEmpresa); 
+			empresa.setIdDepartamento(idDepartamento); 
+			empresa.setIdMunicipio(idMunicipio);  
+			empresa.setIdRepresentanteLegal(idRepresentanteLegal);
+			empresa.setIdPeriodoFiscal(idPeriodoFiscal); 
+			
+			
+			empresa.setRuc(request.getParameter("ruc")); 
+			empresa.setRazonSocial(request.getParameter("razonSocial")); 
+			empresa.setNombreComercial(request.getParameter("nombreComercial")); 
+			empresa.setTelefono(request.getParameter("telefono")); 
+			empresa.setCorreo(request.getParameter("correo")); 
+			empresa.setDireccion(request.getParameter("direccion"));
+			empresa.setUsuarioModificacion(1); 
+			empresa.setFechaModificacion(date); 
+			
+			try {
+				if(dtEmpresa.modificarEmpresa(empresa)) { 
+					response.sendRedirect("production/tbl_empresa.jsp?msj=3"); 
+				} else {
+					response.sendRedirect("production/tbl_empresa.jsp?msj=4"); 
+
+				}
+			} catch(Exception e) {
+				System.out.println("Error al modificar empresa opc2: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break; 
 		default:
 			break;
 

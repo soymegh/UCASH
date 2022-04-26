@@ -1,35 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
-<html lang="es">
-
-<%
-String Representante = "";
-Representante = request.getParameter("idRepresentanteLegal") == null ? "0" : request.getParameter("idRepresentanteLegal");
-
-Vw_representanteLegal vRL = new Vw_representanteLegal();
-Tbl_representanteLegal tRL = new Tbl_representanteLegal();
-
-Dt_representanteLegal dtRl = new Dt_representanteLegal();
-
-vRL = dtRl.getViewRepresentanteLegalbyID(Integer.parseInt(Representante));
-tRL = dtRl.getRepresentanteLegalbyID(Integer.parseInt(Representante));
-
-Tbl_tipoIdentificacion tipI = new Tbl_tipoIdentificacion();
-Dt_tipoIdentificacion dtTId = new Dt_tipoIdentificacion();
-tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
-
-
-%>
-
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ver | Representante Legal</title>
+<title>Gestión | Tipo Identificacion</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -47,18 +27,10 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 <link
 	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
-	rel="stylesheet">
+<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -170,143 +142,129 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 				</div>
 			</div>
 			<!-- /top navigation -->
+			
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Representante Legal</h3>
+							<h3>
+								Tipo Identificacion <small></small>
+							</h3>
 						</div>
 
 						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
+							<div
+								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
 										placeholder="Buscar..."> <span
 										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
+										<button class="btn btn-secondary" type="button">Go!</button>
 									</span>
 								</div>
 							</div>
 						</div>
 					</div>
+
 					<div class="clearfix"></div>
 
 					<div class="row">
-						<div class="col-md-12 col-sm-12">
+						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>
-										Formulario <small>Mostrar Representante Legal</small>
-									</h2>
-
+									<h2>Tipo Identificacion</h2>
+									
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos de Representante Legal</span>
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
-												Completo<span >*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input value="<%= vRL.getNombreCompleto() %>" class="form-control" class='optional'
-													name="nombre completo" data-validate-length-range="5,15"
-													type="text" readonly />
-											</div>
-										</div>
-										
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo<span></span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input  class="form-control" type="text"
-													class='optional' name="tipo" value="<%=vRL.getTipo()%>" readonly />
-													 
-											</div>
-										</div>
-										
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
-												>*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input value="<%= vRL.getCorreo() %>"  class="form-control" name="correo" class='email'
-													required="required" type="email" readonly/>
-											</div>
-										</div>
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
-												>*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input value="<%= vRL.getTelefono() %>" class="form-control" type="tel" class='tel'
-													name="telefono" required='required'
-													data-validate-length-range="8,20" readonly/>
-											</div>
-										</div>
-										
-
-										
-										
-										
-										<div class="ln_solid">
-											<div class="form-group" align="center">
-												<div class="col-md-6 offset-md-3">
-												<a href="tbl_representanteLegal.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-2x fa-arrow-circle-o-left"></i> Regresar
-												</a>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="card-box table-responsive">
+												<div class="text-muted font-13 col-md-12"
+													style="text-align: right;">
+													<a href="addTipoIdentificacion.jsp"> <i class="fa fa-plus-square"></i>
+														Nuevo Tipo Identificacion
+													</a> <br></br>
 												</div>
+												<table id="datatable-buttons"
+													class="table table-striped table-bordered"
+													style="width: 100%">
+													<%
+													ArrayList<Tbl_tipoIdentificacion> listarTipoIdentificacion = new ArrayList<Tbl_tipoIdentificacion>();
+													Dt_tipoIdentificacion dtTI = new Dt_tipoIdentificacion();
+													listarTipoIdentificacion = dtTI.listarTipoIdentificacion();
+													%>
+													<thead>
+														<tr>
+															<th>ID</th>
+															
+															<th>Tipo</th>
+															
+															<th>Estado</th>
+															
+															<th>Acciones</th>
+														</tr>
+													</thead>
+													<tbody>
+														<%
+														for (Tbl_tipoIdentificacion TI : listarTipoIdentificacion) {
+															String estado = "";
+															if (TI.getEstado() != 3) {
+																estado = "ACTIVO";
+															} else {
+																estado = "INACTIVO";
+															}
+														%>
+														<tr>
+															
+															<td><%=TI.getIdTipoIdentifiacion() %></td>
+														
+															<td><%=TI.getTipo() %></td>
+															
+															<td><%=estado %></td>
+															
+															
+															<td><a href="editTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion() %> "> <i
+																	class="fa fa-edit" title="Editar"></i></a>
+																	
+																&nbsp;&nbsp; <a href="viewTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion()  %>" >
+																	<i class="fa fa-eye" title="Mostrar"></i>
+																	
+															</a> &nbsp;&nbsp; <a href="deleteTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion() %>" > <i
+																	class="fa fa-trash" title="Eliminar"></i>
+																	
+															</a></td>
+														</tr>
+														<%
+														}
+														%>
+													</tbody>
+
+												</table>
 											</div>
 										</div>
-									</form>
+									</div>
 								</div>
 							</div>
 						</div>
+
+
 					</div>
+				
 				</div>
 			</div>
-			<!-- /page content -->
-
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
 		</div>
 	</div>
-
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="../vendors/validator/multifield.js"></script>
-	<script src="../vendors/validator/validator.js"></script>
-
-	<!-- Javascript functions	-->
-	<script>
-		function hideshow() {
-			var password = document.getElementById("password1");
-			var slash = document.getElementById("slash");
-			var eye = document.getElementById("eye");
-
-			if (password.type === 'password') {
-				password.type = "text";
-				slash.style.display = "block";
-				eye.style.display = "none";
-			} else {
-				password.type = "password";
-				slash.style.display = "none";
-				eye.style.display = "block";
-			}
-
-		}
-	</script>
-
-
+	<!-- /page content -->
+	
+	<!-- footer content -->
+	<footer>
+		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="clearfix"></div>
+	</footer>
+	<!-- /footer content -->
+	
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -315,12 +273,35 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- validator -->
-	<!-- <script src="../vendors/validator/validator.js"></script> -->
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="../vendors/jszip/dist/jszip.min.js"></script>
+	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
-
 </html>

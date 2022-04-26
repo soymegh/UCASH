@@ -3,25 +3,25 @@ import java.util.Date;
 
 public class Tbl_representanteLegal {
 	
-	private int idRepresentanteLegal;
-	private int idTipoIdentificacion;
+	private int idRepresentante;
+	private int idTipoIdentifiacion;
 	private String nombre;
 	private String apellido;
 	private String correo;
 	private String telefono;
-	private String estado;
+	private int estado;
 	
-	public int getIdRepresentanteLegal() {
-		return idRepresentanteLegal;
+	public int getIdRepresentante() {
+		return idRepresentante;
 	}
-	public void setIdRepresentanteLegal(int idRepresentanteLegal) {
-		this.idRepresentanteLegal = idRepresentanteLegal;
+	public void setIdRepresentante(int idRepresentante) {
+		this.idRepresentante = idRepresentante;
 	}
-	public int getIdTipoIdentificacion() {
-		return idTipoIdentificacion;
+	public int getIdTipoIdentifiacion() {
+		return idTipoIdentifiacion;
 	}
-	public void setIdTipoIdentificacion(int idTipoIdentificacion) {
-		this.idTipoIdentificacion = idTipoIdentificacion;
+	public void setIdTipoIdentifiacion(int idTipoIdentifiacion) {
+		this.idTipoIdentifiacion = idTipoIdentifiacion;
 	}
 	public String getNombre() {
 		return nombre;
@@ -47,12 +47,13 @@ public class Tbl_representanteLegal {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public String getEstado() {
+	public int getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+	
 	
 	
 
