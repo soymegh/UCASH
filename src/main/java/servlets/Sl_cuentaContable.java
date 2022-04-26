@@ -67,7 +67,7 @@ public class Sl_cuentaContable extends HttpServlet {
 			{
 				if(dtCc.addCuentaContable(cc)) {
 					int idCC = dtCc.idCuentaContable();
-					response.setHeader("Refresh","0; URL=http://localhost:8080/SistemaContable/production/addCuentaContable.jsp?msj="+ idCC);
+					response.setHeader("Refresh","0; URL=production/addCuentaContable.jsp?msj="+ idCC);
 				}
 				else
 				{
