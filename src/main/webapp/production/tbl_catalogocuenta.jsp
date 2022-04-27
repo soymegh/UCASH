@@ -228,18 +228,18 @@
                       	for (Vw_catalogocuenta_empresa catalogocuenta :listaCatalogocuenta){
                       %>
 														<tr>
-															<td><%=catalogocuenta.getIdCatalogoCuenta() %></td>
+															<td><%=catalogocuenta.getIdCatalogo() %></td>
 															<td><%=catalogocuenta.getnombreComercial() %></td>
 															<td><%=catalogocuenta.getTitulo() %></td>
 															<td><%=catalogocuenta.getDescripcion() %></td>
 															
 
 															<td><a
-																href="viewCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogoCuenta()%>"
+																href="viewCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
 																target="blank"> <i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp; <a href="editCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogoCuenta()%>" target="blank"> <i
+															</a> &nbsp; <a href="editCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>" target="blank"> <i
 																	class="fa fa-edit" title="Editar"></i></a> &nbsp; <a
-																href="deleteCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogoCuenta()%>" target="blank"> <i class="fa fa-trash"
+																href="deleteCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>" target="blank"> <i class="fa fa-trash"
 																	title="Eliminar"></i>
 															</a></td>
 														</tr>

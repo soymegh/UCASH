@@ -23,7 +23,7 @@ public class Dt_catalogocuenta {
 	//Metodo para llenar el ResultSet
 	public void llenar_rsCatalogo(Connection c) {
 		try {
-			ps = c.prepareStatement("SELECT * FROM dbucash.vw_catalogocuenta_empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps = c.prepareStatement("SELECT * FROM dbucash.catalogocuenta;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			rsCatalogocuenta = ps.executeQuery();
 		} catch(Exception e) {
 			System.out.println("DATOS: ERROR EN LISTAR catalogocuenta" + e.getMessage());
@@ -148,6 +148,7 @@ public class Dt_catalogocuenta {
 					catalogo.setUsuarioCreacion(rs.getInt("usuarioCreacion"));
 					catalogo.setUsuarioModificacion(rs.getInt("usuarioModificacion"));
 					catalogo.setUsuarioEliminacion(rs.getInt("usuarioEliminacion"));
+
 				}
 
 			} catch (Exception e) {
@@ -281,7 +282,7 @@ public class Dt_catalogocuenta {
 				}
 			}
 			catch (Exception e){
-				System.err.println("ERROR AL eliminarMunicipio() "+e.getMessage());
+				System.err.println("ERROR AL ELIMINAR CATALOGO "+e.getMessage());
 				e.printStackTrace();
 			}
 			finally{
