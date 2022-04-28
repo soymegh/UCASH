@@ -48,11 +48,11 @@ public class Dt_periodoContable {
 				
 				String fechaIniPF = rs.getString("Fecha_Inicio_del_Periodo_Fiscal");
 				java.util.Date date0 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPF);
-				periodocontable.setFechaInicioPF(new java.sql.Date(date0.getTime()));;
+				periodocontable.setFechaInicioPF(new java.sql.Date(date0.getTime()));
 				
 				String fechaFinPF = rs.getString("Fecha_Final_del_Periodo_Fiscal");
 				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPF);
-				periodocontable.setFechaFinalPF(new java.sql.Date(date1.getTime()));;
+				periodocontable.setFechaFinalPF(new java.sql.Date(date1.getTime()));
 				
 				
 				//Fecha inicio

@@ -305,7 +305,7 @@
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
 													<button type='reset' class="btn btn-success">Reiniciar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a href="tbl_asientoContable.jsp" type="button" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>

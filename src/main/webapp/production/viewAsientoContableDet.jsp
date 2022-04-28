@@ -245,7 +245,7 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button class="btn btn-primary">Regresar</button>
+													<a href="tbl_asientoContable.jsp" class="btn btn-primary">Regresar</a>
 												</div>
 											</div>
 										</div>
