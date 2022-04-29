@@ -237,8 +237,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="password" name="txtclave2" id="txtclave2"
-													class="form-control" data-validate-length-range="5,50"
-													name="name"
+													class="form-control" name="name"
 													title="Utilice letras mayúsculas, minúsculas, números y caracteres especiales"
 													required="required" />
 											</div>
@@ -303,10 +302,6 @@
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
-	
-	<!--Keyboard Navigation-->
-	<script src="js/navigation/addUsuarioNav.js"></script>
-	
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
