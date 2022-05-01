@@ -217,16 +217,21 @@ tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
 											</div>
 										</div>
 
-										<div class="ln_solid">
-											<div class="form-group" align="center">
-												<div class="col-md-6 offset-md-3">
-												<a href="tbl_representanteLegal.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-2x fa-arrow-circle-o-left"></i> Regresar
-												</a>
-												</div>
-											</div>
-										</div>
+
+<div class="ln_solid">
+<div class="form-group" align="center">
+
+<button type='button' onClick="window.location.href='tbl_TipoIdentificacion.jsp'" class="btn btn-primary">Regresar</button>
+
+<button type="button" onClick="window.location.href='editTipoIdentificacion.jsp?idTipoIdentificacion=<%=tipI.getIdTipoIdentifiacion()%>'" class="btn btn-primary">Editar este Tipo Identificacion</button>
+
+
+<button type="button" onClick="window.location.href='deleteTipoIdentificacion.jsp?idTipoIdentificacion=<%=tipI.getIdTipoIdentifiacion()%>'" class="btn btn-primary">Eliminar este Tipo Identificacion</button>
+
+</div>
+</div>
+
+										
 										
 									</form>
 								</div>
@@ -239,7 +244,7 @@ tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

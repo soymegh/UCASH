@@ -253,15 +253,20 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 										
 										
 										<div class="ln_solid">
-											<div class="form-group" align="center">
-												<div class="col-md-6 offset-md-3">
-												<a href="tbl_representanteLegal.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-2x fa-arrow-circle-o-left"></i> Regresar
-												</a>
-												</div>
-											</div>
-										</div>
+<div class="form-group" align="center">
+
+<button type='button' onClick="window.location.href='tbl_representanteLegal.jsp'" class="btn btn-primary">Regresar</button>
+
+<button type="button" onClick="window.location.href='editRepresentanteLegal.jsp?idRepresentanteLegal=<%=vRL.getIdRepresentante()%>'" class="btn btn-primary">Editar este Representante Legal</button>
+
+
+<button type="button" onClick="window.location.href='deleteRepresentanteLegal.jsp?idRepresentanteLegal=<%=vRL.getIdRepresentante()%>'" class="btn btn-primary">Eliminar este Representante Legal</button>
+
+</div>
+</div>
+										
+										
+										
 									</form>
 								</div>
 							</div>
@@ -273,7 +278,7 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

@@ -334,7 +334,7 @@
 													</label>
 													<div class="col-md-6 col-sm-6">
 														<input class="form-control" type="email" class='email'
-															name="confirm_email" data-validate-linked='email'
+															name="confirm_email" data-validate-linked='correo'
 															required='required' />
 													</div>
 												</div>
@@ -373,7 +373,7 @@
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

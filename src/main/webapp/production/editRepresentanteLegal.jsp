@@ -233,7 +233,7 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 													</label>
 													<div class="col-md-6 col-sm-6">
 														<input value="<%= tRL.getNombre() %>" class="form-control" class='optional' name="nombre"
-															data-validate-length-range="5,15" type="text"
+															 type="text"
 															required="required" />
 													</div>
 									</div>
@@ -246,7 +246,7 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 													</label>
 													<div class="col-md-6 col-sm-6">
 														<input value="<%= tRL.getApellido() %>"class="form-control" class='optional'
-															name="apellido" data-validate-length-range="5,15"
+															name="apellido" 
 															type="text" required="required" />
 													</div>
 									</div>
@@ -328,7 +328,7 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
