@@ -395,7 +395,8 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button id="AgregarCCD" type='submit' class="btn btn-primary">Agregar</button>
-													<button id="ResetCCD" type='reset' class="btn btn-success">Reiniciar</button>
+													<button id="ResetCCD"
+													 type='reset' onClick=(location.reload()) class="btn btn-success">Reiniciar</button>
 													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
