@@ -141,7 +141,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. Josï¿½ Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesiï¿½n</a>
@@ -165,9 +165,8 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
+										placeholder="Buscar por..."> <span class="input-group-btn">
+										<button class="btn btn-secondary" type="button">Ir!</button>
 									</span>
 								</div>
 							</div>

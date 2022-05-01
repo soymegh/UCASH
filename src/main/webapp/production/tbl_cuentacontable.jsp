@@ -185,13 +185,6 @@
 					<div class="clearfix"></div>
 
 					<div class="row">
-						<div class="col-md-12 col-md-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Cuentas Contables Registradas</h2>
-									
-									<div class="clearfix"></div>
-								</div>
 
 								<div class="x_content">
 									<div class="row">
@@ -359,8 +352,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 	</div>
 	</div>
