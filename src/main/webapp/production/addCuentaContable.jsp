@@ -144,7 +144,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesiï¿½n</a>
+									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesion</a>
 								</div>
 							</li>
 						</ul>
@@ -161,16 +161,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 							<h3>Agregar Cuenta Contable</h3>
 						</div>
 
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Ir!</button>
-									</span>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 					<div class="clearfix"></div>
 
@@ -412,7 +403,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

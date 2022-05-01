@@ -175,18 +175,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Eliminar Departamento</h3>
-						</div>
-
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Ir!</button>
-									</span>
-								</div>
-							</div>
+							<h3>Eliminar Cuenta Contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -296,7 +285,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

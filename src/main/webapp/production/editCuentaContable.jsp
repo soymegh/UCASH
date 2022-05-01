@@ -127,7 +127,7 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 					<!-- /sidebar menu -->
 
 					<!-- /menu footer buttons -->
-					<div class="sidebar-footer hidden-small">
+					<!-- <div class="sidebar-footer hidden-small">
 						<a data-toggle="tooltip" data-placement="top" title="Settings">
 							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
@@ -138,7 +138,7 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 							href="login.html"> <span class="glyphicon glyphicon-off"
 							aria-hidden="true"></span>
 						</a>
-					</div>
+					</div> -->
 					<!-- /menu footer buttons -->
 				</div>
 			</div>
@@ -154,9 +154,9 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="true"> <img src="img.jpg" alt="">Lic. José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"
+								<!-- <div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="javascript:;"> Profile</a> <a
 										class="dropdown-item" href="javascript:;"> <span
@@ -164,7 +164,7 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 									</a> <a class="dropdown-item" href="javascript:;">Help</a> <a
 										class="dropdown-item" href="login.html"><i
 										class="fa fa-sign-out pull-right"></i> Log Out</a>
-								</div>
+								</div> -->
 							</li>
 						</ul>
 					</nav>
@@ -180,17 +180,7 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 							<h3>Editar Cuenta Contable</h3>
 						</div>
 
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
-										class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Ir!</button>
-									</span>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 					<div class="clearfix"></div>
 
@@ -344,7 +334,7 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 	</div>
 	
 	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="pull-right">Sistema contable</div>
 		<div class="clearfix"></div>
 	</footer>
 	
