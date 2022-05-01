@@ -175,18 +175,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Eliminar Departamento</h3>
-						</div>
-
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Buscar...">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
+							<h3>Eliminar Cuenta Contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -195,10 +184,6 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>
-										Formulario <small>Eliminar Departamento</small>
-									</h2>
-
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -206,7 +191,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 										novalidate>
 										<input type="hidden" value="3" name="opcion" id="opcion" /> 
 										<input type="hidden" value="<%=vwCc.getIdCuenta() %>" name="idCuenta" id="idCuenta" />
-										<span class="section">Datos de Departamento</span>
+										<span class="section">Datos de Cuenta Contable</span>
 
 
 										<div class="field item form-group">
@@ -285,7 +270,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-danger">Eliminar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>
@@ -300,7 +285,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

@@ -141,10 +141,10 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. Josï¿½ Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesiï¿½n</a>
+									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesion</a>
 								</div>
 							</li>
 						</ul>
@@ -161,17 +161,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 							<h3>Agregar Cuenta Contable</h3>
 						</div>
 
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Search for..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 					<div class="clearfix"></div>
 
@@ -396,7 +386,8 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button id="AgregarCCD" type='submit' class="btn btn-primary">Agregar</button>
-													<button id="ResetCCD" type='reset' class="btn btn-success">Reiniciar</button>
+													<button id="ResetCCD"
+													 type='reset' onClick=(location.reload()) class="btn btn-success">Reiniciar</button>
 													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Cancelar</button></a>
 												</div>
 											</div>
@@ -412,7 +403,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
