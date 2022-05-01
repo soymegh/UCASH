@@ -177,7 +177,7 @@ tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Tipo Identificacion</h3>
+							<h3>Eliminar Tipo Identificacion</h3>
 						</div>
 
 						<div class="title_right">
@@ -198,7 +198,7 @@ tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Formulario <small>Mostrar Tipo Identificacion</small>
+										Formulario <small>Eliminar Tipo Identificacion</small>
 									</h2>
 
 									<div class="clearfix"></div>
@@ -255,7 +255,7 @@ tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
