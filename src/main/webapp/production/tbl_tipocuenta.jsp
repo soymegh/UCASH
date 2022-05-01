@@ -96,6 +96,7 @@
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificación</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
 									
@@ -164,7 +165,7 @@
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
+										placeholder="Buscar..."> <span
 										class="input-group-btn">
 										<button class="btn btn-secondary" type="button">Ir</button>
 									</span>
@@ -266,7 +267,7 @@
 
 	<!-- footer content -->
 	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="pull-right">Sistema contable by UCASH</div>
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
