@@ -137,7 +137,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+								aria-expanded="true"> <img src="img.jpg" alt="">Lic.
 									José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
@@ -160,17 +160,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 							<h3>Mostrar Cuenta Contable</h3>
 						</div>
 
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 					<div class="clearfix"></div>
 
@@ -282,7 +272,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 			<!-- /page content -->
 	
 	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="pull-right">Sistema contable</div>
 		<div class="clearfix"></div>
 	</footer>
 
