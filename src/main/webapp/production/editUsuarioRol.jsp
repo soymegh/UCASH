@@ -176,7 +176,7 @@ userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
 										<span class="section">Datos de Usuario Rol</span>
 			
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Rol<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Rol:<span class="required"></span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 												<%
@@ -185,7 +185,7 @@ userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
 							                      	listRol = dtr.listaRolesActivos();
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
+												  <option value=""><%="Dato actual: " + userRol.getDescripcion()%></option>
 												  <% 
 												  	for(Tbl_rol trol :listRol){
 												  %>
@@ -193,23 +193,20 @@ userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
 												  <%
 												  	}
 												  %>
-								                
 												</select>
 											</div>
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Usuario:<span class="required"></span></label>
                                             <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
 	                                             <%
 							                      	ArrayList<Tbl_usuario> listaUsuario = new ArrayList<Tbl_usuario>();
 							                      	Dt_usuario dtu = new Dt_usuario();
 							                      	listaUsuario = dtu.listaUserActivos();
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="cbxUser" id="cbxUser" required="required">
-												  <option value="">Seleccione...</option>
+												  <option value=""><%="Dato actual: " + userRol.getUsuario()%></option>
 												  <% 
 												  	for(Tbl_usuario tu :listaUsuario){
 												  %>
@@ -217,14 +214,13 @@ userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
 												  <%
 												  	}
 												  %>
-
 												</select>
 											</div>
                                         </div>
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type="button" onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-primary">Cancelar</button>
+													<button type="button" onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-danger">Cancelar</button>
 													<button type='submit' class="btn btn-primary">Editar</button>
 												</div>
 											</div>

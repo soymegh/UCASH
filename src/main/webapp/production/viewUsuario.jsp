@@ -196,25 +196,25 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 								<form class="" action="../Sl_usuario" method="post" novalidate>
 
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" placeholder="Nombre de usuario" value="<%=user.getUsuario()%>" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getNombre()%>" placeholder="Nombres" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getApellidos()%>" placeholder="Apellidos" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getEmail()%>" placeholder="Correo electrónico" readonly>
 										</div>
@@ -222,9 +222,11 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 
 									<div class="ln_solid"></div>
 									<div class="form-group">
-										<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
-										<button type="button" onClick="window.location.href='editUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Editar este usuario</button>
-										<button type="button" onClick="window.location.href='eliminarUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Eliminar este usuario</button>	
+										<div class="col-md-6 offset-md-3">
+											<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
+											<button type="button" onClick="window.location.href='editUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Editar este usuario</button>
+											<button type="button" onClick="window.location.href='eliminarUsuario.jsp?idUsuario=<%=user.getIdUsuario()%>'" class="btn btn-primary">Eliminar este usuario</button>
+										</div>
 									</div>
 
 								</form>

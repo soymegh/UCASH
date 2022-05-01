@@ -147,16 +147,6 @@
 						<div class="title_left">
 							<h3>Agregar nuevo usuario</h3>
 						</div>
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Buscar...">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="clearfix"></div>
 					<div class="row">
@@ -171,7 +161,7 @@
 										<input type="hidden" value="1" name="opcion" id="opcion" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span
-												class="required">*</span></label>
+												class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input id="txt_nombre" class="form-control" class='optional' name="nombres"
 													type="text" required="required" placeholder="Nombres" />
@@ -180,7 +170,7 @@
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Apellidos<span
-												class="required">*</span></label>
+												class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input id="txt_apellido" class="form-control" class='optional'
 													name="apellidos" type="text" required="required"
@@ -190,7 +180,7 @@
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Correo
-												Electronico<span class="required">*</span>
+												Electronico<span class="required">:</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input id="txt_email" class="form-control" class='optional' name="email"
@@ -201,7 +191,7 @@
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Confirme
-												Email:<span class="required">*</span>
+												Email<span class="required">:</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="email" name="email2" id="email2"
@@ -214,7 +204,7 @@
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span
-												class="required">*</span></label>
+												class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input id="txt_usuario" class="form-control" class='optional' name="usuario"
 													type="text" required="required"
@@ -224,7 +214,7 @@
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Contraseña<span
-												class="required">*</span></label>
+												class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input id="txt_password" class="form-control" class='optional' name="pwd"
 													type="password" required="required" placeholder="Contraseña" />
@@ -233,7 +223,7 @@
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Confirme
-												Contraseña:<span class="required">*</span>
+												Contraseña<span class="required">:</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="password" name="txtclave2" id="txtclave2"
@@ -246,7 +236,7 @@
 										<div class="ln_solid"></div>
 										<div class="form-group">
 											<div class="col-md-9 col-sm-9  offset-md-3">
-												<button type="button" id="button_cancel" onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Cancelar</button>
+												<button type="button" id="button_cancel" onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-danger">Cancelar</button>
 												<button type='submit' id="button_execute" class="btn btn-primary">Agregar</button>
 											</div>
 										</div>
