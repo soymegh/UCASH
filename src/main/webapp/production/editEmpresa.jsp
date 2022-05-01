@@ -452,12 +452,12 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="ln_solid">
-											<div class="form-group">
+											<div class="form-group" align="center">
 												<div class="col-md-6 offset-md-3">
-													<button id="agregarE" type='submit' class="btn btn-primary">Editar</button>
+													<button id="agregarE" type='submit' class="btn btn-primary">Editar empresa</button>
 													
 													<button id="cancelarE" type="button"
-														onclick="history.back()" class="btn btn-primary">Cancelar</button>
+														onclick="window.location.href='tbl_empresa.jsp'" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
 										</div>
@@ -472,7 +472,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

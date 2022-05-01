@@ -296,14 +296,20 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 													required='required' />
 											</div>
 										</div>
-										<div class="ln_solid">
+											<div class="ln_solid">
 											<div class="form-group" align="center">
-												<a href="tbl_empresa.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-2x fa-arrow-circle-o-left"></i> Regresar
-												</a>
+
+												<button type='button'
+													onClick="window.location.href='tbl_empresa.jsp'"
+													class="btn btn-primary">Regresar</button>
+
+												<button type="button"
+													onClick="window.location.href='editEmpresa.jsp?idEmpresa=<%=vwEmpresa.getIdEmpresa()%>'"
+													class="btn btn-primary">Editar esta empresa</button>
+
 											</div>
 										</div>
+
 									</form>
 								</div>
 							</div>
@@ -315,7 +321,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
