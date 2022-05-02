@@ -239,7 +239,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type='button' onClick="window.location.href='tbl_municipio.jsp'" class="btn btn-primary">Regresar</button>
 												</div>
 											</div>
 										</div>
@@ -254,7 +254,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

@@ -247,10 +247,10 @@
 															<td><%=mun.getMunicipio()%>
 															<td><a
 																href="viewMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>"
-																target="blank"> <i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp; <a href="editMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>" target="blank"> <i
+																> <i class="fa fa-eye" title="Mostrar"></i>
+															</a> &nbsp; <a href="editMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>"> <i
 																	class="fa fa-edit" title="Editar"></i></a> &nbsp; <a
-																href="deleteMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>" target="blank"> <i class="fa fa-trash"
+																href="deleteMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>"> <i class="fa fa-trash"
 																	title="Eliminar"></i>
 															</a></td>
 														</tr>
@@ -278,7 +278,7 @@
 
 	<!-- footer content -->
 	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="pull-right">Sistema contable by UCASH</div>
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->

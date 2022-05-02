@@ -204,9 +204,10 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 								<div class="x_content">
 									<form class="" action="../Sl_departamento" method="post"
 										novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> 
-										<input type="hidden" value="<%=td.getIdDepartamento() %>" name="idDepartamento" id="idDepartamento" />
-										<span class="section">Datos de Departamento</span>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
+											type="hidden" value="<%=td.getIdDepartamento()%>"
+											name="idDepartamento" id="idDepartamento" /> <span
+											class="section">Datos de Departamento</span>
 
 
 										<div class="field item form-group">
@@ -214,9 +215,9 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 												<span class="required"></span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' value="<%=td.getDepartamento()%>"
-													name="txtdepartamento" id="txtdepartamento" type="text"
-													required="required" />
+												<input class="form-control" class='optional'
+													value="<%=td.getDepartamento()%>" name="txtdepartamento"
+													id="txtdepartamento" type="text" required="required" />
 											</div>
 										</div>
 
@@ -227,7 +228,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type='button' onClick="window.location.href='tbl_departamento.jsp'" class="btn btn-primary">Regresar</button>
 												</div>
 											</div>
 										</div>
@@ -242,7 +243,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

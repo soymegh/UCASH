@@ -215,11 +215,18 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 										</div>
 										
 										<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_municipio.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Regresar
-												</a>
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button onClick="window.location.href='editMunicipio.jsp?idM=<%=tm.getIdMunicipio()%>'" type='button'class="btn btn-primary">Editar este municipio</button>
+
+													<button onClick="window.location.href='deleteMunicipio.jsp?idM=<%=tm.getIdMunicipio()%>'"  type='button' class="btn btn-primary">Eliminar este municipio</button>
+
+													<a href="tbl_departamento.jsp"
+														class="btn btn-primary">Regresar</a>
+
+
+
+												</div>
 											</div>
 										</div>
 									</form>
@@ -233,7 +240,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

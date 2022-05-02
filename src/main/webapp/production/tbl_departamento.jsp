@@ -212,7 +212,7 @@
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addDepartamento.jsp"> <i
+													<a  href="addDepartamento.jsp" > <i
 														class="fa fa-plus-square"></i> Nuevo Departamento
 													</a> <br></br>
 												</div>
@@ -247,11 +247,11 @@
 															<td><%=Dep.getDepartamento()%></td>
 
 
-															<td><a href="viewDepartamento.jsp?idDp=<%=Dep.getIdDepartamento() %>" target="blank">
+															<td><a href="viewDepartamento.jsp?idDp=<%=Dep.getIdDepartamento() %>">
 																	<i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp; <a href="editDepartamento.jsp?idDp=<%=Dep.getIdDepartamento() %>" target="blank">
+															</a> &nbsp; <a href="editDepartamento.jsp?idDp=<%=Dep.getIdDepartamento() %>">
 																	<i class="fa fa-edit" title="Editar"></i>
-															</a> &nbsp;&nbsp; <a href="deleteDepartamento.jsp?idDp=<%=Dep.getIdDepartamento() %>" target="_blank"> <i
+															</a> &nbsp;&nbsp; <a href="deleteDepartamento.jsp?idDp=<%=Dep.getIdDepartamento() %>"> <i
 																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
@@ -280,7 +280,7 @@
 
 	<!-- footer content -->
 	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="pull-right">Sistema contable by UCASH</div>
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->

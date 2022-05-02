@@ -209,18 +209,26 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 											</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input readonly class="form-control" type="text" class='optional'
-													name="txtdepartamento" id="txtdepartamento" value="<%=td.getDepartamento() %>"
+												<input readonly class="form-control" type="text"
+													class='optional' name="txtdepartamento"
+													id="txtdepartamento" value="<%=td.getDepartamento()%>"
 													required='required' readonly />
 											</div>
 										</div>
 
 										<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_departamento.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Regresar
-												</a>
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button onClick="window.location.href='editDepartamento.jsp?idDp=<%=td.getIdDepartamento()%>'" type='button'class="btn btn-primary">Editar este departamento</button>
+
+													<button onClick="window.location.href='deleteDepartamento.jsp?idDp=<%=td.getIdDepartamento()%>'"  type='button' class="btn btn-primary">Eliminar este departamento</button>
+
+													<a href="tbl_departamento.jsp"
+														class="btn btn-primary">Regresar</a>
+
+
+
+												</div>
 											</div>
 										</div>
 									</form>
@@ -234,7 +242,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
@@ -249,7 +257,6 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 	<!-- Javascript functions	-->
 	<script>
-		
 		function hideshow() {
 			var password = document.getElementById("password1");
 			var slash = document.getElementById("slash");
