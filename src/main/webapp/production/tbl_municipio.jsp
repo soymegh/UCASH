@@ -98,6 +98,8 @@
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo
+												Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante
 												Legal</a></li>
 									</ul></li>
@@ -246,12 +248,14 @@
 															<td><%=mun.getDepartamento()%></td>
 															<td><%=mun.getMunicipio()%>
 															<td><a
-																href="viewMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>"
-																> <i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp; <a href="editMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>"> <i
-																	class="fa fa-edit" title="Editar"></i></a> &nbsp; <a
-																href="deleteMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>"> <i class="fa fa-trash"
-																	title="Eliminar"></i>
+																href="viewMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>">
+																	<i class="fa fa-eye" title="Mostrar"></i>
+															</a> &nbsp; <a
+																href="editMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>">
+																	<i class="fa fa-edit" title="Editar"></i>
+															</a> &nbsp; <a
+																href="deleteMunicipio.jsp?idM=<%=mun.getIdMunicipio()%>">
+																	<i class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%

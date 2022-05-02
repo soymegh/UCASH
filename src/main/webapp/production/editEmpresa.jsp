@@ -106,7 +106,10 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo
+												Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante
 												Legal</a></li>
 									</ul></li>
@@ -265,12 +268,10 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 								</div>
 								<div class="x_content">
 									<form class="" action="../Sl_empresa" method="post" novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> 
-										<input
-											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>" name="idEmpresa"
-											id="idEmpresa" /> 
-											<span class="section">Datos de
-											empresa</span>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
+											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>"
+											name="idEmpresa" id="idEmpresa" /> <span class="section">Datos
+											de empresa</span>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
 												class="required">*</span></label>
@@ -454,10 +455,12 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										<div class="ln_solid">
 											<div class="form-group" align="center">
 												<div class="col-md-6 offset-md-3">
-													<button id="agregarE" type='submit' class="btn btn-primary">Editar empresa</button>
-													
+													<button id="agregarE" type='submit' class="btn btn-primary">Editar
+														empresa</button>
+
 													<button id="cancelarE" type="button"
-														onclick="window.location.href='tbl_empresa.jsp'" class="btn btn-primary">Cancelar</button>
+														onclick="window.location.href='tbl_empresa.jsp'"
+														class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
 										</div>
@@ -540,7 +543,8 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
     	document.getElementById("periodoFiscal").value = "<%=tEmpresa.getIdPeriodoFiscal()%>";
     	document.getElementById("representanteLegal").value = "<%=tEmpresa.getIdRepresentanteLegal()%>";
     	document.getElementById("departamento").value = "<%=tEmpresa.getIdDepartamento()%>";
-    	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>";
+    	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>
+		";
 
 			console.log(document.getElementById("representanteLegal").value);
 			console.log(document.getElementById("ruc").value);

@@ -108,6 +108,8 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo
+												Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante
 												Legal</a></li>
 									</ul></li>
@@ -228,7 +230,9 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type='button' onClick="window.location.href='tbl_departamento.jsp'" class="btn btn-primary">Regresar</button>
+													<button type='button'
+														onClick="window.location.href='tbl_departamento.jsp'"
+														class="btn btn-primary">Regresar</button>
 												</div>
 											</div>
 										</div>

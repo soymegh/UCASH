@@ -106,6 +106,8 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo
+												Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante
 												Legal</a></li>
 									</ul></li>
