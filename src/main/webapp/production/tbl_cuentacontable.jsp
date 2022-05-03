@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
+
+<%
+Tbl_cuentaContable ccd = new Tbl_cuentaContable();
+Dt_cuentaContable dtCcd = new Dt_cuentaContable();
+
+int idd = dtCcd.idCuentaContable();
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -202,7 +209,8 @@
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addCuentaContable.jsp"> <i
+
+													<a href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable()+1%>"> <i
 														class="fa fa-plus-square"></i> Nueva Cuenta Contable
 													</a> <br></br>
 												</div>
@@ -263,7 +271,7 @@
 															<td>
 															<a href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>">
 																	<i class="fa fa-edit" title="Editar"></i>
-															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
+															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>"> 
 																	<i class="fa fa-eye" title="Mostrar" ></i>
 															</a> &nbsp;&nbsp; <a href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
 																	<i class="fa fa-trash" title="Eliminar"></i>

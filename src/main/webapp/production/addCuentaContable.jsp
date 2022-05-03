@@ -284,6 +284,58 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 												</select>
 											</div>
                                         </div>
+                                        <div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="debe" id="debe"
+													 type="text"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional' name="haber" id="haber"
+													 type="text"
+													required="required" />
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial<span
+												class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" class='optional'
+													name="saldoInicial" id="saldoInicial"
+													type="text" required="required" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo
+												Final<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="tel" class='optional'
+													name="saldoFinal" id="saldoFinal" required='required'
+													/>
+											</div>
+										</div>
+										
+										
+									<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta Contable<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="tel" class='optional'
+													name="idCuenta" id="idCuenta" 
+													/>
+											</div>
+										</div>
                                         
 										<div class="ln_solid">
 											<div class="form-group">
@@ -301,7 +353,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 					</div>
 					
 					
-					<div class="row">
+					<%-- <div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
@@ -396,7 +448,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 				</div>
 			</div>
 			<!-- /page content -->
@@ -418,6 +470,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 
 	<!-- Javascript functions	-->
 
+<script type="text/javascript"></script>
 	<script>
 		// initialize a validator instance from the "FormValidator" constructor.
 		// A "<form>" element is optionally passed as an argument, but is not a must
@@ -446,43 +499,8 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 			function getURL() {
 				const url = window.location.href;
 				var idCC = url.substring(url.indexOf('=') + 1);
-				document.getElementById("idCuenta").value = idCC;
+				document.getElementById("idCuenta").value;
 				
-				
-				if (url == "http://localhost:8080/SistemaContable/production/addCuentaContable.jsp?msj="
-						+ idCC) {
-					document.getElementById("numeroCuenta").disabled = true;
-					document.getElementById("SC").disabled = true;
-					document.getElementById("SsC").disabled = true;
-					document.getElementById("SssC").disabled = true;
-					document.getElementById("nombreCuenta").disabled = true;
-					document.getElementById("nivel").disabled = true;
-					document.getElementById("rubro").disabled = true;
-					document.getElementById("tipoCuenta").disabled = true;
-					document.getElementById("catalogoCuenta").disabled = true;
-					
-					document.getElementById("AgregarCCD").disabled = false;
-					document.getElementById("ResetCCD").disabled = false;
-					document.getElementById("CancelarCCD").disabled = false;
-					document.getElementById("idCuenta").disabled = false;
-					
-					document.getElementById("AgregarCC").disabled = true;
-					document.getElementById("ResetCC").disabled = true;
-					document.getElementById("CancelarCC").disabled = true;
-				} else if (url == "http://localhost:8080/SistemaContable/production/addCuentaContable.jsp") {
-					console.log("Test");
-					document.getElementById("numeroCuenta").disabled = false;
-					document.getElementById("SC").disabled = false;
-					document.getElementById("SsC").disabled = false;
-					document.getElementById("SssC").disabled = false;
-					document.getElementById("nombreCuenta").disabled = false;
-					document.getElementById("nivel").disabled = false;
-					document.getElementById("rubro").disabled = false;
-					document.getElementById("tipoCuenta").disabled = false;
-					document.getElementById("catalogoCuenta").disabled = false;
-					document.getElementById("AgregarCCD").disabled = true;
-					document.getElementById("ResetCCD").disabled = true;
-					document.getElementById("CancelarCCD").disabled = true;
 				}
 			}
 			window.onload = getURL();

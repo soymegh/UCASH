@@ -6,7 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import entidades.Tbl_cuentaContable_Det;
+import datos.Dt_cuentaContable_Det;
 import datos.Dt_cuentaContable;
 import entidades.Tbl_cuentaContable;
 
@@ -44,6 +45,10 @@ public class Sl_cuentaContable extends HttpServlet {
 		Tbl_cuentaContable cc = new Tbl_cuentaContable();
 		Dt_cuentaContable dtCc = new Dt_cuentaContable();
 		
+		Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+		Dt_cuentaContable_Det dtccd = new Dt_cuentaContable_Det();
+		
+		
 		
 		switch (opc) {
 		
@@ -63,11 +68,20 @@ public class Sl_cuentaContable extends HttpServlet {
 			int catalogoCuenta = Integer.parseInt(request.getParameter("catalogoCuenta"));
 			cc.setIdCatalogo(catalogoCuenta);
 			
+			Double debe = Double.parseDouble(request.getParameter("debe"));
+			ccd.setDebe(debe);
+			Double haber = Double.parseDouble(request.getParameter("haber"));
+			ccd.setHaber(haber);
+			Double saldoInicial = Double.parseDouble(request.getParameter("saldoInicial"));
+			ccd.setSaldoInicial(saldoInicial);
+			Double saldoFinal = Double.parseDouble(request.getParameter("saldoFinal"));
+			ccd.setSaldoFinal(saldoFinal);
+			ccd.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
+			
 			try
 			{
-				if(dtCc.addCuentaContable(cc)) {
-					int idCC = dtCc.idCuentaContable();
-					response.setHeader("Refresh","0; URL=production/addCuentaContable.jsp?msj="+ idCC);
+				if(dtCc.addCuentaContable(cc) && dtccd.addCuentaContableDet(ccd)) {
+					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=1");
 				}
 				else
 				{
@@ -94,7 +108,6 @@ public class Sl_cuentaContable extends HttpServlet {
 			cc.setRubro(Integer.parseInt(request.getParameter("rubro")));
 			cc.setIdTipoCuenta(Integer.parseInt(request.getParameter("cbxTipoCuenta")));
 			cc.setIdCatalogo(Integer.parseInt(request.getParameter("cbxCatalogoCuenta")));
-			
 			try {
 				if(dtCc.editCuentaContable(cc)) { 
 					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=3"); 
