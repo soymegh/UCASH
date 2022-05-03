@@ -164,11 +164,11 @@ listadoEmpresas = datosEmpresas.listarEmpresa();
 								<div class="clearfix"></div>
 							</div>
 
-							<div class="x_content">
-								<div class="field item form-group colspan-3">
-									<%
-									for (Vw_empresa empresa : listadoEmpresas) {
-									%>
+							<div class="x_content row">
+								<%
+								for (Vw_empresa empresa : listadoEmpresas) {
+								%>
+								<div class="field item form-group col">
 									<jsp:include page="fichaEmpresa.jsp">
 										<jsp:param name="nombreEmp"
 											value="<%=empresa.getNombreComercial()%>" />
@@ -177,10 +177,10 @@ listadoEmpresas = datosEmpresas.listarEmpresa();
 										<jsp:param name="representanteEmp"
 											value="<%=empresa.getRepresentante()%>" />
 									</jsp:include>
-									<%
-									}
-									%>
 								</div>
+								<%
+								}
+								%>
 							</div>
 						</div>
 					</div>
