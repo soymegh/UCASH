@@ -213,7 +213,7 @@
 															<th>Fecha Inicio</th>
 															<th>Fecha Final</th>
 															<th>Estado</th>
-															<th>Opciones</th>
+															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>

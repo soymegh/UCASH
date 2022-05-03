@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Cuentas Contables</title>
+<title>Gestión | Asiento Contable</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -171,13 +171,6 @@
 						<div class="title_right">
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
-										class="input-group-btn">
-										<button class="btn btn-secondary" type="button">Ir</button>
-									</span>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -189,146 +182,79 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Asientos Contables Registrados</h2>
-									
+
 									<div class="clearfix"></div>
 								</div>
 
 								<div class="x_content">
 									<div class="row">
-						<div class="col-md-12 col-md-12">
-							<div class="x_panel">
-								<div class="x_content">
-									<div class="row">
-										<div class="col-md-12">
-											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-													<a href="addAsientoContable.jsp"> <i
-														class="fa fa-plus-square"></i> Nuevo Asiento Contable
-													</a> <br></br>
+										<div class="col-md-12 col-md-12">
+											<div class="x_panel">
+												<div class="x_content">
+													<div class="row">
+														<div class="col-md-12">
+															<div class="card-box table-responsive">
+																<div class="text-muted font-13 col-md-12"
+																	style="text-align: right;">
+																	<a href="addAsientoContable.jsp"> <i
+																		class="fa fa-plus-square"></i> Nuevo Asiento Contable
+																	</a> <br></br>
+																</div>
+																<table id="datatable-buttons"
+																	class="table table-striped table-bordered"
+																	style="width: 100%">
+																	<%
+																	ArrayList<Vw_asientoContable> listaAsientoContable = new ArrayList<Vw_asientoContable>();
+																	Dt_asientoContable dtac = new Dt_asientoContable();
+																	listaAsientoContable = dtac.listarasientocontable();
+																	%>
+																	<thead>
+																		<tr>
+																			<th>ID</th>
+																			<th>Periodo Contable</th>
+																			<th>Nombre Comercial</th>
+																			<th>Tipo de Documento</th>
+																			<th>Moneda</th>
+																			<th>Tipo de Cambio</th>
+																			<th>Fecha</th>
+																			<th>Descripción</th>
+																			<th>Acciones</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<%
+																		for (Vw_asientoContable ac : listaAsientoContable) {
+																		%>
+																		<tr>
+
+																			<td><%=ac.getIdAsientoContable()%></td>
+																			<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
+																			<td><%=ac.getNombreComercial()%></td>
+																			<td><%=ac.getTipo()%></td>
+																			<td><%=ac.getNombre()%></td>
+																			<td><%=ac.getTipoCambio()%></td>
+																			<th><%=ac.getFecha()%></th>
+																			<td><%=ac.getDescripcion()%></td>
+
+
+																			<td><a href="editAsientoContable.jsp"> <i
+																					class="fa fa-edit" title="Editar"></i>
+																			</a> &nbsp;&nbsp; <a href="viewAsientoContable.jsp">
+																					<i class="fa fa-eye" title="Mostrar"></i>
+																			</a> &nbsp;&nbsp; <a href="deleteAsientoContable.jsp">
+																					<i class="fa fa-trash" title="Eliminar"></i>
+																			</a></td>
+																		</tr>
+																		<%
+																		}
+																		%>
+																	</tbody>
+
+																</table>
+															</div>
+														</div>
+													</div>
 												</div>
-												<table id="datatable-buttons"
-													class="table table-striped table-bordered"
-													style="width: 100%">
-													<%
-													ArrayList<Vw_asientoContable> listaAsientoContable = new ArrayList<Vw_asientoContable>();
-													Dt_asientoContable dtac = new Dt_asientoContable();
-													listaAsientoContable = dtac.listarasientocontable();
-													%>
-													<thead>
-														<tr>
-															<th>ID</th>
-															<th>Periodo Contable</th>
-															<th>Nombre Comercial</th>
-															<th>Tipo de Documento</th>
-															<th>Moneda</th>
-															<th>Tipo de Cambio</th>
-															<th>Fecha</th>
-															<th>Descripción</th>
-															<th>Acciones</th>
-														</tr>
-													</thead>
-													<tbody>
-														<%
-														for (Vw_asientoContable ac : listaAsientoContable) {
-														%>
-														<tr>
-
-															<td><%=ac.getIdAsientoContable()%></td>
-															<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal() %></td>
-															<td><%=ac.getNombreComercial()%></td>
-															<td><%=ac.getTipo()%></td>
-															<td><%=ac.getNombre()%></td>
-															<td><%=ac.getTipoCambio()%></td>
-															<th><%=ac.getFecha()%></th>
-															<td><%=ac.getDescripcion()%></td>
-															
-															
-															<td>
-															<a href="editAsientoContable.jsp">
-																	<i class="fa fa-edit" title="Editar"></i>
-															</a> &nbsp;&nbsp; <a href="viewAsientoContable.jsp"> 
-																	<i class="fa fa-eye" title="Mostrar" ></i>
-															</a> &nbsp;&nbsp; <a href="deleteAsientoContable.jsp"> 
-																	<i class="fa fa-trash" title="Eliminar"></i>
-															</a>
-															</td>
-														</tr>
-														<%
-														}
-														%>
-													</tbody>
-
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-					<div class="row">
-						<div class="col-md-12 col-md-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Detalles de Asiento Contable Registrados</h2>
-									
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<div class="row">
-										<div class="col-md-12">
-											<div class="card-box table-responsive">
-												
-												<table id="datatable-buttons"
-													class="table table-striped table-bordered"
-													style="width: 100%">
-													<%
-													ArrayList<Vw_asientoContableDet> listaACDet = new ArrayList<Vw_asientoContableDet>();
-													Dt_asientoContableDet dtacdet = new Dt_asientoContableDet();
-													listaACDet = dtacdet.listarasientocontableDET();
-													%>
-													<thead>
-														<tr>
-															<th>ID</th>
-															<th>Fecha Inicio del Periodo Fiscal</th>
-															<th>Fecha Final del Periodo Fiscal</th>
-															<th>Fecha Inicio</th>
-															<th>Fecha Final</th>
-															<th>Haber</th>
-															<th>Acciones</th>
-														</tr>
-													</thead>
-													<tbody>
-														<%
-														for (Vw_asientoContableDet acdet : listaACDet) {
-														%>
-														<tr>
-															<td><%=acdet.getIdAsientoContableDet()%></td>
-															<td><%=acdet.getNombreCuenta()%></td>
-															<td><%=acdet.getFecha()%></td>
-															<td><%=acdet.getDescripcion()%></td>
-															<td><%=acdet.getDebe()%></td>
-															<td><%=acdet.getHaber() %></td>
-															<td><a
-																href="editAsientoContableDet.jsp">
-																	<i class="fa fa-edit" title="Editar Periodo Contable"></i>
-															</a> &nbsp;&nbsp; <a
-																href="viewAsientoContableDet.jsp">
-																	<i class="fa fa-eye" title="Ver Periodo Contable"></i>
-															</a> &nbsp;&nbsp; <a
-																href="eliminarAsientoContableDet.jsp">
-																	<i class="fa fa-trash" title="Eliminar"></i>
-															</a></td>
-														</tr>
-														<%
-														}
-														%>
-													</tbody>
-
-												</table>
 											</div>
 										</div>
 									</div>
@@ -336,60 +262,51 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	<!-- /page content -->
 
-	<!-- footer content -->
-	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
-		<div class="clearfix"></div>
-	</footer>
-	<!-- /footer content -->
 
-	<!-- jQuery -->
-	<script src="../vendors/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- FastClick -->
-	<script src="../vendors/fastclick/lib/fastclick.js"></script>
-	<!-- NProgress -->
-	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- iCheck -->
-	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script
-		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="../vendors/jszip/dist/jszip.min.js"></script>
-	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+					<!-- footer content -->
 
-	<!-- Custom Theme Scripts -->
-	<script src="../build/js/custom.min.js"></script>
+					<!-- /footer content -->
 
+					<!-- jQuery -->
+					<script src="../vendors/jquery/dist/jquery.min.js"></script>
+					<!-- Bootstrap -->
+					<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+					<!-- FastClick -->
+					<script src="../vendors/fastclick/lib/fastclick.js"></script>
+					<!-- NProgress -->
+					<script src="../vendors/nprogress/nprogress.js"></script>
+					<!-- iCheck -->
+					<script src="../vendors/iCheck/icheck.min.js"></script>
+					<!-- Datatables -->
+					<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+					<script
+						src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+					<script
+						src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+					<script
+						src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+					<script
+						src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+					<script
+						src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+					<script
+						src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+					<script
+						src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+					<script
+						src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+					<script
+						src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+					<script
+						src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+					<script
+						src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+					<script src="../vendors/jszip/dist/jszip.min.js"></script>
+					<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+					<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+					<!-- Custom Theme Scripts -->
+					<script src="../build/js/custom.min.js"></script>
 </body>
 </html>

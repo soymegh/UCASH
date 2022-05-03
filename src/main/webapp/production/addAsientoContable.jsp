@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,8 +59,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -72,58 +71,66 @@
 					<br />
 
 					<!-- sidebar menu -->
-                    <div id="sidebar-menu"
-                        class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="menu_section">
-                            <h3>GestiÃ³n</h3>
-                            <ul class="nav side-menu">
-                                <li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_usuario.jsp">Usuarios</a></li>
-                                        <li><a href="tbl_rol.jsp">Roles</a></li>
-                                        <li><a href="tbl_opciones.jsp">Opciones</a></li>
-                                        <li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
-                                        <li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
-                                    </ul></li>
-                                    
-                                    <li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                        <li><a href="tbl_departamento.jsp"></a></li>
-                                        <li><a href="tbl_municipio.jsp">Municipio</a></li>
-                                        <li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
-                                    </ul></li>
-                                    
-                                    <li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-                                        <li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
-                                        <li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
-                                    </ul></li>
-                                    
-                                    <li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_moneda.jsp">Moneda</a></li>
-                                        <li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
-                                    </ul></li>
+					<div id="sidebar-menu"
+						class="main_menu_side hidden-print main_menu">
+						<div class="menu_section">
+							<ul class="nav side-menu">
+								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
+							</ul>
+						</div>
 
-                                <li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-                                        <li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
-                                        <li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
-                                        <li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
-                                    </ul></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /sidebar menu -->
+						<div class="menu_section">
+							<h3>GestiÃ³n</h3>
+							<ul class="nav side-menu">
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
+										<li><a href="tbl_rol.jsp">Roles</a></li>
+										<li><a href="tbl_opciones.jsp">Opciones</a></li>
+										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
+										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_empresa.jsp">Empresas</a></li>
+										<li><a href="tbl_departamento.jsp"></a></li>
+										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
+										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
+										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_moneda.jsp">Moneda</a></li>
+										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
+										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
+										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
+									</ul></li>
+							</ul>
+						</div>
+					</div>
+					<!-- /sidebar menu -->
 
 					<!-- /menu footer buttons -->
 					<div class="sidebar-footer hidden-small">
@@ -153,7 +160,8 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -230,94 +238,165 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Asiento Contable</h2>
+									<h2>Datos de Asiento Contable</h2>
 
 									<div class="clearfix"></div>
 								</div>
-								
+
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
-									
-										<span class="section">Datos de Asiento Contable</span>
-										
+										<span class="section"></span>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Contable<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
+												Inicio del Periodo Contable: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Vw_periodoContable> listaPC = new ArrayList<Vw_periodoContable>();
+												Dt_periodoContable dtpc = new Dt_periodoContable();
+												listaPC = dtpc.listarperiodoContable();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDPC" id="cbxIDPC" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													for (Vw_periodoContable pc : listaPC) {
+													%>
+													<option value="<%=pc.getIdPeriodoFiscal()%>"><%=pc.getFechaInicio()%>
+														-
+														<%=pc.getFechaFinal() %></option>
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Comercial<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+												Comercial: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Vw_empresa> listaE = new ArrayList<Vw_empresa>();
+												Dt_empresa dte = new Dt_empresa();
+												listaE = dte.listarEmpresa();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDE" id="cbxIDE" required="required"
+													onchange="ShowSelected();">
+													<option value="">Seleccione...</option>
+													<%
+													for (Vw_empresa e : listaE) {
+													%>
+													<option value="<%=e.getIdEmpresa()%>"><%=e.getNombreComercial()%></option>
+													<% 
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de cambio<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
+												documento: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Tbl_tipoDocumento> listaTD = new ArrayList<Tbl_tipoDocumento>();
+												Dt_tipoDocumento dttd = new Dt_tipoDocumento();
+												listaTD = dttd.listaTipoDocumento();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDTD" id="cbxIDTD" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													for (Tbl_tipoDocumento td : listaTD) {
+													%>
+													<option value="<%=td.getIdTipoDocumento()%>"><%=td.getTipo()%></option>
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo Documento<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Moneda:
+												<span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Tbl_moneda> listaM = new ArrayList<Tbl_moneda>();
+												Dt_moneda dtm = new Dt_moneda();
+												listaM = dtm.listaMonedasActivas();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDPF" id="cbxIDPF" required="required"
+													onchange="ShowSelected();">
+													<option value="">Seleccione...</option>
+													<%
+													for (Tbl_moneda m : listaM) {
+													%>
+													<option value="<%=m.getIdMoneda()%>"><%=m.getNombre()%></option>
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo documento<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
+												de cambio: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Vw_tasacambio> listaTC = new ArrayList<Vw_tasacambio>();
+												Dt_tasaCambio dttc = new Dt_tasaCambio();
+												listaTC = dttc.listarTasaCambioActivas();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDTCD" id="cbxIDTCD" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													for (Vw_tasacambio tc : listaTC) {
+													%>
+													<option value="<%=tc.getIdTasaCambio()%>"><%=tc.getValor()%></option>
+													<!--Marvin no cambies nada de tasa cambio aun, en caso de que el merge no aniada algo de la vista -->
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de cambio<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha:
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<input type="date" class="form-control"
+													placeholder="Fecha de inicio" name="fechainicioc">
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripción<span
+												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<input class="form-control" class='optional'
+													name="descripcion" data-validate-length-range="5,15"
+													type="text" required="required" />
 											</div>
 										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Estado<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
+
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Agregar</button>
-													<a href="tbl_asientoContable.jsp" type="button" class="btn btn-primary">Cancelar</a>
+													<a href="tbl_asientoContable.jsp" type="button"
+														class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>
@@ -330,43 +409,43 @@
 			</div>
 			<!-- /page content -->
 
-	<!-- jQuery -->
-	<script src="../vendors/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- FastClick -->
-	<script src="../vendors/fastclick/lib/fastclick.js"></script>
-	<!-- NProgress -->
-	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- bootstrap-progressbar -->
-	<script
-		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-	<!-- iCheck -->
-	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- bootstrap-daterangepicker -->
-	<script src="../vendors/moment/min/moment.min.js"></script>
-	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap-wysiwyg -->
-	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
-	<!-- jQuery Tags Input -->
-	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-	<!-- Switchery -->
-	<script src="../vendors/switchery/dist/switchery.min.js"></script>
-	<!-- Select2 -->
-	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-	<!-- Parsley -->
-	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-	<!-- Autosize -->
-	<script src="../vendors/autosize/dist/autosize.min.js"></script>
-	<!-- jQuery autocomplete -->
-	<script
-		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-	<!-- starrr -->
-	<script src="../vendors/starrr/dist/starrr.js"></script>
-	<!-- Custom Theme Scripts -->
-	<script src="../build/js/custom.min.js"></script>
-
+			<!-- jQuery -->
+			<script src="../vendors/jquery/dist/jquery.min.js"></script>
+			<!-- Bootstrap -->
+			<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+			<!-- FastClick -->
+			<script src="../vendors/fastclick/lib/fastclick.js"></script>
+			<!-- NProgress -->
+			<script src="../vendors/nprogress/nprogress.js"></script>
+			<!-- bootstrap-progressbar -->
+			<script
+				src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+			<!-- iCheck -->
+			<script src="../vendors/iCheck/icheck.min.js"></script>
+			<!-- bootstrap-daterangepicker -->
+			<script src="../vendors/moment/min/moment.min.js"></script>
+			<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+			<!-- bootstrap-wysiwyg -->
+			<script
+				src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+			<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+			<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+			<!-- jQuery Tags Input -->
+			<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+			<!-- Switchery -->
+			<script src="../vendors/switchery/dist/switchery.min.js"></script>
+			<!-- Select2 -->
+			<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+			<!-- Parsley -->
+			<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+			<!-- Autosize -->
+			<script src="../vendors/autosize/dist/autosize.min.js"></script>
+			<!-- jQuery autocomplete -->
+			<script
+				src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+			<!-- starrr -->
+			<script src="../vendors/starrr/dist/starrr.js"></script>
+			<!-- Custom Theme Scripts -->
+			<script src="../build/js/custom.min.js"></script>
 </body>
 </html>
