@@ -36,7 +36,7 @@ public class Dt_rolOpciones {
 	
 	//Metodo para listar la empresa
 	//Sujeto a cambio el Tbl_empresa por algun View
-	public ArrayList<Vw_rolopciones> listarRolOpciones(){
+	public ArrayList<Vw_rolopciones> listarRolOpciones(int idRol){
 		ArrayList<Vw_rolopciones> listRolOpc = new ArrayList<Vw_rolopciones>();
 		try {
 			c = poolConexion.getConnection();
