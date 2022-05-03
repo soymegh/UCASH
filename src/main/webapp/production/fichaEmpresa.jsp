@@ -11,10 +11,10 @@
 			<div class="x_content">
 
 				<div class="flex">
-					<ul class="list-inline widget_profile_box">
-						<li><img src="images/user.png" alt="<%=request.getParameter("altImg")%>"
-							class="img-circle profile_img"></li>
-					</ul>
+					<img src="images/user.png"
+						alt="<%=request.getParameter("altImg")%>"
+						class="img-circle profile_img">
+
 				</div>
 
 				<h3 class="name"><%=request.getParameter("nombreEmp")%></h3>
