@@ -14,6 +14,15 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
 %>
+
+ <%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+int idCCD = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -249,12 +258,48 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 												value="<%= vwCc.getCatalogoCuenta() %>"/>
 											</div>
 										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial*</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial" readonly/>
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe*</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" readonly/>
+											</div>
+										</div>									
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber*</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input type="text" class="form-control" value="<%=vwCCD.getHaber()%>" name="haber" id="haber" readonly/>
+											
+											</div>
+										</div>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final*</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal" readonly/>
+
+											</div>
+										</div>
+										
+										<%-- <div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta contable*</label>
+										<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getNombreCuenta()%>" name="CuentaContable" id="CuentaContable" readonly/>
+											</div>
+										</div> --%>
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<p> </p>
-													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
+													<a  href="tbl_cuentacontable.jsp"><button id="CancelarCCD" type="button" class="btn btn-primary">Regresar</button></a>
 												</div>
 											</div>
 										</div>
