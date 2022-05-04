@@ -7,7 +7,6 @@ Dt_asientoContable dtac = new Dt_asientoContable();
 
 int idac = (request.getParameter("ascont") != null) ? Integer.parseInt(request.getParameter("ascont")) : 0;
 tpacont = dtac.obtenerAContablePorId(idac);
-
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -396,15 +395,6 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											</div>
 										</div>
 
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<a href="tbl_asientoContable.jsp" type="button"
-														class="btn btn-primary">Regresar</a>
-												</div>
-											</div>
-										</div>
-
 										<div class="x_content">
 											<div class="row">
 												<div class="col-md-12 col-md-12">
@@ -412,52 +402,65 @@ tpacont = dtac.obtenerAContablePorId(idac);
 														<div class="x_content">
 															<div class="row">
 																<div class="col-md-12">
-																	<div class="card-box table-responsive"></div>
-																	<table id="datatable-buttons"
-																		class="table table-striped table-bordered"
-																		style="width: 100%">
-																		<%
-																		ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
-																		Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
-																		listaAsientoContable = dtac1.listarasientocontableDET();
-																		%>
-																		<thead>
-																			<tr>
-																				<th>ID</th>
-																				<th>Nombre de la cuenta</th>
-																				<th>Fecha</th>
-																				<th>Descripción</th>
-																				<th>Debe</th>
-																				<th>Haber</th>
-																			</tr>
-																		</thead>
-																		<tbody>
+																	<div class="card-box table-responsive">
+																		<div class="text-muted font-13 col-md-12"
+																			style="text-align: right;"></div>
+																		<table id="datatable-buttons"
+																			class="table table-striped table-bordered"
+																			style="width: 100%">
 																			<%
-																			for (Vw_asientoContableDet ac : listaAsientoContable) {
-																				if (ac.getIdAsientoContable() == idac) {
-																			%>
-																			<tr>
+																								ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
+																								Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
+																								listaAsientoContable = dtac1.listarasientocontableDET();
+																								%>
+																			<thead>
+																				<tr>
+																					<th>ID</th>
+																					<th>Nombre de la cuenta</th>
+																					<th>Fecha</th>
+																					<th>Descripción</th>
+																					<th>Debe</th>
+																					<th>Haber</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<%
+																									for (Vw_asientoContableDet ac : listaAsientoContable) {
+																										if (ac.getIdAsientoContable() == idac) {
+																									%>
+																				<tr>
 
-																				<td><%=ac.getIdAsientoContableDet()%></td>
-																				<td><%=ac.getNombreCuenta()%></td>
-																				<td><%=ac.getFecha()%></td>
-																				<td><%=ac.getDescripcion()%></td>
-																				<td><%=ac.getDebe()%></td>
-																				<td><%=ac.getHaber()%></td>
-																			</tr>
-																			<%
-																			} //else{
+																					<td><%=ac.getIdAsientoContableDet()%></td>
+																					<td><%=ac.getNombreCuenta()%></td>
+																					<td><%=ac.getFecha()%></td>
+																					<td><%=ac.getDescripcion()%></td>
+																					<td><%=ac.getDebe()%></td>
+																					<td><%=ac.getHaber()%></td>
+																				</tr>
+																				<%
+																									} //else{
 
-																			//}
-																			}
-																			%>
-																		</tbody>
+																									//}
+																									}
+																									%>
+																			</tbody>
 
-																	</table>
+																		</table>
+																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<a href="tbl_asientoContable.jsp" type="button"
+														class="btn btn-primary">Regresar</a>
 												</div>
 											</div>
 										</div>
@@ -469,7 +472,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 				</div>
 			</div>
 			<!-- /page content -->
-			
+
 			<script
 				src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			<script src="../vendors/validator/multifield.js"></script>
@@ -501,8 +504,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
             		$("#cbxIDPC").val("<%=tpacont.getIdPeriodoContable()%>");
 					$("#cbxIDTD").val("<%=tpacont.getIdTipoDocumento()%>");
 					$("#cbxIDE").val("<%=tpacont.getIdEmpresa()%>");
-					//$("#cbxIDM").val("<tpm.getIdMoneda()%>");
-					//$("#cbxIDTCD").val("<tpm.getIdTasaCambioDet()%>");
+					$("#cbxIDM").val("<%=tpacont.getIdMoneda()%>");
+					//$("#cbxIDTCD").val("<=tpm.getIdTasaCambioDet()%>");
 				}
 
 				$(document).ready(function() {
@@ -547,6 +550,35 @@ tpacont = dtac.obtenerAContablePorId(idac);
 				src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 			<!-- starrr -->
 			<script src="../vendors/starrr/dist/starrr.js"></script>
+			<!-- iCheck -->
+			<script src="../vendors/iCheck/icheck.min.js"></script>
+			<!-- Datatables -->
+			<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+			<script
+				src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+			<script
+				src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+			<script
+				src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+			<script
+				src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+			<script
+				src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+			<script
+				src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+			<script src="../vendors/jszip/dist/jszip.min.js"></script>
+			<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+			<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 			<!-- Custom Theme Scripts -->
 			<script src="../build/js/custom.min.js"></script>
 </body>
