@@ -184,12 +184,52 @@ public class Dt_empresa {
 
 	}
 
+	/**
+	 * Obtiene el nombre de la empresa de acuerdo a su ID asignado
+	 * @param idEmpresa
+	 * @return Nombre de la empresa
+	 */
+	public String getNombreEmpresaPorId(int idEmpresa) {
+		String nombre = "";
+
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT nombreComercial FROM dbucash.empresa WHERE idEmpresa = ?",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps.setInt(1, idEmpresa);
+			rs = ps.executeQuery();
+
+			if (rs.next())
+				nombre = rs.getString("nombreComercial");
+		} catch (Exception e) {
+			System.out.println("DATOS ERROR AL OBTENER NOMBRE DE EMPRESA POR ID: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return nombre;
+	}
+
 	public Tbl_empresa getTableEmpresaByID(int idEmpresa) {
 		Tbl_empresa empresa = new Tbl_empresa();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM dbucash.empresa WHERE idEmpresa =?",
-					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps = c.prepareStatement("SELECT * FROM dbucash.empresa WHERE idEmpresa =?", ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			ps.setInt(1, idEmpresa);
 			rs = ps.executeQuery();
 
@@ -207,8 +247,8 @@ public class Dt_empresa {
 				empresa.setTelefono(rs.getString("telefono"));
 				empresa.setCorreo(rs.getString("correo"));
 				empresa.setDireccion(rs.getString("direccion"));
-				
-				System.out.println(empresa); 
+
+				System.out.println(empresa);
 			}
 
 		} catch (Exception e) {

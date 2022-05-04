@@ -59,8 +59,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -79,11 +78,12 @@
 								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
-						
+
 						<div class="menu_section">
 							<h3>Gestión</h3>
 							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
 										<li><a href="tbl_rol.jsp">Roles</a></li>
@@ -91,31 +91,38 @@
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
 										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-									
-									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
@@ -137,10 +144,13 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -154,9 +164,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>
-								Catalogo Cuenta
-							</h3>
+							<h3>Catalogo Cuenta</h3>
 						</div>
 
 						<div class="title_right">
@@ -202,21 +210,21 @@
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addCatalogocuenta.jsp"> <i class="fa fa-plus-square"></i>
-														Nuevo catalogo de cuenta
+													<a href="addCatalogocuenta.jsp"> <i
+														class="fa fa-plus-square"></i> Nuevo catalogo de cuenta
 													</a> <br></br>
 												</div>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
-							<%
-							ArrayList<Vw_catalogocuenta_empresa> listaCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
-							Dt_catalogocuenta dtCc = new Dt_catalogocuenta();
-							listaCatalogocuenta = dtCc.listarCatalogocuenta();
-	                  %>
+													<%
+													ArrayList<Vw_catalogocuenta_empresa> listaCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
+													Dt_catalogocuenta dtCc = new Dt_catalogocuenta();
+													listaCatalogocuenta = dtCc.listarCatalogocuentaDeEmpresa(Integer.parseInt(request.getParameter("idE")));
+													%>
 													<thead>
 														<tr>
-															<th>Id del catalogo </th>
+															<th>Id del catalogo</th>
 															<th>Nombre comercial</th>
 															<th>Titulo</th>
 															<th>Descripcion</th>
@@ -225,29 +233,32 @@
 													</thead>
 													<tbody>
 														<%
-                      	for (Vw_catalogocuenta_empresa catalogocuenta :listaCatalogocuenta){
-                      %>
+														for (Vw_catalogocuenta_empresa catalogocuenta : listaCatalogocuenta) {
+														%>
 														<tr>
-															<td><%=catalogocuenta.getIdCatalogo() %></td>
-															<td><%=catalogocuenta.getnombreComercial() %></td>
-															<td><%=catalogocuenta.getTitulo() %></td>
-															<td><%=catalogocuenta.getDescripcion() %></td>
-															
+															<td><%=catalogocuenta.getIdCatalogo()%></td>
+															<td><%=catalogocuenta.getnombreComercial()%></td>
+															<td><%=catalogocuenta.getTitulo()%></td>
+															<td><%=catalogocuenta.getDescripcion()%></td>
+
 
 															<td><a
 																href="viewCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
 																target="blank"> <i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp; <a href="editCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>" target="blank"> <i
-																	class="fa fa-edit" title="Editar"></i></a> &nbsp; <a
-																href="deleteCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>" target="blank"> <i class="fa fa-trash"
+															</a> &nbsp; <a
+																href="editCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
+																target="blank"> <i class="fa fa-edit" title="Editar"></i></a>
+																&nbsp; <a
+																href="deleteCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
+																target="blank"> <i class="fa fa-trash"
 																	title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%
-                      									}
-                        								%>
+														}
+														%>
 													</tbody>
-													
+
 												</table>
 											</div>
 										</div>
