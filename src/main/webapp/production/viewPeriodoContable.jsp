@@ -318,7 +318,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 
 		}
 	</script>
-
+	
 <script>
         ///SOLO ESTE VALOR NO LO PUEDO PONER DE OTRA MANERA
         function setValores() {

@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+
+<%
+Tbl_asientoContable tpacont = new Tbl_asientoContable();
+Dt_asientoContable dtac = new Dt_asientoContable();
+
+int idac = (request.getParameter("ascont") != null) ? Integer.parseInt(request.getParameter("ascont")) : 0;
+tpacont = dtac.obtenerAContablePorId(idac);
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +89,7 @@
 						</div>
 
 						<div class="menu_section">
-							<h3>GestiÃ³n</h3>
+							<h3>Gestión</h3>
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span
 										class="fa fa-chevron-down"></span></a>
@@ -249,7 +258,7 @@
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Inicio del Periodo Contable: </label>
+												Periodo Contable: </label>
 											<div class="col-md-6 col-sm-6">
 												<%
 												ArrayList<Vw_periodoContable> listaPC = new ArrayList<Vw_periodoContable>();
@@ -262,7 +271,7 @@
 													<%
 													for (Vw_periodoContable pc : listaPC) {
 													%>
-													<option value="<%=pc.getIdPeriodoFiscal()%>"><%=pc.getFechaInicio()%>
+													<option value="<%=pc.getIdPeriodoContable()%>"><%=pc.getFechaInicio()%>
 														-
 														<%=pc.getFechaFinal()%></option>
 													<%
@@ -301,8 +310,8 @@
 											<div class="col-md-6 col-sm-6">
 												<%
 												ArrayList<Tbl_tipoDocumento> listaTD = new ArrayList<Tbl_tipoDocumento>();
-												Dt_tipoDocumento dttd = new Dt_tipoDocumento();
-												listaTD = dttd.listaTipoDocumento();
+												Dt_tipoDocumento dttd1 = new Dt_tipoDocumento();
+												listaTD = dttd1.listaTipoDocumento();
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDTD" id="cbxIDTD" disabled="disabled">
@@ -325,11 +334,11 @@
 											<div class="col-md-6 col-sm-6">
 												<%
 												ArrayList<Tbl_moneda> listaM = new ArrayList<Tbl_moneda>();
-												Dt_moneda dtm = new Dt_moneda();
-												listaM = dtm.listaMonedasActivas();
+												Dt_moneda dtm1 = new Dt_moneda();
+												listaM = dtm1.listaMonedasActivas();
 												%>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDPF" id="cbxIDPF" disabled="disabled">
+													name="cbxIDM" id="cbxIDM" disabled="disabled">
 													<option value="">Seleccione...</option>
 													<%
 													for (Tbl_moneda m : listaM) {
@@ -348,8 +357,8 @@
 											<div class="col-md-6 col-sm-6">
 												<%
 												ArrayList<Vw_tasacambio> listaTC = new ArrayList<Vw_tasacambio>();
-												Dt_tasaCambio dttc = new Dt_tasaCambio();
-												listaTC = dttc.listarTasaCambioActivas();
+												Dt_tasaCambio dttc1 = new Dt_tasaCambio();
+												listaTC = dttc1.listarTasaCambioActivas();
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDTCD" id="cbxIDTCD" disabled="disabled">
@@ -371,6 +380,7 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
+													value="<%=tpacont.getFecha()%>"
 													placeholder="Fecha de inicio" name="fechainicioc"
 													readonly="readonly">
 											</div>
@@ -380,8 +390,9 @@
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripción</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
-													name="descripcion" data-validate-length-range="5,15"
-													type="text" readonly="readonly">
+													value="<%=tpacont.getDescripcion()%>" name="descripcion"
+													data-validate-length-range="5,15" type="text"
+													readonly="readonly">
 											</div>
 										</div>
 
@@ -406,10 +417,10 @@
 																		class="table table-striped table-bordered"
 																		style="width: 100%">
 																		<%
-																				ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
-																				Dt_asientoContableDet dtac = new Dt_asientoContableDet();
-																				listaAsientoContable = dtac.listarasientocontableDET();
-																				%>
+																		ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
+																		Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
+																		listaAsientoContable = dtac1.listarasientocontableDET();
+																		%>
 																		<thead>
 																			<tr>
 																				<th>ID</th>
@@ -422,8 +433,9 @@
 																		</thead>
 																		<tbody>
 																			<%
-																					for (Vw_asientoContableDet ac : listaAsientoContable) {
-																					%>
+																			for (Vw_asientoContableDet ac : listaAsientoContable) {
+																				if (ac.getIdAsientoContable() == idac) {
+																			%>
 																			<tr>
 
 																				<td><%=ac.getIdAsientoContableDet()%></td>
@@ -434,8 +446,11 @@
 																				<td><%=ac.getHaber()%></td>
 																			</tr>
 																			<%
-																					}
-																					%>
+																			} //else{
+
+																			//}
+																			}
+																			%>
 																		</tbody>
 
 																	</table>
@@ -454,7 +469,47 @@
 				</div>
 			</div>
 			<!-- /page content -->
+			
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+			<script src="../vendors/validator/multifield.js"></script>
+			<script src="../vendors/validator/validator.js"></script>
 
+			<!-- Javascript functions	-->
+			<script>
+		function hideshow() {
+			var password = document.getElementById("password1");
+			var slash = document.getElementById("slash");
+			var eye = document.getElementById("eye");
+
+			if (password.type === 'password') {
+				password.type = "text";
+				slash.style.display = "block";
+				eye.style.display = "none";
+			} else {
+				password.type = "password";
+				slash.style.display = "none";
+				eye.style.display = "block";
+			}
+
+		}
+	</script>
+
+			<script>
+        ///SOLO ESTE VALOR NO LO PUEDO PONER DE OTRA MANERA
+        function setVals() {
+            		$("#cbxIDPC").val("<%=tpacont.getIdPeriodoContable()%>");
+					$("#cbxIDTD").val("<%=tpacont.getIdTipoDocumento()%>");
+					$("#cbxIDE").val("<%=tpacont.getIdEmpresa()%>");
+					//$("#cbxIDM").val("<tpm.getIdMoneda()%>");
+					//$("#cbxIDTCD").val("<tpm.getIdTasaCambioDet()%>");
+				}
+
+				$(document).ready(function() {
+					////CARGAMOS LOS VALORES EN LOS CONTROLES 
+					setVals();
+				});
+			</script>
 
 			<!-- jQuery -->
 			<script src="../vendors/jquery/dist/jquery.min.js"></script>

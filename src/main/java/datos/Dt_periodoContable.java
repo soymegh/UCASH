@@ -38,7 +38,7 @@ public class Dt_periodoContable {
 		ArrayList<Vw_periodoContable> listperiodoContable = new ArrayList<Vw_periodoContable>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable WHERE estado <> 3;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
@@ -138,7 +138,7 @@ public class Dt_periodoContable {
 		try 
 		{
 			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodocontable WHERE estado <> 3 AND idPeriodocontable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodocontable idPeriodocontable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.ps.setInt(1, id);
 			this.rs = this.ps.executeQuery();
 			

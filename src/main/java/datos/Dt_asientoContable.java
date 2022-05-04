@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import entidades.Tbl_asientoContable;
+import entidades.Tbl_periodoContable;
 import entidades.Vw_asientoContable;
 import entidades.Vw_asientoContableDet;
 
@@ -99,5 +101,71 @@ public class Dt_asientoContable {
 		}
 		
 		return listAsientoContable;
+	}
+	
+	public Tbl_asientoContable obtenerAContablePorId(int id)
+	{
+		Tbl_asientoContable pacontable = new Tbl_asientoContable();
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.asientocontable WHERE idAsientoContable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, id);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				pacontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
+				pacontable.setIdEmpresa(rs.getInt("idEmpresa"));
+				pacontable.setIdTipoDocumento(rs.getInt("idTipoDocumento"));
+				pacontable.setIdMoneda(rs.getInt("idMoneda"));
+				pacontable.setIdTasaCambioDet(rs.getInt("idTasaCambioDetalle"));
+				
+				//Fecha 
+				//Se utiliza este metodo para evitar que reste un dia
+				String fecha = rs.getString("fecha");
+				java.util.Date date0 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+				pacontable.setFecha(new java.sql.Date(date0.getTime()));
+				
+				pacontable.setDescripcion(rs.getString("descripcion"));
+				pacontable.setUsuarioCreacion(rs.getInt("usuarioCreacion"));
+				pacontable.setFechaCreacion(rs.getDate("fechaCreacion"));
+				pacontable.setUsuarioModificacion(rs.getInt("usuarioModificacion"));
+				pacontable.setFechaModificacion(rs.getDate("fechaModificacion"));
+				pacontable.setUsuarioEliminacion(rs.getInt("usuarioEliminacion"));
+				pacontable.setFechaEliminacion(rs.getDate("fechaEliminacion"));
+				
+				
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER Asiento Contable POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsAsientoCon != null) 
+				{
+					rsAsientoCon.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+				if (ps != null) 
+				{
+					ps.close();
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return pacontable;
 	}
 }
