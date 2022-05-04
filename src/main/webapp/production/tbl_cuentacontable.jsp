@@ -168,7 +168,7 @@
 							<h3>Cuenta Contable</h3>
 						</div>
 
-						<div class="title_right">
+						<!-- <div class="title_right">
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 								<div class="input-group">
@@ -179,19 +179,12 @@
 									</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 
 					<div class="clearfix"></div>
 
 					<div class="row">
-						<div class="col-md-12 col-md-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Cuentas Contables Registradas</h2>
-									
-									<div class="clearfix"></div>
-								</div>
 
 								<div class="x_content">
 									<div class="row">
@@ -362,13 +355,11 @@
 	</div>
 	</div>
 	</div>
-	</div>
-	</div>
 	<!-- /page content -->
 
 	<!-- footer content -->
 	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="pull-right">Sistema contable</div>
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
