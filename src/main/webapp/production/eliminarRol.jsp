@@ -204,10 +204,10 @@ r = datosRol.obtenerRolPorId(idR);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<a href="tbl_rol.jsp" class="btn btn-primary"> <i class="fa fa-arrow-left"></i>
-														Regresar
+													<a href="tbl_rol.jsp" class="btn btn-danger"> <i class="fa fa-arrow-left"></i>
+														Cancelar
 													</a>
-													<button class="btn btn-danger">Eliminar <%=r.getNombre() %></button>
+													<button class="btn btn-primary">Eliminar <%=r.getNombre() %></button>
 												</div>
 											</div>
 										</div>

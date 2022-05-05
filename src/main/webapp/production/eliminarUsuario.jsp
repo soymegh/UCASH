@@ -215,25 +215,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 							<h3>Eliminar Usuario</h3>
 						</div>
 					</div>
-					
-					<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
-						</div>
-						
 					<div class="clearfix"></div>
-
-
-
-
-
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
@@ -249,31 +231,31 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 									
 									<input type="hidden" value="3" name="opcion" id="opcion" />
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" name="txtid" class="form-control" placeholder="Id Usuario" value="<%=user.getIdUsuario()%>" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" placeholder="Nombre de usuario" value="<%=user.getUsuario()%>" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getNombre()%>" placeholder="Nombres" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getApellidos()%>" placeholder="Apellidos" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getEmail()%>" placeholder="Correo electrónico" readonly>
 										</div>
@@ -281,8 +263,10 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 
 									<div class="ln_solid"></div>
 									<div class="form-group">
-										<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
-										<button type="submit" class="btn btn-primary">Eliminar este usuario</button>	
+										<div class="col-md-6 offset-md-3">
+											<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-danger">Cancelar</button>
+											<button type="submit" class="btn btn-primary">Eliminar este usuario</button>
+										</div>
 									</div>
 
 								</form>

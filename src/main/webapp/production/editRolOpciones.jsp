@@ -177,7 +177,7 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 										<span class="section">Datos de Rol Opciones</span>
 			
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Rol<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Rol: <span class="required"></span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 												<%
@@ -186,7 +186,7 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 							                      	listRol = dtr.listaRolesActivos();
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="cbxRol" id="cbxRol" required="required">
-												  <option value="">Seleccione...</option>
+												  <option value=""><%="Dato actual: " + rolOpciones.getRol()%></option>
 												  <% 
 												  	for(Tbl_rol trol :listRol){
 												  %>
@@ -200,7 +200,7 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Id Opciones<span class="required">*</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Opción: <span class="required"></span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
                                                   <%
@@ -210,7 +210,7 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 								                 %>
 
 								                 <select class="form-control js-example-basic-single" name="cbxOpciones" id="cbxOpciones" required="required">
-												  <option value="">Seleccione...</option>
+												  <option value=""><%="Dato actual: " + rolOpciones.getOpciones() %></option>
 												  <% 
 												  	for(Tbl_opciones to :listOpc){
 												  %>
@@ -226,8 +226,8 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
+													<button type="button" onClick="window.location.href='tbl_rolOpciones.jsp'" class="btn btn-danger">Cancelar</button>
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
 										</div>
