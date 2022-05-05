@@ -108,8 +108,15 @@ public class Sl_cuentaContable extends HttpServlet {
 			cc.setRubro(Integer.parseInt(request.getParameter("rubro")));
 			cc.setIdTipoCuenta(Integer.parseInt(request.getParameter("cbxTipoCuenta")));
 			cc.setIdCatalogo(Integer.parseInt(request.getParameter("cbxCatalogoCuenta")));
+			
+			ccd.setSaldoInicial(Double.parseDouble(request.getParameter("saldoInicial")));
+			ccd.setDebe(Double.parseDouble(request.getParameter("debe")));
+			ccd.setHaber(Double.parseDouble(request.getParameter("haber")));
+			ccd.setSaldoFinal(Double.parseDouble(request.getParameter("saldoFinal")));
+			ccd.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
+			
 			try {
-				if(dtCc.editCuentaContable(cc)) { 
+				if(dtCc.editCuentaContable(cc) && dtccd.editarCuentaContableDet(ccd)) { 
 					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=3"); 
 				} else {
 					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=4"); 
@@ -126,7 +133,7 @@ public class Sl_cuentaContable extends HttpServlet {
 			
 			cc.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
 			try {
-				if (dtCc.deleteCuentaContable(cc)) {
+				if (dtCc.deleteCuentaContable(cc) && dtccd.eliminarCuentaContableDet(ccd)) {
 						response.sendRedirect("production/tbl_cuentacontable.jsp?msj=5");
 				} else {
 						response.sendRedirect("production/tbl_cuentacontable.jsp?msj=6");

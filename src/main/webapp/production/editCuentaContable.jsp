@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <%
+
+//Maestro
 String cc = "";
 cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCuenta");
 
@@ -11,18 +13,25 @@ Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
-
 Tbl_tipocuenta ttc = new Tbl_tipocuenta();
 Dt_tipocuenta dtTcc = new Dt_tipocuenta();
 ttc = dtTcc.getTableTipocuentaByID(Integer.parseInt(cc));
-
 
 
 Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
 Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
 cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 
+%>
 
+<%
+//Detalle
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+int idCCD = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
 
 %>
 <head>
@@ -124,22 +133,6 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 							</ul>
 						</div>
 					</div>
-					<!-- /sidebar menu -->
-
-					<!-- /menu footer buttons -->
-					<!-- <div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
-							aria-hidden="true"></span>
-						</a>
-					</div> -->
-					<!-- /menu footer buttons -->
 				</div>
 			</div>
 
@@ -156,15 +149,7 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
 								aria-expanded="true"> <img src="img.jpg" alt="">Lic. José Ortega.
 							</a>
-								<!-- <div class="dropdown-menu dropdown-usermenu pull-right"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="javascript:;"> Profile</a> <a
-										class="dropdown-item" href="javascript:;"> <span
-										class="badge bg-red pull-right">50%</span> <span>Settings</span>
-									</a> <a class="dropdown-item" href="javascript:;">Help</a> <a
-										class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i> Log Out</a>
-								</div> -->
+								
 							</li>
 						</ul>
 					</nav>
@@ -200,8 +185,6 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 										<input type="hidden" value="<%= vwCc.getIdCuenta()%>" name="idCuenta" id="idCuenta" />
 										
 										<span class="section">Datos de Cuenta Contable Maestro</span>
-										
-										
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero de Cuenta:</label>
@@ -312,6 +295,38 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 												</select>
 											</div>
                                         </div>
+                                        
+                                        <div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial:</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="number" class="optional" name="saldoInicial" id="saldoInicial" 
+												value="<%= vwCCD.getSaldoInicial() %>"/>
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe:</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="number" class="optional" name="debe" id="debe" 
+												value="<%= vwCCD.getDebe() %>"/>
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber:</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="number" class="optional" name="haber" id="haber" 
+												value="<%= vwCCD.getHaber() %>"/>
+											</div>
+										</div>
+
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final:</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" type="number" class="optional" name="saldoFinal" id="saldoFinal" 
+												value="<%= vwCCD.getSaldoFinal() %>"/>
+											</div>
+										</div>
 										
 										<div class="ln_solid">
 											<div class="form-group">

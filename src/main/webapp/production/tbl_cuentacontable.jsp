@@ -226,9 +226,6 @@ int idd = dtCcd.idCuentaContable();
 														<tr>
 															<th>ID</th>
 															<th>Numero de Cuenta</th>
-															<th>Sub Cuenta</th>
-															<th>Sub-Sub Cuenta</th>
-															<th>Sub-Sub-Sub Cuenta</th>
 															<th>Nombre Cuenta</th>
 															<th>Nivel</th>
 															<th>Rubro</th>
@@ -257,10 +254,7 @@ int idd = dtCcd.idCuentaContable();
 														<tr>
 
 															<td><%=cc.getIdCuenta()%></td>
-															<td><%=cc.getNumeroCuenta()%></td>
-															<td><%=cc.getsC()%></td>
-															<td><%=cc.getSsC()%></td>
-															<td><%=cc.getSssC()%></td>
+															<td><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%></td>
 															<td><%=cc.getNombreCuenta()%></td>
 															<th><%=cc.getNivel()%></th>
 															<td><%=cc.getRubro()%></td>
@@ -293,7 +287,7 @@ int idd = dtCcd.idCuentaContable();
 
 
 					</div>
-					<%-- <div class="row">
+					<div class="row">
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">

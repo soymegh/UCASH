@@ -15,7 +15,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 %>
 
- <%
+<%
 String CCD = "";
 Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
 Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
@@ -258,29 +258,33 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 												value="<%= vwCc.getCatalogoCuenta() %>"/>
 											</div>
 										</div>
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>
 											<div class="col-md-6 col-sm-6">
 
 												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial" readonly/>
 											</div>
 										</div>
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" readonly/>
 											</div>
-										</div>									
+										</div>	
+																		
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber</label>
 											<div class="col-md-6 col-sm-6">
 
 												<input type="text" class="form-control" value="<%=vwCCD.getHaber()%>" name="haber" id="haber" readonly/>
 											
 											</div>
 										</div>
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final*</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final</label>
 											<div class="col-md-6 col-sm-6">
 
 												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal" readonly/>
