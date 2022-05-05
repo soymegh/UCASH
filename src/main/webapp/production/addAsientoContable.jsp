@@ -263,9 +263,9 @@
 													<%
 													for (Vw_periodoContable pc : listaPC) {
 													%>
-													<option value="<%=pc.getIdPeriodoFiscal()%>"><%=pc.getFechaInicio()%>
+													<option value="<%=pc.getIdPeriodoContable()%>"><%=pc.getFechaInicio()%>
 														-
-														<%=pc.getFechaFinal() %></option>
+														<%=pc.getFechaFinal()%></option>
 													<%
 													}
 													%>
@@ -291,7 +291,7 @@
 													for (Vw_empresa e : listaE) {
 													%>
 													<option value="<%=e.getIdEmpresa()%>"><%=e.getNombreComercial()%></option>
-													<% 
+													<%
 													}
 													%>
 												</select>
@@ -333,8 +333,7 @@
 												listaM = dtm.listaMonedasActivas();
 												%>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDPF" id="cbxIDPF" required="required"
-													onchange="ShowSelected();">
+													name="cbxIDPF" id="cbxIDPF" required="required">
 													<option value="">Seleccione...</option>
 													<%
 													for (Tbl_moneda m : listaM) {
@@ -391,10 +390,119 @@
 											</div>
 										</div>
 
+										<div class="x_panel">
+
+											<div class="x_title">
+												<h2>Detalles</h2>
+
+												<div class="clearfix"></div>
+											</div>
+
+											<div class="field item form-group">
+												<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+													Cuenta: <span class="required">*</span>
+												</label>
+												<div class="col-md-6 col-sm-6">
+													<%
+														ArrayList<Vw_catalogo_tipo_cuentacontable> listacc = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+														Dt_cuentaContable dtcc = new Dt_cuentaContable();
+														listacc = dtcc.listaCuentasContables();
+														%>
+													<select class="form-control js-example-basic-single"
+														name="cbxIDTD" id="cbxdtcc" required="required">
+														<option value="">Seleccione...</option>
+														<%
+															for (Vw_catalogo_tipo_cuentacontable td : listacc) {
+															%>
+														<option value="<%=td.getIdCuenta()%>"><%=td.getNombreCuenta()%></option>
+														<%
+															}
+															%>
+													</select>
+												</div>
+											</div>
+
+											<div class="field item form-group">
+												<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span
+													class="required">*</span></label>
+												<div class="col-md-6 col-sm-6">
+													<input class="form-control" class='optional' name="debe"
+														data-validate-length-range="5,15" type="text"
+														required="required" />
+												</div>
+											</div>
+
+											<div class="field item form-group">
+
+												<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span
+													class="required">*</span></label>
+												<div class="col-md-6 col-sm-6">
+													<input class="form-control" class='optional' name="haber"
+														data-validate-length-range="5,15" type="text"
+														required="required" />
+												</div>
+											</div>
+
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button  class="btn btn-success">Agregar</button>
+													<button type="reset" class="btn btn-primary">Reiniciar</button>
+
+												</div>
+											</div>
+										</div>
+
+										<div class="x_content">
+											<div class="row">
+												<div class="col-md-12 col-md-12">
+													<div class="x_panel">
+														<div class="x_content">
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="card-box table-responsive">
+																		<div class="text-muted font-13 col-md-12"
+																			style="text-align: right;"></div>
+																		<table id="datatable-buttons"
+																			class="table table-striped table-bordered"
+																			style="width: 100%">
+																			<thead>
+																				<tr>
+																					<th>Nombre de la cuenta</th>
+																					<th>Debe</th>
+																					<th>Haber</th>
+																					<th>Acciones</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+
+																				<tr>
+
+																					<td>a</td>
+																					<td>a</td>
+																					<td>a</td>
+																					<td><a href="#"> <i class="fa fa-edit"
+																							title="Editar"></i>
+
+																					</a>&nbsp;&nbsp; <a href="#"> <i
+																							class="fa fa-trash" title="Eliminar"></i>
+																					</a></td>
+																				</tr>
+																			</tbody>
+
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
+													<button type='submit' class="btn btn-danger">Guardar todo</button>
 													<a href="tbl_asientoContable.jsp" type="button"
 														class="btn btn-primary">Cancelar</a>
 												</div>
@@ -445,6 +553,35 @@
 				src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 			<!-- starrr -->
 			<script src="../vendors/starrr/dist/starrr.js"></script>
+			<!-- iCheck -->
+			<script src="../vendors/iCheck/icheck.min.js"></script>
+			<!-- Datatables -->
+			<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+			<script
+				src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+			<script
+				src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+			<script
+				src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+			<script
+				src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+			<script
+				src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+			<script
+				src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+			<script src="../vendors/jszip/dist/jszip.min.js"></script>
+			<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+			<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 			<!-- Custom Theme Scripts -->
 			<script src="../build/js/custom.min.js"></script>
 </body>

@@ -417,8 +417,6 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																				<tr>
 																					<th>ID</th>
 																					<th>Nombre de la cuenta</th>
-																					<th>Fecha</th>
-																					<th>Descripción</th>
 																					<th>Debe</th>
 																					<th>Haber</th>
 																				</tr>
@@ -432,8 +430,6 @@ tpacont = dtac.obtenerAContablePorId(idac);
 
 																					<td><%=ac.getIdAsientoContableDet()%></td>
 																					<td><%=ac.getNombreCuenta()%></td>
-																					<td><%=ac.getFecha()%></td>
-																					<td><%=ac.getDescripcion()%></td>
 																					<td><%=ac.getDebe()%></td>
 																					<td><%=ac.getHaber()%></td>
 																				</tr>
