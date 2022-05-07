@@ -352,17 +352,17 @@
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<%
-												ArrayList<Vw_tasacambio> listaTC = new ArrayList<Vw_tasacambio>();
-												Dt_tasaCambio dttc = new Dt_tasaCambio();
-												listaTC = dttc.listarTasaCambioActivas();
+												ArrayList<Vw_tasaCambioDetalle> listaTC = new ArrayList<Vw_tasaCambioDetalle>();
+												Dt_tasaCambioDet dttc = new Dt_tasaCambioDet();
+												listaTC = dttc.listarTasaCambioDetActivos();
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDTCD" id="cbxIDTCD" required="required">
 													<option value="">Seleccione...</option>
 													<%
-													for (Vw_tasacambio tc : listaTC) {
+													for (Vw_tasaCambioDetalle tc : listaTC) {
 													%>
-													<option value="<%=tc.getIdTasaCambio()%>"><%=tc.getValor()%></option>
+													<option value="<%=tc.getIdTasaCambioDetalle()%>"><%=tc.getValor()%></option>
 													<!--Marvin no cambies nada de tasa cambio aun, en caso de que el merge no aniada algo de la vista -->
 													<%
 													}

@@ -220,7 +220,6 @@
 															<th>Moneda Origen</th>
 															<th>Moneda Destino</th>
 															<th>Fecha</th>
-															<th>Tipo Cambio</th>
 															<th>Valor</th>
 															<th>Estado</th>
 															<th>Acciones</th>
@@ -238,10 +237,9 @@
 														%>
 														<tr>
 															<td><%=tc.getIdTasaCambio()%></td>
-															<td><%=tc.getOrigen()%></td>
-															<td><%=tc.getDestino()%></td>
+															<td><%=tc.getNombreO()%></td>
+															<td><%=tc.getNombreD()%></td>
 															<td><%=tc.getFecha()%></td>
-															<td><%=tc.getTipoCambio()%></td>
 															<td><%=tc.getValor()%></td>
 															<td><%=estado%></td>
 

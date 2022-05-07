@@ -237,7 +237,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar nuevo de asiento contable</h3>
+							<h3>Ver asiento contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -355,18 +355,17 @@ tpacont = dtac.obtenerAContablePorId(idac);
 												de cambio: </label>
 											<div class="col-md-6 col-sm-6">
 												<%
-												ArrayList<Vw_tasacambio> listaTC = new ArrayList<Vw_tasacambio>();
-												Dt_tasaCambio dttc1 = new Dt_tasaCambio();
-												listaTC = dttc1.listarTasaCambioActivas();
+												ArrayList<Vw_tasaCambioDetalle> listaTCD = new ArrayList<Vw_tasaCambioDetalle>();
+												Dt_tasaCambioDet dttcd1 = new Dt_tasaCambioDet();
+												listaTCD = dttcd1.listarTasaCambioDetActivos();
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDTCD" id="cbxIDTCD" disabled="disabled">
 													<option value="">Seleccione...</option>
 													<%
-													for (Vw_tasacambio tc : listaTC) {
+													for (Vw_tasaCambioDetalle tcd : listaTCD) {
 													%>
-													<option value="<%=tc.getIdTasaCambio()%>"><%=tc.getValor()%></option>
-													<!--Marvin no cambies nada de tasa cambio aun, en caso de que el merge no aniada algo de la vista -->
+													<option value="<%=tcd.getIdTasaCambioDetalle()%>"><%=tcd.getTipoCambio()%></option>
 													<%
 													}
 													%>
@@ -501,7 +500,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 					$("#cbxIDTD").val("<%=tpacont.getIdTipoDocumento()%>");
 					$("#cbxIDE").val("<%=tpacont.getIdEmpresa()%>");
 					$("#cbxIDM").val("<%=tpacont.getIdMoneda()%>");
-					//$("#cbxIDTCD").val("<=tpm.getIdTasaCambioDet()%>");
+					$("#cbxIDTCD").val("<%=tpacont.getIdTasaCambioDet()%>");
 				}
 
 				$(document).ready(function() {

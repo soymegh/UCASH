@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entidades.Tbl_tasaCambio;
@@ -44,12 +45,24 @@ public class Dt_tasaCambio {
 			while(rs.next()) { 
 				Vw_tasacambio tblTC = new Vw_tasacambio();
 				tblTC.setIdTasaCambio(this.rs.getInt("idTasaCambio"));
-				tblTC.setOrigen(this.rs.getString("origen"));
-				tblTC.setDestino(this.rs.getString("destino"));
+				tblTC.setIdMonedaO(this.rs.getInt("idMonedaO"));
+				tblTC.setNombreO(this.rs.getString("nombreO"));
+				tblTC.setIdMonedaD(this.rs.getInt("idMonedaD"));
+				tblTC.setNombreD(this.rs.getString("nombreD"));
+				
+				String fecha = rs.getString("fecha");
+				java.util.Date date0 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+				tblTC.setFecha(new java.sql.Date(date0.getTime()));
 				tblTC.setFecha(this.rs.getDate("fecha"));
-				tblTC.setTipoCambio(this.rs.getDouble("tipoCambio"));
-				tblTC.setValor(this.rs.getDouble("valor"));
+				
+				tblTC.setValor(this.rs.getFloat("valor"));
 				tblTC.setEstado(this.rs.getInt("estado"));
+				tblTC.setUsuarioCreacion(this.rs.getInt("usuarioCreacion"));
+				tblTC.setFechaCreacion(this.rs.getDate("fechaCreacion"));
+				tblTC.setUsuarioModificacion(this.rs.getInt("usuarioModificacion"));
+				tblTC.setFechaModificacion(this.rs.getDate("fechaModificacion"));
+				tblTC.setUsuarioEliminacion(this.rs.getInt("usuarioEliminacion"));
+				tblTC.setFecha(this.rs.getDate("fechaEliminacion"));
 				listTC.add(tblTC);
 			}
 		} 
