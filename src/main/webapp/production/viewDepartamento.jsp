@@ -1,5 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
+	
+	<%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%>
+	
 <!DOCTYPE html>
 <html>
 <%
@@ -71,7 +117,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -106,6 +152,8 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo
+												Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante
 												Legal</a></li>
 									</ul></li>
@@ -153,13 +201,11 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
-									José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									<a class="dropdown-item" href=/*"../login.jsp"*/><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -209,18 +255,26 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 											</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input readonly class="form-control" type="text" class='optional'
-													name="txtdepartamento" id="txtdepartamento" value="<%=td.getDepartamento() %>"
+												<input readonly class="form-control" type="text"
+													class='optional' name="txtdepartamento"
+													id="txtdepartamento" value="<%=td.getDepartamento()%>"
 													required='required' readonly />
 											</div>
 										</div>
 
 										<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_departamento.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Regresar
-												</a>
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button onClick="window.location.href='editDepartamento.jsp?idDp=<%=td.getIdDepartamento()%>'" type='button'class="btn btn-primary">Editar este departamento</button>
+
+													<button onClick="window.location.href='deleteDepartamento.jsp?idDp=<%=td.getIdDepartamento()%>'"  type='button' class="btn btn-primary">Eliminar este departamento</button>
+
+													<a href="tbl_departamento.jsp"
+														class="btn btn-primary">Regresar</a>
+
+
+
+												</div>
 											</div>
 										</div>
 									</form>
@@ -234,7 +288,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
@@ -249,7 +303,6 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 	<!-- Javascript functions	-->
 	<script>
-		
 		function hideshow() {
 			var password = document.getElementById("password1");
 			var slash = document.getElementById("slash");

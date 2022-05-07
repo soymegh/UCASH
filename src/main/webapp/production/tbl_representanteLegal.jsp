@@ -135,7 +135,7 @@
 									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                                            <li><a href="tbl_departamento.jsp">Departamento</a></li>
+                                        <li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
 										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
