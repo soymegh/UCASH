@@ -109,10 +109,15 @@ public class Sl_cuentaContable extends HttpServlet {
 			cc.setIdTipoCuenta(Integer.parseInt(request.getParameter("cbxTipoCuenta")));
 			cc.setIdCatalogo(Integer.parseInt(request.getParameter("cbxCatalogoCuenta")));
 			
-			ccd.setSaldoInicial(Double.parseDouble(request.getParameter("saldoInicial")));
-			ccd.setDebe(Double.parseDouble(request.getParameter("debe")));
-			ccd.setHaber(Double.parseDouble(request.getParameter("haber")));
-			ccd.setSaldoFinal(Double.parseDouble(request.getParameter("saldoFinal")));
+			ccd.setIdCuentaContableDet(Integer.parseInt(request.getParameter("idCuentaContableDet")));
+			Double debeU = Double.parseDouble(request.getParameter("debe"));
+			ccd.setDebe(debeU);
+			Double haberU = Double.parseDouble(request.getParameter("haber"));
+			ccd.setHaber(haberU);
+			Double saldoInicialU = Double.parseDouble(request.getParameter("saldoInicial"));
+			ccd.setSaldoInicial(saldoInicialU);
+			Double saldoFinalU = Double.parseDouble(request.getParameter("saldoFinal"));
+			ccd.setSaldoFinal(saldoFinalU);
 			ccd.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
 			
 			try {
