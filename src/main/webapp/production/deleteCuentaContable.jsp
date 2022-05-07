@@ -12,6 +12,15 @@ Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 %>
 
+<%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+int idCCD = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -191,6 +200,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 										novalidate>
 										<input type="hidden" value="3" name="opcion" id="opcion" /> 
 										<input type="hidden" value="<%=vwCc.getIdCuenta() %>" name="idCuenta" id="idCuenta" />
+										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
 										<span class="section">Datos de Cuenta Contable</span>
 
 
@@ -263,6 +273,39 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="text" class="optional" name="catalogoCuenta" id="catalogoCuenta" 
 												value="<%= vwCc.getCatalogoCuenta() %>"/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial" readonly/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" readonly/>
+											</div>
+										</div>	
+																		
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input type="text" class="form-control" value="<%=vwCCD.getHaber()%>" name="haber" id="haber" readonly/>
+											
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal" readonly/>
+
 											</div>
 										</div>
 

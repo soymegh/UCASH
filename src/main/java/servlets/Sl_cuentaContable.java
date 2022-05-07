@@ -130,7 +130,7 @@ public class Sl_cuentaContable extends HttpServlet {
 			break;
 			
 		case 3:
-			
+			ccd.setIdCuentaContableDet(Integer.parseInt(request.getParameter("idCuentaContableDet")));
 			cc.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta")));
 			try {
 				if (dtCc.deleteCuentaContable(cc) && dtccd.eliminarCuentaContableDet(ccd)) {
