@@ -44,12 +44,16 @@ public class Sl_moneda extends HttpServlet {
 		Tbl_moneda moneda = new Tbl_moneda();
 		Dt_moneda dtm = new Dt_moneda();
 		
-		moneda.setNombre(request.getParameter("nombre"));
-		moneda.setSimbolo(request.getParameter("simbolo"));
-		moneda.setEstado(1);
-		
+		//funcion para rescatar fecha actual
+		long millis = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(millis);
 		switch (opc) {
 		case 1:
+			moneda.setNombre(request.getParameter("txtnombre"));
+			moneda.setSimbolo(request.getParameter("txtsimbolo"));
+			moneda.setUsuarioCreacion(1);
+			moneda.setFechaCreacion(date);
+			moneda.setEstado(1);
 				try {
 						if(dtm.addMoneda(moneda)) {
 							response.sendRedirect("production/tbl_moneda.jsp?msj=1");
@@ -59,6 +63,46 @@ public class Sl_moneda extends HttpServlet {
 					
 				} catch (Exception e) {
 					System.out.println("ERROR Sl_moneda opc1: "+e.getMessage());
+					e.printStackTrace();
+				}
+			
+			break;
+			
+		case 2:
+			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
+			moneda.setNombre(request.getParameter("txtnombre"));
+			moneda.setSimbolo(request.getParameter("txtsimbolo"));
+			moneda.setUsuarioModificacion(1);
+			moneda.setFechaModificacion(date);
+			moneda.setEstado(2);
+				try {
+						if(dtm.modificarMoneda(moneda)) {
+							response.sendRedirect("production/tbl_moneda.jsp?msj=3");
+						} else {
+							response.sendRedirect("production/tbl_moneda.jsp?msj=4");
+						}
+					
+				} catch (Exception e) {
+					System.out.println("ERROR Sl_moneda opc2: "+e.getMessage());
+					e.printStackTrace();
+				}
+			
+			break;
+			
+		case 3:
+			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
+			moneda.setUsuarioEliminacion(1);
+			moneda.setFechaEliminacion(date);
+			moneda.setEstado(3);
+				try {
+						if(dtm.eliminarMoneda(moneda)) {
+							response.sendRedirect("production/tbl_moneda.jsp?msj=5");
+						} else {
+							response.sendRedirect("production/tbl_moneda.jsp?msj=6");
+						}
+					
+				} catch (Exception e) {
+					System.out.println("ERROR Sl_moneda opc3: "+e.getMessage());
 					e.printStackTrace();
 				}
 			

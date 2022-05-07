@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.Tbl_moneda, datos.Dt_moneda"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String mon = "";
+mon = request.getParameter("idMon") == null ? "0" : request.getParameter("idMon");
+
+Tbl_moneda tm = new Tbl_moneda();
+Dt_moneda dtm = new Dt_moneda();
+tm = dtm.getMonedaByID(Integer.parseInt(mon));
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -167,22 +177,35 @@
 										<span class="section">Datos de Moneda</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="nombre"  type="text" required="required" placeholder="" readonly />
+												<input class="form-control" class='optional' name="nombre"  type="text" value="<%=tm.getNombre()%>" required="required" placeholder="" readonly="readonly" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Simbolo<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Simbolo<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="simbolo"  type="text" required="required" placeholder="" readonly />
+												<input class="form-control" class='optional' name="simbolo"  type="text" value="<%=tm.getSimbolo()%>" required="required" placeholder="" readonly="readonly" />
 											</div>
 										</div>
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
+													<button
+														onClick="window.location.href='editMoneda.jsp?idMon=<%=tm.getIdMoneda()%>'"
+														type='button' class="btn btn-primary">Editar esta moneda</button>
+
+													<button
+														onClick="window.location.href='deleteMoneda.jsp?idMon=<%=tm.getIdMoneda()%>'"
+														type='button' class="btn btn-primary">Eliminar
+														esta moneda</button>
+
+													<a href="tbl_moneda.jsp" class="btn btn-primary">Regresar</a>
+
+
+
 												</div>
 											</div>
 										</div>
@@ -197,9 +220,9 @@
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
+		<div class="pull-right">Sistema contable by UCASH</div>
+		<div class="clearfix"></div>
+	</footer>
 			<!-- /footer content -->
 		</div>
 	</div>

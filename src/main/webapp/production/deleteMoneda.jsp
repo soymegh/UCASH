@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"  import="entidades.*, datos.*, java.util.*;"%>
+    pageEncoding="ISO-8859-1" import="entidades.Tbl_moneda, datos.Dt_moneda"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String mon = "";
+mon = request.getParameter("idMon") == null ? "0" : request.getParameter("idMon");
+
+Tbl_moneda tm = new Tbl_moneda();
+Dt_moneda dtm = new Dt_moneda();
+tm = dtm.getMonedaByID(Integer.parseInt(mon));
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +19,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Moneda</title>
+<title>Eliminar | Detalle Moneda</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -135,7 +145,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar Moneda </h3>
+							<h3>Eliminar Moneda </h3>
 						</div>
 
 						<div class="title_right">
@@ -156,34 +166,35 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Moneda</h2>
+									<h2>Eliminar Moneda</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								
 								<div class="x_content">
 									<form class="" action="../Sl_moneda" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
+									  <input type="hidden" value="3" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=tm.getIdMoneda()%>" name="IdMoneda" id="IdMoneda"/>
 										<span class="section">Datos de Moneda</span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="txtnombre" id="txtnombre" type="text" required="required" placeholder="Nombre"/>
+												<input class="form-control" class='optional' name="txtnombre" id="txtnombre" value="<%= tm.getNombre() %>" type="text" required="required" placeholder="" readonly="readonly"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Simbolo<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="txtsimbolo" id="txtsimbolo"  type="text" required="required" placeholder="Simbolo ex: $"/>
+												<input class="form-control" class='optional' name="txtsimbolo" id="txtsimbolo" value="<%= tm.getSimbolo() %>"  type="text" required="required" placeholder="" readonly="readonly"/>
 											</div>
 										</div>
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
+													<button type='submit' class="btn btn-danger">Eliminar</button>
 													<a href="tbl_moneda.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>

@@ -1,7 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.Tbl_moneda, datos.Dt_moneda"%>
 <!DOCTYPE html>
 <html>
+
+<%
+String mon = "";
+mon = request.getParameter("idMon") == null ? "0" : request.getParameter("idMon");
+
+Tbl_moneda tm = new Tbl_moneda();
+Dt_moneda dtm = new Dt_moneda();
+tm = dtm.getMonedaByID(Integer.parseInt(mon));
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -163,20 +173,21 @@
 								
 								<div class="x_content">
 									<form class="" action="../Sl_moneda" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
+									  <input type="hidden" value="2" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=tm.getIdMoneda()%>" name="IdMoneda" id="IdMoneda"/>
 										<span class="section">Datos de Moneda</span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="nombre"  type="text" required="required" placeholder=""/>
+												<input class="form-control" class='optional' name="txtnombre" id="txtnombre" value="<%= tm.getNombre() %>" type="text" required="required" placeholder=""/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Simbolo<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="simbolo"  type="text" required="required" placeholder=""/>
+												<input class="form-control" class='optional' name="txtsimbolo" id="txtsimbolo" value="<%= tm.getSimbolo() %>"  type="text" required="required" placeholder=""/>
 											</div>
 										</div>
 										
@@ -184,7 +195,7 @@
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a href="tbl_moneda.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>
@@ -199,9 +210,9 @@
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
+		<div class="pull-right">Sistema contable by UCASH</div>
+		<div class="clearfix"></div>
+	</footer>
 			<!-- /footer content -->
 		</div>
 	</div>

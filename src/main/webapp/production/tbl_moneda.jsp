@@ -229,9 +229,10 @@
 															String estado = "";
 															if (tm.getEstado() != 3) {
 																estado = "ACTIVO";
-															} else {
+															}else {
 																estado = "INACTIVO";
-															}
+																}
+															
 														%>
 														<tr>
 															<td><%=tm.getIdMoneda()%></td>
@@ -239,11 +240,11 @@
 															<td><%=tm.getSimbolo()%></td>
 															<td><%=estado%></td>
 
-															<td><a href="editMoneda.jsp" target="blank"> <i
+															<td><a href="editMoneda.jsp?idMon=<%=tm.getIdMoneda()%>" target="blank"> <i
 																	class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; <a
-																href="viewMoneda.jsp" target="blank"> <i class="fa fa-eye"
+																href="viewMoneda.jsp?idMon=<%=tm.getIdMoneda()%>" target="blank"> <i class="fa fa-eye"
 																	title="Ver"></i>
-															</a> &nbsp;&nbsp; <a href="" target="_blank"> <i
+															</a> &nbsp;&nbsp; <a href="deleteMoneda.jsp?idMon=<%=tm.getIdMoneda()%>" target="blank"> <i
 																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
@@ -266,21 +267,15 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
+
 	<!-- /page content -->
 
 	<!-- footer content -->
 	<footer>
-		<div class="pull-right">Sistema contable multi-empresa by
-			Eldian's Software.</div>
+		<div class="pull-right">Sistema contable by UCASH</div>
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	</div>
-	</div>
-
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
