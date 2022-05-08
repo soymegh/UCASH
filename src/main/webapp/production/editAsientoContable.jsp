@@ -18,7 +18,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nuevo Asiento Contable</title>
+<title>Editar Asiento Contable</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -238,7 +238,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar nuevo de asiento contable</h3>
+							<h3>Editar asiento contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -410,7 +410,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											</div>
 
 											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+												<label class="col-form-label col-md-3 col-sm-3  label-align">
 													Cuenta: <span class="required">*</span>
 												</label>
 												<div class="col-md-6 col-sm-6">
@@ -503,11 +503,12 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																						| <%=ac.getSsC()%> | <%=ac.getSssC()%></td>
 																					<td><%=ac.getDebe()%></td>
 																					<td><%=ac.getHaber()%></td>
+																					<td><a >
+																					<i class="fa fa-edit" title="Editar"></i>
+																			</a>
 																				</tr>
 																				<%
-																				} //else{
-
-																				//}
+																					} 
 																				}
 																				%>
 																			</tbody>

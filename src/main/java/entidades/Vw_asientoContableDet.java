@@ -5,10 +5,10 @@ import java.sql.Date;
 public class Vw_asientoContableDet {
 	private int idAsientoContableDet;
 	private int idCuenta;
-	private int numeroCuenta;
-	private int SC;
-	private int SsC;
-	private int SssC;
+	private String numeroCuenta;
+	private String SC;
+	private String SsC;
+	private String SssC;
 	private int idAsientoContable;
 	private Date fecha;
 	private String descripcion;
@@ -27,10 +27,10 @@ public class Vw_asientoContableDet {
 	public void setIdCuenta(int idCuenta) {
 		this.idCuenta = idCuenta;
 	}
-	public int getNumeroCuenta() {
+	public String getNumeroCuenta() {
 		return numeroCuenta;
 	}
-	public void setNumeroCuenta(int numeroCuenta) {
+	public void setNumeroCuenta(String numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
 	}
 	public int getIdAsientoContable() {
@@ -63,22 +63,22 @@ public class Vw_asientoContableDet {
 	public void setHaber(Double haber) {
 		this.haber = haber;
 	}
-	public int getSC() {
+	public String getSC() {
 		return SC;
 	}
-	public void setSC(int sC) {
+	public void setSC(String sC) {
 		SC = sC;
 	}
-	public int getSsC() {
+	public String getSsC() {
 		return SsC;
 	}
-	public void setSsC(int ssC) {
+	public void setSsC(String ssC) {
 		SsC = ssC;
 	}
-	public int getSssC() {
+	public String getSssC() {
 		return SssC;
 	}
-	public void setSssC(int sssC) {
+	public void setSssC(String sssC) {
 		SssC = sssC;
 	}
 }

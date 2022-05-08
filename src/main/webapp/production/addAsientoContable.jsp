@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	
+	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -399,7 +401,7 @@
 											</div>
 
 											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+												<label class="col-form-label col-md-3 col-sm-3  label-align">
 													Cuenta: <span class="required">*</span>
 												</label>
 												<div class="col-md-6 col-sm-6">
@@ -414,7 +416,7 @@
 														<%
 															for (Vw_catalogo_tipo_cuentacontable td : listacc) {
 															%>
-														<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta() %> + <%=td.getSC() %>/
+														<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta() %> / <%=td.getsC() %>/
 														 / <%=td.getSsC() %> / <%=td.getSssC() %></option>
 														<%
 															}
@@ -481,10 +483,7 @@
 																					<td>a</td>
 																					<td>a</td>
 																					<td>a</td>
-																					<td><a href="#"> <i class="fa fa-edit"
-																							title="Editar"></i>
-
-																					</a>&nbsp;&nbsp; <a href="#"> <i
+																					<td><a href="#"> <i
 																							class="fa fa-trash" title="Eliminar"></i>
 																					</a></td>
 																				</tr>

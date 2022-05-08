@@ -41,10 +41,10 @@ public class Dt_asientoContableDet {
 				Vw_asientoContableDet asientoContableDET = new Vw_asientoContableDet();
 				asientoContableDET.setIdAsientoContableDet(rs.getInt("idAsientoContableDet"));
 				asientoContableDET.setIdCuenta(this.rs.getInt("idCuenta"));
-				asientoContableDET.setNumeroCuenta(this.rs.getInt("numeroCuenta"));
-				asientoContableDET.setSC(this.rs.getInt("SC"));
-				asientoContableDET.setSsC(this.rs.getInt("SsC"));
-				asientoContableDET.setSssC(this.rs.getInt("SssC"));
+				asientoContableDET.setNumeroCuenta(this.rs.getString("numeroCuenta"));
+				asientoContableDET.setSC(this.rs.getString("SC"));
+				asientoContableDET.setSsC(this.rs.getString("SsC"));
+				asientoContableDET.setSssC(this.rs.getString("SssC"));
 				asientoContableDET.setIdAsientoContable(this.rs.getInt("idAsientoContable"));
 				
 				String fecha = rs.getString("fecha");
