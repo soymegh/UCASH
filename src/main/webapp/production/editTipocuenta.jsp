@@ -100,7 +100,8 @@ tTipocuenta = dttipocuenta.getTableTipocuentaByID(Integer.parseInt(tipocuenta));
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
+							
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -178,7 +179,8 @@ tTipocuenta = dttipocuenta.getTableTipocuentaByID(Integer.parseInt(tipocuenta));
 								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									
+									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
 								</div>
 							</li>
 						</ul>
