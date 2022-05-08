@@ -408,36 +408,37 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			class="table table-striped table-bordered"
 																			style="width: 100%">
 																			<%
-																								ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
-																								Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
-																								listaAsientoContable = dtac1.listarasientocontableDET();
-																								%>
+																			ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
+																			Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
+																			listaAsientoContable = dtac1.listarasientocontableDET();
+																			%>
 																			<thead>
 																				<tr>
 																					<th>ID</th>
-																					<th>Nombre de la cuenta</th>
+																					<th>Cuenta</th>
 																					<th>Debe</th>
 																					<th>Haber</th>
 																				</tr>
 																			</thead>
 																			<tbody>
 																				<%
-																									for (Vw_asientoContableDet ac : listaAsientoContable) {
-																										if (ac.getIdAsientoContable() == idac) {
-																									%>
+																				for (Vw_asientoContableDet ac : listaAsientoContable) {
+																					if (ac.getIdAsientoContable() == idac) {
+																				%>
 																				<tr>
 
 																					<td><%=ac.getIdAsientoContableDet()%></td>
-																					<td><%=ac.getNombreCuenta()%></td>
+																					<td><%=ac.getNumeroCuenta()%> | <%=ac.getSC()%>
+																						| <%=ac.getSsC()%> | <%=ac.getSssC()%></td>
 																					<td><%=ac.getDebe()%></td>
 																					<td><%=ac.getHaber()%></td>
 																				</tr>
 																				<%
-																									} //else{
+																				} //else{
 
-																									//}
-																									}
-																									%>
+																				//}
+																				}
+																				%>
 																			</tbody>
 
 																		</table>

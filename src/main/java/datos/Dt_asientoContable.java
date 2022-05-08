@@ -66,7 +66,12 @@ public class Dt_asientoContable {
 				tblAsientoContable.setNombre(this.rs.getString("nombre"));
 				tblAsientoContable.setIdTasaCambioDetalle(this.rs.getInt("idTasaCambioDetalle"));
 				tblAsientoContable.setTipoCambio(this.rs.getFloat("tipoCambio"));
-				tblAsientoContable.setFecha(this.rs.getDate("fecha"));
+				
+				String fecha = rs.getString("fecha");
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+				tblAsientoContable.setFecha(new java.sql.Date(date2.getTime()));
+				
+				
 				tblAsientoContable.setDescripcion(this.rs.getString("descripcion"));
 				tblAsientoContable.setUsuarioCreacion(this.rs.getInt("usuarioCreacion"));
 				tblAsientoContable.setFechaCreacion(this.rs.getDate("fechaCreacion"));

@@ -414,7 +414,8 @@
 														<%
 															for (Vw_catalogo_tipo_cuentacontable td : listacc) {
 															%>
-														<option value="<%=td.getIdCuenta()%>"><%=td.getNombreCuenta()%></option>
+														<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta() %> + <%=td.getSC() %>/
+														 / <%=td.getSsC() %> / <%=td.getSssC() %></option>
 														<%
 															}
 															%>
@@ -467,7 +468,7 @@
 																			style="width: 100%">
 																			<thead>
 																				<tr>
-																					<th>Nombre de la cuenta</th>
+																					<th>Cuenta</th>
 																					<th>Debe</th>
 																					<th>Haber</th>
 																					<th>Acciones</th>

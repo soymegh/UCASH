@@ -372,7 +372,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 													for (Vw_tasaCambioDetalle tc : listaTC) {
 													%>
 													<option value="<%=tc.getIdTasaCambioDetalle()%>"><%=tc.getValor()%></option>
-													
+
 													<%
 													}
 													%>
@@ -385,7 +385,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechainicioc" value="<%=tpacont.getFecha() %>">
+													placeholder="Fecha de inicio" name="fechainicioc"
+													value="<%=tpacont.getFecha()%>">
 											</div>
 										</div>
 
@@ -395,7 +396,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional'
 													name="descripcion" data-validate-length-range="5,15"
-													type="text" required="required" value="<%=tpacont.getDescripcion() %>"/>
+													type="text" required="required"
+													value="<%=tpacont.getDescripcion()%>" />
 											</div>
 										</div>
 
@@ -423,7 +425,9 @@ tpacont = dtac.obtenerAContablePorId(idac);
 														<%
 														for (Vw_catalogo_tipo_cuentacontable td : listacc) {
 														%>
-														<option value="<%=td.getIdCuenta()%>"><%=td.getNombreCuenta()%></option>
+														<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta()%> / <%=td.getsC()%> /
+															<%=td.getSsC()%> /
+															<%=td.getSssC()%></option>
 														<%
 														}
 														%>
@@ -455,7 +459,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button class="btn btn-success">Editar</button>
-													
+
 												</div>
 											</div>
 										</div>
@@ -473,26 +477,39 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																		<table id="datatable-buttons"
 																			class="table table-striped table-bordered"
 																			style="width: 100%">
+																			<%
+																			ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
+																			Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
+																			listaAsientoContable = dtac1.listarasientocontableDET();
+																			%>
 																			<thead>
 																				<tr>
-																					<th>Nombre de la cuenta</th>
+																					<th>ID</th>
+																					<th>Cuenta</th>
 																					<th>Debe</th>
 																					<th>Haber</th>
 																					<th>Acciones</th>
 																				</tr>
 																			</thead>
 																			<tbody>
-
+																				<%
+																				for (Vw_asientoContableDet ac : listaAsientoContable) {
+																					if (ac.getIdAsientoContable() == idac) {
+																				%>
 																				<tr>
 
-																					<td>a</td>
-																					<td>a</td>
-																					<td>a</td>
-																					<td><a href="#"> <i class="fa fa-edit"
-																							title="Editar"></i>
-
-																					</a> </td>
+																					<td><%=ac.getIdAsientoContableDet()%></td>
+																					<td><%=ac.getNumeroCuenta()%> | <%=ac.getSC()%>
+																						| <%=ac.getSsC()%> | <%=ac.getSssC()%></td>
+																					<td><%=ac.getDebe()%></td>
+																					<td><%=ac.getHaber()%></td>
 																				</tr>
+																				<%
+																				} //else{
+
+																				//}
+																				}
+																				%>
 																			</tbody>
 
 																		</table>
@@ -556,7 +573,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 					$("#cbxIDTD").val("<%=tpacont.getIdTipoDocumento()%>");
 					$("#cbxIDE").val("<%=tpacont.getIdEmpresa()%>");
 					$("#cbxIDM").val("<%=tpacont.getIdMoneda()%>");
-					//$("#cbxIDTCD").val("<=tpm.getIdTasaCambioDet()%>");
+					$("#cbxIDTCD").val("<%=tpacont.getIdTasaCambioDet()%>");
 				}
 
 				$(document).ready(function() {
