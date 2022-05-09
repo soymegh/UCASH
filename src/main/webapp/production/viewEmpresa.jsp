@@ -200,13 +200,10 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
-									José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>.
 							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href=/*"../login.jsp"*/><i class="fa fa-sign-out pull-right"></i> Cerrar sesion</a>
-
+								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
 								</div>
 							</li>
 						</ul>
