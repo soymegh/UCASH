@@ -242,8 +242,11 @@
             	var $example2 = $('#example2');
                 var items = $example2.jqListbox('getSelectedItems');
                 
-                saldo -= parseInt(items[0].Debe);
-                saldo += parseInt(items[0].Haber);
+                for (var i = 0; i < items.length; i++) {
+                	saldo -= parseInt(items[i].Debe);
+                	saldo += parseInt(items[i].Haber);                	
+                }
+                
                 $('.saldoTotal').text(saldo);
             	
                 $('#example2').jqListbox('remove');
