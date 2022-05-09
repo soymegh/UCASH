@@ -234,9 +234,9 @@
 															<td><%=ur.getNombre() + " " + ur.getApellido()%></td>
 															
 															<td>
-															<a href="editUsuarioRol.jsp?idUR=<%=ur.getIdUsuarioRol()%>" target="blank"> <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
-															<a href="viewUsuarioRol.jsp?idUR=<%=ur.getIdUsuarioRol()%>" target="blank"> <i class="fa fa-eye" title="Ver"></i></a> &nbsp;&nbsp; 
-															<a href="deleteUsuarioRol.jsp?idUR=<%=ur.getIdUsuarioRol()%>" target="_blank"><i class="fa fa-trash" title="Eliminar"></i></a>
+															<a href="editUsuarioRol.jsp?idUR=<%=ur.getIdUsuarioRol()%>"> <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
+															<a href="viewUsuarioRol.jsp?idUR=<%=ur.getIdUsuarioRol()%>"> <i class="fa fa-eye" title="Ver"></i></a> &nbsp;&nbsp; 
+															<a href="deleteUsuarioRol.jsp?idUR=<%=ur.getIdUsuarioRol()%>"><i class="fa fa-trash" title="Eliminar"></i></a>
 															</td>
 														</tr>
 														<%

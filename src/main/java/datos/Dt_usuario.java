@@ -1,6 +1,8 @@
 package datos;
 
 import entidades.Tbl_usuario;
+import entidades.Vw_usuariorol;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -257,4 +259,209 @@ public class Dt_usuario {
 		}
 		return builder.toString();
 	}
+	
+	
+	// Metodo para actualizar el estado del Usuario //Cuando es verificado
+	public boolean updEstado(String login)
+	{
+		boolean actualizado = false;
+		try{
+			c = poolConexion.getConnection();
+			this.llenaRsUsuario(c);	
+			rsUsuario.beforeFirst();
+			while(rsUsuario.next()){
+				if(rsUsuario.getString("user").equals(login)){
+					rsUsuario.updateInt("estado", 1);
+					rsUsuario.updateRow();
+					actualizado = true;
+					break;
+				}
+			}
+		}
+		catch (Exception e) {
+			System.err.println("ERROR updEstado() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(rsUsuario != null){
+					rsUsuario.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return actualizado;
+	}
+	
+	// METODO PARA OBTENER UN OBJETO DE TIPO Vw_userrol //
+		public Vw_usuariorol dtGetVwUR(String login){
+			 Vw_usuariorol vwur = new  Vw_usuariorol();
+			String SQL = ("SELECT * FROM dbucash.vw_usuariorol WHERE usuario=? and estado<>3");
+			try{
+				c = poolConexion.getConnection();
+				ps = c.prepareStatement(SQL);
+				ps.setString(1, login);
+				rs = ps.executeQuery();
+				if(rs.next()){
+					vwur.setId_user(rs.getInt("idUsuario"));
+					vwur.setUsuario(rs.getString("usuario"));
+					vwur.setPassword(rs.getString("password"));
+					vwur.setKey(rs.getString("key"));
+					vwur.setCodVerificacion(rs.getString("codVerificacion"));
+					vwur.setNombre(rs.getString("nombre"));
+					vwur.setApellido(rs.getString("apellido"));
+					vwur.setEmail(rs.getString("email"));
+					vwur.setEstado(rs.getInt("estado"));
+					vwur.setId_rol(rs.getInt("id_rol"));
+					vwur.setRol(rs.getString("rol"));
+				}
+			}
+			catch (Exception e){
+				System.out.println("DATOS: ERROR EN dtGetVwUR "+ e.getMessage());
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					if(rs != null){
+						rs.close();
+					}
+					if(ps != null){
+						ps.close();
+					}
+					if(c != null){
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+			return vwur;
+		}
+	
+	// METODO PARA VERIFICAR USUARIO, PWD, ROL Y CODIGO DE VERIFICACION // POR PRIMERA VEZ
+	public boolean dtverificarLogin2(String login, String clave, int rol, String codigo)
+	{
+		boolean existe=false;
+		String SQL = ("SELECT * FROM dbucash.vw_usuariorol WHERE usuario=? AND password=? AND id_rol=? AND codVerificacion=? AND estado=0");
+		try{
+			/////// DESENCRIPTACION DE LA PWD //////////
+			Vw_usuariorol vwur = new Vw_usuariorol();
+			Encrypt enc = new Encrypt();
+			vwur = this.dtGetVwUR(login);
+			String pwdDecrypt = "";
+			String pwdEncrypt = "";
+			
+			pwdEncrypt = vwur.getPassword();
+			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt,vwur.getKey());
+			/////////////////////////////////////////
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement(SQL);
+			ps.setString(1, login);
+			if(clave.equals(pwdDecrypt)){
+				ps.setString(2, pwdEncrypt);
+			}
+			else {
+				ps.setString(2, clave);
+			}
+			
+			ps.setInt(3, rol);
+			ps.setString(4, codigo);
+			rs = ps.executeQuery();
+			if(rs.next()){
+				existe=true;
+				this.updEstado(login);
+			}
+		}
+		catch (Exception e){
+			System.out.println("DATOS: ERROR dtverificarLogin2() "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+		return existe;
+	}
+	
+	// METODO PARA VERIFICAR USUARIO, PWD Y ROL //
+	public boolean dtverificarLogin(String login, String clave, int rol)
+	{
+		boolean existe=false;
+		String SQL = ("SELECT * FROM dbucash.vw_usuariorol WHERE usuario=? AND password=? AND id_rol=? AND estado>0 AND estado<3");
+		try{
+			/////// DESENCRIPTACION DE LA PWD //////////
+			Vw_usuariorol vwur = new Vw_usuariorol();
+			Encrypt enc = new Encrypt();
+			vwur = this.dtGetVwUR(login);
+			String pwdDecrypt = "";
+			String pwdEncrypt = "";
+			
+			pwdEncrypt = vwur.getPassword();
+			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt,vwur.getKey());
+			/////////////////////////////////////////
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement(SQL);
+			ps.setString(1, login);
+			
+			if(clave.equals(pwdDecrypt)){
+				ps.setString(2, pwdEncrypt);
+			}
+			else {
+				ps.setString(2, clave);
+			}
+			ps.setInt(3, rol);
+			rs = ps.executeQuery();
+			if(rs.next()){
+				existe=true;
+			}
+		}
+		catch (Exception e){
+			System.out.println("DATOS: ERROR dtverificarLogin() "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+		return existe;
+	}
+	
 }

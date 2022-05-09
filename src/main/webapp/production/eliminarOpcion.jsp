@@ -176,7 +176,7 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 										<span class="section">Datos de Opciones</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Opcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Opcion:<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" value="<%=user.getIdOpciones()%>" class='optional' name="txtId"  type="text" required="required" placeholder="Id de Usuario" readonly/>
 											</div>
@@ -184,7 +184,7 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 									
 									
 											<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de Opcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de Opcion:<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" 
 												 value="<%=user.getNombreOpcion()%>"
@@ -194,9 +194,9 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 											
 							
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion:<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" value="<%=user.getDescripcion()%>"  class='optional' name="txtDescripcion" data-validate-length-range="5,15" type="text" required="required" readonly/>
+												<input class="form-control" value="<%=user.getDescripcion()%>"  class='optional' name="txtDescripcion" required="required" readonly/>
 											</div>
 										</div>
 										
@@ -204,7 +204,7 @@ user = datosUsuario.obtenerOpcionPorId(idUser);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type="button" onClick="window.location.href='tbl_opciones.jsp'" class="btn btn-danger">Cancelar</button>
 												<button type='submit' class="btn btn-primary">Eliminar</button>
 												</div>
 											</div>

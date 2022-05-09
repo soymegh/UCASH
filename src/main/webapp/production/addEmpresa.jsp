@@ -602,7 +602,8 @@
 			function getURL() {
 				const url = window.location.href;
 				const idR = url.substring(url.indexOf('=') + 1);
-				if (url == "/production/addEmpresa.jsp?msj="
+				if (url == "production/addEmpresa.jsp?msj="
+
 						+ idR) {
 					console.log("Test");
 					document.getElementById("agregarRL").disabled = true;
@@ -612,7 +613,7 @@
 					document.getElementById("agregarE").disabled = false;
 					document.getElementById("cancelarE").disabled = false;
 					document.getElementById("reiniciarE").disabled = false;
-				} else if (url == "http://localhost:8080/SistemaContable/production/addEmpresa.jsp") {
+				} else if (url == "production/addEmpresa.jsp") {
 					console.log("Test");
 					document.getElementById("agregarRL").disabled = false;
 					document.getElementById("cancelarRL").disabled = false;
@@ -631,7 +632,7 @@
 				const url = window.location.href;
 				const idR = url.substring(url.indexOf('=') + 1);
 
-				if (url == "http://localhost:8080/SistemaContable/production/addEmpresa.jsp") {
+				if (url == "production/addEmpresa.jsp") {
 					document.getElementById('valueIdR').value = "Se ingresara automaticamente cuando guarde el representante legal";
 
 				} else {

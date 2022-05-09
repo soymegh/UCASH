@@ -168,14 +168,14 @@
 										<span class="section">Datos de Opciones</span>
 										
 											<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Opcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Opcion<span class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="nombreOpcion" data-validate-length-range="5,15" type="text" required="required" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="descripcion" type="text" required="required" />
 											</div>
@@ -184,7 +184,7 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-												<button type="button" class="btn btn-primary">Cancelar</button>
+												<button type="button" onClick="window.location.href='tbl_opciones.jsp'" class="btn btn-danger">Cancelar</button>
 													<button type="submit" class="btn btn-primary">Agregar</button>
 												
 												</div>

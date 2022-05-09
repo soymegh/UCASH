@@ -196,39 +196,41 @@ userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
 								<form class="" action="../Sl_usuarioRol" method="post" novalidate>
 									<input type="hidden" value="3" name="opcion" id="opcion"/>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">ID de asignación<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">ID de asignación<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" name="idUserRol" placeholder="Nombre de usuario" value="<%=userRol.getIdUsuarioRol()%>" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=userRol.getUsuario()%>" placeholder="Nombres" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=userRol.getNombre()%>" placeholder="Apellidos" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=userRol.getApellido()%>" placeholder="Correo electrónico" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Rol<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Rol<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=userRol.getDescripcion()%>" placeholder="Correo electrónico" readonly>
 										</div>
 									</div>
 									<div class="ln_solid"></div>
 									<div class="form-group">
-										<button type='button' onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-primary">Regresar</button>	
-										<button type="submit" class="btn btn-primary">Eliminar esta asignación</button>
+										<div class="col-md-6 offset-md-3">
+											<button type='button' onClick="window.location.href='tbl_usuarioRol.jsp'" class="btn btn-danger">Cancelar</button>	
+											<button type="submit" class="btn btn-primary">Eliminar esta asignación</button>
+										</div>
 									</div>
 
 								</form>
