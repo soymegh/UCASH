@@ -14,6 +14,51 @@ Dt_empresa dtEmpresa = new Dt_empresa();
 tEmpresa = dtEmpresa.getTableEmpresaByID(Integer.parseInt(empresa));
 vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 %>
+	<%
+		//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -75,24 +120,25 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%= vwur.getNombre() + ""+ vwur.getApellido() %></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
 
 					<br />
 
-					<!-- sidebar menu -->
+						<!-- sidebar menu -->
 					<div id="sidebar-menu"
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
-							<h3>Control General</h3>
 							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a>
-									<ul class="nav child_menu">
-										<li><a href="index.html">Página Principal</a></li>
-									</ul></li>
+								<li><a href="index.html"><i class="fa fa-home"> </i>Inicio</a></li>
+							</ul>
+						</div>
 
+						<div class="menu_section">
+							<h3>Gestión</h3>
+							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
@@ -102,30 +148,36 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
 										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
 									</ul></li>
-								<li><a><i class="fa fa-building"></i>Gestion Empresa<span
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
+										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo
+												Identificacion</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante
 												Legal</a></li>
 									</ul></li>
-								<li><a><i class="fa fa-file"></i>Gestion Cuenta
-										Contable<span class="fa fa-chevron-down"></span></a>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-										<li><a href="tbl_tipocuenta.jsp">Tipo cuenta</a></li>
+										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
 									</ul></li>
-								<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_moneda.jsp">Moneda</a></li>
 										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
 									</ul></li>
 
-								<li><a><i class="fa fa-book"></i>Gestion Asiento
-										Contable<span class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="tbl_asientoContable.jsp">Asiento
 												Contable</a></li>
@@ -138,21 +190,6 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 						</div>
 					</div>
 					<!-- /sidebar menu -->
-
-					<!-- /menu footer buttons -->
-					<div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
-							aria-hidden="true"></span>
-						</a>
-					</div>
-					<!-- /menu footer buttons -->
 				</div>
 			</div>
 
@@ -167,64 +204,13 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
-									José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%= vwur.getNombre() + " "+ vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="javascript:;"> Profile</a> <a
-										class="dropdown-item" href="javascript:;"> <span
-										class="badge bg-red pull-right">50%</span> <span>Settings</span>
-									</a> <a class="dropdown-item" href="javascript:;">Help</a> <a
-										class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i> Log Out</a>
+									<a class="dropdown-item" href=/*"../login.jsp"*/><i class="fa fa-sign-out pull-right"></i> Cerrar sesion</a>
 								</div>
 							</li>
-
-							<li role="presentation" class="nav-item dropdown open"><a
-								href="javascript:;" class="dropdown-toggle info-number"
-								id="navbarDropdown1" data-toggle="dropdown"
-								aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span
-									class="badge bg-green">6</span>
-							</a>
-								<ul class="dropdown-menu list-unstyled msg_list" role="menu"
-									aria-labelledby="navbarDropdown1">
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item">
-										<div class="text-center">
-											<a class="dropdown-item"> <strong>See All Alerts</strong>
-												<i class="fa fa-angle-right"></i>
-											</a>
-										</div>
-									</li>
-								</ul></li>
 						</ul>
 					</nav>
 				</div>
@@ -265,12 +251,10 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 								</div>
 								<div class="x_content">
 									<form class="" action="../Sl_empresa" method="post" novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> 
-										<input
-											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>" name="idEmpresa"
-											id="idEmpresa" /> 
-											<span class="section">Datos de
-											empresa</span>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
+											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>"
+											name="idEmpresa" id="idEmpresa" /> <span class="section">Datos
+											de empresa</span>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
 												class="required">*</span></label>
@@ -452,12 +436,14 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="ln_solid">
-											<div class="form-group">
+											<div class="form-group" align="center">
 												<div class="col-md-6 offset-md-3">
-													<button id="agregarE" type='submit' class="btn btn-primary">Editar</button>
-													
+													<button id="agregarE" type='submit' class="btn btn-primary">Editar
+														empresa</button>
+
 													<button id="cancelarE" type="button"
-														onclick="history.back()" class="btn btn-primary">Cancelar</button>
+														onclick="window.location.href='tbl_empresa.jsp'"
+														class="btn btn-primary">Cancelar</button>
 												</div>
 											</div>
 										</div>
@@ -472,7 +458,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
@@ -540,7 +526,8 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
     	document.getElementById("periodoFiscal").value = "<%=tEmpresa.getIdPeriodoFiscal()%>";
     	document.getElementById("representanteLegal").value = "<%=tEmpresa.getIdRepresentanteLegal()%>";
     	document.getElementById("departamento").value = "<%=tEmpresa.getIdDepartamento()%>";
-    	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>";
+    	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>
+		";
 
 			console.log(document.getElementById("representanteLegal").value);
 			console.log(document.getElementById("ruc").value);
