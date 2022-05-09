@@ -24,7 +24,11 @@
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		
+		for(int x = 0; x < listOpc.size(); x++){
+			System.out.print(listOpc.get(x).getOpciones());
+		};
 		
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
@@ -35,6 +39,7 @@
 		for(Vw_rolopciones vrop : listOpc){
 			if(vrop.getOpciones().trim().equals(miPagina.trim())){
 				permiso = true; //ACCESO CONCEDIDO
+				System.out.print("ESTA ES LA PAGINA RECUPERADA: " + " " + vrop.getOpciones().trim() +  " " + "ESTA ES LA PAGINA EN LA QUE NOS ENCONTRAMOS: " + miPagina.trim());
 				break;
 			}
 		}
@@ -287,6 +292,7 @@
 							<a href="tbl_usuarioRol.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-puzzle-piece" style="padding-right:10px;"></i>Usuario Rol</a>
 							<a style="padding-left:20px; padding-right:20px;"> </a>
 							<a href="tbl_rolOpciones.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-cogs" style="padding-right:10px;"></i>Rol Opciones</a>
+							<a href="tbl_opciones.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-cog" style="padding-right:10px;"></i>Opciones</a>
 						</div>
 					</div>
 					

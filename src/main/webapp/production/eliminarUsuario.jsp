@@ -20,7 +20,11 @@
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		
+		for(int x = 0; x < listOpc.size(); x++){
+			System.out.print(listOpc.get(x).getOpciones());
+		};
 		
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
@@ -31,6 +35,7 @@
 		for(Vw_rolopciones vrop : listOpc){
 			if(vrop.getOpciones().trim().equals(miPagina.trim())){
 				permiso = true; //ACCESO CONCEDIDO
+				System.out.print("ESTA ES LA PAGINA RECUPERADA: " + " " + vrop.getOpciones().trim() +  " " + "ESTA ES LA PAGINA EN LA QUE NOS ENCONTRAMOS: " + miPagina.trim());
 				break;
 			}
 		}
@@ -41,13 +46,11 @@
 	}
 		
 	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
+		response.sendRedirect("../login.jsp?msj=403");
 		return;
 	}
 	
 %>
-
 
 
 
@@ -106,7 +109,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-money"></i>
+						<a href="index.jsp" class="site_title"><i class="fa fa-money"></i>
 							<span>Sistema Contable</span></a>
 					</div>
 
@@ -120,7 +123,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -132,7 +135,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
+								<li><a href="index.jsp"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
 						
@@ -194,10 +197,10 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>

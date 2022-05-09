@@ -75,7 +75,7 @@ public class Dt_rolOpciones {
 	
 	//Metodo para listar la empresa
 	//Sujeto a cambio el Tbl_empresa por algun View
-	public ArrayList<Vw_rolopciones> listarRolOpciones(int idRol){
+	public ArrayList<Vw_rolopciones> listarRolOpciones(){
 		ArrayList<Vw_rolopciones> listRolOpc = new ArrayList<Vw_rolopciones>();
 		try {
 			c = poolConexion.getConnection();
@@ -149,7 +149,47 @@ public class Dt_rolOpciones {
 		return guardado;
 	}
 
-	
+	public ArrayList<Vw_rolopciones> ObtenerRolOpcionPorIdLogin(int id) {
+		ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+		System.out.print("ESTE ES EL ID QUE RECIBE EL METODO 'ObtenerRolPorIdLogin':" + id);
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_rolopcioneslogin WHERE idUsuarioRol = ?;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Vw_rolopciones rolOpcion = new Vw_rolopciones();
+				rolOpcion.setIdRolOpciones(rs.getInt("idRolOpciones"));
+				rolOpcion.setRol(rs.getString("nombreRol"));
+				rolOpcion.setOpciones(rs.getString("nombreOpcion"));
+				listOpc.add(rolOpcion);
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR ROL OPCIONES" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return listOpc;
+	}
 	
 	public Vw_rolopciones ObtenerRolOpcionPorId(int id) {
 		Vw_rolopciones rolOpcion = new Vw_rolopciones();

@@ -270,7 +270,7 @@ public class Dt_usuario {
 			this.llenaRsUsuario(c);	
 			rsUsuario.beforeFirst();
 			while(rsUsuario.next()){
-				if(rsUsuario.getString("user").equals(login)){
+				if(rsUsuario.getString("usuario").equals(login)){
 					rsUsuario.updateInt("estado", 1);
 					rsUsuario.updateRow();
 					actualizado = true;
@@ -310,6 +310,7 @@ public class Dt_usuario {
 				ps.setString(1, login);
 				rs = ps.executeQuery();
 				if(rs.next()){
+					vwur.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
 					vwur.setId_user(rs.getInt("idUsuario"));
 					vwur.setUsuario(rs.getString("usuario"));
 					vwur.setPassword(rs.getString("password"));
@@ -422,6 +423,7 @@ public class Dt_usuario {
 			
 			pwdEncrypt = vwur.getPassword();
 			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt,vwur.getKey());
+			System.out.print("ESTA ES LA CONTRASEÑA: "+ pwdDecrypt + "ESTE ES EL USUARIO: " + login);
 			/////////////////////////////////////////
 			c = poolConexion.getConnection();
 			ps = c.prepareStatement(SQL);
@@ -429,14 +431,17 @@ public class Dt_usuario {
 			
 			if(clave.equals(pwdDecrypt)){
 				ps.setString(2, pwdEncrypt);
+				System.out.print("Esta es la contraseña, dentro de la verificación (linea 433): " + clave);
 			}
 			else {
 				ps.setString(2, clave);
+				System.out.print("Esta es la contraseña, dentro del else (linea 433): " + clave);
 			}
 			ps.setInt(3, rol);
 			rs = ps.executeQuery();
 			if(rs.next()){
 				existe=true;
+				System.out.print("Esta es la contraseña, dentro de la verificación (linea 443): " + rol);
 			}
 		}
 		catch (Exception e){
