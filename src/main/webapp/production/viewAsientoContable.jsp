@@ -10,49 +10,46 @@ tpacont = dtac.obtenerAContablePorId(idac);
 %>
 
 <%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
-	response.setHeader( "Pragma", "no-cache" );
-	response.setHeader( "Cache-Control", "no-store" );
-	response.setDateHeader( "Expires", 0 );
-	response.setDateHeader( "Expires", -1 );
-	
-	//DECLARACIONES
-	Vw_usuariorol vwur = new Vw_usuariorol();
-	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-	boolean permiso = false; //VARIABLE DE CONTROL
-	
-	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	if(vwur!=null){
-		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
-		
-		
-		//RECUPERAMOS LA URL = MI OPCION ACTUAL
-		int index = request.getRequestURL().lastIndexOf("/");
-		String miPagina = request.getRequestURL().substring(index+1);
-		
-		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
-			}
+//INVALIDA LA CACHE DEL NAVEGADOR //
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setDateHeader("Expires", -1);
+
+//DECLARACIONES
+Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_rolOpciones dtro = new Dt_rolOpciones();
+ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+boolean permiso = false; //VARIABLE DE CONTROL
+
+//OBTENEMOS LA SESION
+vwur = (Vw_usuariorol) session.getAttribute("acceso");
+if (vwur != null) {
+	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+	listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+
+	//RECUPERAMOS LA URL = MI OPCION ACTUAL
+	int index = request.getRequestURL().lastIndexOf("/");
+	String miPagina = request.getRequestURL().substring(index + 1);
+
+	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+	for (Vw_rolopciones vrop : listOpc) {
+		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+	permiso = true; //ACCESO CONCEDIDO
+	break;
 		}
 	}
-	else{
-		response.sendRedirect("../login.jsp?msj=401");
-		return;
-	}
-		
-	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
-		return;
-	}
-	
+} else {
+	response.sendRedirect("../login.jsp?msj=401");
+	return;
+}
+
+if (!permiso) {
+	// response.sendRedirect("../login.jsp?msj=401");
+	response.sendRedirect("page_403.jsp");
+	return;
+}
 %>
 
 <!DOCTYPE html>
@@ -118,7 +115,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
+							<h2><%=vwur.getNombre() + " " + vwur.getApellido()%></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -215,15 +212,16 @@ tpacont = dtac.obtenerAContablePorId(idac);
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre() + " " + vwur.getApellido()%>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="javascript:;"> Perfil</a> <a
 										class="dropdown-item" href="javascript:;"> <span
 										class="badge bg-red pull-right">50%</span> <span>Ajustes</span>
-									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> 
-									<a class="dropdown-item" href="/*../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
+									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> <a
+										class="dropdown-item" href="/*../login.jsp"><i
+										class="fa fa-sign-out pull-right"></i> Sesión</a>
 								</div>
 							</li>
 
@@ -438,7 +436,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 													readonly="readonly">
 											</div>
 										</div>
-
+										
 										<div class="x_content">
 											<div class="row">
 												<div class="col-md-12 col-md-12">
@@ -456,6 +454,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
 																			Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
 																			listaAsientoContable = dtac1.listarasientocontableDET();
+																			double total = 0;
 																			%>
 																			<thead>
 																				<tr>
@@ -479,6 +478,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																					<td><%=ac.getHaber()%></td>
 																				</tr>
 																				<%
+																				total = total + ac.getDebe() - ac.getHaber();
 																				} //else{
 
 																				//}
@@ -496,10 +496,19 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											</div>
 										</div>
 
-
 										<div class="ln_solid">
 											<div class="form-group">
+											
 												<div class="col-md-6 offset-md-3">
+												<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align" style="color: black">Total:</label>
+											<div class="col-md-3 col-sm-3">
+												<input class="form-control" class='optional'
+													value="<%=total %>" name="total"
+													data-validate-length-range="5,15" type="text"
+													readonly="readonly">
+											</div>
+										</div>
 													<a href="tbl_asientoContable.jsp" type="button"
 														class="btn btn-primary">Regresar</a>
 												</div>
@@ -512,6 +521,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 					</div>
 				</div>
 			</div>
+
 			<!-- /page content -->
 
 			<script
