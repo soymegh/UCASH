@@ -203,7 +203,7 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
+									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a>
 								</div>
 							</li>
 						</ul>
