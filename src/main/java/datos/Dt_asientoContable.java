@@ -8,9 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entidades.Tbl_asientoContable;
-import entidades.Tbl_periodoContable;
 import entidades.Vw_asientoContable;
-import entidades.Vw_asientoContableDet;
 
 public class Dt_asientoContable {
 	poolConexion pc = poolConexion.getInstance();
