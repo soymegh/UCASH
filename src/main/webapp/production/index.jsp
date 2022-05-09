@@ -1,13 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"
+    import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, 
+    datos.Dt_usuario,datos.Dt_rolOpciones,
+    java.util.ArrayList;"
+%>
 
-    <title>Sistema Contable | Inicio </title>
+  
+<%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%>
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="images/favicon.ico" type="image/ico" />
+	
+<title>Sistema Contable | Inicio </title>
+
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,13 +70,19 @@
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-   <!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
-
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -42,7 +103,7 @@
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -59,7 +120,7 @@
 						</div>
 						
 						<div class="menu_section">
-							<h3>Gestión</h3>
+							<h3>Gesti�n</h3>
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
@@ -116,10 +177,10 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesi�n</a>
 								</div>
 							</li>
 						</ul>
@@ -226,7 +287,6 @@
 							<a href="tbl_usuarioRol.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-puzzle-piece" style="padding-right:10px;"></i>Usuario Rol</a>
 							<a style="padding-left:20px; padding-right:20px;"> </a>
 							<a href="tbl_rolOpciones.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-cogs" style="padding-right:10px;"></i>Rol Opciones</a>
-							<a href="tbl_opciones.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-cog" style="padding-right:10px;"></i>Opciones</a>
 						</div>
 					</div>
 					

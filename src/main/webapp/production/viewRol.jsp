@@ -201,9 +201,9 @@ r = datosRol.obtenerRolPorId(idR);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<a href="tbl_rol.jsp">
-														<i class="fa fa-arrow-left"></i> Regresar
-													</a>
+													<button type='button' onClick="window.location.href='tbl_rol.jsp'" class="btn btn-primary">Regresar</button>
+													<button type='button' onClick="window.location.href='editRol.jsp?idRol=<%=r.getIdRol()%>'" class="btn btn-primary">Editar rol</button>
+													<button type='button' onClick="window.location.href='eliminarRol.jsp?idRol=<%=r.getIdRol()%>'" class="btn btn-primary">Eliminar rol</button>
 												</div>
 											</div>
 										</div>

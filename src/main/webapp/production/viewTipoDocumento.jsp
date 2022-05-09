@@ -219,9 +219,7 @@ td = dtd.obtenerTipoDocPorId(idtd);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<a href="tbl_tipoDocumento.jsp"> <i class="fa fa-arrow-left"></i>
-														Regresar
-													</a>
+													<button type="button" onClick="window.location.href='tbl_tipoDocumento.jsp'" class="btn btn-primary">Regresar</button>
 												</div>
 											</div>
 										</div>

@@ -49,6 +49,10 @@ public class Sl_usuario extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int opc = 0;
+		boolean contraseñaBandera;
+		boolean emailBandera; 
+		String confirmarContraseña = "";
+		String confirmarEmail = "";
 		opc = Integer.parseInt(request.getParameter("opcion"));
 
 		// INSTANCIAMOS LOS OBJETOS
@@ -79,27 +83,42 @@ public class Sl_usuario extends HttpServlet {
 			user.setFechaCreacion(new java.sql.Timestamp(fechaSistema.getTime()));
 			user.setUsuarioCreacion(1); // 1 valor temporal mientras se programa la sesion
 			user.setEstado(1);
-
+			confirmarContraseña = request.getParameter("txtclave2");
+			confirmarEmail = request.getParameter("email2");
+			
+			if(user.getPwd().trim().equals(confirmarContraseña.trim()) && user.getEmail().trim().equals(confirmarEmail.trim())) {
+				contraseñaBandera = true;
+				emailBandera = true; 
 			/////// PARA ENCRIPTAR LA PWD //////////
-			key = dtenc.generarLLave();
-			tus2.setToken(key);
-			pwd = user.getPwd();
-			pwdEncrypt = dtenc.getAES(pwd, key);
-			user.setPwd(pwdEncrypt);
+				key = dtenc.generarLLave();
+				tus2.setToken(key);
+				pwd = user.getPwd();
+				pwdEncrypt = dtenc.getAES(pwd, key);
+				user.setPwd(pwdEncrypt);
+			}else {
+				contraseñaBandera = false;
+				emailBandera = false; 
+			}
+
+			
 
 			try {
 				if(ngu.existeUser(user.getUsuario()) || ngu.existeEmail(user.getEmail())) {
 					response.sendRedirect("production/tbl_usuarios.jsp?msj=7");
 				}else {
-					tus2.setId_user(dtu.addUsuario(user));
-					if(tus2.getId_user()>0) {
-						if(dtus2.guardarUser(tus2)) {
-							if(dtem.enviarEmailVerificacion(user.getUsuario(), user.getEmail(), user.getCodVerificacion())){
-							response.sendRedirect("production/tbl_usuario.jsp?msj=1");
-						}
+					if(contraseñaBandera && emailBandera) {
+						tus2.setId_user(dtu.addUsuario(user));
+						if(tus2.getId_user()>0) {
+							if(dtus2.guardarUser(tus2)) {
+								if(dtem.enviarEmailVerificacion(user.getUsuario(), user.getEmail(), user.getCodVerificacion())){
+									response.sendRedirect("production/tbl_usuario.jsp?msj=1");
+								}
+							}
+						}else {
+							response.sendRedirect("production/tbl_usuario.jsp?msj=2");
 						}
 					}else {
-						response.sendRedirect("production/tbl_usuario.jsp?msj=2");
+						response.sendRedirect("production/addUsuario.jsp?msj=2");
 					}
 				}
 

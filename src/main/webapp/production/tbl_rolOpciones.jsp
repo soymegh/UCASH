@@ -231,11 +231,11 @@
 															<td><%=ro.getRol()%></td>
 															<td><%=ro.getOpciones()%></td>
 															
-															<td><a href="editRolOpciones.jsp?idRolOpciones=<%=ro.getIdRolOpciones()%>" target="blank"> <i
+															<td><a href="editRolOpciones.jsp?idRolOpciones=<%=ro.getIdRolOpciones()%>"> <i
 																	class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; <a
-																href="viewRolOpciones.jsp?idRolOpciones=<%=ro.getIdRolOpciones()%>" target="blank"> <i class="fa fa-eye"
+																href="viewRolOpciones.jsp?idRolOpciones=<%=ro.getIdRolOpciones()%>"> <i class="fa fa-eye"
 																	title="Ver"></i>
-															</a> &nbsp;&nbsp; <a href="eliminarRolOpciones.jsp?idRolOpciones=<%=ro.getIdRolOpciones()%>" target="_blank"> <i
+															</a> &nbsp;&nbsp; <a href="eliminarRolOpciones.jsp?idRolOpciones=<%=ro.getIdRolOpciones()%>"> <i
 																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
