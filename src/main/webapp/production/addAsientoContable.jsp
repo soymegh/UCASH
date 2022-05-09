@@ -286,8 +286,7 @@
 												listaE = dte.listarEmpresa();
 												%>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDE" id="cbxIDE" required="required"
-													onchange="ShowSelected();">
+													name="cbxIDE" id="cbxIDE" required="required">
 													<option value="">Seleccione...</option>
 													<%
 													for (Vw_empresa e : listaE) {

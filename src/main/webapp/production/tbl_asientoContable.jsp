@@ -207,6 +207,9 @@
 																	ArrayList<Vw_asientoContable> listaAsientoContable = new ArrayList<Vw_asientoContable>();
 																	Dt_asientoContable dtac = new Dt_asientoContable();
 																	listaAsientoContable = dtac.listarasientocontable();
+																	
+																	Dt_periodoContable dtpc = new Dt_periodoContable();
+																	Tbl_periodoContable tblpc = new Tbl_periodoContable();
 																	%>
 																	<thead>
 																		<tr>
@@ -224,6 +227,10 @@
 																	<tbody>
 																		<%
 																		for (Vw_asientoContable ac : listaAsientoContable) {
+																			
+																			tblpc = dtpc.obtenerPContablePorId(ac.getIdPeriodoContable());
+																			if(tblpc.getEstado() != 3){
+																			
 																		%>
 																		<tr>
 
@@ -248,6 +255,29 @@
 																			</a></td>
 																		</tr>
 																		<%
+																			}else if(tblpc.getEstado() == 3){
+																				
+																				
+																				%>
+																		<tr>
+
+																			<td><%=ac.getIdAsientoContable()%></td>
+																			<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
+																			<td><%=ac.getNombreComercial()%></td>
+																			<td><%=ac.getTipo()%></td>
+																			<td><%=ac.getNombre()%></td>
+																			<td><%=ac.getTipoCambio()%></td>
+																			<th><%=ac.getFecha()%></th>
+																			<td><%=ac.getDescripcion()%></td>
+
+
+																			<td><a
+																				href="viewAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
+																					<i class="fa fa-eye" title="Mostrar"></i>
+																			</a></td>
+																		</tr>
+																		<%
+																			}
 																		}
 																		%>
 																	</tbody>

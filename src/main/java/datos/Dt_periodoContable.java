@@ -138,7 +138,7 @@ public class Dt_periodoContable {
 		try 
 		{
 			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodocontable idPeriodocontable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodocontable WHERE idPeriodocontable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.ps.setInt(1, id);
 			this.rs = this.ps.executeQuery();
 			
@@ -158,6 +158,7 @@ public class Dt_periodoContable {
 	        	java.util.Date date3 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPC);
 	        	pcontable.setFechaFinal(new java.sql.Date(date3.getTime()));
 				
+	        	pcontable.setEstado(rs.getInt("estado"));
 				
 			}
 		} 
