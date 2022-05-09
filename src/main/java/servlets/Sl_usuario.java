@@ -82,7 +82,7 @@ public class Sl_usuario extends HttpServlet {
 			user.setPwd(request.getParameter("pwd"));
 			user.setFechaCreacion(new java.sql.Timestamp(fechaSistema.getTime()));
 			user.setUsuarioCreacion(1); // 1 valor temporal mientras se programa la sesion
-			user.setEstado(1);
+			user.setEstado(0);
 			confirmarContraseña = request.getParameter("txtclave2");
 			confirmarEmail = request.getParameter("email2");
 			
