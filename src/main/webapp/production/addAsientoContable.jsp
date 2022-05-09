@@ -59,7 +59,6 @@
 <title>Nuevo Asiento Contable</title>
 
 <!-- Bootstrap -->
-<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
@@ -497,47 +496,7 @@
 										</div>
 
 										<div class="x_content">
-											<div class="row">
-												<div class="col-md-12 col-md-12">
-													<div class="x_panel">
-														<div class="x_content">
-															<div class="row">
-																<div class="col-md-12">
-																	<div class="card-box table-responsive">
-																		<div class="text-muted font-13 col-md-12"
-																			style="text-align: right;"></div>
-																		<table id="datatable-buttons"
-																			class="table table-striped table-bordered"
-																			style="width: 100%">
-																			<thead>
-																				<tr>
-																					<th>Cuenta</th>
-																					<th>Debe</th>
-																					<th>Haber</th>
-																					<th>Acciones</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-
-																				<tr>
-
-																					<td>a</td>
-																					<td>a</td>
-																					<td>a</td>
-																					<td><a href="#"> <i
-																							class="fa fa-trash" title="Eliminar"></i>
-																					</a></td>
-																				</tr>
-																			</tbody>
-
-																		</table>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+											<iframe width="100%" height="400px" src="eclise.html"></iframe>
 										</div>
 
 										<div class="ln_solid">
@@ -559,7 +518,7 @@
 			<!-- /page content -->
 
 			<!-- jQuery -->
-			<script src="../vendors/jquery/dist/jquery.min.js"></script>
+			<script src="../vendors/jquery/dist/jquery.min.js"></script> 
 			<!-- Bootstrap -->
 			<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 			<!-- FastClick -->
