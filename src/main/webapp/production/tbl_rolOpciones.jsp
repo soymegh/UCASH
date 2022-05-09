@@ -212,7 +212,7 @@
 													<%
 													ArrayList<Vw_rolopciones> listaRolOpc = new ArrayList<Vw_rolopciones>();
 													Dt_rolOpciones dtro = new Dt_rolOpciones();
-													listaRolOpc = dtro.listarRolOpciones();
+													listaRolOpc = dtro.listarRolOpcionesNoID();
 													%>
 													<thead>
 														<tr>

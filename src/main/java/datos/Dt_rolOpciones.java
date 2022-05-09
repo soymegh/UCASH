@@ -34,6 +34,45 @@ public class Dt_rolOpciones {
 		}
 	}
 	
+	public ArrayList<Vw_rolopciones> listarRolOpcionesNoID(){
+		ArrayList<Vw_rolopciones> listRolOpc = new ArrayList<Vw_rolopciones>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM vw_rolopciones; ",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			rs = ps.executeQuery();
+			while(rs.next()) { 
+				Vw_rolopciones tblRolOpc = new Vw_rolopciones();
+				tblRolOpc.setIdRolOpciones(this.rs.getInt("idRolOpciones"));
+				tblRolOpc.setRol(this.rs.getString("nombreRol"));
+				tblRolOpc.setOpciones(this.rs.getString("nombreOpcion"));
+				listRolOpc.add(tblRolOpc);
+			}
+		} 
+		catch (Exception e){
+			System.out.println("DATOS: ERROR EN LISTAR ROL OPCION "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return listRolOpc;
+	}
+	
 	//Metodo para listar la empresa
 	//Sujeto a cambio el Tbl_empresa por algun View
 	public ArrayList<Vw_rolopciones> listarRolOpciones(int idRol){
