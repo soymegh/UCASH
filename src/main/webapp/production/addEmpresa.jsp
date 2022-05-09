@@ -602,7 +602,7 @@
 			function getURL() {
 				const url = window.location.href;
 				const idR = url.substring(url.indexOf('=') + 1);
-				if (url == "http://localhost:8080/SistemaContable/production/addEmpresa.jsp?msj="
+				if (url == "/production/addEmpresa.jsp?msj="
 						+ idR) {
 					console.log("Test");
 					document.getElementById("agregarRL").disabled = true;
