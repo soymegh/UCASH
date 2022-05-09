@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <%
+
+//Maestro
 String cc = "";
 cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCuenta");
 
@@ -11,19 +13,77 @@ Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
-
 Tbl_tipocuenta ttc = new Tbl_tipocuenta();
 Dt_tipocuenta dtTcc = new Dt_tipocuenta();
 ttc = dtTcc.getTableTipocuentaByID(Integer.parseInt(cc));
-
 
 
 Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
 Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
 cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 
+%>
+<!-- //DETALLE  -->
+<%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
 
 
+int idCCD = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+
+Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+Dt_cuentaContable_Det dtCcd = new Dt_cuentaContable_Det();
+ccd = dtCcd.getCcdbyID(idCCD);
+
+
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
+
+<%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -65,7 +125,7 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -124,22 +184,6 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 							</ul>
 						</div>
 					</div>
-					<!-- /sidebar menu -->
-
-					<!-- /menu footer buttons -->
-					<!-- <div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
-							aria-hidden="true"></span>
-						</a>
-					</div> -->
-					<!-- /menu footer buttons -->
 				</div>
 			</div>
 
@@ -154,17 +198,14 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="true"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
-								<!-- <div class="dropdown-menu dropdown-usermenu pull-right"
+								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="javascript:;"> Profile</a> <a
-										class="dropdown-item" href="javascript:;"> <span
-										class="badge bg-red pull-right">50%</span> <span>Settings</span>
-									</a> <a class="dropdown-item" href="javascript:;">Help</a> <a
-										class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i> Log Out</a>
-								</div> -->
+									<a class="dropdown-item" href="../login.jsp">
+									<i class="fa fa-sign-out pull-right"></i> Sesión</a>
+
+								</div>
 							</li>
 						</ul>
 					</nav>
@@ -198,10 +239,9 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 									<form class="" action="../Sl_cuentaContable" method="post" novalidate>
 										<input type="hidden" value="2" name="opcion" id="opcion"/>
 										<input type="hidden" value="<%= vwCc.getIdCuenta()%>" name="idCuenta" id="idCuenta" />
+										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
 										
 										<span class="section">Datos de Cuenta Contable Maestro</span>
-										
-										
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero de Cuenta:</label>
@@ -312,6 +352,35 @@ cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 												</select>
 											</div>
                                         </div>
+                                        
+                                        <div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe:</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" />
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber:</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control"  value="<%=vwCCD.getHaber()%>" name="haber" id="haber"/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial"/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final:</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal"/>
+											</div>
+										</div>
+											
 										
 										<div class="ln_solid">
 											<div class="form-group">

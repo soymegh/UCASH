@@ -1,6 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
+
+<%
+Tbl_cuentaContable ccd = new Tbl_cuentaContable();
+Dt_cuentaContable dtCcd = new Dt_cuentaContable();
+
+int idd = dtCcd.idCuentaContable();
+%>
+
+<%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -63,7 +116,7 @@
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -145,13 +198,13 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
-									José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									<a class="dropdown-item" href="../login.jsp">
+									<i class="fa fa-sign-out pull-right"></i> Sesión</a>
+
 								</div>
 							</li>
 						</ul>
@@ -202,7 +255,8 @@
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addCuentaContable.jsp"> <i
+
+													<a href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable()+1%>"> <i
 														class="fa fa-plus-square"></i> Nueva Cuenta Contable
 													</a> <br></br>
 												</div>
@@ -218,9 +272,6 @@
 														<tr>
 															<th>ID</th>
 															<th>Numero de Cuenta</th>
-															<th>Sub Cuenta</th>
-															<th>Sub-Sub Cuenta</th>
-															<th>Sub-Sub-Sub Cuenta</th>
 															<th>Nombre Cuenta</th>
 															<th>Nivel</th>
 															<th>Rubro</th>
@@ -249,10 +300,7 @@
 														<tr>
 
 															<td><%=cc.getIdCuenta()%></td>
-															<td><%=cc.getNumeroCuenta()%></td>
-															<td><%=cc.getsC()%></td>
-															<td><%=cc.getSsC()%></td>
-															<td><%=cc.getSssC()%></td>
+															<td><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%></td>
 															<td><%=cc.getNombreCuenta()%></td>
 															<th><%=cc.getNivel()%></th>
 															<td><%=cc.getRubro()%></td>
@@ -263,7 +311,7 @@
 															<td>
 															<a href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>">
 																	<i class="fa fa-edit" title="Editar"></i>
-															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
+															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>"> 
 																	<i class="fa fa-eye" title="Mostrar" ></i>
 															</a> &nbsp;&nbsp; <a href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
 																	<i class="fa fa-trash" title="Eliminar"></i>
@@ -285,7 +333,7 @@
 
 
 					</div>
-					<div class="row">
+					<%-- <div class="row">
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">
@@ -348,7 +396,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 				</div>
 			</div>
 		</div>
