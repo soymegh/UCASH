@@ -143,7 +143,7 @@ ro = datosRolOpciones.ObtenerRolOpcionPorId(idUser);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar Opciones </h3>
+							<h3>Eliminar Opciones </h3>
 						</div>
 
 						<div class="title_right">
@@ -164,7 +164,7 @@ ro = datosRolOpciones.ObtenerRolOpcionPorId(idUser);
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Opciones</h2>
+									<h2>Eliminar Opciones</h2>
 
 									<div class="clearfix"></div>
 								</div>
@@ -176,7 +176,7 @@ ro = datosRolOpciones.ObtenerRolOpcionPorId(idUser);
 										<span class="section">Datos de Opciones</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Rol Descripcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Rol Descripcion<span class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" value="<%=ro.getRol()%>" class='optional' name="txtId"  type="text" required="required" placeholder="Id de Usuario" readonly/>
 											</div>
@@ -184,7 +184,7 @@ ro = datosRolOpciones.ObtenerRolOpcionPorId(idUser);
 									
 									
 											<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de Opcion<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre de Opcion<span class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" 
 												 value="<%=ro.getOpciones()%>"
@@ -197,7 +197,7 @@ ro = datosRolOpciones.ObtenerRolOpcionPorId(idUser);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='button' onClick="window.location.href='tbl_rolOpciones.jsp'" class="btn btn-primary">Regresar</button>
+													<button type='button' onClick="window.location.href='tbl_rolOpciones.jsp'" class="btn btn-danger">Cancelar</button>
 													<button type="submit" class="btn btn-primary">Eliminar esta asginación</button>
 												</div>
 											</div>

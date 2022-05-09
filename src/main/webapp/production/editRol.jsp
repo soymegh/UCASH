@@ -207,8 +207,8 @@ r = datosRol.obtenerRolPorId(idR);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
 													<a href="tbl_rol.jsp" class="btn btn-danger">Cancelar</a>
+													<button type='submit' class="btn btn-primary">Editar</button>
 												</div>
 											</div>
 										</div>

@@ -85,20 +85,6 @@ public class Encrypt implements Serializable {
     
     
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Encrypt enc = new Encrypt();
-		String key = "";
-		String pwd = "Egonzalez#87.";
-		//String pwdEncrypt = "";
-		String pwdDecrypt = "";
-
-		//key=enc.generarLLave();
-		//System.out.println("Llave generada: "+key);
-		//pwdEncrypt = enc.getAES(pwd,key);
-		//System.out.println("resultado encrypt: "+pwdEncrypt);
-		pwdDecrypt = enc.getAESDecrypt("+kl2U4zJEqOUBrNZ6JcixQ==", "@TaH-Quhs+l1XKcPRI&oU..-3K4mHaI0");
-		System.out.println("resultado decrypt: "+pwdDecrypt);
 		
 		
 

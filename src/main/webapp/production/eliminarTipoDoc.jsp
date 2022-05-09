@@ -193,13 +193,13 @@ td = dtd.obtenerTipoDocPorId(idtd);
 									<div class="field item form-group">
 										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" placeholder="">
+											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" placeholder="" readOnly>
 										</div>
 									</div>
 									<div class="field item form-group">
 										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
 										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" placeholder="">
+											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" placeholder="" readOnly>
 										</div>
 									</div>
 									<div class="ln_solid"></div>

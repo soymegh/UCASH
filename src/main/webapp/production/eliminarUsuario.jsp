@@ -1,5 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+
+
+<%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <%
@@ -10,6 +61,7 @@ int idUser = (request.getParameter("idUsuario") != null) ? Integer.parseInt(requ
 
 user = datosUsuario.ObtenerUsuarioPorId(idUser);
 %>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -163,25 +215,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 							<h3>Eliminar Usuario</h3>
 						</div>
 					</div>
-					
-					<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
-						</div>
-						
 					<div class="clearfix"></div>
-
-
-
-
-
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
@@ -197,31 +231,31 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 									
 									<input type="hidden" value="3" name="opcion" id="opcion" />
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" name="txtid" class="form-control" placeholder="Id Usuario" value="<%=user.getIdUsuario()%>" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" placeholder="Nombre de usuario" value="<%=user.getUsuario()%>" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getNombre()%>" placeholder="Nombres" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getApellidos()%>" placeholder="Apellidos" readonly>
 										</div>
 									</div>
 									<div class="form-group row ">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">*</span></label>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
 											<input type="text" class="form-control" value="<%=user.getEmail()%>" placeholder="Correo electrónico" readonly>
 										</div>
@@ -229,8 +263,10 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 
 									<div class="ln_solid"></div>
 									<div class="form-group">
-										<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
-										<button type="submit" class="btn btn-primary">Eliminar este usuario</button>	
+										<div class="col-md-6 offset-md-3">
+											<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-danger">Cancelar</button>
+											<button type="submit" class="btn btn-primary">Eliminar este usuario</button>
+										</div>
 									</div>
 
 								</form>
