@@ -1,50 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
-	
-	<%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
-	response.setHeader( "Pragma", "no-cache" );
-	response.setHeader( "Cache-Control", "no-store" );
-	response.setDateHeader( "Expires", 0 );
-	response.setDateHeader( "Expires", -1 );
-	
-	//DECLARACIONES
-	Vw_usuariorol vwur = new Vw_usuariorol();
-	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-	boolean permiso = false; //VARIABLE DE CONTROL
-	
-	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	if(vwur!=null){
-		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
-		
-		
-		//RECUPERAMOS LA URL = MI OPCION ACTUAL
-		int index = request.getRequestURL().lastIndexOf("/");
-		String miPagina = request.getRequestURL().substring(index+1);
-		
-		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
-			}
+
+<%
+//INVALIDA LA CACHE DEL NAVEGADOR //
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setDateHeader("Expires", -1);
+
+//DECLARACIONES
+Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_rolOpciones dtro = new Dt_rolOpciones();
+ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+boolean permiso = false; //VARIABLE DE CONTROL
+
+//OBTENEMOS LA SESION
+vwur = (Vw_usuariorol) session.getAttribute("acceso");
+if (vwur != null) {
+	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+	listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+
+	//RECUPERAMOS LA URL = MI OPCION ACTUAL
+	int index = request.getRequestURL().lastIndexOf("/");
+	String miPagina = request.getRequestURL().substring(index + 1);
+
+	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+	for (Vw_rolopciones vrop : listOpc) {
+		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+	permiso = true; //ACCESO CONCEDIDO
+	break;
 		}
 	}
-	else{
-		response.sendRedirect("../login.jsp?msj=401");
-		return;
-	}
-		
-	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
-		return;
-	}
-	
+} else {
+	response.sendRedirect("../login.jsp?msj=401");
+	return;
+}
+
+if (!permiso) {
+	// response.sendRedirect("../login.jsp?msj=401");
+	response.sendRedirect("page_403.jsp");
+	return;
+}
 %>
 
 <%
@@ -120,7 +117,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
+							<h2><%=vwur.getNombre() + " " + vwur.getApellido()%></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -197,8 +194,9 @@ tpacont = dtac.obtenerAContablePorId(idac);
 							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <span>
-						<a data-toggle="tooltip" data-placement="top" title="Logout" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i></a>
+						</a> <span> <a data-toggle="tooltip" data-placement="top"
+							title="Logout" href="../login.jsp"><i
+								class="fa fa-sign-out pull-right"></i></a>
 						</span>
 					</div>
 					<!-- /menu footer buttons -->
@@ -217,15 +215,16 @@ tpacont = dtac.obtenerAContablePorId(idac);
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre() + " " + vwur.getApellido()%>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="javascript:;"> Perfil</a> <a
 										class="dropdown-item" href="javascript:;"> <span
 										class="badge bg-red pull-right">50%</span> <span>Ajustes</span>
-									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> 
-									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
+									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> <a
+										class="dropdown-item" href="../login.jsp"><i
+										class="fa fa-sign-out pull-right"></i> Sesión</a>
 								</div>
 							</li>
 
@@ -455,119 +454,12 @@ tpacont = dtac.obtenerAContablePorId(idac);
 												<div class="clearfix"></div>
 											</div>
 
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">
-													Cuenta: <span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<%
-													ArrayList<Vw_catalogo_tipo_cuentacontable> listacc = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
-													Dt_cuentaContable dtcc = new Dt_cuentaContable();
-													listacc = dtcc.listaCuentasContables();
-													%>
-													<select class="form-control js-example-basic-single"
-														name="cbxIDTD" id="cbxdtcc" required="required">
-														<option value="">Seleccione...</option>
-														<%
-														for (Vw_catalogo_tipo_cuentacontable td : listacc) {
-														%>
-														<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta()%> / <%=td.getsC()%> /
-															<%=td.getSsC()%> /
-															<%=td.getSssC()%></option>
-														<%
-														}
-														%>
-													</select>
-												</div>
+											<div class="x_content">
+												<iframe width="100%" height="500px" src="eclise.jsp"></iframe>
 											</div>
 
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span
-													class="required">*</span></label>
-												<div class="col-md-6 col-sm-6">
-													<input class="form-control" class='optional' name="debe"
-														data-validate-length-range="5,15" type="text"
-														required="required" />
-												</div>
-											</div>
-
-											<div class="field item form-group">
-
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span
-													class="required">*</span></label>
-												<div class="col-md-6 col-sm-6">
-													<input class="form-control" class='optional' name="haber"
-														data-validate-length-range="5,15" type="text"
-														required="required" />
-												</div>
-											</div>
-
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button class="btn btn-success">Editar</button>
-
-												</div>
-											</div>
 										</div>
 
-										<div class="x_content">
-											<div class="row">
-												<div class="col-md-12 col-md-12">
-													<div class="x_panel">
-														<div class="x_content">
-															<div class="row">
-																<div class="col-md-12">
-																	<div class="card-box table-responsive">
-																		<div class="text-muted font-13 col-md-12"
-																			style="text-align: right;"></div>
-																		<table id="datatable-buttons"
-																			class="table table-striped table-bordered"
-																			style="width: 100%">
-																			<%
-																			ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
-																			Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
-																			listaAsientoContable = dtac1.listarasientocontableDET();
-																			%>
-																			<thead>
-																				<tr>
-																					<th>ID</th>
-																					<th>Cuenta</th>
-																					<th>Debe</th>
-																					<th>Haber</th>
-																					<th>Acciones</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<%
-																				for (Vw_asientoContableDet ac : listaAsientoContable) {
-																					if (ac.getIdAsientoContable() == idac) {
-																				%>
-																				<tr>
-
-																					<td><%=ac.getIdAsientoContableDet()%></td>
-																					<td><%=ac.getNumeroCuenta()%> | <%=ac.getSC()%>
-																						| <%=ac.getSsC()%> | <%=ac.getSssC()%></td>
-																					<td><%=ac.getDebe()%></td>
-																					<td><%=ac.getHaber()%></td>
-																					<td><a >
-																					<i class="fa fa-edit" title="Editar"></i>
-																			</a>
-																				</tr>
-																				<%
-																					} 
-																				}
-																				%>
-																			</tbody>
-
-																		</table>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
 
 										<div class="ln_solid">
 											<div class="form-group">
@@ -620,7 +512,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 					$("#cbxIDTD").val("<%=tpacont.getIdTipoDocumento()%>");
 					$("#cbxIDE").val("<%=tpacont.getIdEmpresa()%>");
 					$("#cbxIDM").val("<%=tpacont.getIdMoneda()%>");
-					$("#cbxIDTCD").val("<%=tpacont.getIdTasaCambioDet()%>");
+					$("#cbxIDTCD").val("<%=tpacont.getIdTasaCambioDet()%>
+				");
 				}
 
 				$(document).ready(function() {

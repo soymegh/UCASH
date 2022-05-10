@@ -2,51 +2,48 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 
 <%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
-	response.setHeader( "Pragma", "no-cache" );
-	response.setHeader( "Cache-Control", "no-store" );
-	response.setDateHeader( "Expires", 0 );
-	response.setDateHeader( "Expires", -1 );
-	
-	//DECLARACIONES
-	Vw_usuariorol vwur = new Vw_usuariorol();
-	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-	boolean permiso = false; //VARIABLE DE CONTROL
-	
-	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	if(vwur!=null){
-		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
-		
-		
-		//RECUPERAMOS LA URL = MI OPCION ACTUAL
-		int index = request.getRequestURL().lastIndexOf("/");
-		String miPagina = request.getRequestURL().substring(index+1);
-		
-		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
-			}
+//INVALIDA LA CACHE DEL NAVEGADOR //
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setDateHeader("Expires", -1);
+
+//DECLARACIONES
+Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_rolOpciones dtro = new Dt_rolOpciones();
+ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+boolean permiso = false; //VARIABLE DE CONTROL
+
+//OBTENEMOS LA SESION
+vwur = (Vw_usuariorol) session.getAttribute("acceso");
+if (vwur != null) {
+	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+	listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+
+	//RECUPERAMOS LA URL = MI OPCION ACTUAL
+	int index = request.getRequestURL().lastIndexOf("/");
+	String miPagina = request.getRequestURL().substring(index + 1);
+
+	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+	for (Vw_rolopciones vrop : listOpc) {
+		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+	permiso = true; //ACCESO CONCEDIDO
+	break;
 		}
 	}
-	else{
-		response.sendRedirect("../login.jsp?msj=401");
-		return;
-	}
-		
-	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
-		return;
-	}
-	
+} else {
+	response.sendRedirect("../login.jsp?msj=401");
+	return;
+}
+
+if (!permiso) {
+	// response.sendRedirect("../login.jsp?msj=401");
+	response.sendRedirect("page_403.jsp");
+	return;
+}
 %>
-	
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,7 +106,7 @@
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
+							<h2><%=vwur.getNombre() + " " + vwur.getApellido()%></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -186,8 +183,9 @@
 							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <span>
-						<a data-toggle="tooltip" data-placement="top" title="Logout" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i></a>
+						</a> <span> <a data-toggle="tooltip" data-placement="top"
+							title="Logout" href="../login.jsp"><i
+								class="fa fa-sign-out pull-right"></i></a>
 						</span>
 					</div>
 					<!-- /menu footer buttons -->
@@ -205,15 +203,16 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre() + " " + vwur.getApellido()%>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="javascript:;"> Perfil</a> <a
 										class="dropdown-item" href="javascript:;"> <span
 										class="badge bg-red pull-right">50%</span> <span>Ajustes</span>
-									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a>
-										<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
+									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> <a
+										class="dropdown-item" href="../login.jsp"><i
+										class="fa fa-sign-out pull-right"></i> Sesión</a>
 								</div>
 							</li>
 
@@ -433,81 +432,28 @@
 										</div>
 
 										<div class="x_panel">
-
 											<div class="x_title">
 												<h2>Detalles</h2>
 
 												<div class="clearfix"></div>
 											</div>
 
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">
-													Cuenta: <span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<%
-														ArrayList<Vw_catalogo_tipo_cuentacontable> listacc = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
-														Dt_cuentaContable dtcc = new Dt_cuentaContable();
-														listacc = dtcc.listaCuentasContables();
-														%>
-													<select class="form-control js-example-basic-single"
-														name="cbxIDTD" id="cbxdtcc" required="required">
-														<option value="">Seleccione...</option>
-														<%
-															for (Vw_catalogo_tipo_cuentacontable td : listacc) {
-															%>
-														<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta() %> / <%=td.getsC() %>/
-														 / <%=td.getSsC() %> / <%=td.getSssC() %></option>
-														<%
-															}
-															%>
-													</select>
-												</div>
+											<div class="x_content">
+												<iframe width="100%" height="500px" src="eclise.jsp"></iframe>
 											</div>
 
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span
-													class="required">*</span></label>
-												<div class="col-md-6 col-sm-6">
-													<input class="form-control" class='optional' name="debe"
-														data-validate-length-range="5,15" type="text"
-														required="required" />
-												</div>
-											</div>
-
-											<div class="field item form-group">
-
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span
-													class="required">*</span></label>
-												<div class="col-md-6 col-sm-6">
-													<input class="form-control" class='optional' name="haber"
-														data-validate-length-range="5,15" type="text"
-														required="required" />
-												</div>
-											</div>
-
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button  class="btn btn-success">Agregar</button>
-													<button type="reset" class="btn btn-primary">Reiniciar</button>
-
+											<div class="ln_solid">
+												<div class="form-group">
+													<div class="col-md-6 offset-md-3">
+														<button type='submit' class="btn btn-danger">Guardar
+															todo</button>
+														<a href="tbl_asientoContable.jsp" type="button"
+															class="btn btn-primary">Cancelar</a>
+													</div>
 												</div>
 											</div>
 										</div>
 
-										<div class="x_content">
-											<iframe width="100%" height="400px" src="eclise.html"></iframe>
-										</div>
-
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-danger">Guardar todo</button>
-													<a href="tbl_asientoContable.jsp" type="button"
-														class="btn btn-primary">Cancelar</a>
-												</div>
-											</div>
-										</div>
 									</form>
 								</div>
 							</div>
@@ -515,74 +461,72 @@
 					</div>
 				</div>
 			</div>
-			<!-- /page content -->
+		</div>
+	</div>
+	<!-- /page content -->
 
-			<!-- jQuery -->
-			<script src="../vendors/jquery/dist/jquery.min.js"></script> 
-			<!-- Bootstrap -->
-			<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-			<!-- FastClick -->
-			<script src="../vendors/fastclick/lib/fastclick.js"></script>
-			<!-- NProgress -->
-			<script src="../vendors/nprogress/nprogress.js"></script>
-			<!-- bootstrap-progressbar -->
-			<script
-				src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-			<!-- iCheck -->
-			<script src="../vendors/iCheck/icheck.min.js"></script>
-			<!-- bootstrap-daterangepicker -->
-			<script src="../vendors/moment/min/moment.min.js"></script>
-			<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-			<!-- bootstrap-wysiwyg -->
-			<script
-				src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-			<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-			<script src="../vendors/google-code-prettify/src/prettify.js"></script>
-			<!-- jQuery Tags Input -->
-			<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-			<!-- Switchery -->
-			<script src="../vendors/switchery/dist/switchery.min.js"></script>
-			<!-- Select2 -->
-			<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-			<!-- Parsley -->
-			<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-			<!-- Autosize -->
-			<script src="../vendors/autosize/dist/autosize.min.js"></script>
-			<!-- jQuery autocomplete -->
-			<script
-				src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-			<!-- starrr -->
-			<script src="../vendors/starrr/dist/starrr.js"></script>
-			<!-- iCheck -->
-			<script src="../vendors/iCheck/icheck.min.js"></script>
-			<!-- Datatables -->
-			<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-			<script
-				src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-			<script
-				src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-			<script
-				src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-			<script
-				src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-			<script
-				src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-			<script
-				src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-			<script src="../vendors/jszip/dist/jszip.min.js"></script>
-			<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-			<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-			<!-- Custom Theme Scripts -->
-			<script src="../build/js/custom.min.js"></script>
+	<!-- jQuery -->
+	<script src="../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="../vendors/jszip/dist/jszip.min.js"></script>
+	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../build/js/custom.min.js"></script>
 </body>
 </html>
