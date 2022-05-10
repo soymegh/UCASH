@@ -144,7 +144,7 @@
 									<ul class="nav child_menu">
 										<li><a href="tbl_empresa.jsp">Empresas</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificaciï¿½n</a></li>
+										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificación</a></li>
 										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
 									</ul></li>
 
@@ -191,10 +191,20 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
+<<<<<<< HEAD
 								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesiï¿½n</a>
+=======
+								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
+									José Ortega.
+							</a>
+								<div class="dropdown-menu dropdown-usermenu pull-right"
+									aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="login.html"><i
+										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+>>>>>>> 342883d (Multicompany Implementation Partially Completed)
 								</div>
 							</li>
 						</ul>
@@ -264,7 +274,11 @@
 													<%
 													ArrayList<Vw_catalogocuenta_empresa> listaCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
 													Dt_catalogocuenta dtCc = new Dt_catalogocuenta();
+<<<<<<< HEAD
 													listaCatalogocuenta = dtCc.listarCatalogocuentaDeEmpresa(Vw_empresa.empresaActual);
+=======
+													listaCatalogocuenta = dtCc.listarCatalogocuentaDeEmpresa(Integer.parseInt(request.getParameter("idE")));
+>>>>>>> 342883d (Multicompany Implementation Partially Completed)
 													%>
 													<thead>
 														<tr>

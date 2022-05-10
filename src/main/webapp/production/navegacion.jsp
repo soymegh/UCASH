@@ -126,9 +126,15 @@ if (Vw_empresa.empresaActual != 0) {
 						<li><a><i class="fa fa-file"></i> Cuenta Contable<span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
+<<<<<<< HEAD
 								<li><a href="tbl_catalogocuenta.jsp?idE=<%=request.getParameter("idE") %>">Catalogo Cuenta</a></li>
 								<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 								<li><a href="tbl_cuentacontable.jsp?idE=<%=request.getParameter("idE") %>">Cuenta Contable</a></li>
+=======
+								<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
+								<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
+								<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
+>>>>>>> 342883d (Multicompany Implementation Partially Completed)
 							</ul></li>
 
 						<li><a><i class="fa fa-dollar"></i> Moneda<span
