@@ -83,6 +83,55 @@ public class Dt_catalogocuenta {
 		return listCatalogocuenta;
 	}
 	
+	
+	public ArrayList<Vw_catalogocuenta_empresa> listarCatalogocuentaDeEmpresa(int idEmpresa) {
+
+		ArrayList<Vw_catalogocuenta_empresa> listCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_catalogocuenta_empresa WHERE idEmpresa = ?;", ResultSet.TYPE_SCROLL_SENSITIVE,
+					ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, idEmpresa);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				Vw_catalogocuenta_empresa tblCatalogocuenta = new Vw_catalogocuenta_empresa();
+				tblCatalogocuenta.setIdCatalogo(rs.getInt("idCatalogo"));
+				tblCatalogocuenta.setIdEmpresa(rs.getInt("idEmpresa"));
+				tblCatalogocuenta.setnombreComercial(rs.getString("nombreComercial"));
+				tblCatalogocuenta.setTitulo(rs.getString("titulo"));
+				tblCatalogocuenta.setDescripcion(rs.getString("descripcion"));
+				tblCatalogocuenta.setUsuarioCreacion(rs.getInt("usuarioCreacion"));
+				tblCatalogocuenta.setFechaCreacion(rs.getDate("fechaCreacion"));
+				tblCatalogocuenta.setUsuarioModificacion(rs.getInt("usuarioModificacion"));
+				tblCatalogocuenta.setFechaModificacion(rs.getDate("fechaModificacion"));
+				tblCatalogocuenta.setUsuarioEliminacion(rs.getInt("usuarioEliminacion"));
+				tblCatalogocuenta.setFechaEliminacion(rs.getDate("fechaEliminacion"));
+				listCatalogocuenta.add(tblCatalogocuenta);
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR  " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return listCatalogocuenta;
+	}
+	
 	// Metodo para agregar un catalogo de cuenta
 		public boolean addCatalogocuenta(Tbl_catalogocuenta catalogoC) {
 			boolean guardado = false;

@@ -266,7 +266,7 @@ int idd = dtCcd.idCuentaContable();
 													<%
 													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 													Dt_cuentaContable dtCc = new Dt_cuentaContable();
-													listaCuentasContables = dtCc.listaCuentasContables();
+													listaCuentasContables = dtCc.getCuentaContableByIdEmpresa(Integer.parseInt(request.getParameter("idE")));
 													%>
 													<thead>
 														<tr>
@@ -285,16 +285,10 @@ int idd = dtCcd.idCuentaContable();
 														<%
 														for (Vw_catalogo_tipo_cuentacontable cc : listaCuentasContables) {
 															String estado = "";
-															if (cc.getEstado() == 1){
+															if (cc.getEstado() != 3){
 																estado = "ACTIVO";
 															}else{
-																if(cc.getEstado() == 2)
-																{
-																estado = "MODIFICADO";
-																}
-																else{
-																	estado = "INACTIVO";
-																}
+																estado = "INACTIVO";
 															}
 														%>
 														<tr>

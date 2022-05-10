@@ -151,7 +151,6 @@ public class Dt_rolOpciones {
 
 	public ArrayList<Vw_rolopciones> ObtenerRolOpcionPorIdLogin(int id) {
 		ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-		System.out.print("ESTE ES EL ID QUE RECIBE EL METODO 'ObtenerRolPorIdLogin':" + id);
 		try {
 			c = poolConexion.getConnection();
 			ps = c.prepareStatement("SELECT * FROM dbucash.vw_rolopcioneslogin WHERE idUsuarioRol = ?;",
