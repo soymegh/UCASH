@@ -283,6 +283,7 @@
     														} else {
     															estado = "CERRADO";
     														}
+    														if(PC.getEstado() != 3){
                       									%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>															
@@ -300,8 +301,28 @@
 															</a></td>
 														</tr>
 														<%
-														}
-														%>
+															}else if(PC.getEstado() == 3){
+															
+																%>
+																
+																<tr>
+															<td><%=PC.getIdPeriodoContable()%></td>															
+															<td><%=PC.getFechaInicioPF() %></td>
+															<td><%=PC.getFechaFinalPF() %></td>
+															<td><%=PC.getFechaInicio()%></td>
+															<td><%=PC.getFechaFinal()%></td>
+															<td><%=estado%></td>
+															<td>
+																 <a href="viewPeriodoContable.jsp?contablever=<%=PC.getIdPeriodoContable() %>">
+																	<i class="fa fa-eye" title="Ver Periodo Contable"></i>
+															
+															</a></td>
+														</tr>
+																
+																<%
+															}
+                      									}
+																%>
 													</tbody>
 												</table>
 											</div>
