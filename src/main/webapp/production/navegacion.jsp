@@ -50,9 +50,9 @@
 
 <%
 String nombreEmpresa = "";
-if (request.getParameter("idE") != null) {
+if (Vw_empresa.empresaActual != 0) {
 	Dt_empresa datosEmpresa = new Dt_empresa();
-	int idEmpresa = Integer.parseInt(request.getParameter("idE"));
+	int idEmpresa = Vw_empresa.empresaActual;
 	nombreEmpresa = "Trabajando, " + datosEmpresa.getNombreEmpresaPorId(idEmpresa);
 }
 %>

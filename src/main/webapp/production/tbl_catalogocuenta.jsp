@@ -19,7 +19,7 @@
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 		
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
@@ -264,7 +264,7 @@
 													<%
 													ArrayList<Vw_catalogocuenta_empresa> listaCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
 													Dt_catalogocuenta dtCc = new Dt_catalogocuenta();
-													listaCatalogocuenta = dtCc.listarCatalogocuentaDeEmpresa(Integer.parseInt(request.getParameter("idE")));
+													listaCatalogocuenta = dtCc.listarCatalogocuentaDeEmpresa(Vw_empresa.empresaActual);
 													%>
 													<thead>
 														<tr>
