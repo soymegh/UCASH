@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Catalogo de cuenta</title>
+<title>GestiÃ³n | Catalogo de cuenta</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -63,7 +63,7 @@
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2>Lic. JosÃ© Ortega.</h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -80,7 +80,7 @@
 						</div>
 
 						<div class="menu_section">
-							<h3>Gestión</h3>
+							<h3>GestiÃ³n</h3>
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span
 										class="fa fa-chevron-down"></span></a>
@@ -145,12 +145,12 @@
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
 								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
-									José Ortega.
+									JosÃ© Ortega.
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+										class="fa fa-sign-out pull-right"></i>Cerrar SesiÃ³n</a>
 								</div>
 							</li>
 						</ul>

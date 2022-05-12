@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +10,61 @@ cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCu
 Vw_catalogo_tipo_cuentacontable vwCc = new Vw_catalogo_tipo_cuentacontable();
 Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
+%>
+
+<%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+int idCCD = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
+%>
+
+<%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+		
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
 %>
 
 <head>
@@ -73,7 +128,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -155,13 +210,13 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic.
-									José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i>Cerrar Sesión</a>
+									<a class="dropdown-item" href="../login.jsp">
+									<i class="fa fa-sign-out pull-right"></i> Sesión</a>
+
 								</div>
 							</li>
 						</ul>
@@ -175,18 +230,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Eliminar Departamento</h3>
-						</div>
-
-						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Buscar...">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
+							<h3>Eliminar Cuenta Contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -195,10 +239,6 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>
-										Formulario <small>Eliminar Departamento</small>
-									</h2>
-
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -206,7 +246,8 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 										novalidate>
 										<input type="hidden" value="3" name="opcion" id="opcion" /> 
 										<input type="hidden" value="<%=vwCc.getIdCuenta() %>" name="idCuenta" id="idCuenta" />
-										<span class="section">Datos de Departamento</span>
+										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
+										<span class="section">Datos de Cuenta Contable</span>
 
 
 										<div class="field item form-group">
@@ -280,12 +321,45 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 												value="<%= vwCc.getCatalogoCuenta() %>"/>
 											</div>
 										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial" readonly/>
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" readonly/>
+											</div>
+										</div>	
+																		
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input type="text" class="form-control" value="<%=vwCCD.getHaber()%>" name="haber" id="haber" readonly/>
+											
+											</div>
+										</div>
+										
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final</label>
+											<div class="col-md-6 col-sm-6">
+
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal" readonly/>
+
+											</div>
+										</div>
 
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-danger">Eliminar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<a type="button" href="tbl_cuentacontable.jsp" class="btn btn-primary">Cancelar</a>
 												</div>
 											</div>
 										</div>
@@ -300,7 +374,7 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->

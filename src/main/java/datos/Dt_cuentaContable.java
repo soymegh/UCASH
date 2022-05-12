@@ -1,6 +1,7 @@
 package datos;
 
 import entidades.Tbl_cuentaContable;
+import entidades.Tbl_cuentaContable_Det;
 import entidades.Vw_catalogo_tipo_cuentacontable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,8 @@ public class Dt_cuentaContable {
 	private ResultSet rs = null;
 	private PreparedStatement ps = null;
 	
+	private ResultSet rsCuentaContableDet = null;
+	
 	public Dt_cuentaContable() {
 		
 	}
@@ -28,6 +31,18 @@ public class Dt_cuentaContable {
 		catch(Exception var3)
 		{
 			System.out.println("DATOS: ERROR EN LISTAR CUENTA CONTABLE " + var3.getMessage());
+			var3.printStackTrace();
+		}
+	}
+	
+	public void llenarRsCuentaContableDet(Connection c ) {
+		try {
+			this.ps = c.prepareStatement("SELECT * FROM cuentacontabledet", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.rsCuentaContableDet = this.ps.executeQuery();
+		}
+		catch(Exception var3)
+		{
+			System.out.println("DATOS: ERROR EN LISTAR DETALLE DE CUENTAS CONTABLES DET" + var3.getMessage());
 			var3.printStackTrace();
 		}
 	}
@@ -290,6 +305,7 @@ public class Dt_cuentaContable {
 					rsCuentaContable.updateRow();
 					modificado = true;
 					break;
+					
 				}
 			}
 		}
