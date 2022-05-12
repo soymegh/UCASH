@@ -62,7 +62,7 @@ public class Sl_login extends HttpServlet {
 					vwur = dtu.dtGetVwUR(usuario);
 					HttpSession hts = request.getSession(true);
 					hts.setAttribute("acceso", vwur);
-					response.sendRedirect("production/index.jsp");
+					response.sendRedirect("production/indexMultiempresa.jsp");
 				}
 				else{
 				response.sendRedirect("login.jsp?msj=403");
@@ -80,7 +80,7 @@ public class Sl_login extends HttpServlet {
 					vwur = dtu.dtGetVwUR(usuario);
 					HttpSession hts = request.getSession(true);
 					hts.setAttribute("acceso", vwur);
-					response.sendRedirect("production/index.jsp");
+					response.sendRedirect("production/indexMultiempresa.jsp");
 				}
 				else{
 					response.sendRedirect("login.jsp?msj=403");
