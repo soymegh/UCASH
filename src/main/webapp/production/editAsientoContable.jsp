@@ -331,26 +331,6 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
 												Comercial: <span class="required">*</span>
 											</label>
-											<div class="col-md-6 col-sm-6">
-												<%
-												ArrayList<Vw_empresa> listaE = new ArrayList<Vw_empresa>();
-												Dt_empresa dte = new Dt_empresa();
-												listaE = dte.listarEmpresa();
-												%>
-												<select class="form-control js-example-basic-single"
-													name="cbxIDE" id="cbxIDE" required="required"
-													onchange="ShowSelected();">
-													<option value="">Seleccione...</option>
-													<%
-													for (Vw_empresa e : listaE) {
-													%>
-													<option value="<%=e.getIdEmpresa()%>"><%=e.getNombreComercial()%></option>
-													<%
-													}
-													%>
-												</select>
-											</div>
-										</div>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
