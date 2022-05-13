@@ -20,7 +20,7 @@
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
-	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 		
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
@@ -41,8 +41,8 @@
 	}
 		
 	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
+		response.sendRedirect("../login.jsp?msj=403");
+		//response.sendRedirect("page_403.jsp");
 		return;
 	}
 	

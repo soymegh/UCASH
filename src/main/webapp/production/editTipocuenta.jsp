@@ -21,6 +21,7 @@
 		
 		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 		
+		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
 		int index = request.getRequestURL().lastIndexOf("/");
 		String miPagina = request.getRequestURL().substring(index+1);
@@ -39,8 +40,8 @@
 	}
 		
 	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
+		response.sendRedirect("../login.jsp?msj=403");
+		//response.sendRedirect("page_403.jsp");
 		return;
 	}
 	
