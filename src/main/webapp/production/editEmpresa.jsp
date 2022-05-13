@@ -211,7 +211,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Razón
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Razï¿½n
 												social<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
@@ -240,7 +240,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										</div>
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Telï¿½fono<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input name="telefono" class="form-control" type="tel"
@@ -248,7 +248,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Direcciï¿½n<span
 												class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">

@@ -3,10 +3,9 @@ package entidades;
 public class Tbl_asientoContableDet {
 	private int idAsientoContableDet;
 	private int idAsientoContable;
-	private int idCuentaContable;
+	private int idCuenta;
 	private double debe;
 	private double haber;
-	private double saldo;
 	public int getIdAsientoContableDet() {
 		return idAsientoContableDet;
 	}
@@ -19,11 +18,11 @@ public class Tbl_asientoContableDet {
 	public void setIdAsientoContable(int idAsientoContable) {
 		this.idAsientoContable = idAsientoContable;
 	}
-	public int getIdCuentaContable() {
-		return idCuentaContable;
+	public int getIdCuenta() {
+		return idCuenta;
 	}
-	public void setIdCuentaContable(int idCuentaContable) {
-		this.idCuentaContable = idCuentaContable;
+	public void setIdCuenta(int idCuentaContable) {
+		this.idCuenta = idCuentaContable;
 	}
 	public double getDebe() {
 		return debe;
@@ -36,11 +35,5 @@ public class Tbl_asientoContableDet {
 	}
 	public void setHaber(double haber) {
 		this.haber = haber;
-	}
-	public double getSaldo() {
-		return saldo;
-	}
-	public void setSaldo(double saldo) {
-		this.saldo = saldo;
 	}
 }
