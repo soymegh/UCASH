@@ -38,7 +38,7 @@ public class Dt_periodoContable {
 		ArrayList<Vw_periodoContable> listperiodoContable = new ArrayList<Vw_periodoContable>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable WHERE estado <> 3;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
@@ -48,11 +48,11 @@ public class Dt_periodoContable {
 				
 				String fechaIniPF = rs.getString("Fecha_Inicio_del_Periodo_Fiscal");
 				java.util.Date date0 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPF);
-				periodocontable.setFechaInicioPF(new java.sql.Date(date0.getTime()));;
+				periodocontable.setFechaInicioPF(new java.sql.Date(date0.getTime()));
 				
 				String fechaFinPF = rs.getString("Fecha_Final_del_Periodo_Fiscal");
 				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPF);
-				periodocontable.setFechaFinalPF(new java.sql.Date(date1.getTime()));;
+				periodocontable.setFechaFinalPF(new java.sql.Date(date1.getTime()));
 				
 				
 				//Fecha inicio
@@ -138,7 +138,7 @@ public class Dt_periodoContable {
 		try 
 		{
 			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodocontable WHERE estado <> 3 AND idPeriodocontable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodocontable WHERE idPeriodocontable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.ps.setInt(1, id);
 			this.rs = this.ps.executeQuery();
 			
@@ -158,6 +158,7 @@ public class Dt_periodoContable {
 	        	java.util.Date date3 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPC);
 	        	pcontable.setFechaFinal(new java.sql.Date(date3.getTime()));
 				
+	        	pcontable.setEstado(rs.getInt("estado"));
 				
 			}
 		} 

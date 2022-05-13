@@ -4,23 +4,20 @@ import java.sql.Date;
 
 public class Tbl_asientoContable {
 	private int idAsientoContable;
-	private String descripcion;
-	private Double saldo;
-	private int estado;
 	private int idPeriodoContable;
 	private int idEmpresa;
-	private int idTasaCambio;
 	private int idTipoDocumento;
-	private Double debe;
-	private Double haber;
+	private int idMoneda;
+	private int idTasaCambioDet;
 	private Date fecha;
-	private Date fechaCreacion;
-	private Date fechaModificacion;
-	private Date fechaEliminacion;
+	private String descripcion;
 	private int usuarioCreacion;
+	private Date fechaCreacion;
 	private int usuarioModificacion;
+	private Date fechaModificacion;
 	private int usuarioEliminacion;
-	
+	private Date fechaEliminacion;
+
 	public int getIdAsientoContable() {
 		return idAsientoContable;
 	}
@@ -32,18 +29,6 @@ public class Tbl_asientoContable {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	public Double getSaldo() {
-		return saldo;
-	}
-	public void setSaldo(Double saldo) {
-		this.saldo = saldo;
-	}
-	public int getEstado() {
-		return estado;
-	}
-	public void setEstado(int estado) {
-		this.estado = estado;
 	}
 	public int getIdPeriodoContable() {
 		return idPeriodoContable;
@@ -57,29 +42,17 @@ public class Tbl_asientoContable {
 	public void setIdEmpresa(int idEmpresa) {
 		this.idEmpresa = idEmpresa;
 	}
-	public int getIdTasaCambio() {
-		return idTasaCambio;
+	public int getIdTasaCambioDet() {
+		return idTasaCambioDet;
 	}
-	public void setIdTasaCambio(int idTasaCambio) {
-		this.idTasaCambio = idTasaCambio;
+	public void setIdTasaCambioDet(int idTasaCambio) {
+		this.idTasaCambioDet = idTasaCambio;
 	}
 	public int getIdTipoDocumento() {
 		return idTipoDocumento;
 	}
 	public void setIdTipoDocumento(int idTipoDocumento) {
 		this.idTipoDocumento = idTipoDocumento;
-	}
-	public Double getDebe() {
-		return debe;
-	}
-	public void setDebe(Double debe) {
-		this.debe = debe;
-	}
-	public Double getHaber() {
-		return haber;
-	}
-	public void setHaber(Double haber) {
-		this.haber = haber;
 	}
 	public Date getFecha() {
 		return fecha;
@@ -122,6 +95,12 @@ public class Tbl_asientoContable {
 	}
 	public void setUsuarioEliminacion(int usuarioEliminacion) {
 		this.usuarioEliminacion = usuarioEliminacion;
+	}
+	public int getIdMoneda() {
+		return idMoneda;
+	}
+	public void setIdMoneda(int idMoneda) {
+		this.idMoneda = idMoneda;
 	}
 	
 	

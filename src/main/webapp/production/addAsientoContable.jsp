@@ -1,5 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+
+<%
+//INVALIDA LA CACHE DEL NAVEGADOR //
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setDateHeader("Expires", -1);
+
+//DECLARACIONES
+Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_rolOpciones dtro = new Dt_rolOpciones();
+ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+boolean permiso = false; //VARIABLE DE CONTROL
+
+//OBTENEMOS LA SESION
+vwur = (Vw_usuariorol) session.getAttribute("acceso");
+if (vwur != null) {
+	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+
+	//RECUPERAMOS LA URL = MI OPCION ACTUAL
+	int index = request.getRequestURL().lastIndexOf("/");
+	String miPagina = request.getRequestURL().substring(index + 1);
+
+	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+	for (Vw_rolopciones vrop : listOpc) {
+		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+	permiso = true; //ACCESO CONCEDIDO
+	break;
+		}
+	}
+} else {
+	response.sendRedirect("../login.jsp?msj=401");
+	return;
+}
+
+if (!permiso) {
+	// response.sendRedirect("../login.jsp?msj=401");
+	response.sendRedirect("page_403.jsp");
+	return;
+}
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +56,6 @@
 <title>Nuevo Asiento Contable</title>
 
 <!-- Bootstrap -->
-<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
@@ -59,12 +102,11 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
+							<img src="img.jpg" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2>Lic. José Ortega.</h2>
+							<h2><%=vwur.getNombre() + " " + vwur.getApellido()%></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
@@ -72,58 +114,66 @@
 					<br />
 
 					<!-- sidebar menu -->
-                    <div id="sidebar-menu"
-                        class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="menu_section">
-                            <h3>GestiÃ³n</h3>
-                            <ul class="nav side-menu">
-                                <li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_usuario.jsp">Usuarios</a></li>
-                                        <li><a href="tbl_rol.jsp">Roles</a></li>
-                                        <li><a href="tbl_opciones.jsp">Opciones</a></li>
-                                        <li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
-                                        <li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
-                                    </ul></li>
-                                    
-                                    <li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_empresa.jsp">Empresas</a></li>
-                                        <li><a href="tbl_departamento.jsp"></a></li>
-                                        <li><a href="tbl_municipio.jsp">Municipio</a></li>
-                                        <li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
-                                    </ul></li>
-                                    
-                                    <li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-                                        <li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
-                                        <li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
-                                    </ul></li>
-                                    
-                                    <li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_moneda.jsp">Moneda</a></li>
-                                        <li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
-                                    </ul></li>
+					<div id="sidebar-menu"
+						class="main_menu_side hidden-print main_menu">
+						<div class="menu_section">
+							<ul class="nav side-menu">
+								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
+							</ul>
+						</div>
 
-                                <li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
-                                    <ul class="nav child_menu">
-                                        <li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-                                        <li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
-                                        <li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
-                                        <li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
-                                    </ul></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /sidebar menu -->
+						<div class="menu_section">
+							<h3>Gestión</h3>
+							<ul class="nav side-menu">
+								<li><a><i class="fa fa-shield"></i> Seguridad <span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
+										<li><a href="tbl_rol.jsp">Roles</a></li>
+										<li><a href="tbl_opciones.jsp">Opciones</a></li>
+										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
+										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-building"></i> Empresa<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_empresa.jsp">Empresas</a></li>
+										<li><a href="tbl_departamento.jsp"></a></li>
+										<li><a href="tbl_municipio.jsp">Municipio</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
+										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
+										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-dollar"></i> Moneda<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_moneda.jsp">Moneda</a></li>
+										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
+									</ul></li>
+
+								<li><a><i class="fa fa-book"></i> Asiento Contable<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="tbl_asientoContable.jsp">Asiento
+												Contable</a></li>
+										<li><a href="tbl_periodoContable.jsp">Periodo
+												Contable</a></li>
+										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
+										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
+									</ul></li>
+							</ul>
+						</div>
+					</div>
+					<!-- /sidebar menu -->
 
 					<!-- /menu footer buttons -->
 					<div class="sidebar-footer hidden-small">
@@ -133,10 +183,10 @@
 							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
-							href="login.html"> <span class="glyphicon glyphicon-off"
-							aria-hidden="true"></span>
-						</a>
+						</a> <span> <a data-toggle="tooltip" data-placement="top"
+							title="Logout" href="../login.jsp"><i
+								class="fa fa-sign-out pull-right"></i></a>
+						</span>
 					</div>
 					<!-- /menu footer buttons -->
 				</div>
@@ -153,7 +203,7 @@
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt="">Lic. José Ortega.
+								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre() + " " + vwur.getApellido()%>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
@@ -161,8 +211,8 @@
 										class="dropdown-item" href="javascript:;"> <span
 										class="badge bg-red pull-right">50%</span> <span>Ajustes</span>
 									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> <a
-										class="dropdown-item" href="login.html"><i
-										class="fa fa-sign-out pull-right"></i> Salir</a>
+										class="dropdown-item" href="../login.jsp"><i
+										class="fa fa-sign-out pull-right"></i> Sesión</a>
 								</div>
 							</li>
 
@@ -230,97 +280,156 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar Asiento Contable</h2>
+									<h2>Datos de Asiento Contable</h2>
 
 									<div class="clearfix"></div>
 								</div>
-								
+
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
-									  <input type="hidden" value="1" name="opcion" id="opcion"/>
-									
-										<span class="section">Datos de Asiento Contable</span>
-										
+										<span class="section"></span>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Contable<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
+												Inicio del Periodo Contable: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Vw_periodoContable> listaPC = new ArrayList<Vw_periodoContable>();
+												Dt_periodoContable dtpc = new Dt_periodoContable();
+												listaPC = dtpc.listarperiodoContable();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDPC" id="cbxIDPC" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													for (Vw_periodoContable pc : listaPC) {
+													%>
+													<option value="<%=pc.getIdPeriodoContable()%>"><%=pc.getFechaInicio()%>
+														-
+														<%=pc.getFechaFinal()%></option>
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Comercial<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
+												documento: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Tbl_tipoDocumento> listaTD = new ArrayList<Tbl_tipoDocumento>();
+												Dt_tipoDocumento dttd = new Dt_tipoDocumento();
+												listaTD = dttd.listaTipoDocumento();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDTD" id="cbxIDTD" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													for (Tbl_tipoDocumento td : listaTD) {
+													%>
+													<option value="<%=td.getIdTipoDocumento()%>"><%=td.getTipo()%></option>
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de cambio<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Moneda:
+												<span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Tbl_moneda> listaM = new ArrayList<Tbl_moneda>();
+												Dt_moneda dtm = new Dt_moneda();
+												listaM = dtm.listaMonedasActivas();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDPF" id="cbxIDPF" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													for (Tbl_moneda m : listaM) {
+													%>
+													<option value="<%=m.getIdMoneda()%>"><%=m.getNombre()%></option>
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo Documento<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
+												de cambio: <span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<%
+												ArrayList<Vw_tasaCambioDetalle> listaTC = new ArrayList<Vw_tasaCambioDetalle>();
+												Dt_tasaCambioDet dttc = new Dt_tasaCambioDet();
+												listaTC = dttc.listarTasaCambioDetActivos();
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cbxIDTCD" id="cbxIDTCD" required="required">
+													<option value="">Seleccione...</option>
+													<%
+													for (Vw_tasaCambioDetalle tc : listaTC) {
+													%>
+													<option value="<%=tc.getIdTasaCambioDetalle()%>"><%=tc.getValor()%></option>
+													<!--Marvin no cambies nada de tasa cambio aun, en caso de que el merge no aniada algo de la vista -->
+													<%
+													}
+													%>
+												</select>
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo documento<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha:
+											</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<input type="date" class="form-control"
+													placeholder="Fecha de inicio" name="fechainicioc">
 											</div>
 										</div>
+
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo de cambio<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripción<span
+												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+												<input class="form-control" class='optional'
+													name="descripcion" data-validate-length-range="5,15"
+													type="text" required="required" />
 											</div>
 										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Detalles</h2>
+
+												<div class="clearfix"></div>
 											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
+
+											<div class="x_content">
+												<iframe width="100%" height="500px" src="eclise.jsp"></iframe>
 											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Estado<span class="required">*</span></label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="descripcion" data-validate-length-range="5,15" type="text" required="required" />
-											</div>
-										</div>
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+
+											<div class="ln_solid">
+												<div class="form-group">
+													<div class="col-md-6 offset-md-3">
+														<button type='submit' class="btn btn-danger">Guardar
+															todo</button>
+														<a href="tbl_asientoContable.jsp" type="button"
+															class="btn btn-primary">Cancelar</a>
+													</div>
 												</div>
 											</div>
 										</div>
+
 									</form>
 								</div>
 							</div>
@@ -328,7 +437,9 @@
 					</div>
 				</div>
 			</div>
-			<!-- /page content -->
+		</div>
+	</div>
+	<!-- /page content -->
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -365,8 +476,33 @@
 		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
 	<!-- starrr -->
 	<script src="../vendors/starrr/dist/starrr.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="../vendors/jszip/dist/jszip.min.js"></script>
+	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-
 </body>
 </html>
