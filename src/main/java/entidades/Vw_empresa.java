@@ -16,6 +16,8 @@ public class Vw_empresa {
 	private String Representante;
 	private String municipioNombre;
 	private String departamentoNombre;
+	public static int empresaActual; 
+	
 	public int getIdEmpresa() {
 		return idEmpresa;
 	}
@@ -106,6 +108,4 @@ public class Vw_empresa {
 	public void setRepresentante(String representante) {
 		Representante = representante;
 	}
-	
-	
 }
