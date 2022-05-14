@@ -10,15 +10,11 @@
 <%
 String empresa = "";
 empresa = request.getParameter("idEmpresa") == null ? "0" : request.getParameter("idEmpresa");
-
 Tbl_empresa tEmpresa = new Tbl_empresa();
 Vw_empresa vEmpresa = new Vw_empresa();
-
 Dt_empresa dtEmpresa = new Dt_empresa();
-
 tEmpresa = dtEmpresa.getTableEmpresaByID(Integer.parseInt(empresa));
 vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
-
 %>
 	<script>
     function setForm(){
@@ -36,8 +32,6 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
     	document.getElementById("departamento").value = "<%=tEmpresa.getIdDepartamento()%>";
     	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>";
 
-			console.log(document.getElementById("representanteLegal").value);
-			console.log(document.getElementById("ruc").value);
 		}
 		window.onload = setForm;
 	</script>
@@ -131,35 +125,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
-							<span>Sistema Contable</span></a>
-					</div>
-
-					<div class="clearfix"></div>
-
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre() + "" + vwur.getApellido()%></h2>
-						</div>
-					</div>
-					<!-- /menu profile quick info -->
-
-					<br />
-
-					<!-- sidebar menu -->
-						<jsp:include page="navegacion.jsp"></jsp:include>
-					<!-- /sidebar menu -->
-				</div>
-			</div>
-
+			<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- top navigation -->
 		
 			<!-- /top navigation -->
