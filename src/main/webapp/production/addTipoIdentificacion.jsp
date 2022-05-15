@@ -114,58 +114,7 @@
 					<br />
 
 					<!-- sidebar menu -->
-					<div id="sidebar-menu"
-						class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<h3>Control General</h3>
-							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a>
-									<ul class="nav child_menu">
-										<li><a href="index.html">Página Principal</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-shield"></i> Seguridad <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
-										<li><a href="tbl_rol.jsp">Roles</a></li>
-										<li><a href="tbl_opciones.jsp">Opciones</a></li>
-										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
-										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
-									</ul></li>
-									<li><a><i class="fa fa-building"></i>Gestion Empresa<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
-									</ul></li>
-									<li><a><i class="fa fa-file"></i>Gestion Cuenta Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-										<li><a href="tbl_tipocuenta.jsp">Tipo cuenta</a></li>
-										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
-									</ul></li>
-									<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_moneda.jsp">Moneda</a></li>
-										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-book"></i>Gestion Asiento Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
-										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
-										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
+					<jsp:include page="navegacion.jsp"></jsp:include>
 					<!-- /sidebar menu -->
 
 					<!-- /menu footer buttons -->
