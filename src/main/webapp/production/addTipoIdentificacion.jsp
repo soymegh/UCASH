@@ -40,12 +40,12 @@
 	}
 		
 	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
+		response.sendRedirect("../login.jsp?msj=403");
+		//response.sendRedirect("page_403.jsp");
 		return;
 	}
 	
-%>	
+%>
 	
 	
 <!DOCTYPE html>
