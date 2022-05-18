@@ -7,6 +7,8 @@ public class Tbl_periodoFiscal {
 	private Date fechaInicio;
 	private Date fechaFinal;
 	private int estado;
+	public static Date fechaInicioActual;
+	public static Date fechaFinalActual;
 	
 	public int getIdPeriodoFiscal() {
 		return idPeriodoFiscal;

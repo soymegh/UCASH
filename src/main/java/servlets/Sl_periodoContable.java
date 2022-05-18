@@ -38,21 +38,23 @@ public class Sl_periodoContable extends HttpServlet {
 
 		// Fecha Inicio del Periodo Contable
 		try {
-
-			String fechaIniPCJsp = request.getParameter("fechainicioc").toString();
-			java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPCJsp);
-			periodocontable.setFechaInicio(new java.sql.Date(date1.getTime()));
-
+			
+			if(request.getParameter("fechainicioc") != null) {
+				String fechaIniPCJsp = request.getParameter("fechainicioc").toString();
+				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPCJsp);
+				periodocontable.setFechaInicio(new java.sql.Date(date1.getTime()));
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
 		// Fecha Final del Periodo Contable
 		try {
-
-			String fechaFinPCJsp = request.getParameter("fechafinalc").toString();
-			java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPCJsp);
-			periodocontable.setFechaFinal(new java.sql.Date(date2.getTime()));
+			if(request.getParameter("fechafinalc") != null) {
+				String fechaFinPCJsp = request.getParameter("fechafinalc").toString();
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPCJsp);
+				periodocontable.setFechaFinal(new java.sql.Date(date2.getTime()));
+			}
 
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -108,6 +110,17 @@ public class Sl_periodoContable extends HttpServlet {
 			}
 
 			break;
+			
+		case 4: 
+			int idPeriodoContable = Integer.parseInt(request.getParameter("combobox_periodoContable"));
+			try {
+				if(dpc.obtenerPContablePorIdLogin(idPeriodoContable)) {
+					response.sendRedirect("production/index.jsp");
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			break; 
 
 		default:
 			break;

@@ -211,9 +211,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
 	<!-- /page content -->
 
 	<!-- footer content -->
@@ -222,10 +219,10 @@
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	</div>
-	</div>
+	
 	<!--Keyboard navigation-->
-	<script src="js/navigation/userTableNav.js"></script>
+	<script src="js/navigation/userTableNavigation.js"></script>
+	
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -263,6 +260,5 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-
 </body>
 </html>

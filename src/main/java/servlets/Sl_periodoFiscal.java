@@ -37,10 +37,11 @@ public class Sl_periodoFiscal extends HttpServlet {
 		//fechaInicio
 		
           try {
-        	  String fechaIniJsp = request.getParameter("fechaInicio").toString();
-              java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
-              periodofiscal.setFechaInicio(new java.sql.Date(date1.getTime()));
-              
+        	  if(request.getParameter("fechaInicio") != null) {
+        		  String fechaIniJsp = request.getParameter("fechaInicio").toString();
+                  java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
+                  periodofiscal.setFechaInicio(new java.sql.Date(date1.getTime()));
+        	  }
           }catch(ParseException e) {
         	  e.printStackTrace();
           }
@@ -51,11 +52,11 @@ public class Sl_periodoFiscal extends HttpServlet {
 		
           try {
         	  
-        	  String fechaFinJsp = request.getParameter("fechaFinal");
-        	  java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
-        	  periodofiscal.setFechaFinal(new java.sql.Date(date2.getTime()));        
-        	  
-			
+        	  if(request.getParameter("fechaFinal") != null){
+        		  String fechaFinJsp = request.getParameter("fechaFinal");
+            	  java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
+            	  periodofiscal.setFechaFinal(new java.sql.Date(date2.getTime()));  
+        	  }
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -120,8 +121,18 @@ public class Sl_periodoFiscal extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case 4:
 			
+			int idPeriodoFiscal = Integer.parseInt(request.getParameter("combobox_periodoFiscal"));
+			try {
+				if(dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal)) {
+					response.sendRedirect("production/indexPeriodoContable.jsp?idPF=" + idPeriodoFiscal);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 			
+		break; 	
 		default:
 			break;
 		}		

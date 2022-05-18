@@ -179,6 +179,67 @@ public class Dt_periodoFiscal {
 		return pfiscal;
 	}
 	
+	public boolean obtenerPFiscalPorIdLogin(int id)
+	{
+		boolean flag = false; 
+		Tbl_periodoFiscal pfiscal = new Tbl_periodoFiscal();
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodofiscal WHERE estado <> 3 AND idPeriodoFiscal = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, id);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				pfiscal.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				//Fecha inicio\
+				//Se realiza este metodo para que no reste un dia
+				String fechaIniJsp = rs.getString("fechaInicio");
+	            java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
+	            pfiscal.fechaInicioActual = new java.sql.Date(date1.getTime());
+				
+				
+				//Fecha final
+	            //Se realiza este metodo para que no reste un dia
+				String fechaFinJsp = rs.getString("fechaFinal");
+	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
+	        	pfiscal.fechaFinalActual = new java.sql.Date(date2.getTime());
+				
+				flag = true; 
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER Periodo Fiscal POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsperiodoFiscal != null) 
+				{
+					rsperiodoFiscal.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+				if (ps != null) 
+				{
+					ps.close();
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
+	}
+	
 	public boolean modificarPeriodoFiscal(Tbl_periodoFiscal tpfiscal)
 	{
 		boolean modificado = false;

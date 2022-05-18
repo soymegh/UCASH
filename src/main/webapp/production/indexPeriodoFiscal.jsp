@@ -48,9 +48,10 @@
 %>
 
 <%
-ArrayList<Vw_empresa> listadoEmpresas = new ArrayList<>();
-Dt_empresa datosEmpresas = new Dt_empresa();
-listadoEmpresas = datosEmpresas.listarEmpresa();
+	//Setting company configurations
+	if(request.getParameter("idE") != null){
+		Vw_empresa.empresaActual = Integer.parseInt(request.getParameter("idE"));
+	}
 %>
 
 <!DOCTYPE html>
@@ -91,31 +92,47 @@ listadoEmpresas = datosEmpresas.listarEmpresa();
 
 							<div class="x_title">
 								<p style="font-size: 30px">¡Buenos días, <%=vwur.getUsuario() %>!</p>
-								<p>¿Qué empresa vamos a trabajar hoy?</p>
+								<p>Seleccione el periodo fiscal con el que trabajara.</p>
 								<div class="clearfix"></div>
 							</div>
 
-							<div class="x_content row">
-								<%
-								for (Vw_empresa empresa : listadoEmpresas) {
-									request.setAttribute("idE", empresa.getIdEmpresa());
-								%>
-								<div class="field item form-group col">
-									<a href="indexPeriodoFiscal.jsp?idE=<%=empresa.getIdEmpresa()%>"> <jsp:include
-											page="fichaEmpresa.jsp">
-											<jsp:param name="nombreEmp"
-												value="<%=empresa.getNombreComercial()%>" />
-											<jsp:param name="altImg"
-												value="<%=empresa.getNombreComercial()%>" />
-											<jsp:param name="representanteEmp"
-												value="<%=empresa.getRepresentante()%>" />
-										</jsp:include>
-									</a>
+							<div class="x_content">
+									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
+									  <input type="hidden" value="4" name="opcion" id="opcion"/>
+										<span class="section">Periodo Fiscal</span>
+			
+										<div class="field item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal<span class="required">:</span></label>
+                                            <div class="col-md-6 col-sm-6">
+<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+												<%
+							                      	ArrayList<Tbl_periodoFiscal> listPeriodosFiscales = new ArrayList<Tbl_periodoFiscal>();
+							                      	Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
+							                      	listPeriodosFiscales = dtpf.listarperiodoFiscal();
+								                 %>
+								                 <select class="form-control js-example-basic-single" name="combobox_periodoFiscal" id="combobox_periodoFiscal" required="required">
+												  <option value="">Seleccione...</option>
+												  <% 
+												  	for(Tbl_periodoFiscal pF : listPeriodosFiscales){
+												  %>
+												  <option value="<%=pF.getIdPeriodoFiscal()%>"><%="Fecha de inicio: " + pF.getFechaInicio() + " " + " Fecha de finalización: " + pF.getFechaFinal()%></option>
+												  <%
+												  	}
+												  %>
+								                
+												</select>
+											</div>
+                                        </div>
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button type="button" class="btn btn-danger">Cancelar</button>
+													<button type='submit' class="btn btn-primary">Aceptar</button>
+												</div>
+											</div>
+										</div>
+									</form>
 								</div>
-								<%
-								}
-								%>
-							</div>
 						</div>
 					</div>
 				</div>

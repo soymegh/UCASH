@@ -96,6 +96,69 @@ public class Dt_periodoContable {
 		return listperiodoContable;
 	}
 	
+	public ArrayList<Vw_periodoContable> listarperiodoContablePorIdFiscal(int id){
+		ArrayList<Vw_periodoContable> listperiodoContable = new ArrayList<Vw_periodoContable>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable WHERE idPeriodoFiscal = ? AND estado <> 3;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, id);
+			rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				Vw_periodoContable periodocontable = new Vw_periodoContable();
+				periodocontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
+				periodocontable.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				
+				String fechaIniPF = rs.getString("Fecha_Inicio_del_Periodo_Fiscal");
+				java.util.Date date0 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPF);
+				periodocontable.setFechaInicioPF(new java.sql.Date(date0.getTime()));;
+				
+				String fechaFinPF = rs.getString("Fecha_Final_del_Periodo_Fiscal");
+				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPF);
+				periodocontable.setFechaFinalPF(new java.sql.Date(date1.getTime()));;
+				
+				
+				//Fecha inicio
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaIniPC = rs.getString("fechaInicio");
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPC);
+				periodocontable.setFechaInicio(new java.sql.Date(date2.getTime()));
+				
+				//Fecha Final
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaFinPC = rs.getString("fechaFinal");
+	        	java.util.Date date3 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPC);
+	        	periodocontable.setFechaFinal(new java.sql.Date(date3.getTime()));
+				
+				periodocontable.setEstado(rs.getInt("estado"));
+				listperiodoContable.add(periodocontable);
+			}
+			} catch(Exception e) {
+				System.out.println("DATOS: ERROR EN LISTAR Periodos Contables"+e.getMessage());
+				e.printStackTrace();
+			}
+		 finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+
+	                if (ps != null) {
+	                    ps.close();
+	                }
+
+	                if (c != null) {
+	                    poolConexion.closeConnection(c);
+	                }
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+
+		}
+		
+		return listperiodoContable;
+	}
+	
 	public boolean agregarPeriodoContable(Tbl_periodoContable tpc) {
 		boolean guardado = false;
 		
@@ -190,6 +253,68 @@ public class Dt_periodoContable {
 		}
 		
 		return pcontable;
+	}
+	
+	public boolean obtenerPContablePorIdLogin	(int id)
+	{
+		Tbl_periodoContable pcontable = new Tbl_periodoContable();
+		boolean flag = false; 
+		
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable WHERE idPeriodoContable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, id);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				pcontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
+				pcontable.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				//Fecha inicio
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaIniPC = rs.getString("fechaInicio");
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPC);
+				pcontable.fechaInicioActual = new java.sql.Date(date2.getTime());
+				
+				//Fecha Final
+				//Se utiliza este metodo para evitar que reste un dia
+				String fechaFinPC = rs.getString("fechaFinal");
+	        	java.util.Date date3 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPC);
+	        	pcontable.fechaFinalActual = new java.sql.Date(date3.getTime());
+				
+				flag = true; 
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER Periodo Fiscal POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsperiodocontable != null) 
+				{
+					rsperiodocontable.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+				if (ps != null) 
+				{
+					ps.close();
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
 	}
 	
 	public boolean modificarPeriodoContable(Tbl_periodoContable tpcontable)

@@ -8,6 +8,9 @@ public class Tbl_periodoContable {
 	private Date fechaInicio;
 	private Date fechaFinal;
 	private int estado;
+	public static Date fechaInicioActual;
+	public static Date fechaFinalActual;
+	
 	
 		
 	public int getIdPeriodoContable() {

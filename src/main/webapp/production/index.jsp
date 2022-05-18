@@ -7,10 +7,6 @@
 
   
 <%
-	//Setting company configurations
-	if(request.getParameter("idE") != null){
-		Vw_empresa.empresaActual = Integer.parseInt(request.getParameter("idE"));
-	}
 
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
@@ -39,7 +35,6 @@
 		for(Vw_rolopciones vrop : listOpc){
 			if(vrop.getOpciones().trim().equals(miPagina.trim())){
 				permiso = true; //ACCESO CONCEDIDO
-				System.out.print("ESTA ES LA PAGINA RECUPERADA: " + " " + vrop.getOpciones().trim() +  " " + "ESTA ES LA PAGINA EN LA QUE NOS ENCONTRAMOS: " + miPagina.trim());
 				break;
 			}
 		}
