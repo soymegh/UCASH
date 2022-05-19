@@ -469,4 +469,94 @@ public class Dt_usuario {
 		return existe;
 	}
 	
+	// Metodo para visualizar los datos de un usuario específico
+		public Tbl_usuario getUsuario(int idUsuario)
+		{
+			Tbl_usuario user = new Tbl_usuario();
+			try{
+				c = poolConexion.getConnection();
+				ps = c.prepareStatement("SELECT * FROM dbucash.usuario WHERE estado<>3 and idUsuario = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+				ps.setInt(1, idUsuario);
+				rs = ps.executeQuery();
+				if(rs.next()){
+					user.setIdUsuario(rs.getInt("idUsuario"));
+					user.setUsuario(rs.getString("usuario"));
+					user.setNombre(rs.getString("nombre"));
+					user.setApellidos(rs.getString("apellido"));
+					user.setEmail(rs.getString("email"));
+					user.setEstado(rs.getInt("estado"));
+					user.setUrlFoto(rs.getString("urlFoto"));
+					
+				}
+			}
+			catch (Exception e){
+				System.out.println("DATOS ERROR getUsuario(): "+ e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try {
+					if(rs != null){
+						rs.close();
+					}
+					if(ps != null){
+						ps.close();
+					}
+					if(c != null){
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return user;
+		}
+		
+	
+		// Metodo para guardar la foto del Usuario
+		public boolean guardarFotoUser(int idUser, String urlFoto)
+		{
+			boolean actualizado = false;
+			
+			try{
+				c = poolConexion.getConnection();
+				this.llenaRsUsuario(c);	
+				rsUsuario.beforeFirst();
+				while(rsUsuario.next()){
+					if(rsUsuario.getInt(1)==idUser)
+					{
+						rsUsuario.updateString("urlFoto", urlFoto);
+						rsUsuario.updateInt("estado", 2);
+						rsUsuario.updateRow();
+						actualizado = true;
+						break;
+					}
+				}
+			}
+			catch (Exception e) 
+			{
+				System.err.println("ERROR AL GUARDAR FOTO "+e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try {
+					if(rsUsuario != null){
+						rsUsuario.close();
+					}
+					if(c != null){
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return actualizado;
+		}
 }
