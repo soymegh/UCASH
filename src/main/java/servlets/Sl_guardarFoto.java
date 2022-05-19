@@ -102,17 +102,16 @@ public class Sl_guardarFoto extends HttpServlet {
 						String url = "fotos_usuarios/"+rutaFichero;
 						
 						if(dtu.guardarFotoUser(Integer.parseInt(idusuario),url)){
-							response.sendRedirect("production/tbl_usuario.jsp?msj="+idusuario+"&guardado=1");
-							System.out.println("El id del usuario a guardar la foto es " + idusuario);
-							System.out.println("La foto esta en" + url);
+							response.sendRedirect("production/addUserFoto.jsp?idUsuario="+idusuario+"&msj=1");
+						
 						}
 						else{
-							response.sendRedirect("production/tbl_usuario.jsp?msj="+idusuario+"&guardado=2");
+							response.sendRedirect("production/addUserFoto.jsp?idUsuario="+idusuario+"&msj=2");
 						}
 					}
 					else{
 						System.out.println("SERVIDOR: VERIFIQUE QUE EL ARCHIVO CUMPLA CON LAS ESPECIFICACIONES REQUERIDAS!!!");
-						response.sendRedirect("production/tbl_usuario.jsp?msj="+idusuario+"&guardado=3");						
+						response.sendRedirect("production/addUserFoto.jsp?idUsuario="+idusuario+"&msj=3");						
 					}
 				}
 			}
