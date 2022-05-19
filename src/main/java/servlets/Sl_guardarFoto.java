@@ -103,6 +103,8 @@ public class Sl_guardarFoto extends HttpServlet {
 						
 						if(dtu.guardarFotoUser(Integer.parseInt(idusuario),url)){
 							response.sendRedirect("production/tbl_usuario.jsp?msj="+idusuario+"&guardado=1");
+							System.out.println("El id del usuario a guardar la foto es " + idusuario);
+							System.out.println("La foto esta en" + url);
 						}
 						else{
 							response.sendRedirect("production/tbl_usuario.jsp?msj="+idusuario+"&guardado=2");
