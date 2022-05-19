@@ -74,7 +74,7 @@ if (Vw_empresa.empresaActual != 0) {
 			<!-- menu profile quick info -->
 			<div class="profile clearfix">
 				<div class="profile_pic">
-					<img src="img.jpg" alt="..." class="img-circle profile_img">
+					<img src="../<%=vwur.getUrlFoto()==null?"#":vwur.getUrlFoto()%>" alt="..." class="img-circle profile_img">
 				</div>
 				<div class="profile_info">
 					<span>Bienvenido,</span>

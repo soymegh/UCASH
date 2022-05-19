@@ -320,6 +320,7 @@ public class Dt_usuario {
 					vwur.setApellido(rs.getString("apellido"));
 					vwur.setEmail(rs.getString("email"));
 					vwur.setEstado(rs.getInt("estado"));
+					vwur.setUrlFoto(rs.getString("urlFoto"));
 					vwur.setId_rol(rs.getInt("id_rol"));
 					vwur.setRol(rs.getString("rol"));
 				}

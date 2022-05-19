@@ -15,6 +15,15 @@ public class Vw_usuariorol {
 	private String password_temp;
 	private int estado;
 	private String rol;
+	private String urlFoto;
+	
+	
+	public String getUrlFoto() {
+		return urlFoto;
+	}
+	public void setUrlFoto(String urlFoto) {
+		this.urlFoto = urlFoto;
+	}
 	private int id_rol;
 
 	
