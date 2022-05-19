@@ -189,8 +189,12 @@
 															<td>
 															<a href="editUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>">  <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
 															<a href="viewUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>"> <i class="fa fa-eye" title="Ver"></i></a> &nbsp;&nbsp; 
-															<a href="eliminarUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>"> <i class="fa fa-trash" title="Eliminar"></i>
-															</a></td>
+															<a href="eliminarUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>"> <i class="fa fa-trash" title="Eliminar"></i></a>&nbsp;&nbsp; 
+															<a href="addUserFoto.jsp?idUsuario=<%=tu.getIdUsuario()%>"> <i class="fa fa-camera" title="Añadir Foto a usuario"></i></a>&nbsp;&nbsp; 
+															
+															
+															
+															</td>
 														</tr>
 														<%
 														}
