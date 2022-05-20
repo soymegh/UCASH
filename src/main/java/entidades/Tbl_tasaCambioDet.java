@@ -3,24 +3,24 @@ package entidades;
 import java.sql.Date;
 
 public class Tbl_tasaCambioDet {
-	private int idTasaCambioDetalle;
-	private int idTasaCambio;
-	private Date fecha;
-	private float tipoCambio;
-	private int estado;
 	
-	//Metodos
-	public int getIdTasaCambioDetalle() {
-		return idTasaCambioDetalle;
+	private int id_tasacambio_det;
+	private int id_tasacambio;
+	private Date fecha;
+	private double tipoCambio;
+	
+	
+	public int getId_tasacambio_det() {
+		return id_tasacambio_det;
 	}
-	public void setIdTasaCambioDetalle(int idTasaCambioDetalle) {
-		this.idTasaCambioDetalle = idTasaCambioDetalle;
+	public void setId_tasacambio_det(int id_tasacambio_det) {
+		this.id_tasacambio_det = id_tasacambio_det;
 	}
-	public int getIdTasaCambio() {
-		return idTasaCambio;
+	public int getId_tasacambio() {
+		return id_tasacambio;
 	}
-	public void setIdTasaCambio(int idTasaCambio) {
-		this.idTasaCambio = idTasaCambio;
+	public void setId_tasacambio(int id_tasacambio) {
+		this.id_tasacambio = id_tasacambio;
 	}
 	public Date getFecha() {
 		return fecha;
@@ -28,16 +28,20 @@ public class Tbl_tasaCambioDet {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public float getTipoCambio() {
+	public double getTipoCambio() {
 		return tipoCambio;
 	}
-	public void setTipoCambio(float tipoCambio) {
+	public void setTipoCambio(double tipoCambio) {
 		this.tipoCambio = tipoCambio;
 	}
-	public int getEstado() {
-		return estado;
+	
+
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("Fecha: %s, TipoCambio: %s", fecha, tipoCambio);
 	}
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
+	
+	
 }

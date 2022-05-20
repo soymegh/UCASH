@@ -1,6 +1,6 @@
-<%@page import="datos.Dt_tbl_moneda"%>
+<%@page import="datos.Dt_moneda"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="entidades.Tbl_moneda, datos.Dt_tbl_moneda, java.util.ArrayList;"%>
+    pageEncoding="ISO-8859-1" import="entidades.Tbl_moneda, datos.Dt_moneda, java.util.ArrayList;"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,9 +23,9 @@
 			<input type="text" id="opc" name="opc" />
 		</div><br>
 		<%
-			Dt_tbl_moneda dtm = new Dt_tbl_moneda();
+			Dt_moneda dtm = new Dt_moneda();
 			ArrayList<Tbl_moneda> listM = new ArrayList<Tbl_moneda>();
-			listM = dtm.listMonedas();
+			listM = dtm.listaMonedasActivas();
 		%>
 		<div align="center">
 			<label>Moneda de Origen: </label>
@@ -34,7 +34,7 @@
 				<%
 					for(Tbl_moneda tm: listM){
 				%>
-				<option value="<%=tm.getId_moneda()%>"><%=tm.getSimbolo() +" | "+ tm.getNombre() %></option>				
+				<option value="<%=tm.getIdMoneda()%>"><%=tm.getSimbolo() +" | "+ tm.getNombre() %></option>				
 				
 				<% 
 				}
@@ -48,7 +48,7 @@
 				<%
 					for(Tbl_moneda tm: listM){
 				%>
-				<option value="<%=tm.getId_moneda()%>"><%=tm.getSimbolo() +" | "+ tm.getNombre() %></option>				
+				<option value="<%=tm.getIdMoneda()%>"><%=tm.getSimbolo() +" | "+ tm.getNombre() %></option>				
 				
 				<% 
 				}
@@ -95,7 +95,7 @@ function enviar(opcion){
        success : function(data){
        console.log(data); 
    	   if(data == "1"){
-	   	  window.location.assign('/Security/upload-file-xlsx.jsp');        
+	   	  window.location.assign('/SistemaContable/production/upload-file-xlsx.jsp');        
    	   }else{	
         	 var row = data;
              for(i =0 ; i < row.length ; i++){
