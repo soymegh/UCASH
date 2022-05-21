@@ -64,7 +64,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Sistema Contable |</title>
+<title>Sistema Contable | Periodo Contable</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -93,17 +93,17 @@
 
 							<div class="x_title">
 								<p style="font-size: 30px">¡Buenos días, <%=vwur.getUsuario()%>!</p>
-								<p>Seleccione el periodo fiscal con el que trabajara.</p>
+								<p>Seleccione el periodo contable con el que trabajara.</p>
 								<div class="clearfix"></div>
 							</div>
 
 							<div class="x_content">
 									<form class="" action="../Sl_periodoContable" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
-										<span class="section">Periodo Fiscal</span>
+										<span class="section">Periodo Contable</span>
 			
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal<span class="required">:</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Contable<span class="required">:</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 												<%
