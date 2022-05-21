@@ -38,7 +38,7 @@ public class Sl_uploadPreview extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		//out.print("cargando...");
+		out.print("cargando...");
 		
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
 		diskFileItemFactory.setSizeThreshold(maxBufferSize);
