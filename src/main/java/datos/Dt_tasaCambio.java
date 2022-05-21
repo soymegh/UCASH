@@ -44,6 +44,8 @@ public class Dt_tasaCambio {
 				rsTsc.updateInt("id_monedaO", tsc.getId_monedaO());
 				rsTsc.updateInt("id_monedaC", tsc.getId_monedaC());
 				rsTsc.updateInt("estado", 1);
+				rsTsc.updateInt("usuarioCreacion", 26);
+				rsTsc.updateString("fechaCreacion", "2022-04-14");
 				rsTsc.insertRow();
 				rsTsc.moveToCurrentRow();
 				this.llenarsTsc(c);
