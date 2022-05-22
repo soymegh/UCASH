@@ -1,7 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="entidades.Tbl_tasaCambio, entidades.Vw_usuariorol, entidades.Vw_rolopciones, datos.Dt_tasaCambio, datos.Dt_rolOpciones, java.util.*;" %>
+    
+    <%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%>
+    
 <!DOCTYPE html>
 <html>
+
+<%
+String tasa = "";
+tasa = request.getParameter("idTC") == null ? "0" : request.getParameter("idTC"); 
+
+Tbl_tasaCambio tc = new Tbl_tasaCambio();
+Dt_tasaCambio dttasa = new Dt_tasaCambio();
+tc = dttasa.getTasaCambiobyID(Integer.parseInt(tasa));
+
+%>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -9,7 +66,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ver | Detalle Tasa Cambio</title>
+<title>Eliminar | Maestro Tasa Cambio</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -136,7 +193,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Ver Tasa Cambio</h3>
+							<h3>Eliminar Tasa Cambio</h3>
 						</div>
 
 						<div class="title_right">
@@ -157,60 +214,58 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Ver Tasa Cambio</h2>
+									<h2>Eliminar Tasa Cambio</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
+									<form class="" action="../Sl_tasaCambio" method="post" novalidate>
+									<input type="hidden" value="3" name="opcion" id="opcion" />
+									<input type="hidden" value="<%=tc.getId_tasaCambio() %>" name="idTasaCambio" id="idTasaCambio"/>
 										<span class="section">Datos de Tasa Cambio</span>
 			
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Moneda Origen<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="MonedaOrigen" data-validate-length-range="5,15" type="text" required="required" readonly/>
+												<input class="form-control" class='optional' name="MonedaOrigen" value="<%=tc.getId_monedaO() %>"  type="text" required="required" readonly/>
+												
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Moneda Destino<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="MonedaDestino" data-validate-length-range="5,15" type="text" required="required" readonly/>
+												<input class="form-control" class='optional' name="MonedaDestino" value="<%=tc.getId_monedaC() %>"  type="text" required="required" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Mes<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Fecha" data-validate-length-range="5,15" type="date" required="required" readonly/>
+												<input class="form-control" class='optional' name="Fecha" value="<%=tc.getMes() %>"  type="text" required="required" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo Cambio<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Año<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="TipoCambio" data-validate-length-range="8,20" type="number" required='required' readonly/>
-											</div>
-										</div>
-										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Valor<span class="required"></span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Valor" data-validate-length-range="5,100" type="number" required="required" readonly/>
+												<input class="form-control" class='optional' name="TipoCambio" value="<%=tc.getAnio() %>" d type="text" required='required' readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Estado<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="Estado" data-validate-length-range="5,15" type="number" required="required" readonly/>
+												<input class="form-control" class='optional' name="Estado" value="<%=tc.getEstado() %>"  type="number" required="required" readonly/>
 											</div>
 										</div>
 										<div class="ln_solid">
 											<div class="form-group">
-												
+												<div class="col-md-6 offset-md-3">
+													<button type='submit' class="btn btn-danger">Eliminar</button>
+													<a href="tbl_tasaCambio.jsp" class="btn btn-primary">Cancelar</a>
+												</div>
 											</div>
 										</div>
 									</form>
@@ -224,7 +279,7 @@
 
 			<!-- footer content -->
 			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
+				<div class="pull-right">Sistema contable by UCASH</div>
 				<div class="clearfix"></div>
 			</footer>
 			<!-- /footer content -->
