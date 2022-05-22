@@ -24,7 +24,7 @@ public class Dt_empresa {
 	// Metodo para llenar el ResultSet
 	public void llenar_rsEmpresa(Connection c) {
 		try {
-			ps = c.prepareStatement("Select * from empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,
+			ps = c.prepareStatement("Select * from dbucash.empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			rsEmpresa = ps.executeQuery();
 		} catch (Exception e) {
