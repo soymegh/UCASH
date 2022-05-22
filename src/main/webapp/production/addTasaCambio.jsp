@@ -227,7 +227,6 @@ if (!permiso) {
 		</footer>
 		<!-- /footer content -->
 	</div>
-	</div>
 
 
 	<script src="../vendors/validator/multifield.js"></script>

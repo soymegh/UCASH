@@ -7,7 +7,7 @@ public class Tbl_tasaCambio {
 	private int id_tasaCambio;
 	private int id_monedaO;
 	private int id_monedaC;
-	private String mes;
+	private int mes;
 	private int anio;
 	private int estado;
 	private Date fechaCreacion;
@@ -37,10 +37,10 @@ public class Tbl_tasaCambio {
 	public void setId_monedaC(int id_monedaC) {
 		this.id_monedaC = id_monedaC;
 	}
-	public String getMes() {
+	public int getMes() {
 		return mes;
 	}
-	public void setMes(String mes) {
+	public void setMes(int mes) {
 		this.mes = mes;
 	}
 	public int getAnio() {
