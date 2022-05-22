@@ -74,7 +74,7 @@ if (Vw_empresa.empresaActual != 0) {
 			<!-- menu profile quick info -->
 			<div class="profile clearfix">
 				<div class="profile_pic">
-					<img src="img.jpg" alt="..." class="img-circle profile_img">
+					<img src="../<%=vwur.getUrlFoto()==null?"#":vwur.getUrlFoto()%>" alt="..." class="img-circle profile_img">
 				</div>
 				<div class="profile_info">
 					<span>Bienvenido,</span>
@@ -126,9 +126,15 @@ if (Vw_empresa.empresaActual != 0) {
 						<li><a><i class="fa fa-file"></i> Cuenta Contable<span
 								class="fa fa-chevron-down"></span></a>
 							<ul class="nav child_menu">
+<<<<<<< HEAD
 								<li><a href="tbl_catalogocuenta.jsp?idE=<%=request.getParameter("idE") %>">Catalogo Cuenta</a></li>
 								<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
 								<li><a href="tbl_cuentacontable.jsp?idE=<%=request.getParameter("idE") %>">Cuenta Contable</a></li>
+=======
+								<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
+								<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
+								<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
+>>>>>>> 342883d (Multicompany Implementation Partially Completed)
 							</ul></li>
 
 						<li><a><i class="fa fa-dollar"></i> Moneda<span
@@ -167,7 +173,7 @@ if (Vw_empresa.empresaActual != 0) {
 					<li class="nav-item dropdown open" style="padding-left: 15px;">
 						<a href="javascript:;" class="user-profile dropdown-toggle"
 						aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-						aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %></
+						aria-expanded="false"> <img src="../<%=vwur.getUrlFoto()==null?"#":vwur.getUrlFoto()%>" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %></
 					</a>
 						<div class="dropdown-menu dropdown-usermenu pull-right"
 							aria-labelledby="navbarDropdown">

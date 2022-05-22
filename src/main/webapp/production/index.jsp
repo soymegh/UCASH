@@ -164,11 +164,11 @@
 					
 					<div class="x_content">
 						<div class="field item form-institution colspan-3">
-							<a href="tbl_catalogocuenta.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-book" style="padding-right:10px;"></i>Catalogo Cuenta</a>
+							<a href="tbl_catalogocuenta.jsp?idE=<%=request.getParameter("idE") %>" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-book" style="padding-right:10px;"></i>Catalogo Cuenta</a>
 							<a style="padding-left:20px; padding-right:20px;"> </a>
 							<a href="tbl_tipocuenta.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-tasks" style="padding-right:10px;"></i>Tipo Cuenta</a>
 							<a style="padding-left:20px; padding-right:20px;"> </a>
-							<a href="tbl_cuentacontable.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-archive" style="padding-right:10px;"></i>Cuenta Contable</a>
+							<a href="tbl_cuentacontable.jsp?idE=<%=request.getParameter("idE") %>" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-archive" style="padding-right:10px;"></i>Cuenta Contable</a>
 						</div>
 					</div>
 					
