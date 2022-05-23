@@ -308,7 +308,7 @@
 																			</a> &nbsp;&nbsp; <a
 																				href="viewAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
 																					<i class="fa fa-eye" title="Mostrar"></i>
-																			</a> &nbsp;&nbsp; <a href="deleteAsientoContable.jsp">
+																		</a> &nbsp;&nbsp; <a href="eliminarAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable() %>">
 																					<i class="fa fa-trash" title="Eliminar"></i>
 																			</a></td>
 																		</tr>

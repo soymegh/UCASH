@@ -1,6 +1,7 @@
 package entidades;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Tbl_asientoContable {
 	private int idAsientoContable;
@@ -12,11 +13,11 @@ public class Tbl_asientoContable {
 	private Date fecha;
 	private String descripcion;
 	private int usuarioCreacion;
-	private Date fechaCreacion;
+	private Timestamp fechaCreacion;
 	private int usuarioModificacion;
-	private Date fechaModificacion;
+	private Timestamp fechaModificacion;
 	private int usuarioEliminacion;
-	private Date fechaEliminacion;
+	private Timestamp fechaEliminacion;
 
 	public int getIdAsientoContable() {
 		return idAsientoContable;
@@ -60,22 +61,22 @@ public class Tbl_asientoContable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public Date getFechaCreacion() {
+	public Timestamp getFechaCreacion() {
 		return fechaCreacion;
 	}
-	public void setFechaCreacion(Date fechaCreacion) {
+	public void setFechaCreacion(Timestamp fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
-	public Date getFechaModificacion() {
+	public Timestamp getFechaModificacion() {
 		return fechaModificacion;
 	}
-	public void setFechaModificacion(Date fechaModificacion) {
+	public void setFechaModificacion(Timestamp fechaModificacion) {
 		this.fechaModificacion = fechaModificacion;
 	}
-	public Date getFechaEliminacion() {
+	public Timestamp getFechaEliminacion() {
 		return fechaEliminacion;
 	}
-	public void setFechaEliminacion(Date fechaEliminacion) {
+	public void setFechaEliminacion(Timestamp fechaEliminacion) {
 		this.fechaEliminacion = fechaEliminacion;
 	}
 	public int getUsuarioCreacion() {

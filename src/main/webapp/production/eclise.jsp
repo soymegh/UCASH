@@ -9,6 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
+	rel="stylesheet" />
+
 
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,700'
 	rel='stylesheet' type='text/css'>
@@ -153,17 +157,13 @@ small.smaller {
 					Dt_cuentaContable dtcc = new Dt_cuentaContable();
 					listacc = dtcc.listaCuentasContables();
 					%>
-					<select class="form-control js-example-basic-single" name="cbxIDTD"
-						id="cbxdtcc" required="required">
-						<option value="">Seleccione...</option>
+					<select class="js-example-basic-single" name="cbxIDTD" id="cbxdtcc"
+						required="required">
+						<option value="0" disabled selected>Seleccione...</option>
 						<%
 						for (Vw_catalogo_tipo_cuentacontable td : listacc) {
 						%>
-						<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta()%>
-							/
-							<%=td.getsC()%>/ /
-							<%=td.getSsC()%> /
-							<%=td.getSssC()%></option>
+						<option value="<%=td.getIdCuenta()%>"><%=td.getNumeroCuenta() + "/" + td.getsC() + "/" + td.getSsC() + "/" + td.getSssC()%></option>
 						<%
 						}
 						%>
@@ -175,7 +175,9 @@ small.smaller {
 				<label class="col-form-label col-md-3 col-sm-3  label-align">Debe</label>
 				<div class="col-md-6 col-sm-6">
 					<input class="form-control" class='optional' name="debe" id="debe"
-						data-validate-length-range="5,15" type="text" required="required" />
+						style="background: blue; color: white"
+						data-validate-length-range="5,15" type="number" min='0' step="any"
+						required="required" value="0" />
 				</div>
 			</div>
 
@@ -184,31 +186,38 @@ small.smaller {
 				<label class="col-form-label col-md-3 col-sm-3  label-align">Haber</label>
 				<div class="col-md-6 col-sm-6">
 					<input class="form-control" class='optional' name="haber"
-						id="haber" data-validate-length-range="5,15" type="text"
-						required="required" />
+						style="background: red; color: white" id="haber"
+						data-validate-length-range="5,15" type="number" min="0" step="any"
+						required="required" value="0" />
 				</div>
 			</div>
 		</div>
 
 		<div class="container">
-			<div class="row">
-				<div class="col-md-6 customlist">
+			<div class="col">
+
+				<div class="col">
+					<a class="btn btn-success" id="example2-insert">Agregar</a> <a
+						class="btn btn-danger" id="example2-remove">Borrar</a> <a
+						class="btn btn-warning" id="example2-clear">Vaciar</a> <br> <br>
+				</div>
+
+				<div class="col customlist">
+
 					<table id="example2">
 
 					</table>
-				</div>
-				<div class="col-md-6">
-					<a class="btn btn-success" id="example2-insert">Agregar</a> <a
-						class="btn btn-danger" id="example2-remove">Borrar</a> <br> <br>
-					<div class="alert alert-info" role="alert">
-						Saldo: <span class="saldoTotal"></span>
-					</div>
 
 				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<br>
+
+					<div class="alert alert-success espacio-saldo" role="alert">
+						Saldo: <span class="saldoTotal"></span>
+					</div>
 
 					<p>
 						<span class="label label-success"><strong
@@ -218,23 +227,34 @@ small.smaller {
 					</p>
 				</div>
 			</div>
+			
+			<textarea type="text" style="font-family: Courier;" name="asientoJSON" id="asientoJSON"
+                                  class="form-control"></textarea>
 		</div>
 
 	</form>
 
 
 	<script>
+		//Inicio select2
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2();
+		});
+		//Cierre Select2
 		var debeTotal = 0;
 		var haberTotal = 0;
 		var saldo = 0;
+		var estadoSaldo = 0;
+
 		$('#example2')
 				.jqListbox(
 						{
-							targetInput : '#target2',
+							targetInput : '#asientoJSON',
 							itemSelector : 'tr',
 							selectedClass : false,
 							initialValues : [
-
+								{
+								}
 							],
 							itemRenderer : function(item, pos, listbox) {
 								var row = $('<tr><td><span class="glyphicon glyphicon-unchecked"></span></td><td>Cuenta: '
@@ -275,41 +295,156 @@ small.smaller {
 								}
 							}
 						});
-		$('#example2-insert').click(function(e) {
+		$('#example2-insert').click(
+				function(e) {
+					if ($("#cbxdtcc option:selected").val() != 0) {
+						var cuenta = $("#cbxdtcc option:selected").text();
+						//!!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : 0"
+						if(!(isNaN($("#debe").val()) || $("#debe").val() == '')){
+							if(!(isNaN($("#haber").val()) || $("#haber").val() == '')){
+								var debe = parseFloat($("#debe").val());
+								var haber = parseFloat($("#haber").val());
+								var $example2 = $('#example2');
+								$example2.jqListbox('insert', {
+									'Cuenta' : cuenta,
+									'Debe' : debe,
+									'Haber' : haber
+								});
 
-			var cuenta = $("#cbxdtcc option:selected").text();
-			var debe = parseInt($("#debe").val());
-			var haber = parseInt($("#haber").val());
-			var $example2 = $('#example2');
-			$example2.jqListbox('insert', {
-				'Cuenta' : cuenta,
-				'Debe' : debe,
-				'Haber' : haber
-			});
+								$example2.parent('div').scrollTop($example2.height());
 
-			$example2.parent('div').scrollTop($example2.height());
+								debeTotal += debe;
+								haberTotal += haber;
+								saldo = debeTotal - haberTotal;
 
-			debeTotal += debe;
-			haberTotal += haber;
-			saldo = debeTotal - haberTotal;
+								$('.saldoTotal').text(saldo);
+							} else
+								alert("Proporcione un haber");
+						} else 
+							alert("Proporcione un debe");
+						
 
-			$('.saldoTotal').text(saldo);
+						if (saldo < 0) {
+							switch (estadoSaldo) {
+							case 0:
+								$('.espacio-saldo')
+										.removeClass('alert-success').addClass(
+												'alert-danger');
+								break;
+							case 1:
+								$('.espacio-saldo').removeClass('alert-info')
+										.addClass('alert-danger');
+								break;
+							}
+							estadoSaldo = -1;
 
-		});
-		$('#example2-remove').click(function(e) {
-			if (confirm("Are you sure?")) {
+						} else if (saldo > 0) {
+							switch (estadoSaldo) {
+							case 0:
+								$('.espacio-saldo')
+										.removeClass('alert-success').addClass(
+												'alert-info');
+								break;
+							case -1:
+								$('.espacio-saldo').removeClass('alert-danger')
+										.addClass('alert-info');
+								break;
+							}
+							estadoSaldo = 1;
+						} else {
+							switch (estadoSaldo) {
+							case -1:
+								$('.espacio-saldo').toggleClass(
+										'alert-danger alert-success');
+								break;
+							case 1:
+								$('.sespacio-saldo').toggleClass(
+										'alert-primary alert-success');
+								break;
+							}
+							estadoSaldo = 0;
+						}
 
-				var $example2 = $('#example2');
-				var items = $example2.jqListbox('getSelectedItems');
+					} else {
+						alert("Seleccione una cuenta");
+					}
 
-				for (var i = 0; i < items.length; i++) {
-					saldo -= parseInt(items[i].Debe);
-					saldo += parseInt(items[i].Haber);
-				}
+				});
 
+		$('#example2-remove').click(
+				function(e) {
+					if (confirm("Are you sure?")) {
+
+						var $example2 = $('#example2');
+						var items = $example2.jqListbox('getSelectedItems');
+
+						for (var i = 0; i < items.length; i++) {
+							saldo -= parseFloat(items[i].Debe);
+							debeTotal -= parseFloat(items[i].Debe);
+							saldo += parseFloat(items[i].Haber);
+							haberTotal -= parseFloat(items[i].Haber);
+						}
+
+						$('.saldoTotal').text(saldo);
+
+						$('#example2').jqListbox('remove');
+
+						if (saldo < 0) {
+							switch (estadoSaldo) {
+							case 0:
+								$('.espacio-saldo')
+										.removeClass('alert-success').addClass(
+												'alert-danger');
+								break;
+							case 1:
+								$('.espacio-saldo').removeClass('alert-info')
+										.addClass('alert-danger');
+								break;
+							}
+							estadoSaldo = -1;
+
+						} else if (saldo > 0) {
+							switch (estadoSaldo) {
+							case 0:
+								$('.espacio-saldo')
+										.removeClass('alert-success').addClass(
+												'alert-info');
+								break;
+							case -1:
+								$('.espacio-saldo').removeClass('alert-danger')
+										.addClass('alert-info');
+								break;
+							}
+							estadoSaldo = 1;
+						} else {
+							switch (estadoSaldo) {
+							case -1:
+								$('.espacio-saldo').toggleClass(
+										'alert-danger alert-success');
+								break;
+							case 1:
+								$('.sespacio-saldo').toggleClass(
+										'alert-primary alert-success');
+								break;
+							}
+							estadoSaldo = 0;
+						}
+
+					} else {
+						alert("Seleccione una cuenta");
+					}
+
+				});
+		$('#example2-clear').click(function(e) {
+			if (confirm("¿Desea vaciar la lista?")) {
+				$('#example2').jqListbox('clear');
+				
+				saldo = 0;
+				debeTotal = 0;
+				haberTotal = 0;
+				
 				$('.saldoTotal').text(saldo);
-
-				$('#example2').jqListbox('remove');
+				
 			}
 		});
 	</script>
@@ -326,5 +461,7 @@ small.smaller {
 			alert("working");
 		});
 	</script>
+
+	<script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
 </html>

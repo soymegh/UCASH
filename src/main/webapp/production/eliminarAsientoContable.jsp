@@ -2,6 +2,14 @@
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 
 <%
+Tbl_asientoContable tpacont = new Tbl_asientoContable();
+Dt_asientoContable dtac = new Dt_asientoContable();
+
+int idac = (request.getParameter("ascont") != null) ? Integer.parseInt(request.getParameter("ascont")) : 0;
+tpacont = dtac.obtenerAContablePorId(idac);
+%>
+
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -53,9 +61,10 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Nuevo Asiento Contable</title>
+<title>Eliminar | Asiento Contable</title>
 
 <!-- Bootstrap -->
+<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
@@ -183,10 +192,10 @@ if (!permiso) {
 							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
 						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
 							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <span> <a data-toggle="tooltip" data-placement="top"
-							title="Logout" href="../login.jsp"><i
-								class="fa fa-sign-out pull-right"></i></a>
-						</span>
+						</a> <a data-toggle="tooltip" data-placement="top" title="Logout"
+							href="login.html"> <span class="glyphicon glyphicon-off"
+							aria-hidden="true"></span>
+						</a>
 					</div>
 					<!-- /menu footer buttons -->
 				</div>
@@ -211,7 +220,7 @@ if (!permiso) {
 										class="dropdown-item" href="javascript:;"> <span
 										class="badge bg-red pull-right">50%</span> <span>Ajustes</span>
 									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> <a
-										class="dropdown-item" href="../login.jsp"><i
+										class="dropdown-item" href="/*../login.jsp"><i
 										class="fa fa-sign-out pull-right"></i> Sesión</a>
 								</div>
 							</li>
@@ -271,7 +280,7 @@ if (!permiso) {
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar nuevo de asiento contable</h3>
+							<h3>Eliminar Asiento contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -280,30 +289,28 @@ if (!permiso) {
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Datos de Asiento Contable</h2>
+									<h2>Datos a eliminar</h2>
 
 									<div class="clearfix"></div>
 								</div>
 
 								<div class="x_content">
-									<form class="" action="../Sl_asientoContable" method="post"
-										novalidate>
-										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
-											class="section"></span>
-
+									<form class="" action="../Sl_asientoContable" method="post" novalidate>
+										<span class="section"></span>
+										<input type="hidden" value="3" name="opcion" id="opcion"/>
+										<input type="hidden" value="<%= tpacont.getIdAsientoContable() %>" name="idAContableEliminar" id="idPContableEliminar"/>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
-												documento: <span class="required">*</span>
-											</label>
+												documento: </label>
 											<div class="col-md-6 col-sm-6">
 												<%
 												ArrayList<Tbl_tipoDocumento> listaTD = new ArrayList<Tbl_tipoDocumento>();
-												Dt_tipoDocumento dttd = new Dt_tipoDocumento();
-												listaTD = dttd.listaTipoDocumento();
+												Dt_tipoDocumento dttd1 = new Dt_tipoDocumento();
+												listaTD = dttd1.listaTipoDocumento();
 												%>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDTD" id="cbxIDTD" required="required">
-													<option value="" disabled selected>Seleccione...</option>
+													name="cbxIDTD" id="cbxIDTD" disabled="disabled">
+													<option value="">Seleccione...</option>
 													<%
 													for (Tbl_tipoDocumento td : listaTD) {
 													%>
@@ -317,22 +324,20 @@ if (!permiso) {
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
-												de cambio: <span class="required">*</span>
-											</label>
+												de cambio: </label>
 											<div class="col-md-6 col-sm-6">
 												<%
-												ArrayList<Vw_tasaCambioDetalle> listaTC = new ArrayList<Vw_tasaCambioDetalle>();
-												Dt_tasaCambioDet dttc = new Dt_tasaCambioDet();
-												listaTC = dttc.listarTasaCambioDetActivos();
+												ArrayList<Vw_tasaCambioDetalle> listaTCD = new ArrayList<Vw_tasaCambioDetalle>();
+												Dt_tasaCambioDet dttcd1 = new Dt_tasaCambioDet();
+												listaTCD = dttcd1.listarTasaCambioDetActivos();
 												%>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDTCD" id="cbxIDTCD" required="required">
-													<option value="" disabled selected>Seleccione...</option>
+													name="cbxIDTCD" id="cbxIDTCD" disabled="disabled">
+													<option value="">Seleccione...</option>
 													<%
-													for (Vw_tasaCambioDetalle tc : listaTC) {
+													for (Vw_tasaCambioDetalle tcd : listaTCD) {
 													%>
-													<option value="<%=tc.getIdTasaCambioDetalle()%>"><%=tc.getValor()%></option>
-													<!--Marvin no cambies nada de tasa cambio aun, en caso de que el merge no aniada algo de la vista -->
+													<option value="<%=tcd.getIdTasaCambioDetalle()%>"><%=tcd.getTipoCambio()%></option>
 													<%
 													}
 													%>
@@ -344,8 +349,10 @@ if (!permiso) {
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha:
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fecha" id="fecha">
+												<input type="date" class="form-control" 
+													value="<%=tpacont.getFecha()%>"
+													placeholder="Fecha de inicio" name="fechainicioc"
+													readonly="readonly">
 											</div>
 										</div>
 
@@ -360,42 +367,90 @@ if (!permiso) {
 												<!-- 													</textarea> -->
 
 												<textarea class="form-control" rows="3"
-													placeholder="Descripción" id="descripcion"
-													name="descripcion" maxlength="150"></textarea>
-
-
-												<div id="contador">
-													<span id="cantidadCaracteres">0</span>/150
-												</div>
+													placeholder="Descripción"  id="descripcion" disabled="disabled" 
+													name="descripcion" maxlength="150"><%=tpacont.getDescripcion() %></textarea>
 
 											</div>
 										</div>
+										
+										<div class="x_content">
+											<div class="row">
+												<div class="col-md-12 col-md-12">
+													<div class="x_panel">
+														<div class="x_content">
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="card-box table-responsive">
+																		<div class="text-muted font-13 col-md-12"
+																			style="text-align: right;"></div>
+																		<table id="datatable-buttons"
+																			class="table table-striped table-bordered"
+																			style="width: 100%">
+																			<%
+																			ArrayList<Vw_asientoContableDet> listaAsientoContable = new ArrayList<Vw_asientoContableDet>();
+																			Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
+																			listaAsientoContable = dtac1.listarasientocontableDET();
+																			double total = 0;
+																			%>
+																			<thead>
+																				<tr>
+																					<th>ID</th>
+																					<th>Cuenta</th>
+																					<th>Debe</th>
+																					<th>Haber</th>
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<%
+																				for (Vw_asientoContableDet ac : listaAsientoContable) {
+																					if (ac.getIdAsientoContable() == idac) {
+																				%>
+																				<tr>
 
-										<div class="x_panel">
-											<div class="x_title">
-												<h2>Detalles</h2>
+																					<td><%=ac.getIdAsientoContableDet()%></td>
+																					<td><%=ac.getNumeroCuenta()%> | <%=ac.getSC()%>
+																						| <%=ac.getSsC()%> | <%=ac.getSssC()%></td>
+																					<td><%=ac.getDebe()%></td>
+																					<td><%=ac.getHaber()%></td>
+																				</tr>
+																				<%
+																				total = total + ac.getDebe() - ac.getHaber();
+																				} //else{
 
-												<div class="clearfix"></div>
-											</div>
+																				//}
+																				}
+																				%>
+																			</tbody>
 
-											<div class="x_content">
-												<iframe width="100%" height="500px" src="eclise.jsp"
-													id="eclise" name="eclise"></iframe>
-												<input type="hidden" id="JSONContent" value="" />
-											</div>
-
-											<div class="ln_solid">
-												<div class="form-group">
-													<div class="col-md-6 offset-md-3">
-														<button type='submit' class="btn btn-danger">Guardar
-															todo</button>
-														<a href="tbl_asientoContable.jsp" type="button"
-															class="btn btn-primary">Cancelar</a>
+																		</table>
+																	</div>
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 
+										<div class="ln_solid">
+											<div class="form-group">
+											
+												<div class="col-md-6 offset-md-3">
+												<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align" style="color: black">Total:</label>
+											<div class="col-md-3 col-sm-3">
+												<input class="form-control" class='optional'
+													value="<%=total %>" name="total"
+													data-validate-length-range="5,15" type="text"
+													readonly="readonly">
+											</div>
+										</div>
+													<button type='submit' class="btn btn-danger">Eliminar</button>
+													<a href="tbl_asientoContable.jsp" type="button"
+														class="btn btn-primary">Cancelar</a>
+												</div>
+											</div>
+										</div>
 									</form>
 								</div>
 							</div>
@@ -403,94 +458,116 @@ if (!permiso) {
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!-- /page content -->
 
-	<!-- jQuery -->
-	<script src="../vendors/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- FastClick -->
-	<script src="../vendors/fastclick/lib/fastclick.js"></script>
-	<!-- NProgress -->
-	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- bootstrap-progressbar -->
-	<script
-		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-	<!-- iCheck -->
-	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- bootstrap-daterangepicker -->
-	<script src="../vendors/moment/min/moment.min.js"></script>
-	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<!-- bootstrap-wysiwyg -->
-	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
-	<!-- jQuery Tags Input -->
-	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-	<!-- Switchery -->
-	<script src="../vendors/switchery/dist/switchery.min.js"></script>
-	<!-- Select2 -->
-	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-	<!-- Parsley -->
-	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-	<!-- Autosize -->
-	<script src="../vendors/autosize/dist/autosize.min.js"></script>
-	<!-- jQuery autocomplete -->
-	<script
-		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-	<!-- starrr -->
-	<script src="../vendors/starrr/dist/starrr.js"></script>
-	<!-- iCheck -->
-	<script src="../vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-	<script
-		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script
-		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script
-		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-	<script
-		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-	<script
-		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-	<script src="../vendors/jszip/dist/jszip.min.js"></script>
-	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-	<!-- Custom Theme Scripts -->
-	<script src="../build/js/custom.min.js"></script>
+			<!-- /page content -->
 
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+			<script src="../vendors/validator/multifield.js"></script>
+			<script src="../vendors/validator/validator.js"></script>
 
-	<script>
-		$(window).on('load', function() {
-			$('#eclise').contents().find('#example2-insert').click(function(){
-				alert($('asientoJSON').val());
-			});
-		});
+			<!-- Javascript functions	-->
+			<script>
+		function hideshow() {
+			var password = document.getElementById("password1");
+			var slash = document.getElementById("slash");
+			var eye = document.getElementById("eye");
+
+			if (password.type === 'password') {
+				password.type = "text";
+				slash.style.display = "block";
+				eye.style.display = "none";
+			} else {
+				password.type = "password";
+				slash.style.display = "none";
+				eye.style.display = "block";
+			}
+
+		}
 	</script>
 
-	<script>
-		const mensaje = document.getElementById('descripcion');
-		const contador = document.getElementById('cantidadCaracteres');
+			<script>
+        ///SOLO ESTE VALOR NO LO PUEDO PONER DE OTRA MANERA
+        function setVals() {
+            		$("#cbxIDPC").val("<%=tpacont.getIdPeriodoContable()%>");
+					$("#cbxIDTD").val("<%=tpacont.getIdTipoDocumento()%>");
+					$("#cbxIDE").val("<%=tpacont.getIdEmpresa()%>");
+					$("#cbxIDM").val("<%=tpacont.getIdMoneda()%>");
+					$("#cbxIDTCD").val("<%=tpacont.getIdTasaCambioDet()%>");
+				}
 
-		mensaje.addEventListener('input', function(e) {
-			const target = e.target;
-			const longitudMax = target.getAttribute('maxlength');
-			const longitudAct = target.value.length;
-			contador.innerHTML = longitudAct;
-		});
-	</script>
+				$(document).ready(function() {
+					////CARGAMOS LOS VALORES EN LOS CONTROLES 
+					setVals();
+				});
+			</script>
 
+			<!-- jQuery -->
+			<script src="../vendors/jquery/dist/jquery.min.js"></script>
+			<!-- Bootstrap -->
+			<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+			<!-- FastClick -->
+			<script src="../vendors/fastclick/lib/fastclick.js"></script>
+			<!-- NProgress -->
+			<script src="../vendors/nprogress/nprogress.js"></script>
+			<!-- bootstrap-progressbar -->
+			<script
+				src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+			<!-- iCheck -->
+			<script src="../vendors/iCheck/icheck.min.js"></script>
+			<!-- bootstrap-daterangepicker -->
+			<script src="../vendors/moment/min/moment.min.js"></script>
+			<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+			<!-- bootstrap-wysiwyg -->
+			<script
+				src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+			<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+			<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+			<!-- jQuery Tags Input -->
+			<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+			<!-- Switchery -->
+			<script src="../vendors/switchery/dist/switchery.min.js"></script>
+			<!-- Select2 -->
+			<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+			<!-- Parsley -->
+			<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+			<!-- Autosize -->
+			<script src="../vendors/autosize/dist/autosize.min.js"></script>
+			<!-- jQuery autocomplete -->
+			<script
+				src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+			<!-- starrr -->
+			<script src="../vendors/starrr/dist/starrr.js"></script>
+			<!-- iCheck -->
+			<script src="../vendors/iCheck/icheck.min.js"></script>
+			<!-- Datatables -->
+			<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+			<script
+				src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+			<script
+				src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+			<script
+				src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+			<script
+				src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+			<script
+				src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+			<script
+				src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+			<script
+				src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+			<script src="../vendors/jszip/dist/jszip.min.js"></script>
+			<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+			<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+			<!-- Custom Theme Scripts -->
+			<script src="../build/js/custom.min.js"></script>
 </body>
 </html>

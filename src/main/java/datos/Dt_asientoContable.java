@@ -132,11 +132,11 @@ public class Dt_asientoContable {
 				
 				pacontable.setDescripcion(rs.getString("descripcion"));
 				pacontable.setUsuarioCreacion(rs.getInt("usuarioCreacion"));
-				pacontable.setFechaCreacion(rs.getDate("fechaCreacion"));
+				pacontable.setFechaCreacion(rs.getTimestamp("fechaCreacion"));
 				pacontable.setUsuarioModificacion(rs.getInt("usuarioModificacion"));
-				pacontable.setFechaModificacion(rs.getDate("fechaModificacion"));
+				pacontable.setFechaModificacion(rs.getTimestamp("fechaModificacion"));
 				pacontable.setUsuarioEliminacion(rs.getInt("usuarioEliminacion"));
-				pacontable.setFechaEliminacion(rs.getDate("fechaEliminacion"));
+				pacontable.setFechaEliminacion(rs.getTimestamp("fechaEliminacion"));
 				
 				
 			}
@@ -170,5 +170,96 @@ public class Dt_asientoContable {
 		}
 		
 		return pacontable;
+	}
+	
+	
+	
+	public int agregarAsientoContable(Tbl_asientoContable tac) {
+		int guardado = 0;
+		
+		try {
+			c = poolConexion.getConnection();
+			this.llenar_rsAsientoCon(c);
+			this.rsAsientoCon.moveToInsertRow();
+			rsAsientoCon.updateInt("idPeriodoContable",tac.getIdPeriodoContable());
+			rsAsientoCon.updateInt("idEmpresa",tac.getIdEmpresa());
+			rsAsientoCon.updateInt("idTipoDocumento",tac.getIdTipoDocumento());
+			rsAsientoCon.updateInt("idMoneda", tac.getIdMoneda());
+			rsAsientoCon.updateInt("idTasaCambioDetalle", tac.getIdTasaCambioDet());
+			rsAsientoCon.updateDate("fecha", tac.getFecha());
+			rsAsientoCon.updateString("descripcion", tac.getDescripcion());
+			rsAsientoCon.updateTimestamp("fechaCreacion", tac.getFechaCreacion());
+			rsAsientoCon.updateInt("usuarioCreacion", tac.getUsuarioCreacion());
+			rsAsientoCon.insertRow();
+			this.rsAsientoCon.moveToCurrentRow();
+			this.llenar_rsAsientoCon(c);
+			rsAsientoCon.last();
+			guardado = rsAsientoCon.getInt("idAsientoContable");
+			
+			
+		} catch (Exception e) {
+			
+			System.err.println("ERROR AL GUARDAR tbl_asientoContable "+e.getMessage());
+			e.printStackTrace();
+			
+		}finally {
+			try {
+				if (rsAsientoCon != null) {
+					rsAsientoCon.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return guardado;
+	}
+	
+public boolean EliminarAContablePorId(int idEliminar){
+		
+		boolean borrado = false;
+		
+		try {
+			
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("UPDATE dbucash.asientocontable SET estado = 3 WHERE idAsientoContable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEliminar);
+			int result = this.ps.executeUpdate();
+
+			if (result > 0) {
+				borrado = true;
+			}
+			
+		} catch (Exception e) {
+			
+			System.err.println("ERROR AL BORRAR Asiento Contable POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			
+			try {
+				
+				if (rsAsientoCon != null) {
+					
+					rsAsientoCon.close();
+					
+				}
+				if (c != null) {
+					
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+	
+		return borrado;
+		
 	}
 }

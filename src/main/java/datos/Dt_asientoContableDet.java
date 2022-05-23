@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import entidades.Tbl_asientoContableDet;
 import entidades.Vw_asientoContableDet;
 
 public class Dt_asientoContableDet {
@@ -80,5 +81,87 @@ public class Dt_asientoContableDet {
 		}
 		
 		return listasientocontableDet;
+	}
+	
+	
+	public boolean guardarAsientoContableDet(Tbl_asientoContableDet tacd)
+	{
+		boolean guardado = false;
+		
+		try {
+			
+			c = poolConexion.getConnection();
+			this.llenaRsAsientoContableDet(c);
+			rsasientocontableDet.moveToInsertRow();
+			rsasientocontableDet.updateInt("idAsientoContableDet",tacd.getIdAsientoContableDet());
+			rsasientocontableDet.updateInt("idAsientoContable", tacd.getIdAsientoContable() );
+			rsasientocontableDet.updateInt("idCuenta", tacd.getIdCuenta());
+			rsasientocontableDet.updateDouble("debe", tacd.getDebe());
+			rsasientocontableDet.updateDouble("haber", tacd.getHaber());
+			rsasientocontableDet.insertRow();
+			rsasientocontableDet.moveToCurrentRow();
+			
+			guardado = true;
+			
+		} catch (Exception e) {
+			System.err.println("ERROR AL guardar AsientoContableDet() "+e.getMessage());
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rsasientocontableDet != null) {
+					rsasientocontableDet.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return  guardado;
+	}
+	
+public boolean EliminarAContableDetPorId(int idEliminar){
+		
+		boolean borrado = false;
+		
+		try {
+			
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("DELETE dbucash.asientocontabledet WHERE idAsientoContable = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEliminar);
+			//rsasientocontableDet.deleteRow();
+
+			
+			
+		} catch (Exception e) {
+			
+			System.err.println("ERROR AL BORRAR Asiento Contable POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			
+			try {
+				
+				if (rsasientocontableDet != null) {
+					
+					rsasientocontableDet.close();
+					
+				}
+				if (c != null) {
+					
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+	
+		return borrado;
+		
 	}
 }
