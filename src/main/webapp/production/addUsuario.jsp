@@ -3,6 +3,11 @@
 	
 	 
 <%
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}
+
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -98,6 +103,7 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
+									<input type="hidden" value="<%=signal%>" id="JAlertInput"/>	
 									<form class="" action="../Sl_usuario" method="post" id="myForm" novalidate>
 										<input type="hidden" value="1" name="opcion" id="opcion" />
 										<div class="field item form-group">
@@ -233,6 +239,8 @@
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
+	<!--Keyboard navigation-->
+	<script src="js/navigation/userTableNavigation.js"></script>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -241,10 +249,38 @@
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- validator -->
-	<!-- <script src="../vendors/validator/validator.js"></script> -->
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="../vendors/jszip/dist/jszip.min.js"></script>
+	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-
+	
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
 </body>
 </html>

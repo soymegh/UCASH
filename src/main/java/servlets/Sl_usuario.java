@@ -104,7 +104,7 @@ public class Sl_usuario extends HttpServlet {
 
 			try {
 				if(ngu.existeUser(user.getUsuario()) || ngu.existeEmail(user.getEmail())) {
-					response.sendRedirect("production/tbl_usuarios.jsp?msj=7");
+					response.sendRedirect("production/tbl_usuario.jsp?msj=7");
 				}else {
 					if(contraseñaBandera && emailBandera) {
 						tus2.setId_user(dtu.addUsuario(user));

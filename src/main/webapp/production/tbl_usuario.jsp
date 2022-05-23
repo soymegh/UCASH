@@ -280,7 +280,31 @@
 			$(document).ready(function() {
 
                 if (mensaje == "1") {
-                    successAlert('Exito', 'El usuario ha sido registrado correctamente')
+                    successAlert('Exito', 'El usuario ha sido registrado correctamente.')
+                }
+                
+                if (mensaje == "2") {
+                	errorAlert('Error', 'Los datos de usuario no se han podido guardar.')
+                }
+                
+                if (mensaje == "3") {
+                	successAlert('Exito', 'Los datos de usuario se han editado correctamente.')
+                }
+                
+                if (mensaje == "4") {
+                	errorAlert('Error', 'Los datos de usuario no se han editado correctamente.')
+                }
+                
+                if (mensaje == "5") {
+                	successAlert('Exito', 'Los datos de usuario se han eliminado correctamente.')
+                }
+                
+                if (mensaje == "6") {
+                	errorAlert('Error', 'Los datos de usuario no se han eliminado correctamente.')
+                }
+                
+                if (mensaje == "7") {
+                	errorAlert('Error', 'El correo electronico, contraseña o usuario proporcionado no coincide o ya existe.')
                 }
 
                 $("#example1").DataTable({
