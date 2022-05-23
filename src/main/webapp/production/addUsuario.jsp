@@ -243,7 +243,6 @@
 	<script src="../vendors/nprogress/nprogress.js"></script>
 	<!-- validator -->
 	<!-- <script src="../vendors/validator/validator.js"></script> -->
-
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 

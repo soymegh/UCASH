@@ -84,6 +84,61 @@ public class Dt_periodoFiscal {
 		
 		return listperiodoFiscal;
 	}
+	
+	public ArrayList<Tbl_periodoFiscal> listarperiodoFiscalLogin(){
+		ArrayList<Tbl_periodoFiscal> listperiodoFiscal = new ArrayList<Tbl_periodoFiscal>();
+		try {
+			c = poolConexion.getConnection();
+
+			ps = c.prepareStatement("SELECT * FROM dbucash.periodofiscal WHERE estado <> 3;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				Tbl_periodoFiscal periodofiscal = new Tbl_periodoFiscal();
+				periodofiscal.setIdPeriodoFiscal(rs.getInt("idperiodoFiscal"));
+				
+				//Fecha inicio\
+				//Se realiza este metodo para que no reste un dia
+				String fechaIniJsp = rs.getString("fechaInicio");
+	            java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
+	            periodofiscal.setFechaInicio(new java.sql.Date(date1.getTime()));
+				
+				
+				//Fecha final
+	            //Se realiza este metodo para que no reste un dia
+				String fechaFinJsp = rs.getString("fechaFinal");
+	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
+	        	periodofiscal.setFechaFinal(new java.sql.Date(date2.getTime()));
+	        	
+				periodofiscal.setEstado(rs.getInt("estado"));
+				listperiodoFiscal.add(periodofiscal);
+			}
+			} catch(Exception e) {
+				System.out.println("DATOS: ERROR EN LISTAR Periodos Fiscales "+e.getMessage());
+				e.printStackTrace();
+			}
+		 finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+
+	                if (ps != null) {
+	                    ps.close();
+	                }
+
+	                if (c != null) {
+	                    poolConexion.closeConnection(c);
+	                }
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+
+		}
+		
+		return listperiodoFiscal;
+	}
+	
 	public boolean agregarPeriodoFiscal(Tbl_periodoFiscal tpf) {
 		boolean guardado = false;
 		

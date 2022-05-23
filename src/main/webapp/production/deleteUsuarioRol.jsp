@@ -104,7 +104,7 @@ userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Ver Usuario</h3>
+							<h3>Eliminar Usuario Rol</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -113,7 +113,7 @@ userRol = datosUsuarioRol.ObtenerUsuarioRolPorId(idUser);
 							<div class="x_panel">
 							<div class="x_title">
 								<h2>
-									Formulario de usuarios  
+									Formulario de usuarios y roles  
 								</h2>
 								
 								<div class="clearfix"></div>
