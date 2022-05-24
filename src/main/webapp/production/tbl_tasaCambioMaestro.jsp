@@ -3,12 +3,6 @@
 	
 	
 <%
-//JAlert flag
-	String signal = ""; 
-	if(request.getParameter("msj") != null){
-		signal = request.getParameter("msj");
-	}
-	
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -99,9 +93,6 @@ if (!permiso) {
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
-
-<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
-
 </head>
 
 <body class="nav-md">
@@ -138,7 +129,7 @@ if (!permiso) {
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Tasas de Cambio registradas</h2>
+									<h2>Seleccione tasa cambio a eliminar</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
 												class="fa fa-chevron-up"></i></a></li>
@@ -161,24 +152,15 @@ if (!permiso) {
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<br></br>
-													<a href="addTasaCambio.jsp"> <i
-														class="fa fa-plus-square"></i> Nueva Tasa Cambio
-													</a>
-													<br></br>
-													<a href="tbl_tasaCambioMaestro.jsp"> <i
-														class="fa fa-trash"></i> Eliminar Tasa Cambio
-													</a> 
-													<br></br>
+													 <br></br>
 												</div>
-												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-													ArrayList<Vw_tasaCambioDet> listaTasaCambio = new ArrayList<Vw_tasaCambioDet>();
+													ArrayList<Vw_tasacambio> listaTasaCambio = new ArrayList<Vw_tasacambio>();
 													Dt_tasaCambio dttc = new Dt_tasaCambio();
-													listaTasaCambio = dttc.listarTasaCambioDet();
+													listaTasaCambio = dttc.listarTasaCambioActivas();
 													%>
 													<thead>
 														<tr>
@@ -186,16 +168,15 @@ if (!permiso) {
 															<th>Moneda Origen</th>
 															<th>Moneda Destino</th>
 															<th>Año</th>
-															<th>Fecha</th>
-															<th>Tipo de Cambio</th>
+															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
-														for (Vw_tasaCambioDet tc : listaTasaCambio) {
+														for (Vw_tasacambio tc : listaTasaCambio) {
 															
 															String mes = "";
-															switch(Integer.parseInt(tc.getMes())){
+															switch(tc.getMes()){
 															case 1:
 																mes = "Enero";
 																break;
@@ -255,10 +236,11 @@ if (!permiso) {
 														<td><%=tc.getNombreO()%></td>
 														<td><%=tc.getNombreC()%></td>
 														<td><%=tc.getAnio()%></td>
-														<td><%=tc.getFecha()%></td>
-														<td><%=tc.getTipoCambio()%></td>
-															
 
+															<td>
+															 &nbsp;&nbsp; <a href="deleteTasaCambio.jsp?idTC=<%=tc.getIdTasaCambio() %>" target=""> <i
+																	class="fa fa-trash" title="Eliminar"></i>
+															</a></td>
 														</tr>
 														<%
 														}
@@ -323,47 +305,6 @@ if (!permiso) {
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-	
-	<!-- jAlert -->
-    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
-    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
-
-	<script>
-			var mensaje = "";
-			mensaje = document.getElementById("JAlertInput").value; 
-			
-			$(document).ready(function() {
-                if (mensaje == "1") {
-                    successAlert('Exito', 'La opción ha sido registrada correctamente.')
-                }
-                
-                if (mensaje == "2") {
-                	errorAlert('Error', 'Los datos de la opción no se han podido guardar.')
-                }
-                
-                if (mensaje == "3") {
-                	successAlert('Exito', 'Los datos de la opción se han editado correctamente.')
-                }
-                
-                if (mensaje == "4") {
-                	errorAlert('Error', 'Los datos de la opción no se han editado correctamente.')
-                }
-                
-                if (mensaje == "5") {
-                	successAlert('Exito', 'Los datos de la opción se han eliminado correctamente.')
-                }
-                
-                if (mensaje == "6") {
-                	errorAlert('Error', 'Los datos de la opción no se han eliminado correctamente.')
-                }
-                $("#example1").DataTable({
-                    "responsive": true,
-                    "lengthChange": false,
-                    "autoWidth": false,
-                    "buttons": ["excel", "pdf"]
-                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            });
-    </script>
 
 </body>
 </html>
