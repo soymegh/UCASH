@@ -178,7 +178,7 @@ public class Dt_usuario {
 						rsUsuario.updateString("apellido", tus.getApellidos());
 						rsUsuario.updateString("email",tus.getEmail());
 						rsUsuario.updateTimestamp("fechaModificacion", tus.getFechaModificacion());
-						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioCreacion());
+						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioModificacion());
 						rsUsuario.updateInt("estado", 2);
 						rsUsuario.updateRow();
 						modificado=true;
@@ -350,7 +350,7 @@ public class Dt_usuario {
 			return vwur;
 		}
 	
-	// METODO PARA VERIFICAR USUARIO, PWD, ROL Y CODIGO DE VERIFICACION // POR PRIMERA VEZ
+	// METODO PARA VERIFICAR USUARIO, PWD, ROL Y CODIGO DE VERIFICACION // POR PRIMERA VEZ 
 	public boolean dtverificarLogin2(String login, String clave, int rol, String codigo)
 	{
 		boolean existe=false;
@@ -424,7 +424,6 @@ public class Dt_usuario {
 			
 			pwdEncrypt = vwur.getPassword();
 			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt,vwur.getKey());
-			System.out.print("ESTA ES LA CONTRASEÑA: "+ pwdDecrypt + "ESTE ES EL USUARIO: " + login);
 			/////////////////////////////////////////
 			c = poolConexion.getConnection();
 			ps = c.prepareStatement(SQL);
@@ -432,17 +431,14 @@ public class Dt_usuario {
 			
 			if(clave.equals(pwdDecrypt)){
 				ps.setString(2, pwdEncrypt);
-				System.out.print("Esta es la contraseña, dentro de la verificación (linea 433): " + clave);
 			}
 			else {
 				ps.setString(2, clave);
-				System.out.print("Esta es la contraseña, dentro del else (linea 433): " + clave);
 			}
 			ps.setInt(3, rol);
 			rs = ps.executeQuery();
 			if(rs.next()){
 				existe=true;
-				System.out.print("Esta es la contraseña, dentro de la verificación (linea 443): " + rol);
 			}
 		}
 		catch (Exception e){
@@ -470,6 +466,98 @@ public class Dt_usuario {
 		return existe;
 	}
 	
+	// METODO PARA OBTENER UN OBJETO DE TIPO Vw_userrol //
+			public Vw_usuariorol recoverPassword(String login, String email){
+				 Vw_usuariorol vwur = new  Vw_usuariorol();
+				String SQL = ("SELECT * FROM dbucash.vw_usuariorol WHERE usuario=? AND email=? AND estado<>3 AND estado<>0");
+				try{
+					c = poolConexion.getConnection();
+					ps = c.prepareStatement(SQL);
+					ps.setString(1, login);
+					ps.setString(2, email);
+					rs = ps.executeQuery();
+					if(rs.next()){
+						vwur.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
+						vwur.setId_user(rs.getInt("idUsuario"));
+						vwur.setUsuario(rs.getString("usuario"));
+						vwur.setPassword(rs.getString("password"));
+						vwur.setKey(rs.getString("key"));
+						vwur.setCodVerificacion(rs.getString("codVerificacion"));
+						vwur.setNombre(rs.getString("nombre"));
+						vwur.setApellido(rs.getString("apellido"));
+						vwur.setEmail(rs.getString("email"));
+						vwur.setEstado(rs.getInt("estado"));
+						vwur.setUrlFoto(rs.getString("urlFoto"));
+						vwur.setId_rol(rs.getInt("id_rol"));
+						vwur.setRol(rs.getString("rol"));
+					}
+				}
+				catch (Exception e){
+					System.out.println("DATOS: ERROR EN dtGetVwUR "+ e.getMessage());
+					e.printStackTrace();
+				}
+				finally {
+					try {
+						if(rs != null){
+							rs.close();
+						}
+						if(ps != null){
+							ps.close();
+						}
+						if(c != null){
+							poolConexion.closeConnection(c);
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			
+				return vwur;
+			}
+
+			
+			// METODO PARA VERIFICAR USUARIO, PWD Y ROL //
+			public String desencriptarPassword(String login, String key, String pwdEncriptada)
+			{
+				Encrypt enc = new Encrypt();
+				String pwdDecrypt = "";
+				String pwdEncrypt = "";
+				
+				try{
+					/////// DESENCRIPTACION DE LA PWD //////////
+					pwdEncrypt = pwdEncriptada;
+					pwdDecrypt = enc.getAESDecrypt(pwdEncrypt, key);
+					/////////////////////////////////////////
+					
+					System.out.print("ESTA ES LA CONTRASEÑA DESENCRIPTADA GARDELLL!: " + pwdDecrypt);
+				}
+				catch (Exception e){
+					System.out.println("DATOS: ERROR dtverificarLogin() "+ e.getMessage());
+					e.printStackTrace();
+				}
+				finally {
+					try {
+						if(rs != null){
+							rs.close();
+						}
+						if(ps != null){
+							ps.close();
+						}
+						if(c != null){
+							poolConexion.closeConnection(c);
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			
+				return pwdDecrypt;
+			}
+			
 	// Metodo para visualizar los datos de un usuario específico
 		public Tbl_usuario getUsuario(int idUsuario)
 		{

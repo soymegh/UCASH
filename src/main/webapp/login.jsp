@@ -117,13 +117,14 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form method="post" action="./#">
+            <form method="post" action="./Sl_login">
+            	<input type="hidden" name="opcion" id="opcion" value="3">
               <h1>Recuperar Contraseña</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Usuario" required />
+                <input type="text" class="form-control" placeholder="Usuario" name="usuario" required />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required />
+                <input type="email" class="form-control" placeholder="Email" name="email" required />
               </div>
               
               <div style="margin-right: 38px; margin-left: -38px;">

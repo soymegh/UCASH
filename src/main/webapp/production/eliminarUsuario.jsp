@@ -130,6 +130,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 								<form class="" action="../Sl_usuario" method="post" novalidate>
 									
 									<input type="hidden" value="3" name="opcion" id="opcion" />
+									<input type="hidden" value="<%=vwur.getId_user()%>" name="usuarioEliminacion" id="usuarioEliminacion" />
 									<div class="form-group row ">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">:</span></label>
 										<div class="col-md-6 col-sm-6 ">
