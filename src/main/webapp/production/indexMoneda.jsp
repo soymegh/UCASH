@@ -2,7 +2,6 @@
     pageEncoding="ISO-8859-1" import="datos.*, entidades.*, java.util.*"%>
 
 <%
-
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -12,7 +11,6 @@
 	//DECLARACIONES
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	Dt_empresa empresa = new Dt_empresa();
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 	boolean permiso = false; //VARIABLE DE CONTROL
 	
@@ -48,15 +46,6 @@
 	
 %>
 
-<%
-	//Setting company configurations
-	if(request.getParameter("idE") != null){
-		if(!empresa.getTableEmpresaByIdLogin(Integer.parseInt(request.getParameter("idE")))){
-			response.sendRedirect("indexMultiempresa.jsp?idEm=1");
-		}
-	}
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,7 +55,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Sistema Contable |</title>
+<title>Sistema Contable | Moneda</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -94,35 +83,35 @@
 						<div class="x_panel">
 
 							<div class="x_title">
-								<p style="font-size: 30px">¡Buenos días, <%=vwur.getUsuario() %>!</p>
-								<p>Seleccione el periodo fiscal con el que trabajara.</p>
+								<p style="font-size: 30px">¡Buenos días, <%=vwur.getUsuario()%>!</p>
+								<p>Seleccione la moneda con la que trabajara la contabilidad.</p>
 								<div class="clearfix"></div>
 							</div>
 
 							<div class="x_content">
-									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
+									<form class="" action="../Sl_moneda" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
-										<span class="section">Periodo Fiscal</span>
-			
+										<span class="section">Moneda</span>
+
 										<div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal<span class="required">:</span></label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Moneda<span class="required">:</span></label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 												<%
-							                      	ArrayList<Tbl_periodoFiscal> listPeriodosFiscales = new ArrayList<Tbl_periodoFiscal>();
-							                      	Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin();
+							                      	ArrayList<Tbl_moneda> listaMonedas = new ArrayList<Tbl_moneda>();
+							                      	Dt_moneda dtm = new Dt_moneda();
+							                      	listaMonedas = dtm.listaMonedasActivas();
 								                 %>
-								                 <select class="form-control js-example-basic-single" name="combobox_periodoFiscal" id="combobox_periodoFiscal" required="required">
+								                 <select class="form-control js-example-basic-single" name="combobox_moneda" id="combobox_moneda" required="required">
 												  <option value="">Seleccione...</option>
 												  <% 
-												  	for(Tbl_periodoFiscal pF : listPeriodosFiscales){
+												  	for(Tbl_moneda m: listaMonedas){
 												  %>
-												  <option value="<%=pF.getIdPeriodoFiscal()%>"><%="Fecha de inicio: " + pF.getFechaInicio() + " " + " Fecha de finalización: " + pF.getFechaFinal()%></option>
+												  <option value="<%=m.getIdMoneda()%>"><%=m.getNombre()%></option>
 												  <%
 												  	}
 												  %>
-								                
+
 												</select>
 											</div>
                                         </div>

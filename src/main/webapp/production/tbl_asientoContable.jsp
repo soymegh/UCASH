@@ -264,7 +264,7 @@
 																	<%
 																	ArrayList<Vw_asientoContable> listaAsientoContable = new ArrayList<Vw_asientoContable>();
 																	Dt_asientoContable dtac = new Dt_asientoContable();
-																	listaAsientoContable = dtac.listarasientocontable();
+																	listaAsientoContable = dtac.listarasientocontableporid(Vw_empresa.empresaActual);
 																	
 																	Dt_periodoContable dtpc = new Dt_periodoContable();
 																	Tbl_periodoContable tblpc = new Tbl_periodoContable();
@@ -308,7 +308,7 @@
 																			</a> &nbsp;&nbsp; <a
 																				href="viewAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
 																					<i class="fa fa-eye" title="Mostrar"></i>
-																			</a> &nbsp;&nbsp; <a href="deleteAsientoContable.jsp">
+																			</a> &nbsp;&nbsp; <a href="deleteAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
 																					<i class="fa fa-trash" title="Eliminar"></i>
 																			</a></td>
 																		</tr>

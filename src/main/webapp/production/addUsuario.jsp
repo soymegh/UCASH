@@ -106,6 +106,7 @@
 									<input type="hidden" value="<%=signal%>" id="JAlertInput"/>	
 									<form class="" action="../Sl_usuario" method="post" id="myForm" novalidate>
 										<input type="hidden" value="1" name="opcion" id="opcion" />
+										<input type="hidden" value="<%=vwur.getId_user()%>" name="usuarioCreacion" id="usuarioCreacion" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span
 												class="required">:</span></label>

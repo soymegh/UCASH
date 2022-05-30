@@ -271,6 +271,7 @@ public class Dt_periodoContable {
 			if (rs.next()) 
 			{
 				pcontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
+				Tbl_periodoContable.idPeriodoActual = rs.getInt("idPeriodoContable");
 				pcontable.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
 				//Fecha inicio
 				//Se utiliza este metodo para evitar que reste un dia

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import datos.Dt_usuario;
 import entidades.Vw_usuariorol;
+import datos.Dt_recoverPassword;
 
 @WebServlet("/Sl_login")
 public class Sl_login extends HttpServlet {
@@ -46,11 +47,25 @@ public class Sl_login extends HttpServlet {
 		int rolId = 0;
 		int opc = 0;
 		
-		opc = Integer.parseInt(request.getParameter("opcion"));
-		usuario = request.getParameter("usuario");
-		clave = request.getParameter("password");
-		rolId = Integer.parseInt(request.getParameter("rol"));
-		codigoV= request.getParameter("codVerificacion");
+		if(request.getParameter("opcion") != null) {
+			opc = Integer.parseInt(request.getParameter("opcion"));
+		}
+
+		if(request.getParameter("usuario") != null) {
+			usuario = request.getParameter("usuario");
+		}
+
+		if(request.getParameter("password") != null) {
+			clave = request.getParameter("password");
+		}
+
+		if(request.getParameter("rol") != null) {
+			rolId = Integer.parseInt(request.getParameter("rol"));
+		}
+
+		if(request.getParameter("codVerificacion") != null) {
+			codigoV= request.getParameter("codVerificacion");
+		}
 		
 		
 		
@@ -91,6 +106,34 @@ public class Sl_login extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case 3:
+			String user = "";
+			String email = "";
+			Dt_recoverPassword recoverPwd = new Dt_recoverPassword();
+
+			if(request.getParameter("usuario") != null) {
+					user = request.getParameter("usuario");
+			}
+
+			if(request.getParameter("email") != null) {
+				email = request.getParameter("email");
+			}
+
+			try{
+				if(dtu.recoverPassword(user, email) != null){
+					vwur = dtu.recoverPassword(user, email);
+					recoverPwd.recoverPassword(dtu.desencriptarPassword(vwur.getUsuario(), vwur.getKey(), vwur.getPassword()), vwur.getEmail(), vwur.getUsuario());
+					response.sendRedirect("login.jsp");
+				}
+				else{
+				response.sendRedirect("login.jsp?msj=403");
+				}	
+			}
+			catch(Exception e){
+				System.out.println("Servlet: El error es: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break; 
 			
 		default:
 			break;

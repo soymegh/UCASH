@@ -81,7 +81,7 @@ public class Sl_usuario extends HttpServlet {
 			user.setEmail(request.getParameter("email"));
 			user.setPwd(request.getParameter("pwd"));
 			user.setFechaCreacion(new java.sql.Timestamp(fechaSistema.getTime()));
-			user.setUsuarioCreacion(1); // 1 valor temporal mientras se programa la sesion
+			user.setUsuarioCreacion(Integer.parseInt(request.getParameter("usuarioCreacion"))); // 1 valor temporal mientras se programa la sesion
 			user.setEstado(0);
 			confirmarContraseña = request.getParameter("txtclave2");
 			confirmarEmail = request.getParameter("email2");
@@ -137,7 +137,7 @@ public class Sl_usuario extends HttpServlet {
 			user.setEmail(request.getParameter("txtemail"));
 			try {
 				user.setFechaModificacion(new java.sql.Timestamp(fechaSistema.getTime()));
-				user.setUsuarioModificacion(1);//1 valor temporal mientras se programa la sesion
+				user.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuarioModificacion")));//1 valor temporal mientras se programa la sesion
 				if(dtu.modificarUsuario(user)) {
 					response.sendRedirect("production/tbl_usuario.jsp?msj=3");
 				}
@@ -154,7 +154,7 @@ public class Sl_usuario extends HttpServlet {
 			user.setIdUsuario(Integer.parseInt(request.getParameter("txtid")));
 			try {
 				user.setFechaEliminacion(new java.sql.Timestamp(fechaSistema.getTime()));
-				user.setUsuarioEliminacion(1);//1 valor temporal mientras se programa la sesion
+				user.setUsuarioEliminacion(Integer.parseInt(request.getParameter("usuarioEliminacion")));//1 valor temporal mientras se programa la sesion
 				if(dtu.eliminarUsuario(user)) {
 					response.sendRedirect("production/tbl_usuario.jsp?msj=5");
 				}
