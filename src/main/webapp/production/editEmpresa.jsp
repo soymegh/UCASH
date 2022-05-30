@@ -10,15 +10,11 @@
 <%
 String empresa = "";
 empresa = request.getParameter("idEmpresa") == null ? "0" : request.getParameter("idEmpresa");
-
 Tbl_empresa tEmpresa = new Tbl_empresa();
 Vw_empresa vEmpresa = new Vw_empresa();
-
 Dt_empresa dtEmpresa = new Dt_empresa();
-
 tEmpresa = dtEmpresa.getTableEmpresaByID(Integer.parseInt(empresa));
 vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
-
 %>
 	<script>
     function setForm(){
@@ -36,42 +32,43 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
     	document.getElementById("departamento").value = "<%=tEmpresa.getIdDepartamento()%>";
     	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>";
 
-			console.log(document.getElementById("representanteLegal").value);
-			console.log(document.getElementById("ruc").value);
 		}
 		window.onload = setForm;
 	</script>
 <%
-//INVALIDA LA CACHE DEL NAVEGADOR //
-response.setHeader("Pragma", "no-cache");
-response.setHeader("Cache-Control", "no-store");
-response.setDateHeader("Expires", 0);
-response.setDateHeader("Expires", -1);
 
-//DECLARACIONES
-Vw_usuariorol vwur = new Vw_usuariorol();
-Dt_rolOpciones dtro = new Dt_rolOpciones();
-ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-boolean permiso = false; //VARIABLE DE CONTROL
-
-//OBTENEMOS LA SESION
-vwur = (Vw_usuariorol) session.getAttribute("acceso");
-if (vwur != null) {
-	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-
-	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-
-	//RECUPERAMOS LA URL = MI OPCION ACTUAL
-	int index = request.getRequestURL().lastIndexOf("/");
-	String miPagina = request.getRequestURL().substring(index + 1);
-
-	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-	for (Vw_rolopciones vrop : listOpc) {
-		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
-	permiso = true; //ACCESO CONCEDIDO
-	break;
-		};
-	}}
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
 	else{
 		response.sendRedirect("../login.jsp?msj=401");
 		return;
@@ -129,35 +126,7 @@ if (vwur != null) {
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
-							<span>Sistema Contable</span></a>
-					</div>
-
-					<div class="clearfix"></div>
-
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre() + "" + vwur.getApellido()%></h2>
-						</div>
-					</div>
-					<!-- /menu profile quick info -->
-
-					<br />
-
-					<!-- sidebar menu -->
-						<jsp:include page="navegacion.jsp"></jsp:include>
-					<!-- /sidebar menu -->
-				</div>
-			</div>
-
+			<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- top navigation -->
 		
 			<!-- /top navigation -->
