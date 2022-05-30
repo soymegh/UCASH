@@ -10,6 +10,7 @@ public class Tbl_periodoContable {
 	private int estado;
 	public static Date fechaInicioActual;
 	public static Date fechaFinalActual;
+	public static int idPeriodoActual;
 	
 	
 		

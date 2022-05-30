@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
+	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
+	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
+	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
+	datos.Dt_asientoContableDet, java.sql.Timestamp, java.util.*;"%>
 
 <%
+//Obteniendo fecha y hora actual del sistema 
+
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -85,185 +91,21 @@ if (!permiso) {
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+
+<!--Jquery Toast Plugin -->
+<link href="../vendors/jquery-toast-plugin/jquery.toast.min.css"
+	rel="stylesheet">
+	
+	<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
+	rel="stylesheet" />
+
 </head>
 
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-money"></i>
-							<span>Sistema Contable</span></a>
-					</div>
-
-					<div class="clearfix"></div>
-
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre() + " " + vwur.getApellido()%></h2>
-						</div>
-					</div>
-					<!-- /menu profile quick info -->
-
-					<br />
-
-					<!-- sidebar menu -->
-					<div id="sidebar-menu"
-						class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
-							</ul>
-						</div>
-
-						<div class="menu_section">
-							<h3>Gestión</h3>
-							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
-										<li><a href="tbl_rol.jsp">Roles</a></li>
-										<li><a href="tbl_opciones.jsp">Opciones</a></li>
-										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
-										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-building"></i> Empresa<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-										<li><a href="tbl_departamento.jsp"></a></li>
-										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante
-												Legal</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
-										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-dollar"></i> Moneda<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_moneda.jsp">Moneda</a></li>
-										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento
-												Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo
-												Contable</a></li>
-										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
-										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /sidebar menu -->
-
-					<!-- /menu footer buttons -->
-					<div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <span> <a data-toggle="tooltip" data-placement="top"
-							title="Logout" href="../login.jsp"><i
-								class="fa fa-sign-out pull-right"></i></a>
-						</span>
-					</div>
-					<!-- /menu footer buttons -->
-				</div>
-			</div>
-
-			<!-- top navigation -->
-			<div class="top_nav">
-				<div class="nav_menu">
-					<div class="nav toggle">
-						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-					</div>
-					<nav class="nav navbar-nav">
-						<ul class=" navbar-right">
-							<li class="nav-item dropdown open" style="padding-left: 15px;">
-								<a href="javascript:;" class="user-profile dropdown-toggle"
-								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre() + " " + vwur.getApellido()%>
-							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="javascript:;"> Perfil</a> <a
-										class="dropdown-item" href="javascript:;"> <span
-										class="badge bg-red pull-right">50%</span> <span>Ajustes</span>
-									</a> <a class="dropdown-item" href="javascript:;">Ayuda</a> <a
-										class="dropdown-item" href="../login.jsp"><i
-										class="fa fa-sign-out pull-right"></i> Sesión</a>
-								</div>
-							</li>
-
-							<li role="presentation" class="nav-item dropdown open"><a
-								href="javascript:;" class="dropdown-toggle info-number"
-								id="navbarDropdown1" data-toggle="dropdown"
-								aria-expanded="false"> <i class="fa fa-envelope-o"></i> <span
-									class="badge bg-green">6</span>
-							</a>
-								<ul class="dropdown-menu list-unstyled msg_list" role="menu"
-									aria-labelledby="navbarDropdown1">
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item"><a class="dropdown-item"> <span
-											class="image"><img src="images/img.jpg"
-												alt="Profile Image" /></span> <span> <span>John
-													Smith</span> <span class="time">3 mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li class="nav-item">
-										<div class="text-center">
-											<a class="dropdown-item"> <strong>See All Alerts</strong>
-												<i class="fa fa-angle-right"></i>
-											</a>
-										</div>
-									</li>
-								</ul></li>
-						</ul>
-					</nav>
-				</div>
-			</div>
+			<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- /top navigation -->
 
 			<!-- page content -->
@@ -279,42 +121,26 @@ if (!permiso) {
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
-								<div class="x_title">
-									<h2>Datos de Asiento Contable</h2>
-
+								<div class="x_title periodoContableParent">
+									<h2>Datos de Asiento Contable</h2><br><br>
+									<h2 id="fecha_hora_sistem"></h2>
+									<div class="float-right periodoContable">
+										<h2>Periodo contable:</h2><br><br>
+										<h2>Inicio: <%=Tbl_periodoContable.fechaInicioActual %> - Final: <%=Tbl_periodoContable.fechaFinalActual %></h2>
+									</div>
 									<div class="clearfix"></div>
 								</div>
 
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										<span class="section"></span>
-
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Inicio del Periodo Contable: <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<%
-												ArrayList<Vw_periodoContable> listaPC = new ArrayList<Vw_periodoContable>();
-												Dt_periodoContable dtpc = new Dt_periodoContable();
-												listaPC = dtpc.listarperiodoContable();
-												%>
-												<select class="form-control js-example-basic-single"
-													name="cbxIDPC" id="cbxIDPC" required="required">
-													<option value="">Seleccione...</option>
-													<%
-													for (Vw_periodoContable pc : listaPC) {
-													%>
-													<option value="<%=pc.getIdPeriodoContable()%>"><%=pc.getFechaInicio()%>
-														-
-														<%=pc.getFechaFinal()%></option>
-													<%
-													}
-													%>
-												</select>
-											</div>
-										</div>
-
+									<form class="" action="../Sl_asientoContable" method="post"
+										novalidate>
+										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
+											class="section"></span>
+										<input type="hidden" value="0" name="detalles" id="detalles" />
+										<input type="hidden" value="<%=Tbl_periodoContable.idPeriodoActual %>" name="periodoContable" id="periodoContable" />
+										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
+										<input type="hidden" value="<%=vwur.getId_user() %>" name="usuarioCreacion" id="usuarioCreacion" />
+										<input type="hidden" value="<%=Tbl_moneda.idMonedaActual%>" name="moneda" id="moneda" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
 												documento: <span class="required">*</span>
@@ -327,35 +153,11 @@ if (!permiso) {
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDTD" id="cbxIDTD" required="required">
-													<option value="">Seleccione...</option>
+													<option value="" disabled selected>Seleccione...</option>
 													<%
 													for (Tbl_tipoDocumento td : listaTD) {
 													%>
 													<option value="<%=td.getIdTipoDocumento()%>"><%=td.getTipo()%></option>
-													<%
-													}
-													%>
-												</select>
-											</div>
-										</div>
-
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Moneda:
-												<span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<%
-												ArrayList<Tbl_moneda> listaM = new ArrayList<Tbl_moneda>();
-												Dt_moneda dtm = new Dt_moneda();
-												listaM = dtm.listaMonedasActivas();
-												%>
-												<select class="form-control js-example-basic-single"
-													name="cbxIDPF" id="cbxIDPF" required="required">
-													<option value="">Seleccione...</option>
-													<%
-													for (Tbl_moneda m : listaM) {
-													%>
-													<option value="<%=m.getIdMoneda()%>"><%=m.getNombre()%></option>
 													<%
 													}
 													%>
@@ -369,17 +171,17 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<%
-												ArrayList<Vw_tasaCambioDetalle> listaTC = new ArrayList<Vw_tasaCambioDetalle>();
-												Dt_tasaCambioDet dttc = new Dt_tasaCambioDet();
-												listaTC = dttc.listarTasaCambioDetActivos();
+												ArrayList<Vw_tasaCambioDet> listaTC = new ArrayList<Vw_tasaCambioDet>();
+												Dt_tasaCambio dttc = new Dt_tasaCambio();
+												listaTC = dttc.listarTasaCambioDet();
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDTCD" id="cbxIDTCD" required="required">
-													<option value="">Seleccione...</option>
+													<option value="" disabled selected>Seleccione...</option>
 													<%
-													for (Vw_tasaCambioDetalle tc : listaTC) {
+													for (Vw_tasaCambioDet tc : listaTC) {
 													%>
-													<option value="<%=tc.getIdTasaCambioDetalle()%>"><%=tc.getValor()%></option>
+													<option value="<%=tc.getIdTasaCambioDet()%>"><%=tc.getTipoCambio()%></option>
 													<!--Marvin no cambies nada de tasa cambio aun, en caso de que el merge no aniada algo de la vista -->
 													<%
 													}
@@ -393,17 +195,29 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechainicioc">
+													placeholder="Fecha de inicio" name="fecha" id="fecha">
 											</div>
 										</div>
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripción<span
-												class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align"
+												for="descripcion">Descripciï¿½n<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													name="descripcion" data-validate-length-range="5,15"
-													type="text" required="required" />
+
+												<!-- 											<textarea class="resizable_textarea form-control" -->
+												<!-- 													id="descripcion" name="descripcion" maxlength="150" -->
+												<!-- 													required="required"> -->
+												<!-- 													</textarea> -->
+
+												<textarea class="form-control" rows="3"
+													placeholder="Descripciï¿½n" id="descripcion"
+													name="descripcion" maxlength="150"></textarea>
+
+
+												<div id="contador">
+													<span id="cantidadCaracteres">0</span>/150
+												</div>
+
 											</div>
 										</div>
 
@@ -415,7 +229,98 @@ if (!permiso) {
 											</div>
 
 											<div class="x_content">
-												<iframe width="100%" height="500px" src="eclise.jsp"></iframe>
+												<div class="row">
+													<div class="col-md-12 col-md-12">
+														<div class="x_panel">
+															<div class="x_content">
+																<div>
+																	<div class="field item form-group">
+																		<label class="col-form-label  label-align">Cuenta:
+																		</label>
+																		<div class="col-md-3 col-sm-3">
+																			<%
+																			ArrayList<Vw_catalogo_tipo_cuentacontable> listaCC = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
+																			listaCC = dtcc.listaCuentasContables();
+																			%>
+																			<select class="js-example-basic-single"
+																				name="cbxCC" id="cbxCC" required="required">
+																				<option value="" disabled selected>Seleccione...</option>
+																				<%
+																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
+																				%>
+																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>/<%=cc.getsC()%>/<%=cc.getSsC()%>/<%=cc.getSssC()%>
+																					--
+																					<%=cc.getNombreCuenta()%></option>
+																				<%
+																				}
+																				%>
+																			</select>
+																		</div>
+																	</div>
+																	<div class="row">
+																		<div>
+																			<label
+																				class="col-form-label col-md-3 col-sm-12  label-align">Debe:
+																			</label>
+																			<div class="col-md-6 col-sm-12">
+																				<input type="number" class="form-control"
+																					style="background: blue; color: white" name="debe"
+																					value="0" min="0" id="debe">
+																			</div>
+																		</div>
+																	</div>
+
+																	<div class="row">
+																		<div>
+																			<label
+																				class="col-form-label col-md-3 col-sm-3  label-align">Haber:
+																			</label>
+																			<div class="col-md-6 col-sm-6">
+																				<input type="number" class="form-control"
+																					style="background: red; color: white" name="haber"
+																					value="0" min="0" id="haber">
+																			</div>
+																		</div>
+																	</div>
+
+																	<a id="agregardet" class="btn btn-success"
+																		style="color: white"> Agregar </a>
+																		<a id="vaciardet" class="btn btn-warning" style="color: black">Vaciar</a>
+																</div>
+																<div class="row">
+																	<div class="col-md-12">
+																		<div class="card-box table-responsive">
+																			<div class="text-muted font-13 col-md-12"
+																				style="text-align: right;"></div>
+																			<table
+																				class="table table-striped jambo_table bulk_action"
+																				style="width: 100%" id="tbldet">
+																				<thead>
+																					<tr>
+																						<th>Opciï¿½n</th>
+																						<th>ID Cuenta</th>
+																						<th>Cuenta</th>
+																						<th>Debe</th>
+																						<th>Haber</th>
+																					</tr>
+																				</thead>
+																				
+																				<tbody>
+
+																				</tbody>
+
+																			</table>
+																		</div>
+																	</div>
+																	<div class="alert" role="alert" id="divTotal" style="background:lightgreen; width:100%">
+																			<p style="color:black;text-align: center; font-size: 25px">Saldo: <span id="total" style="color:black">0</span></p>	
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
 
 											<div class="ln_solid">
@@ -504,5 +409,156 @@ if (!permiso) {
 	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<script src="../vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
+
+
+<script>
+	var counter = 100000;  
+	var dateContainer = document.getElementById("fecha_hora_sistem");
+	var today = new Date();
+	dateContainer.innerHTML = "Fecha del sistema: " + today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear() + "<br><br>";
+	var temp = dateContainer.innerHTML;
+	
+	function refreshHour(){
+		var todayTime = new Date();
+		var time = "";
+		var newFormat = (todayTime.getHours()) >= 12 ? 'PM' : 'AM';
+		
+		dateContainer.innerHTML = "";
+		if(counter > 0){
+			counter--; 
+			time = "Hora del sistema: " + (todayTime.getHours() < 12 ? "0" + todayTime.getHours() : todayTime.getHours() - 12) + ":" + (todayTime.getMinutes() < 10 ? "0" + todayTime.getMinutes() : todayTime.getMinutes()) + ":" + (todayTime.getSeconds() < 10 ? "0" + todayTime.getSeconds() : todayTime.getSeconds()) +" "+  newFormat;
+			dateContainer.innerHTML = temp + time; 
+			setTimeout(refreshHour, 1000);
+		}else {
+			counter = 100000; 
+			setTimeout(refreshHour, 1000);
+		};
+	};
+	
+	refreshHour();
+</script>
+
+<script>	
+
+//Inicio select2
+$(document).ready(function() {
+	$('.js-example-basic-single').select2();
+});
+//Cierre Select2
+		var saldo = 0;
+		var debe = 0;
+		var haber = 0;
+		
+        $("#agregardet").click(function(){
+        	if(!$.isNumeric($("#debe").val())
+					|| !$.isNumeric($("#haber").val()) 
+						|| $("#cbxCC option:checked").val() == 0){
+        		$.toast({
+        		    text: "Datos invï¿½lidos", // Text that is to be shown in the toast
+        		    
+        		    icon: 'warning', // Type of toast icon
+        		    showHideTransition: 'plain', // fade, slide or plain
+        		    allowToastClose: false, // Boolean value true or false
+        		    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+        		    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+        		    position: 'mid-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+        		    
+        		    
+        		    
+        		    textAlign: 'left',  // Text alignment i.e. left, right or center
+        		    loader: true,  // Whether to show loader or not. True by default
+        		    loaderBg: '#9EC600',  // Background color of the toast loader
+        		    beforeShow: function () {}, // will be triggered before the toast is shown
+        		    afterShown: function () {}, // will be triggered after the toat has been shown
+        		    beforeHide: function () {}, // will be triggered before the toast gets hidden
+        		    afterHidden: function () {}  // will be triggered after the toast has been hidden
+        		});
+        	}else{
+            $("#tbldet tbody").append("<tr>" + 
+                "<td>" + '<input type="button" id="btnBorrarDetalle" value="Borrar" />' + "</td>" +
+                "<td>" + '<input type="text" class="form-control col-sm-3" value='+$("#cbxCC").val()+' readOnly>' + "</td>" + 
+                "<td>" + '<input type="text" class="form-control col-sm-6" value='+$('#cbxCC option:selected').text()+' readOnly>' + "</td>" + 
+                "<td id='tddebe'>" + '<input type="text" class="form-control col-sm-6" value='+$('#debe').val()+' readOnly>' + "</td>" + 
+                "<td id='tdhaber'>" + '<input type="text" class="form-control col-sm-6" value='+$('#haber').val()+' readOnly>'  + "</td>" 
+                + "</tr>");    
+            
+            debe = parseFloat($("#debe").val());
+            haber = parseFloat($("#haber").val());
+            saldo = saldo + (debe - haber);
+            
+            $("#debe").val(0);
+            $("#haber").val(0);
+            
+            if(saldo == 0){
+            	$("#divTotal").css({"background": "lightgreen"});
+            }else if(saldo > 0){
+            	$("#divTotal").css({"background": "lightblue"});
+            }else if(saldo < 0){
+            	$("#divTotal").css({"background": "pink"});
+            }
+        	}
+            $("#total").text(saldo);
+			
+            var tableBody = document.getElementById("tbldet");
+			var cantDetalles = document.getElementById("detalles");
+			var columns = 5; 
+			var columnsName = ["idCuenta", "cuenta", "debe", "haber"];
+			var rows = tableBody.childNodes[3].childNodes.length - 1;
+
+			
+			for(var x = 1; x < columns; x++){
+				for(var y = 0; y < rows; y++){
+					tableBody.childNodes[3].childNodes[y+1].childNodes[x].firstElementChild.setAttribute('name', columnsName[x-1] + y);
+				}
+			};
+			
+			cantDetalles.value = rows;
+			console.log(tableBody.childNodes[3]);
+			console.log("Filas" + rows);
+        });
+        $("#tbldet").on('click', '#btnBorrarDetalle', function(){
+        	var currentRow=$(this).closest("tr");
+        	debe = parseFloat(currentRow.find("#tddebe").children().val());
+        	haber = parseFloat(currentRow.find("#tdhaber").children().val());
+            $(this).parent().parent().remove();
+            saldo = saldo - debe + haber;
+            $("#total").text(saldo);
+            if(saldo == 0){
+            	$("#divTotal").css({"background": "lightgreen"});
+            }else if(saldo > 0){
+            	$("#divTotal").css({"background": "lightblue"});
+            }else if(saldo < 0){
+            	$("#divTotal").css({"background": "pink"});
+            }
+        });
+        
+        $("#vaciardet").click(function(){
+        	saldo = 0;
+            $("#tbldet tbody tr").remove();
+            $("#total").text(saldo);
+            if(saldo == 0){
+            	$("#divTotal").css({"background": "lightgreen"});
+            }
+        });
+        
+        $(window).on('load', function() {
+			$('#eclise').contents().find('#example2-insert').click(function() {
+				alert($('asientoJSON').val());
+			});
+		});
+        
+        const mensaje = document.getElementById('descripcion');
+		const contador = document.getElementById('cantidadCaracteres');
+
+		mensaje.addEventListener('input', function(e) {
+			const target = e.target;
+			const longitudMax = target.getAttribute('maxlength');
+			const longitudAct = target.value.length;
+			contador.innerHTML = longitudAct;
+			});
+ </script>
+ <script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@
 	//DECLARACIONES
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	Dt_empresa empresa = new Dt_empresa();
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 	boolean permiso = false; //VARIABLE DE CONTROL
 	
@@ -50,7 +51,9 @@
 <%
 	//Setting company configurations
 	if(request.getParameter("idE") != null){
-		Vw_empresa.empresaActual = Integer.parseInt(request.getParameter("idE"));
+		if(!empresa.getTableEmpresaByIdLogin(Integer.parseInt(request.getParameter("idE")))){
+			response.sendRedirect("indexMultiempresa.jsp?idEm=1");
+		}
 	}
 %>
 

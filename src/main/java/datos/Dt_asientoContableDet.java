@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import entidades.Tbl_asientoContableDet;
 import entidades.Vw_asientoContableDet;
 
 public class Dt_asientoContableDet {
@@ -42,6 +43,7 @@ public class Dt_asientoContableDet {
 				asientoContableDET.setIdAsientoContableDet(rs.getInt("idAsientoContableDet"));
 				asientoContableDET.setIdCuenta(this.rs.getInt("idCuenta"));
 				asientoContableDET.setNumeroCuenta(this.rs.getString("numeroCuenta"));
+				asientoContableDET.setNombreCuenta(rs.getString("nombreCuenta"));
 				asientoContableDET.setSC(this.rs.getString("SC"));
 				asientoContableDET.setSsC(this.rs.getString("SsC"));
 				asientoContableDET.setSssC(this.rs.getString("SssC"));
@@ -81,4 +83,86 @@ public class Dt_asientoContableDet {
 		
 		return listasientocontableDet;
 	}
+	
+	public boolean guardarAsientoContableDet(Tbl_asientoContableDet tacd)
+	{
+		boolean guardado = false;
+		
+		try {
+			
+			c = poolConexion.getConnection();
+			this.llenaRsAsientoContableDet(c);
+			rsasientocontableDet.moveToInsertRow();
+			rsasientocontableDet.updateInt("idAsientoContable", tacd.getIdAsientoContable() );
+			rsasientocontableDet.updateInt("idCuenta", tacd.getIdCuenta());
+			rsasientocontableDet.updateDouble("debe", tacd.getDebe());
+			rsasientocontableDet.updateDouble("haber", tacd.getHaber());
+			rsasientocontableDet.insertRow();
+			rsasientocontableDet.moveToCurrentRow();
+			
+			guardado = true;
+			
+		} catch (Exception e) {
+			System.err.println("ERROR AL guardar AsientoContableDet() "+e.getMessage());
+			e.printStackTrace();
+		}finally {
+			try {
+				if (rsasientocontableDet != null) {
+					rsasientocontableDet.close();
+				}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return  guardado;
+	}
+	
+	public boolean EliminarAContableDetPorId(int idEliminar)
+	{
+			boolean borrado = false;
+			
+			try {
+				
+				c = poolConexion.getConnection();
+				this.ps = this.c.prepareStatement("DELETE FROM dbucash.asientocontabledet WHERE idAsientoContableDet = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				this.ps.setInt(1, idEliminar);
+				int result = this.ps.executeUpdate();
+
+				if (result > 0) {
+					borrado = true;
+				}
+				
+			} catch (Exception e) {
+				
+				System.err.println("ERROR AL BORRAR Asiento Contable Detalle POR ID: " + e.getMessage());
+				e.printStackTrace();
+			}
+			finally {
+				
+				try {
+					
+					if (rsasientocontableDet != null) {
+						
+						rsasientocontableDet.close();
+						
+					}
+					if (c != null) {
+						
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				
+			}
+		
+			return borrado;
+			
+		}
 }
