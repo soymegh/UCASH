@@ -19,7 +19,7 @@
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
+	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
 		int index = request.getRequestURL().lastIndexOf("/");
