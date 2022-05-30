@@ -107,7 +107,20 @@ public class Sl_moneda extends HttpServlet {
 				}
 			
 			break;
+		case 4:
+			int idMoneda = 0; 
 
+			if(request.getParameter("combobox_moneda") != null) {
+				idMoneda = Integer.parseInt(request.getParameter("combobox_moneda"));
+				if(dtm.getMonedaByIDLogin(idMoneda)) {
+					response.sendRedirect("production/index.jsp");
+					System.out.print("Este es el id de la moneda" + Tbl_moneda.idMonedaActual);
+				}
+			}else {
+				//Por hacer
+			};	
+
+			break;
 		default:
 			break;
 		}

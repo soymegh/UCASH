@@ -115,7 +115,7 @@ public class Sl_periodoContable extends HttpServlet {
 			int idPeriodoContable = Integer.parseInt(request.getParameter("combobox_periodoContable"));
 			try {
 				if(dpc.obtenerPContablePorIdLogin(idPeriodoContable)) {
-					response.sendRedirect("production/index.jsp");
+					response.sendRedirect("production/indexMoneda.jsp");
 				}
 			}catch(Exception e) {
 				e.printStackTrace();
