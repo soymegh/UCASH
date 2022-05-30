@@ -14,6 +14,7 @@ public class Tbl_moneda {
 	private int usuarioEliminacion;
 	private Date fechaEliminacion;
 	private int estado;
+	public static int idMonedaActual; 
 	
 	public Tbl_moneda() {}
 
