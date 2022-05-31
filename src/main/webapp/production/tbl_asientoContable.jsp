@@ -4,6 +4,13 @@
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_periodoContable, java.util.*;"%>
 
 <%
+
+//Placeholder para el mensaje
+String codigoMensaje = "";
+
+if (request.getParameter("msj") != null)
+	codigoMensaje = request.getParameter("msj");
+
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -84,12 +91,17 @@ if (!permiso) {
 <link
 	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
 	rel="stylesheet">
+	
+<!--Jquery Toast Plugin -->
+<link href="../vendors/jquery-toast-plugin/jquery.toast.min.css"
+	rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
+<input type="hidden" id="idMensaje" value="<%=codigoMensaje %>" />
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="navegacion.jsp"></jsp:include>
@@ -275,5 +287,104 @@ if (!permiso) {
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	<script src="../vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
+	
+	<script>
+		// Toasts y alertas
+		$("document").ready(function(){
+			var codigoMensaje = $("#idMensaje").val();
+			
+			switch (codigoMensaje) {
+				case "3":
+					$.toast({
+					    text: "Asiento contable editado con éxito",
+					    heading: 'Éxito', 
+					    icon: 'success',
+					    showHideTransition: 'slide',
+					    allowToastClose: false, 
+					    hideAfter: 5000, 
+					    stack: 5,
+					    position: 'top-center', 
+					    textAlign: 'left',  
+					    loader: true,  
+					    loaderBg: '#9EC600',
+					});
+					break;
+					
+				case "4":
+					$.toast({
+					    text: "No se actualizaron los detalles del asiento contable", // Text that is to be shown in the toast
+					    heading: 'Advertencia', // Optional heading to be shown on the toast
+					    icon: 'warning', // Type of toast icon
+					    showHideTransition: 'slide', // fade, slide or plain
+					    allowToastClose: false, // Boolean value true or false
+					    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+					    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+					    position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+					    
+					    textAlign: 'left',  // Text alignment i.e. left, right or center
+					    loader: true,  // Whether to show loader or not. True by default
+					    loaderBg: '#9EC600',  // Background color of the toast loader
+					    
+					});
+					break;
+					
+				case "5":
+					$.toast({
+					    text: "No se pudo actualizar el asiento contable", // Text that is to be shown in the toast
+					    heading: 'Error', // Optional heading to be shown on the toast
+					    icon: 'error', // Type of toast icon
+					    showHideTransition: 'slide', // fade, slide or plain
+					    allowToastClose: false, // Boolean value true or false
+					    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+					    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+					    position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+					    
+					    textAlign: 'left',  // Text alignment i.e. left, right or center
+					    loader: true,  // Whether to show loader or not. True by default
+					    loaderBg: '#9EC600',  // Background color of the toast loader
+					});
+					break;
+					
+				case "7":
+					$.toast({
+					    text: "Asiento contable borrado exitosamente", // Text that is to be shown in the toast
+					    heading: 'Éxito', // Optional heading to be shown on the toast
+					    icon: 'success', // Type of toast icon
+					    showHideTransition: 'slide', // fade, slide or plain
+					    allowToastClose: false, // Boolean value true or false
+					    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+					    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+					    position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+					    
+					    textAlign: 'left',  // Text alignment i.e. left, right or center
+					    loader: true,  // Whether to show loader or not. True by default
+					    loaderBg: '#9EC600',  // Background color of the toast loader
+					});
+					break;
+					
+				case "8":
+					$.toast({
+					    text: "Ocurrió un error al borrar el asiento contable", // Text that is to be shown in the toast
+					    heading: 'Error', // Optional heading to be shown on the toast
+					    icon: 'error', // Type of toast icon
+					    showHideTransition: 'slide', // fade, slide or plain
+					    allowToastClose: false, // Boolean value true or false
+					    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+					    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+					    position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+					    
+					    textAlign: 'left',  // Text alignment i.e. left, right or center
+					    loader: true,  // Whether to show loader or not. True by default
+					    loaderBg: '#9EC600',  // Background color of the toast loader
+					});
+					break;
+					
+				default:
+					break;
+			}
+		});
+	</script>
+	
 </body>
 </html>

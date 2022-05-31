@@ -7,6 +7,13 @@
 	datos.Dt_asientoContableDet, java.sql.Timestamp, java.util.*;"%>
 
 <%
+
+// Placeholder para el mensaje
+String codigoMensaje = "";
+
+if (request.getParameter("msj") != null)
+	codigoMensaje = request.getParameter("msj");
+
 //Obteniendo fecha y hora actual del sistema 
 
 //INVALIDA LA CACHE DEL NAVEGADOR //
@@ -141,6 +148,8 @@ if (!permiso) {
 								<div class="x_content">
 									<form class="" action="../Sl_asientoContable" method="post"
 										novalidate>
+										<input type="hidden" id="idMensaje" value="<%=codigoMensaje %>" />
+										
 										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
 											class="section"></span> <input type="hidden" value="0"
 											name="detalles" id="detalles" /> <input type="hidden"
@@ -424,7 +433,53 @@ if (!permiso) {
 	<script src="../build/js/custom.min.js"></script>
 
 	<script src="../vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
-
+	
+	<script>
+	
+		// Toasts y alertas
+		$("document").ready(function(){
+			var codigoMensaje = $("#idMensaje").val();
+			
+			switch (codigoMensaje) {
+				case "1":
+					$.toast({
+					    text: "Asiento contable agregado correctamente", 
+					    heading: 'Éxito', 
+					    icon: 'success', 
+					    showHideTransition: 'slide', 
+					    allowToastClose: false, 
+					    hideAfter: 3000, 
+					    stack: 5, 
+					    position: 'top-center', 
+					    textAlign: 'left',  
+					    loader: true,  
+					    loaderBg: '#9EC600',
+					});
+					break;
+					
+				case "2":
+					$.toast({
+					    text: "No se pudieron guardar los detalles del asiento contable", // Text that is to be shown in the toast
+					    heading: 'Advertencia', // Optional heading to be shown on the toast
+					    icon: 'warning', // Type of toast icon
+					    showHideTransition: 'slide', // fade, slide or plain
+					    allowToastClose: false, // Boolean value true or false
+					    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+					    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+					    position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+					    
+					    textAlign: 'left',  // Text alignment i.e. left, right or center
+					    loader: true,  // Whether to show loader or not. True by default
+					    loaderBg: '#9EC600',  // Background color of the toast loader
+					});
+					break;
+					
+				default:	
+					break;
+			}
+		});
+		
+	</script>
 
 	<script>
 		var counter = 100000;

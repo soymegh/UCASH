@@ -89,9 +89,10 @@ public class Sl_asientoContable extends HttpServlet {
 						
 						dtscd.guardarAsientoContableDet(asientoContableDet);
 					}
-					
+					// Mensaje de guardado con éxito
 					response.sendRedirect("production/addAsientoContable.jsp?msj=1");
 				} else {
+					// Mensaje de guardado el asiento contable sin los detalles
 					response.sendRedirect("production/addAsientoContable.jsp?msj=2");
 				}
 			} catch (Exception e) {
@@ -164,11 +165,14 @@ public class Sl_asientoContable extends HttpServlet {
 					
 					
 					if(detalleEdit) {
+						// Mensaje de asiento editado correctamente
 					response.sendRedirect("production/tbl_asientoContable.jsp?msj=3");
 					}else {
+						// Maestro editado correctamente excepto detalles
 						response.sendRedirect("production/tbl_asientoContable.jsp?msj=4");
 					}
 				} else {
+					// Error al editar asiento contable - maestro
 					response.sendRedirect("production/tbl_asientoContable.jsp?msj=5");
 				}
 			} catch (Exception e) {
@@ -180,8 +184,10 @@ public class Sl_asientoContable extends HttpServlet {
 			int idBorrar = Integer.parseInt(request.getParameter("idAContableEliminar"));
 			try {
 				if (dtsc.EliminarAContablePorId(idBorrar)) {
+					// Asiento contable borrado exitosamente
 					response.sendRedirect("production/tbl_asientoContable.jsp?msj=7");
 				} else {
+					// Error al borrar asiento contable
 					response.sendRedirect("production/tbl_asientoContable.jsp?msj=8");
 				}
 			} catch (Exception e) {
