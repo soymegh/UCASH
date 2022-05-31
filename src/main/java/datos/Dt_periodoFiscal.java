@@ -180,7 +180,7 @@ public class Dt_periodoFiscal {
 		try 
 		{
 			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodofiscal WHERE estado <> 3 AND idPeriodoFiscal = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodofiscal WHERE idPeriodoFiscal = ?;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			this.ps.setInt(1, id);
 			this.rs = this.ps.executeQuery();
 			

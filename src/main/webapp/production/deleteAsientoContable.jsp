@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol,
+	pageEncoding="ISO-8859-1"
+	import="entidades.Vw_usuariorol,
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
@@ -130,7 +131,7 @@ if (!permiso) {
 										novalidate>
 										<span class="section"></span> <input type="hidden" value="3"
 											name="opcion" id="opcion" /> <input type="hidden"
-											value="<%= tpacont.getIdAsientoContable() %>"
+											value="<%=tpacont.getIdAsientoContable()%>"
 											name="idAContableEliminar" id="idPContableEliminar" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
@@ -191,16 +192,11 @@ if (!permiso) {
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align"
-												for="descripcion">Descripci�n<span class="required">*</span></label>
+												for="descripcion">Concepto<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 
-												<!-- 											<textarea class="resizable_textarea form-control" -->
-												<!-- 													id="descripcion" name="descripcion" maxlength="150" -->
-												<!-- 													required="required"> -->
-												<!-- 													</textarea> -->
-
 												<textarea class="form-control" rows="3"
-													placeholder="Descripci�n" id="descripcion"
+													placeholder="Concepto" id="descripcion"
 													name="descripcion" maxlength="150" disabled="disabled"><%=tpacont.getDescripcion()%></textarea>
 
 
@@ -247,7 +243,7 @@ if (!permiso) {
 
 																					<td><%=ac.getIdAsientoContableDet()%></td>
 																					<td><%=ac.getNumeroCuenta()%>/<%=ac.getSC()%>
-																						/<%=ac.getSsC()%>/<%=ac.getSssC()%> -- <%=ac.getNombreCuenta() %></td>
+																						/<%=ac.getSsC()%>/<%=ac.getSssC()%> -- <%=ac.getNombreCuenta()%></td>
 																					<td><%=ac.getDebe()%></td>
 																					<td><%=ac.getHaber()%></td>
 																				</tr>
@@ -267,7 +263,7 @@ if (!permiso) {
 																	style="width: 100%">
 																	<p
 																		style="color: black; text-align: center; font-size: 25px">
-																		Saldo: <span id="total" style="color: black"><%=total %>
+																		Saldo: <span id="total" style="color: black"><%=total%>
 																		</span>
 																	</p>
 																</div>
@@ -295,16 +291,18 @@ if (!permiso) {
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<!-- /page content -->
+	<!-- /page content -->
 
-			<script
-				src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-			<script src="../vendors/validator/multifield.js"></script>
-			<script src="../vendors/validator/validator.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../vendors/validator/multifield.js"></script>
+	<script src="../vendors/validator/validator.js"></script>
 
-			<!-- Javascript functions	-->
-			<script>
+	<!-- Javascript functions	-->
+	<script>
 		function hideshow() {
 			var password = document.getElementById("password1");
 			var slash = document.getElementById("slash");
@@ -323,7 +321,7 @@ if (!permiso) {
 		}
 	</script>
 
-			<script>
+	<script>
         ///SOLO ESTE VALOR NO LO PUEDO PONER DE OTRA MANERA
         function setVals() {
             		$("#cbxIDPC").val("<%=tpacont.getIdPeriodoContable()%>");
@@ -331,104 +329,114 @@ if (!permiso) {
 					$("#cbxIDE").val("<%=tpacont.getIdEmpresa()%>");
 					$("#cbxIDM").val("<%=tpacont.getIdMoneda()%>");
 					$("#cbxIDTCD").val("<%=tpacont.getIdTasaCambioDet()%>");
-				}
+		}
 
-				$(document).ready(function() {
-					////CARGAMOS LOS VALORES EN LOS CONTROLES 
-					setVals();
-				});
-			</script>
+		$(document).ready(function() {
+			////CARGAMOS LOS VALORES EN LOS CONTROLES 
+			setVals();
+		});
+	</script>
 
-			<!-- jQuery -->
-			<script src="../vendors/jquery/dist/jquery.min.js"></script>
-			<!-- Bootstrap -->
-			<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-			<!-- FastClick -->
-			<script src="../vendors/fastclick/lib/fastclick.js"></script>
-			<!-- NProgress -->
-			<script src="../vendors/nprogress/nprogress.js"></script>
-			<!-- bootstrap-progressbar -->
-			<script
-				src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-			<!-- iCheck -->
-			<script src="../vendors/iCheck/icheck.min.js"></script>
-			<!-- bootstrap-daterangepicker -->
-			<script src="../vendors/moment/min/moment.min.js"></script>
-			<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-			<!-- bootstrap-wysiwyg -->
-			<script
-				src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-			<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-			<script src="../vendors/google-code-prettify/src/prettify.js"></script>
-			<!-- jQuery Tags Input -->
-			<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-			<!-- Switchery -->
-			<script src="../vendors/switchery/dist/switchery.min.js"></script>
-			<!-- Select2 -->
-			<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-			<!-- Parsley -->
-			<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-			<!-- Autosize -->
-			<script src="../vendors/autosize/dist/autosize.min.js"></script>
-			<!-- jQuery autocomplete -->
-			<script
-				src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-			<!-- starrr -->
-			<script src="../vendors/starrr/dist/starrr.js"></script>
-			<!-- iCheck -->
-			<script src="../vendors/iCheck/icheck.min.js"></script>
-			<!-- Datatables -->
-			<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-			<script
-				src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-			<script
-				src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-			<script
-				src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-			<script
-				src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-			<script
-				src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-			<script
-				src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-			<script
-				src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-			<script src="../vendors/jszip/dist/jszip.min.js"></script>
-			<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-			<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-			<!-- Custom Theme Scripts -->
-			<script src="../build/js/custom.min.js"></script>
+	<!-- jQuery -->
+	<script src="../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="../vendors/jszip/dist/jszip.min.js"></script>
+	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../build/js/custom.min.js"></script>
 
-			<script>
-			$('document').ready(function(){	
-				
-				document.getElementById('cantidadCaracteres').innerHTML = document.getElementById('descripcion').value.length;
-				
-				const mensaje = document.getElementById('descripcion');
-				const contador = document.getElementById('cantidadCaracteres');
-				const saldo = <%=total%>;
-				if(saldo == 0){
-	            	$("#divTotal").css({"background": "lightgreen"});
-	            }else if(saldo > 0){
-	            	$("#divTotal").css({"background": "lightblue"});
-	            }else if(saldo < 0){
-	            	$("#divTotal").css({"background": "pink"});
-	            }
-				mensaje.addEventListener('input', function(e) {
-					const target = e.target;
-					const longitudMax = target.getAttribute('maxlength');
-					const longitudAct = target.value.length;
-					contador.innerHTML = longitudAct;
-				});
-			});
-			</script>
+	<script>
+		$('document')
+				.ready(
+						function() {
+
+							document.getElementById('cantidadCaracteres').innerHTML = document
+									.getElementById('descripcion').value.length;
+
+							const mensaje = document
+									.getElementById('descripcion');
+							const contador = document
+									.getElementById('cantidadCaracteres');
+							const saldo =
+	<%=total%>
+		;
+							if (saldo == 0) {
+								$("#divTotal").css({
+									"background" : "lightgreen"
+								});
+							} else if (saldo > 0) {
+								$("#divTotal").css({
+									"background" : "lightblue"
+								});
+							} else if (saldo < 0) {
+								$("#divTotal").css({
+									"background" : "pink"
+								});
+							}
+							mensaje.addEventListener('input', function(e) {
+								const target = e.target;
+								const longitudMax = target
+										.getAttribute('maxlength');
+								const longitudAct = target.value.length;
+								contador.innerHTML = longitudAct;
+							});
+						});
+	</script>
 </body>
 </html>

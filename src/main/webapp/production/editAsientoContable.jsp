@@ -60,11 +60,11 @@ tpacont = dtac.obtenerAContablePorId(idac);
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -215,16 +215,11 @@ tpacont = dtac.obtenerAContablePorId(idac);
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align"
-												for="descripcion">Descripci�n<span class="required">*</span></label>
+												for="descripcion">Concepto<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 
-												<!-- 											<textarea class="resizable_textarea form-control" -->
-												<!-- 													id="descripcion" name="descripcion" maxlength="150" -->
-												<!-- 													required="required"> -->
-												<!-- 													</textarea> -->
-
 												<textarea class="form-control" rows="3"
-													placeholder="Descripci�n" id="descripcion"
+													placeholder="Concepto" id="descripcion"
 													name="descripcion" maxlength="150"><%=tpacont.getDescripcion()%></textarea>
 
 
@@ -247,7 +242,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 													<div class="col-md-12 col-md-12">
 														<div class="x_panel">
 															<div class="x_content">
-																<div>
+																<div class="row">
 																	<div class="field item form-group">
 																		<label class="col-form-label  label-align">Cuenta:
 																		</label>
@@ -257,8 +252,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
 																			listaCC = dtcc.listaCuentasContables();
 																			%>
-																			<select class="js-example-basic-single"
-																				name="cbxCC" id="cbxCC" required="required" >
+																			<select class="js-example-basic-single" name="cbxCC"
+																				id="cbxCC" required="required">
 																				<option value="" disabled selected>Seleccione...</option>
 																				<%
 																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
@@ -272,7 +267,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			</select>
 																		</div>
 																	</div>
-																	<div class="row">
+																	<div class="row float-center">
 																		<div>
 																			<label
 																				class="col-form-label col-md-3 col-sm-12  label-align">Debe:
@@ -285,7 +280,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																		</div>
 																	</div>
 
-																	<div class="row">
+																	<div class="row float-right">
 																		<div>
 																			<label
 																				class="col-form-label col-md-3 col-sm-3  label-align">Haber:
@@ -298,9 +293,13 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																		</div>
 																	</div>
 
-																	<a id="agregardet" class="btn btn-success"
+																</div>
+																
+																<div class="row">
+																	<a tabindex="0" id="agregardet" class="btn btn-success col"
 																		style="color: black"> Agregar </a>
 																</div>
+																
 																<div class="row">
 																	<div class="col-md-12">
 																		<div class="card-box table-responsive">
@@ -319,7 +318,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																				%>
 																				<thead>
 																					<tr>
-																						<th>Opci�n</th>
+																						<th>Opción</th>
 																						<th>ID Cuenta</th>
 																						<th>Cuenta</th>
 																						<th>Debe</th>
@@ -506,7 +505,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
-	<script src="../vendors/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+	<script src="../vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
 
 <script>
 	var counter = 100000;  
