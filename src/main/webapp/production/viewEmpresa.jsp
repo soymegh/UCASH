@@ -4,7 +4,7 @@
 	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones , 
 	 
 	 java.util.ArrayList;"%>
-<%
+<%-- <%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -48,7 +48,7 @@
 		return;
 	}
 	
-%>
+%> --%>
 <!DOCTYPE html>
 <html lang="es">
 <%
