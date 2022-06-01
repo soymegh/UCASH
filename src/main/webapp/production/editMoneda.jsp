@@ -2,48 +2,59 @@
 	pageEncoding="ISO-8859-1"
 	import="entidades.Tbl_moneda, entidades.Vw_usuariorol, entidades.Vw_rolopciones, datos.Dt_moneda, datos.Dt_rolOpciones, java.util.*;"%>
 
-<%
-//INVALIDA LA CACHE DEL NAVEGADOR //
-response.setHeader("Pragma", "no-cache");
-response.setHeader("Cache-Control", "no-store");
-response.setDateHeader("Expires", 0);
-response.setDateHeader("Expires", -1);
-
-//DECLARACIONES
-Vw_usuariorol vwur = new Vw_usuariorol();
-Dt_rolOpciones dtro = new Dt_rolOpciones();
-ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-boolean permiso = false; //VARIABLE DE CONTROL
-
-//OBTENEMOS LA SESION
-vwur = (Vw_usuariorol) session.getAttribute("acceso");
-if (vwur != null) {
-	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-
-	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-
-	//RECUPERAMOS LA URL = MI OPCION ACTUAL
-	int index = request.getRequestURL().lastIndexOf("/");
-	String miPagina = request.getRequestURL().substring(index + 1);
-
-	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-	for (Vw_rolopciones vrop : listOpc) {
-		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
-	permiso = true; //ACCESO CONCEDIDO
-	break;
+    <% //JAlert flag     
+String signal = "";      
+if(request.getParameter("msj") != null){
+	signal = request.getParameter("msj");
+	}
+%>
+    
+  <%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	int currentUsuario;
+	
+	//OBTENEMOS LA SESION
+	currentUsuario = vwur.getId_user();
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
 		}
 	}
-} else {
-	response.sendRedirect("../login.jsp?msj=401");
-	return;
-}
-
-if (!permiso) {
-	response.sendRedirect("../login.jsp?msj=403");
-	//response.sendRedirect("page_403.jsp");
-	return;
-}
-%>
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%> 
 
 <!DOCTYPE html>
 <html>
@@ -77,12 +88,14 @@ tm = dtm.getMonedaByID(Integer.parseInt(mon));
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="navegacion.jsp"></jsp:include>
+			</div>
 
 			<!-- page content -->
 			<div class="right_col" role="main">
@@ -116,9 +129,10 @@ tm = dtm.getMonedaByID(Integer.parseInt(mon));
 
 								<div class="x_content">
 									<form class="" action="../Sl_moneda" method="post" novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
-											type="hidden" value="<%=tm.getIdMoneda()%>" name="IdMoneda"
-											id="IdMoneda" /> <span class="section">Datos de Moneda</span>
+										<input type="hidden" value="2" name="opcion" id="opcion" /> 
+										<input type="hidden" value="<%=tm.getIdMoneda()%>" name="IdMoneda"id="IdMoneda" /> 
+										<%-- <input type="hidden" value="<%=currentUsuario%>" name="usuario" id="usuario"/> --%>
+										<span class="section">Datos de Moneda</span>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span
@@ -166,7 +180,6 @@ tm = dtm.getMonedaByID(Integer.parseInt(mon));
 			</footer>
 			<!-- /footer content -->
 		</div>
-	</div>
 
 
 	<script
@@ -213,6 +226,9 @@ tm = dtm.getMonedaByID(Integer.parseInt(mon));
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
 
 </body>
 </html>

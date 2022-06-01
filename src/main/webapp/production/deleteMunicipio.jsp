@@ -1,48 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 	
-<%
-//INVALIDA LA CACHE DEL NAVEGADOR //
-response.setHeader("Pragma", "no-cache");
-response.setHeader("Cache-Control", "no-store");
-response.setDateHeader("Expires", 0);
-response.setDateHeader("Expires", -1);
-
-//DECLARACIONES
-Vw_usuariorol vwur = new Vw_usuariorol();
-Dt_rolOpciones dtro = new Dt_rolOpciones();
-ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-boolean permiso = false; //VARIABLE DE CONTROL
-
-//OBTENEMOS LA SESION
-vwur = (Vw_usuariorol) session.getAttribute("acceso");
-if (vwur != null) {
-	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-
-	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-
-	//RECUPERAMOS LA URL = MI OPCION ACTUAL
-	int index = request.getRequestURL().lastIndexOf("/");
-	String miPagina = request.getRequestURL().substring(index + 1);
-
-	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-	for (Vw_rolopciones vrop : listOpc) {
-		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
-	permiso = true; //ACCESO CONCEDIDO
-	break;
+	<% //JAlert flag     
+String signal = "";      
+if(request.getParameter("msj") != null){
+	signal = request.getParameter("msj");
+	}
+%>
+	
+<%-- 	 <%
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
 		}
 	}
-} else {
-	response.sendRedirect("../login.jsp?msj=401");
-	return;
-}
-
-if (!permiso) {
-	response.sendRedirect("../login.jsp?msj=403");
-	//response.sendRedirect("page_403.jsp");
-	return;
-}
-%>
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%> --%>
 	
 <!DOCTYPE html>
 <html>
@@ -67,7 +76,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ver | Municipio</title>
+<title>Eliminar | Municipio</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -100,12 +109,14 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="navegacion.jsp"></jsp:include>
+			</div>
 
 			<!-- page content -->
 			<div class="right_col" role="main">
@@ -133,7 +144,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Formulario <small>Mostrar Municipio</small>
+										Formulario <small>Eliminar Municipio</small>
 									</h2>
 
 									<div class="clearfix"></div>
@@ -194,7 +205,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 			</footer>
 			<!-- /footer content -->
 		</div>
-	</div>
+	
 
 
 	<script
@@ -236,6 +247,9 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
 
 </body>
 
