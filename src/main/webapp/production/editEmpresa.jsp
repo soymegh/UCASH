@@ -36,7 +36,7 @@ int currentUsuario;
 		}
 		window.onload = setForm;
 	</script>
-<%-- <%
+<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -80,7 +80,7 @@ int currentUsuario;
 		return;
 	}
 	
-%> --%>
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
