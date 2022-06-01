@@ -51,7 +51,8 @@ public class Sl_moneda extends HttpServlet {
 		case 1:
 			moneda.setNombre(request.getParameter("txtnombre"));
 			moneda.setSimbolo(request.getParameter("txtsimbolo"));
-			moneda.setUsuarioCreacion(1);
+			moneda.setUsuarioCreacion(40);
+			//moneda.setUsuarioCreacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaCreacion(date);
 			moneda.setEstado(1);
 				try {
@@ -72,7 +73,8 @@ public class Sl_moneda extends HttpServlet {
 			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
 			moneda.setNombre(request.getParameter("txtnombre"));
 			moneda.setSimbolo(request.getParameter("txtsimbolo"));
-			moneda.setUsuarioModificacion(1);
+			moneda.setUsuarioModificacion(40);
+			//moneda.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaModificacion(date);
 			moneda.setEstado(2);
 				try {
@@ -89,9 +91,10 @@ public class Sl_moneda extends HttpServlet {
 			
 			break;
 			
-		case 3:
 			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
-			moneda.setUsuarioEliminacion(1);
+		case 3:
+			moneda.setUsuarioEliminacion(40);
+			//moneda.setUsuarioEliminacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaEliminacion(date);
 			moneda.setEstado(3);
 				try {
@@ -108,8 +111,6 @@ public class Sl_moneda extends HttpServlet {
 			
 			break;
 		case 4:
-			int idMoneda = 0; 
-
 			if(request.getParameter("combobox_moneda") != null && request.getParameter("combobox_moneda").matches("[0-9]")) {
 				idMoneda = Integer.parseInt(request.getParameter("combobox_moneda"));
 				if(dtm.getMonedaByIDLogin(idMoneda)) {
