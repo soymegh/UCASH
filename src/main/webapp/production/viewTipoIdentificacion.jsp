@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 	
-	<%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
+
+<%
+
+
+
+//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
 	response.setDateHeader( "Expires", 0 );
@@ -43,11 +47,9 @@
 		response.sendRedirect("../login.jsp?msj=403");
 		//response.sendRedirect("page_403.jsp");
 		return;
-	}
+	}	
 	
-%>
-	
-	
+%>	
 	
 	
 	
@@ -108,7 +110,7 @@ tipI = dtTId.getTipoIdentificacionbyID(Integer.parseInt(TipIde));
 	<div class="container body">
 		<div class="main_container">
 			<!-- sidebar menu -->
-					<jsp:include page="navegacion.jsp"></jsp:include>
+			<jsp:include page="navegacion.jsp"></jsp:include>		
 					<!-- /sidebar menu -->
 
 			<!-- top navigation -->

@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 	
-	<%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
+<%
+
+//JAlert flag
+String signal = "";
+if (request.getParameter("msj") != null) {
+	signal = request.getParameter("msj");
+}
+
+//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
 	response.setDateHeader( "Expires", 0 );
@@ -43,7 +50,7 @@
 		response.sendRedirect("../login.jsp?msj=403");
 		//response.sendRedirect("page_403.jsp");
 		return;
-	}
+	}	
 	
 %>
 
@@ -58,6 +65,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Gestión | Representante Legal</title>
+
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -87,8 +96,8 @@
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<jsp:include page="navegacion.jsp"></jsp:include>
-
+			
+<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- top navigation -->
 			
 			<!-- /top navigation -->
@@ -126,6 +135,9 @@
 														Nuevo Representante Legal
 													</a> <br></br>
 												</div>
+												
+												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
+												
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
@@ -242,6 +254,71 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+
+<!-- jAlert -->
+	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
+
+	<script>
+		var mensaje = "";
+		mensaje = document.getElementById("JAlertInput").value;
+		console.log(mensaje);
+
+		$(document)
+				.ready(
+						function() {
+							if (mensaje == "3") {
+								successAlert('Exito',
+										'Representante Legal ha sido registrado correctamente.')
+								console.log(mensaje);
+
+							}
+
+							if (mensaje == "4") {
+								errorAlert('Error',
+										'Representante legal no se ha podido guardar. Por favor verifique los datos')
+							}
+
+							if (mensaje == "5") {
+								successAlert('Exito',
+										'Los datos de representante legal se han editado correctamente.')
+							}
+
+							if (mensaje == "6") {
+								errorAlert('Error',
+										'Los datos de representante legal no se han editado correctamente.')
+							}
+							
+							if (mensaje == "7") {
+								successAlert('Exito',
+										'Los datos de representante legal se han eliminado correctamente.')
+							}
+
+							if (mensaje == "8") {
+								errorAlert('Error',
+										'Los datos de representante legal no se han eliminado correctamente.')
+							}
+							
+
+							$("#example1").DataTable({
+								"responsive" : true,
+								"lengthChange" : false,
+								"autoWidth" : false,
+								"buttons" : [ "excel", "pdf" ]
+							}).buttons().container().appendTo(
+									'#example1_wrapper .col-md-6:eq(0)');
+							/*$('#example2').DataTable({
+							    "paging": true,
+							    "lengthChange": false,
+							    "searching": false,
+							    "ordering": true,
+							    "info": true,
+							    "autoWidth": false,
+							    "responsive": true,
+							});*/
+						});
+	</script>
 
 </body>
 </html>

@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
-	
-	<%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
+
+<%
+
+
+
+//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
 	response.setDateHeader( "Expires", 0 );
@@ -43,9 +46,10 @@
 		response.sendRedirect("../login.jsp?msj=403");
 		//response.sendRedirect("page_403.jsp");
 		return;
-	}
+	}	
 	
-%>
+%>	
+	
 
 <!DOCTYPE html>
 <html>
@@ -57,6 +61,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Agregar | Representante Legal</title>
+
+
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -95,9 +101,9 @@
 	<div class="container body">
 		<div class="main_container">
 			
-
+   <jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- top navigation -->
-			<jsp:include page="navegacion.jsp"></jsp:include>
+			
 			<!-- /top navigation -->
 
 
@@ -307,6 +313,8 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	
 
 </body>
 <!-- footer content -->
