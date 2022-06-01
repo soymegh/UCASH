@@ -1,99 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptCuentaContable" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6cc43617-a196-481c-a812-04a65afd00b9">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
-	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="479"/>
-	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptIndCuentaContable" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7c35f83-434c-4223-ba04-a1e2f542535b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DBUCASH"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<queryString>
-		<![CDATA[SELECT * FROM vw_catalogo_tipo_cuentacontable]]>
+		<![CDATA[SELECT * FROM vw_cuentacontabledet_js ORDER BY idCuenta]]>
 	</queryString>
 	<field name="idCuenta" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="idCuenta"/>
 		<property name="com.jaspersoft.studio.field.label" value="idCuenta"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
 	<field name="numeroCuenta" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="numeroCuenta"/>
 		<property name="com.jaspersoft.studio.field.label" value="numeroCuenta"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
 	<field name="SC" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="SC"/>
 		<property name="com.jaspersoft.studio.field.label" value="SC"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
 	<field name="SsC" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="SsC"/>
 		<property name="com.jaspersoft.studio.field.label" value="SsC"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
 	<field name="SssC" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="SssC"/>
 		<property name="com.jaspersoft.studio.field.label" value="SssC"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
 	<field name="nombreCuenta" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="nombreCuenta"/>
 		<property name="com.jaspersoft.studio.field.label" value="nombreCuenta"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
-	<field name="nivel" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="nivel"/>
-		<property name="com.jaspersoft.studio.field.label" value="nivel"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+	<field name="saldoInicial" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="saldoInicial"/>
+		<property name="com.jaspersoft.studio.field.label" value="saldoInicial"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
-	<field name="rubro" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="rubro"/>
-		<property name="com.jaspersoft.studio.field.label" value="rubro"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+	<field name="debe" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="debe"/>
+		<property name="com.jaspersoft.studio.field.label" value="debe"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
-	<field name="tipoCuenta" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="tipoCuenta"/>
-		<property name="com.jaspersoft.studio.field.label" value="tipoCuenta"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+	<field name="haber" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="haber"/>
+		<property name="com.jaspersoft.studio.field.label" value="haber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
-	<field name="titulo" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="titulo"/>
-		<property name="com.jaspersoft.studio.field.label" value="titulo"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
-	</field>
-	<field name="estado" class="java.lang.Integer">
-		<property name="com.jaspersoft.studio.field.name" value="estado"/>
-		<property name="com.jaspersoft.studio.field.label" value="estado"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="vw_catalogo_tipo_cuentacontable"/>
+	<field name="saldoFinal" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="saldoFinal"/>
+		<property name="com.jaspersoft.studio.field.label" value="saldoFinal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_cuentacontabledet_js"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="99" splitType="Stretch">
+		<band height="98" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="80" height="79" uuid="8cc1cd8b-33c1-4098-bb80-60fb8db0d5d9"/>
+				<imageExpression><![CDATA["C:/payara5/glassfish/foto_empresa.jpg"]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement x="114" y="14" width="396" height="15" uuid="fba74c8f-11ab-411b-93ca-19bd2aaace8c"/>
+				<reportElement x="114" y="14" width="396" height="15" uuid="48f77a7b-6fbe-43b8-a28f-3f9ffbc1bc1e"/>
 				<text><![CDATA[Torres Ortega CIA. LTDA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="40" width="230" height="30" uuid="ee4dac1e-5251-4eca-a3c3-6d619efbfb8f"/>
+				<reportElement x="160" y="40" width="230" height="30" uuid="39d2e88f-a05b-42f8-b33b-2f135f0b5337"/>
 				<text><![CDATA[REPORTE DE LISTA DE CUENTAS CONTABLES]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="0" width="80" height="80" uuid="910da9df-5a20-48b8-975d-61b4f9a65064"/>
-				<imageExpression><![CDATA["C:/payara5/glassfish/foto_empresa.jpg"]]></imageExpression>
-			</image>
+			<textField textAdjust="StretchHeight" pattern="dd/mm/yyyy h:mm a">
+				<reportElement x="460" y="14" width="100" height="30" uuid="8a64f3f9-b380-4e9a-a680-550d354ef8b5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="14" width="100" height="30" uuid="22410e47-1a0d-412d-bc5b-5060d936ef7b"/>
+				<text><![CDATA[Fecha y hora:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="0" width="571" height="1" uuid="9d9a895d-59bd-4d63-be00-4fbbfd522c05"/>
+				<reportElement x="-20" y="0" width="612" height="1" uuid="2f08cf44-c04e-4589-ada6-610cb7558a84"/>
 			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="0" y="0" width="52" height="30" uuid="4c3adc57-dba6-437d-9360-96b4c1ec68e1">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9755acda-800f-47d4-a956-4a6420236dd8"/>
+				<reportElement x="0" y="0" width="52" height="30" uuid="f56ee362-7ba2-4edc-a630-b646ba74f302">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bea8e688-1a50-44a5-b293-5ef3ea1209f7"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -105,8 +106,8 @@
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="52" y="0" width="37" height="30" uuid="3f97caee-fb8a-4bb9-a4ac-25afb4512403">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3119d866-840d-4f8d-9bd2-9ecb7fe16c57"/>
+				<reportElement x="52" y="0" width="38" height="30" uuid="c2a4df36-5011-4262-b53d-9d377165c1c5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="42b8698e-2dd5-4a8c-b06b-fb590b5d95a4"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -118,8 +119,8 @@
 				<text><![CDATA[Cuenta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="89" y="0" width="40" height="30" uuid="9e77d099-07a3-46d6-96bd-3258f9d2b054">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1beb52f1-3ae2-47ef-bbb4-4a8ee6d1b1bf"/>
+				<reportElement x="90" y="0" width="40" height="30" uuid="425bdc50-81d2-448e-b88f-db3feb3ed664">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32b43d05-6b14-4690-8fd7-32bc939b75ee"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -131,8 +132,8 @@
 				<text><![CDATA[SC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="129" y="0" width="41" height="30" uuid="55a7d1f2-68be-47ad-aa23-be1fe90794b4">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d969ca02-3c6a-4f1b-933d-13eb187a8e67"/>
+				<reportElement x="130" y="0" width="40" height="30" uuid="2d33de8b-1c05-4eac-9328-07b50a702928">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="493a0a05-e048-44e5-9473-96c5f5f734ee"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -141,11 +142,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[SsC]]></text>
+				<text><![CDATA[SSC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="170" y="0" width="40" height="30" uuid="406ebb07-635c-4302-b75d-94fad0e229b2">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e4d7abf-86a5-44db-9c25-f7355e002ed5"/>
+				<reportElement x="170" y="0" width="38" height="30" uuid="3df3bb30-eda8-4a43-b89e-7498fe33c594">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3330940d-ee25-451e-81e8-9ff9564dbfba"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -154,11 +155,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[SssC]]></text>
+				<text><![CDATA[SSSC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="210" y="0" width="80" height="30" uuid="4186431c-d678-4aa3-803e-7f6c384b001e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e8bca29-48b4-40f2-b1bf-b75a2d932ff6"/>
+				<reportElement x="208" y="0" width="104" height="30" uuid="ff88431b-0533-4142-8557-31e4799fcce7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc37f348-1b1d-499f-ac85-9c51e3420ecf"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -170,8 +171,8 @@
 				<text><![CDATA[Concepto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="290" y="0" width="50" height="30" uuid="ea3ea54f-77b1-46f4-859b-7205a797f41a">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79af6aad-7c0d-4c09-996c-6f076cea3a2f"/>
+				<reportElement x="312" y="0" width="68" height="30" uuid="77102a6e-dc35-4db2-a958-476c321a49b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d697dce-abe8-4251-ae00-4631d9f740ae"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -180,11 +181,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Nivel]]></text>
+				<text><![CDATA[Saldo Inicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="340" y="0" width="60" height="30" uuid="98a011dc-0530-46a6-a551-219ca23c448b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="759745fd-7f21-4b28-9d74-6a5d4596c0f5"/>
+				<reportElement x="380" y="0" width="60" height="30" uuid="521a52c3-c543-4fe9-aecd-2d710536550f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13c7b224-1a0e-4808-a562-4ff4b64c7e57"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -193,11 +194,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Rubro]]></text>
+				<text><![CDATA[Debe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="400" y="0" width="80" height="30" uuid="d6f8a7b9-def5-4a5d-84c3-afc741ac64e0">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17905fec-9c1e-4493-b87d-7d18f0651e90"/>
+				<reportElement x="440" y="0" width="62" height="30" uuid="45ce92aa-9984-4d65-9500-31ad0eeabfa1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2a30170-4c5f-4e8c-8ff8-0202ebfbf182"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -206,11 +207,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Tipo de Cuenta]]></text>
+				<text><![CDATA[Haber]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="ContainerHeight" x="480" y="0" width="91" height="30" uuid="8b7b1f45-ba60-4dc9-8273-98eec4cf8506">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5083cb57-7abf-415d-80bb-32f558730e77"/>
+				<reportElement x="502" y="0" width="70" height="30" uuid="ee1e09bd-139e-42b8-a30c-4a0c65760b31">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6de23aed-932d-4a7a-959b-4e7956ff13cb"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -219,15 +220,15 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Título de Cuenta]]></text>
+				<text><![CDATA[Saldo Final]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="0" y="0" width="52" height="30" uuid="6b7e6c0c-fdcd-4053-b3a2-86c595bb1d08">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9755acda-800f-47d4-a956-4a6420236dd8"/>
+				<reportElement x="0" y="0" width="52" height="30" uuid="2ee6011c-421d-4bae-801d-8edccbb9acec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bea8e688-1a50-44a5-b293-5ef3ea1209f7"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -239,8 +240,8 @@
 				<textFieldExpression><![CDATA[$F{idCuenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="52" y="0" width="37" height="30" uuid="b829fae1-d7c9-4b43-98f7-5665fca95f7b">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3119d866-840d-4f8d-9bd2-9ecb7fe16c57"/>
+				<reportElement x="52" y="0" width="38" height="30" uuid="dbe0f961-adf8-4bec-9a06-80958d66f6db">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="42b8698e-2dd5-4a8c-b06b-fb590b5d95a4"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -252,8 +253,8 @@
 				<textFieldExpression><![CDATA[$F{numeroCuenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="89" y="0" width="40" height="30" uuid="e97f2ef8-aedf-4c52-95ed-8c06f2d08e7c">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1beb52f1-3ae2-47ef-bbb4-4a8ee6d1b1bf"/>
+				<reportElement x="90" y="0" width="40" height="30" uuid="a6df274b-ea05-4d52-b862-c6c4406b59c9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="32b43d05-6b14-4690-8fd7-32bc939b75ee"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -265,8 +266,8 @@
 				<textFieldExpression><![CDATA[$F{SC}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="129" y="0" width="41" height="30" uuid="78e0c13e-5398-4665-8238-7eb673c58446">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d969ca02-3c6a-4f1b-933d-13eb187a8e67"/>
+				<reportElement x="130" y="0" width="40" height="30" uuid="53abac67-3763-410a-9dfa-fe16d43b48a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="493a0a05-e048-44e5-9473-96c5f5f734ee"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -278,8 +279,8 @@
 				<textFieldExpression><![CDATA[$F{SsC}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="170" y="0" width="40" height="30" uuid="9633772e-22cb-45ca-abb7-4b7566588b94">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e4d7abf-86a5-44db-9c25-f7355e002ed5"/>
+				<reportElement x="170" y="0" width="38" height="30" uuid="eaf2d054-4669-41ce-91a3-db1d3ad06304">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3330940d-ee25-451e-81e8-9ff9564dbfba"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -291,8 +292,8 @@
 				<textFieldExpression><![CDATA[$F{SssC}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="210" y="0" width="80" height="30" uuid="f49b0986-2155-4cf6-9ad4-324a2d10400e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4e8bca29-48b4-40f2-b1bf-b75a2d932ff6"/>
+				<reportElement x="208" y="0" width="104" height="30" uuid="a406f298-2052-468a-9cfe-995253cd9e20">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc37f348-1b1d-499f-ac85-9c51e3420ecf"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -304,8 +305,8 @@
 				<textFieldExpression><![CDATA[$F{nombreCuenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="290" y="0" width="50" height="30" uuid="b12bc3d5-2c52-4264-b69c-d492aa94be9e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="79af6aad-7c0d-4c09-996c-6f076cea3a2f"/>
+				<reportElement x="312" y="0" width="68" height="30" uuid="0b6287de-54c7-43cf-9be4-1c3e05315f5d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d697dce-abe8-4251-ae00-4631d9f740ae"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -314,11 +315,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{nivel}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{saldoInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="340" y="0" width="60" height="30" uuid="1442ca77-5eec-434f-97aa-5e5fd6a4b77e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="759745fd-7f21-4b28-9d74-6a5d4596c0f5"/>
+				<reportElement x="380" y="0" width="60" height="30" uuid="e50baf74-51f0-4961-b91a-685a91ec2bdc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13c7b224-1a0e-4808-a562-4ff4b64c7e57"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -327,11 +328,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{rubro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{debe}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="400" y="0" width="80" height="30" uuid="a3e71ce8-13c0-4648-b5bf-22777473aeea">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17905fec-9c1e-4493-b87d-7d18f0651e90"/>
+				<reportElement x="440" y="0" width="62" height="30" uuid="ed9ec48e-d2bd-4f00-9b2e-e93664bb4203">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2a30170-4c5f-4e8c-8ff8-0202ebfbf182"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -340,11 +341,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{tipoCuenta}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{haber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="ContainerHeight" x="480" y="0" width="91" height="30" uuid="0a3ff8f1-5ac0-4920-9d39-3c72a73e7aba">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5083cb57-7abf-415d-80bb-32f558730e77"/>
+				<reportElement x="502" y="0" width="70" height="30" uuid="cf142525-6d01-421f-bb74-f58638aa789a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6de23aed-932d-4a7a-959b-4e7956ff13cb"/>
 				</reportElement>
 				<box>
 					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -353,20 +354,11 @@
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{saldoFinal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="64" splitType="Stretch">
-			<textField textAdjust="StretchHeight" pattern="dd/mm/yyyy h:mm a">
-				<reportElement x="110" y="30" width="100" height="30" uuid="1b664774-09f2-41fc-8a69-a95a2f5a8b22"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="0" y="30" width="100" height="30" uuid="c55c2e95-ce14-4a6f-843e-9033bff6813d"/>
-				<text><![CDATA[Fecha y hora:]]></text>
-			</staticText>
-		</band>
+		<band height="60" splitType="Stretch"/>
 	</pageFooter>
 </jasperReport>
