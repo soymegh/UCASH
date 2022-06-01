@@ -12,7 +12,7 @@ String signal = "";
 if (request.getParameter("msj") != null) {
 	signal = request.getParameter("msj");
 }
-%><%-- 
+%>
 <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
@@ -55,7 +55,7 @@ if (!permiso) {
 	return;
 }
 %>
- --%>
+
 <!DOCTYPE html>
 <html>
 <head>

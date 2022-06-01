@@ -6,7 +6,7 @@
 	 
 	 java.util.ArrayList;"%>
 
-<%-- <%
+<%
 //JAlert flag
 
 //INVALIDA LA CACHE DEL NAVEGADOR //
@@ -50,7 +50,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%>
 
 
 
