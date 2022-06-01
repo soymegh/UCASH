@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	
+	<% //JAlert flag     
+String signal = "";      
+if(request.getParameter("msj") != null){
+	signal = request.getParameter("msj");
+	}
+%>
 
-<%
+<%-- <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -38,11 +45,11 @@ if (vwur != null) {
 }
 
 if (!permiso) {
-	response.sendRedirect("../login.jsp?msj=403");
-	//response.sendRedirect("page_403.jsp");
+	// response.sendRedirect("../login.jsp?msj=401");
+	response.sendRedirect("page_403.jsp");
 	return;
 }
-%>
+%> --%>
 
 <!DOCTYPE html>
 <html>
@@ -96,12 +103,14 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="navegacion.jsp"></jsp:include>
+			</div>
 
 			<!-- page content -->
 			<div class="right_col" role="main">
@@ -184,7 +193,7 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 			</footer>
 			<!-- /footer content -->
 		</div>
-	</div>
+	
 
 
 	<script
@@ -249,6 +258,9 @@ td = dtdp.getDeptbyID(Integer.parseInt(dept));
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
 
 </body>
 
