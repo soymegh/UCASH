@@ -149,57 +149,6 @@ public class Dt_cuentaContable {
 		return cc;
 	}
 	
-	public ArrayList<Vw_catalogo_tipo_cuentacontable> getCuentaContableByIdEmpresa(int idEmpresa) {
-		ArrayList<Vw_catalogo_tipo_cuentacontable> listCuentaContable = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
-		try {
-			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_catalogo_tipo_cuentacontable WHERE idEmpresa =?", 
-					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ps.setInt(1, idEmpresa);
-			rs = ps.executeQuery();
-			
-			while(this.rs.next()) {
-				Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
-				cc.setIdCuenta(this.rs.getInt("idCuenta"));
-				cc.setNumeroCuenta(this.rs.getString("numeroCuenta"));
-				cc.setsC(this.rs.getString("SC"));
-				cc.setSsC(this.rs.getString("SsC"));
-				cc.setSssC(this.rs.getString("SssC"));
-				cc.setNombreCuenta(this.rs.getString("nombreCuenta"));
-				cc.setNivel(this.rs.getInt("nivel"));
-				cc.setRubro(this.rs.getInt("rubro"));
-				cc.setTipoCuenta(this.rs.getString("tipoCuenta"));
-				cc.setCatalogoCuenta(this.rs.getString("titulo"));
-				cc.setEstado(this.rs.getInt("estado"));
-				listCuentaContable.add(cc);
-			}
-			
-		} catch(Exception e) {
-			System.out.println("DATOS: ERROR EN VER CUENTAS CONTABLES "+ e.getMessage());
-			e.printStackTrace();
-		}
-		finally 
-		{
-		try {
-			if (this.rs != null) {
-				this.rs.close();
-			}
-				if (this.ps != null) {
-				this.ps.close();
-			}
-
-			if (this.c != null) {
-				poolConexion.closeConnection(this.c);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
-		
-		return listCuentaContable;
-	}
-	
 	public int idCuentaContable() {
 	    int idCC = 0;
 	    
