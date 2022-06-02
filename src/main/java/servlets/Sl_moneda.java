@@ -106,10 +106,15 @@ public class Sl_moneda extends HttpServlet {
 					response.sendRedirect("production/tbl_moneda.jsp?msj=5");
 				} else {
 					response.sendRedirect("production/tbl_moneda.jsp?msj=6");
-				}
+				} 
+			}catch (Exception e) {
+				System.out.println("ERROR Sl_moneda opc3: " + e.getMessage());
+				e.printStackTrace();
+			}
 			
 			break;
 		case 4:
+			int idMoneda = 0;
 			if(request.getParameter("combobox_moneda") != null && request.getParameter("combobox_moneda").matches("[0-9]")) {
 				idMoneda = Integer.parseInt(request.getParameter("combobox_moneda"));
 				if(dtm.getMonedaByIDLogin(idMoneda)) {
@@ -124,6 +129,6 @@ public class Sl_moneda extends HttpServlet {
 		default:
 			break;
 		}
+	
 	}
-
 }
