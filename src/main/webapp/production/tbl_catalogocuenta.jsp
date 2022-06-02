@@ -187,14 +187,13 @@
 															<td><%=catalogocuenta.getDescripcion()%></td>
 															<td><a
 																href="viewCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
-																target="blank"> <i class="fa fa-eye" title="Mostrar"></i>
+																target=""> <i class="fa fa-eye" title="Mostrar"></i>
 															</a> &nbsp; <a
 																href="editCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
-																target="blank"> <i class="fa fa-edit" title="Editar"></i></a>
+																target=""> <i class="fa fa-edit" title="Editar"></i></a>
 																&nbsp; <a
 																href="deleteCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
-																target="blank"> <i class="fa fa-trash"
-																	title="Eliminar"></i>
+																target=""> <i class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%
