@@ -16,100 +16,105 @@ import entidades.Tbl_moneda;
 @WebServlet("/Sl_moneda")
 public class Sl_moneda extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Sl_moneda() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Sl_moneda() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		int opc = 0;
 		opc = Integer.parseInt(request.getParameter("opcion"));
-		
+
 		Tbl_moneda moneda = new Tbl_moneda();
 		Dt_moneda dtm = new Dt_moneda();
-		
-		//funcion para rescatar fecha actual
+
+		// funcion para rescatar fecha actual
 		long millis = System.currentTimeMillis();
 		java.sql.Date date = new java.sql.Date(millis);
 		switch (opc) {
 		case 1:
 			moneda.setNombre(request.getParameter("txtnombre"));
 			moneda.setSimbolo(request.getParameter("txtsimbolo"));
-			moneda.setUsuarioCreacion(1);
+			// moneda.setUsuarioCreacion(40);
+			moneda.setUsuarioCreacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaCreacion(date);
 			moneda.setEstado(1);
-				try {
-						if(dtm.addMoneda(moneda)) {
-							response.sendRedirect("production/tbl_moneda.jsp?msj=1");
-						} else {
-							response.sendRedirect("production/tbl_moneda.jsp?msj=2");
-						}
-					
-				} catch (Exception e) {
-					System.out.println("ERROR Sl_moneda opc1: "+e.getMessage());
-					e.printStackTrace();
+			try {
+				if (dtm.addMoneda(moneda)) {
+					response.sendRedirect("production/tbl_moneda.jsp?msj=1");
+				} else {
+					response.sendRedirect("production/tbl_moneda.jsp?msj=2");
 				}
-			
+
+			} catch (Exception e) {
+				System.out.println("ERROR Sl_moneda opc1: " + e.getMessage());
+				e.printStackTrace();
+			}
+
 			break;
-			
+
 		case 2:
 			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
 			moneda.setNombre(request.getParameter("txtnombre"));
 			moneda.setSimbolo(request.getParameter("txtsimbolo"));
-			moneda.setUsuarioModificacion(1);
+			// moneda.setUsuarioModificacion(40);
+			 moneda.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaModificacion(date);
 			moneda.setEstado(2);
-				try {
-						if(dtm.modificarMoneda(moneda)) {
-							response.sendRedirect("production/tbl_moneda.jsp?msj=3");
-						} else {
-							response.sendRedirect("production/tbl_moneda.jsp?msj=4");
-						}
-					
-				} catch (Exception e) {
-					System.out.println("ERROR Sl_moneda opc2: "+e.getMessage());
-					e.printStackTrace();
+			try {
+				if (dtm.modificarMoneda(moneda)) {
+					response.sendRedirect("production/tbl_moneda.jsp?msj=3");
+				} else {
+					response.sendRedirect("production/tbl_moneda.jsp?msj=4");
 				}
-			
+
+			} catch (Exception e) {
+				System.out.println("ERROR Sl_moneda opc2: " + e.getMessage());
+				e.printStackTrace();
+			}
+
 			break;
-			
+
 		case 3:
 			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
-			moneda.setUsuarioEliminacion(1);
+			// moneda.setUsuarioEliminacion(40);
+			moneda.setUsuarioEliminacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaEliminacion(date);
 			moneda.setEstado(3);
-				try {
-						if(dtm.eliminarMoneda(moneda)) {
-							response.sendRedirect("production/tbl_moneda.jsp?msj=5");
-						} else {
-							response.sendRedirect("production/tbl_moneda.jsp?msj=6");
-						}
-					
-				} catch (Exception e) {
-					System.out.println("ERROR Sl_moneda opc3: "+e.getMessage());
-					e.printStackTrace();
-				}
+			try {
+				if (dtm.eliminarMoneda(moneda)) {
+					response.sendRedirect("production/tbl_moneda.jsp?msj=5");
+				} else {
+					response.sendRedirect("production/tbl_moneda.jsp?msj=6");
+				} 
+			}catch (Exception e) {
+				System.out.println("ERROR Sl_moneda opc3: " + e.getMessage());
+				e.printStackTrace();
+			}
 			
 			break;
 		case 4:
-			int idMoneda = 0; 
-
+			int idMoneda = 0;
 			if(request.getParameter("combobox_moneda") != null && request.getParameter("combobox_moneda").matches("[0-9]")) {
 				idMoneda = Integer.parseInt(request.getParameter("combobox_moneda"));
 				if(dtm.getMonedaByIDLogin(idMoneda)) {
@@ -124,6 +129,6 @@ public class Sl_moneda extends HttpServlet {
 		default:
 			break;
 		}
+	
 	}
-
 }
