@@ -77,6 +77,50 @@ public class Dt_usuario {
 
 		return listUser;
 	}
+	
+	public ArrayList<Tbl_usuario> listaUserInactivos() {
+		ArrayList<Tbl_usuario> listUser = new ArrayList<Tbl_usuario>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.usuario WHERE estado = 3;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Tbl_usuario user = new Tbl_usuario();
+				user.setIdUsuario(rs.getInt("idUsuario"));
+				user.setUsuario(rs.getString("usuario"));
+				user.setPwd(rs.getString("password"));
+				user.setNombre(rs.getString("nombre"));
+				user.setApellidos(rs.getString("apellido"));
+				user.setEmail(rs.getString("email"));
+				user.setEstado(rs.getInt("estado"));
+				listUser.add(user);
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR USUARIOS " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return listUser;
+	}
 
 	public int addUsuario(Tbl_usuario User) {
 		int guardado = 0;
@@ -160,6 +204,49 @@ public class Dt_usuario {
 		return user;
 	}
 	
+	
+	public Tbl_usuario ObtenerUsuarioPorIdInactivo(int id) {
+		Tbl_usuario user = new Tbl_usuario();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.usuario WHERE estado = 3 and idUsuario = ?;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				user.setIdUsuario(rs.getInt("idUsuario"));
+				user.setUsuario(rs.getString("usuario"));
+				user.setNombre(rs.getString("nombre"));
+				user.setApellidos(rs.getString("apellido"));
+				user.setEmail(rs.getString("email"));
+				user.setEstado(rs.getInt("estado"));
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR USUARIOS " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return user;
+	}
+	
 	// Metodo para modificar usuario
 		public boolean modificarUsuario(Tbl_usuario tus)
 		{
@@ -180,6 +267,50 @@ public class Dt_usuario {
 						rsUsuario.updateTimestamp("fechaModificacion", tus.getFechaModificacion());
 						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioModificacion());
 						rsUsuario.updateInt("estado", 2);
+						rsUsuario.updateRow();
+						modificado=true;
+						break;
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println("ERROR AL modificarUser() "+e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try {
+					if(rsUsuario != null){
+						rsUsuario.close();
+					}
+					if(c != null){
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return modificado;
+		}
+		
+		public boolean modificarUsuarioInactivo(Tbl_usuario tus)
+		{
+			boolean modificado=false;	
+			try
+			{
+				c = poolConexion.getConnection();
+				llenaRsUsuario(c);
+				rsUsuario.beforeFirst();
+				while (rsUsuario.next())
+				{
+					if(rsUsuario.getInt(1)==tus.getIdUsuario())
+					{
+						rsUsuario.updateTimestamp("fechaModificacion", tus.getFechaModificacion());
+						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioModificacion());
+						rsUsuario.updateInt("estado", 1);
 						rsUsuario.updateRow();
 						modificado=true;
 						break;

@@ -39,12 +39,12 @@ public class Dt_usuarioRol {
 		ArrayList<Vw_usuariorol> listUserRol = new ArrayList<Vw_usuariorol>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM vw_usuariorol; ",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_usuariorol; ",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = ps.executeQuery();
 			while(rs.next()) { 
 				Vw_usuariorol tblUserRol = new Vw_usuariorol();
 				tblUserRol.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
-				tblUserRol.setDescripcion(rs.getString("nombreRol"));
+				tblUserRol.setDescripcion(rs.getString("rol"));
 				tblUserRol.setNombre(rs.getString("nombre"));
 				tblUserRol.setApellido(rs.getString("apellido"));
 				tblUserRol.setUsuario(rs.getString("usuario"));
@@ -122,7 +122,7 @@ public class Dt_usuarioRol {
 
 			while (rs.next()) {
 				userRol.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
-				userRol.setDescripcion(rs.getString("nombreRol"));
+				userRol.setDescripcion(rs.getString("rol"));
 				userRol.setNombre(rs.getString("nombre"));
 				userRol.setApellido(rs.getString("apellido"));
 				userRol.setUsuario(rs.getString("usuario"));

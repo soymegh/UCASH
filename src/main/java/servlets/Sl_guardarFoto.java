@@ -99,7 +99,7 @@ public class Sl_guardarFoto extends HttpServlet {
 						
 						System.out.println("SERVIDOR: FOTO GUARDADA CON EXITO!!!");
 						/////// ACTUALIZAMOS EL CAMPO URLFOTO EN LA BASE DE DATOS
-						String url = "fotos_usuarios/"+rutaFichero;
+						String url = "fotos_usuarios\\"+rutaFichero;
 						
 						if(dtu.guardarFotoUser(Integer.parseInt(idusuario),url)){
 							response.sendRedirect("production/addUserFoto.jsp?idUsuario="+idusuario+"&msj=1");

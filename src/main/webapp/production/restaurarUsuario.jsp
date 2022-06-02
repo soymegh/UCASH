@@ -64,7 +64,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Usuarios</title>
+<title>Gestión | Usuarios Inactivos</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -132,7 +132,7 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Usuarios registrados</h2>
+									<h2>Usuarios Inactivos</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
 												class="fa fa-chevron-up"></i></a></li>
@@ -153,18 +153,6 @@
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-													<a href="addUsuario.jsp"> <i class="fa fa-plus-square"></i>
-														Nuevo Usuario
-													</a> <br></br>
-												</div>
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-													<a href="restaurarUsuario.jsp"> <i class="fa fa-plus-square"></i>
-														Restaurar Usuario
-													</a> <br></br>
-												</div>
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
@@ -172,7 +160,7 @@
 													<%
 													ArrayList<Tbl_usuario> listaUsuario = new ArrayList<Tbl_usuario>();
 													Dt_usuario dtu = new Dt_usuario();
-													listaUsuario = dtu.listaUserActivos();
+													listaUsuario = dtu.listaUserInactivos();
 													%>
 													<thead>
 														<tr>
@@ -201,13 +189,7 @@
 															<td><%=tu.getEmail()%></td>
 															<td><%=estado%></td>
 															<td>
-															<a href="editUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>">  <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; 
-															<a href="viewUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>"> <i class="fa fa-eye" title="Ver"></i></a> &nbsp;&nbsp; 
-															<a href="eliminarUsuario.jsp?idUsuario=<%=tu.getIdUsuario()%>"> <i class="fa fa-trash" title="Eliminar"></i></a>&nbsp;&nbsp; 
-															<a href="addUserFoto.jsp?idUsuario=<%=tu.getIdUsuario()%>"> <i class="fa fa-camera" title="Añadir Foto a usuario"></i></a>&nbsp;&nbsp; 
-															
-															
-															
+															<a href="restaurarUsuarioForm.jsp?idUsuario=<%=tu.getIdUsuario()%>">  <i class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp;
 															</td>
 														</tr>
 														<%
@@ -290,32 +272,13 @@
 			$(document).ready(function() {
 
                 if (mensaje == "1") {
-                    successAlert('Exito', 'El usuario ha sido registrado correctamente.')
+                    successAlert('Exito', 'El usuario ha sido restaurado correctamente.')
                 }
                 
                 if (mensaje == "2") {
-                	errorAlert('Error', 'Los datos de usuario no se han podido guardar.')
+                	errorAlert('Error', 'Los datos de usuario no se han podido restaurar.')
                 }
                 
-                if (mensaje == "3") {
-                	successAlert('Exito', 'Los datos de usuario se han editado correctamente.')
-                }
-                
-                if (mensaje == "4") {
-                	errorAlert('Error', 'Los datos de usuario no se han editado correctamente.')
-                }
-                
-                if (mensaje == "5") {
-                	successAlert('Exito', 'Los datos de usuario se han eliminado correctamente.')
-                }
-                
-                if (mensaje == "6") {
-                	errorAlert('Error', 'Los datos de usuario no se han eliminado correctamente.')
-                }
-                
-                if (mensaje == "7") {
-                	errorAlert('Error', 'El correo electronico, contraseña o usuario proporcionado no coincide o ya existe.')
-                }
 
                 $("#example1").DataTable({
                     "responsive": true,
