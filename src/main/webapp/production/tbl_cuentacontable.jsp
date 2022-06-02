@@ -379,12 +379,12 @@ if (!permiso) {
 
 							if (mensaje == "3") {
 								successAlert('Exito',
-										'Los cuenta contable de la empresa se han editado correctamente.')
+										'Los datos de la Cuenta Contable se han editado correctamente.')
 							}
 
 							if (mensaje == "4") {
 								errorAlert('Error',
-										'Los cuenta contable de la empresa no se han editado correctamente.')
+										'Los datos de la Cuenta Contable no se han editado correctamente.')
 							}
 
 							$("#example1").DataTable({

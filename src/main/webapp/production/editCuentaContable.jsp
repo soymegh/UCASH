@@ -13,9 +13,9 @@ Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
-Tbl_tipocuenta ttc = new Tbl_tipocuenta();
-Dt_tipocuenta dtTcc = new Dt_tipocuenta();
-ttc = dtTcc.getTableTipocuentaByID(Integer.parseInt(cc));
+Tbl_tipocuenta ctc = new Tbl_tipocuenta();
+Dt_tipocuenta dtCtc = new Dt_tipocuenta();
+ctc = dtCtc.getTableTipocuentaByID(Integer.parseInt(cc));
 
 
 Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
@@ -335,15 +335,18 @@ if (!permiso) {
 
 	<!-- Script cbx -->
 	
-	<script>
+	<script type="text/javascript">
 	
-	function setForm(){
-		
-		document.getElementById("cbxTipoCuenta").value = "<%=ttc.getIdTipoCuenta()%>";
-    	document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo()%>";
-    	
-		}
-	window.onload = setForm;
+	function fillTip(){
+		document.getElementById("cbxTipoCuenta").value = "<%=ctc.getIdTipoCuenta()%>";
+	};
+	
+	function fillCat(){
+		document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo()%>";
+	}
+	
+	window.onload = fillTip();
+	window.onload = fillCat();
 	
 	</script>
 
