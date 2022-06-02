@@ -191,10 +191,10 @@
 														
 															<td><a
 																href="viewTipocuenta.jsp?idTipoCuenta=<%=tipocuenta. getIdTipoCuenta()%>"
-																target="blank"> <i class="fa fa-eye" title="Mostrar"></i>
-															</a> &nbsp; <a href="editTipocuenta.jsp?idTipoCuenta=<%=tipocuenta. getIdTipoCuenta()%>" target="blank"> <i
+																> <i class="fa fa-eye" title="Mostrar"></i>
+															</a> &nbsp; <a href="editTipocuenta.jsp?idTipoCuenta=<%=tipocuenta. getIdTipoCuenta()%>"> <i
 																	class="fa fa-edit" title="Editar"></i></a> &nbsp; <a
-																href="deleteTipocuenta.jsp?idTipoCuenta=<%=tipocuenta.getIdTipoCuenta()%>" target="blank"> <i class="fa fa-trash"
+																href="deleteTipocuenta.jsp?idTipoCuenta=<%=tipocuenta.getIdTipoCuenta()%>" > <i class="fa fa-trash"
 																	title="Eliminar"></i>
 															</a></td>
 														</tr>
