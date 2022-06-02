@@ -13,14 +13,15 @@ Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
-Tbl_tipocuenta ctc = new Tbl_tipocuenta();
+Tbl_tipocuenta ttc = new Tbl_tipocuenta();
 Dt_tipocuenta dtCtc = new Dt_tipocuenta();
-ctc = dtCtc.getTableTipocuentaByID(Integer.parseInt(cc));
+ttc = dtCtc.getTableTipocuentaByID(Integer.parseInt(cc));
 
 
 Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
 Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
 cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
+
 
 Tbl_cuentaContable tCuentaContable = new Tbl_cuentaContable(); 
 int idCuentaContable = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
@@ -45,6 +46,20 @@ ccd = dtCcd.getCcdbyID(idCCD);
 
 vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
+
+<!-- Script cbx -->
+	
+	<script>
+	
+	function setForm(){
+		document.getElementById("cbxTipoCuenta").value = "<%=ttc.getIdTipoCuenta() %>";
+		document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo() %>";
+	}
+	
+	window.onload = setForm;
+	
+	</script>
+
 
 <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
@@ -209,7 +224,12 @@ if (!permiso) {
 													listaTc = dtTc.listaTipocuentaActivos();
 													%>
 
+<<<<<<< HEAD
 								                 <select id="cbxTipoCuenta" class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
+=======
+								                 <select class="form-control js-example-basic-single" 
+								                 name="TipoCuenta" id="cbxTipoCuenta" required="required" >
+>>>>>>> c337f1f477ff73cf776f9ff206ed0d3c780042f8
 												  <option value="">Seleccione...</option>
 													<%
 												  		for(Tbl_tipocuenta tc : listaTc){
@@ -225,7 +245,7 @@ if (!permiso) {
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta Contable:</label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta::</label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
@@ -235,9 +255,14 @@ if (!permiso) {
 													listaCat = dtCat.listarCatalogocuenta();
 													%>
 
+<<<<<<< HEAD
 								                 <select  id="cbxCatalogoCuenta" class="form-control js-example-basic-single" 
 								                 		 name="cbxCatalogoCuenta" required="required">
 												  <option value="">Seleccione...</option>
+=======
+								                 <select class="form-control js-example-basic-single" name="CatalogoCuenta" id="cbxCatalogoCuenta" required="required">
+												  <option value=""></option>
+>>>>>>> c337f1f477ff73cf776f9ff206ed0d3c780042f8
 												  	<%
 												  		for(Vw_catalogocuenta_empresa cat : listaCat){
 												  	%>
@@ -338,9 +363,8 @@ if (!permiso) {
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
-
-	<!-- Script cbx -->
 	
+<<<<<<< HEAD
 	<script>
     function setForm(){
 
@@ -350,6 +374,8 @@ if (!permiso) {
 		}
 		window.onload = setForm;
 	</script>
+=======
+>>>>>>> c337f1f477ff73cf776f9ff206ed0d3c780042f8
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
