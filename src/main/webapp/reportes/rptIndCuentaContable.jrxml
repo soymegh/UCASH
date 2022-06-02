@@ -64,7 +64,7 @@
 		<band height="98" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="80" height="79" uuid="8cc1cd8b-33c1-4098-bb80-60fb8db0d5d9"/>
-				<imageExpression><![CDATA["C:/payara5/glassfish/foto_empresa.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:/payara-5.2022.2/payara5/glassfish/logoEmpresa/logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="114" y="14" width="396" height="15" uuid="48f77a7b-6fbe-43b8-a28f-3f9ffbc1bc1e"/>
