@@ -248,6 +248,7 @@ public class Dt_periodoFiscal {
 			if (rs.next()) 
 			{
 				pfiscal.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				Tbl_periodoFiscal.idPeriodoFiscalActual = rs.getInt("idPeriodoFiscal");
 				//Fecha inicio\
 				//Se realiza este metodo para que no reste un dia
 				String fechaIniJsp = rs.getString("fechaInicio");

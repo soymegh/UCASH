@@ -126,7 +126,7 @@
 												  <% 
 												  	for(Tbl_rol trol :listRol){
 												  %>
-												  <option value="<%=trol.getIdRol()%>"><%=trol.getDescripcion()%></option>
+												  <option value="<%=trol.getIdRol()%>"><%=trol.getNombre()%></option>
 												  <%
 												  	}
 												  %>
