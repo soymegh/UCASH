@@ -207,7 +207,11 @@ if (!permiso) {
 															</a> &nbsp;&nbsp; <a
 																href="viewEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>">
 																	<i class="fa fa-eye" title="Ver empresa"></i>
-															</a> &nbsp;&nbsp;</td>
+															</a> &nbsp;&nbsp; <a
+																href="../Sl_rptEmpresa?idEmpresa=<%=empresa.getIdEmpresa()%>"
+																title="Imprimir Ficha del Usuario" target="_blank">
+																	<i class="fa fa-print"></i>
+															</a></td>
 														</tr>
 														<%
 														}

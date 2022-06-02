@@ -55,8 +55,8 @@ public class Sl_moneda extends HttpServlet {
 		case 1:
 			moneda.setNombre(request.getParameter("txtnombre"));
 			moneda.setSimbolo(request.getParameter("txtsimbolo"));
-			moneda.setUsuarioCreacion(40);
-			// moneda.setUsuarioCreacion(Integer.parseInt(request.getParameter("usuario")));
+			// moneda.setUsuarioCreacion(40);
+			moneda.setUsuarioCreacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaCreacion(date);
 			moneda.setEstado(1);
 			try {
@@ -77,8 +77,8 @@ public class Sl_moneda extends HttpServlet {
 			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
 			moneda.setNombre(request.getParameter("txtnombre"));
 			moneda.setSimbolo(request.getParameter("txtsimbolo"));
-			moneda.setUsuarioModificacion(40);
-			// moneda.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuario")));
+			// moneda.setUsuarioModificacion(40);
+			 moneda.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaModificacion(date);
 			moneda.setEstado(2);
 			try {
@@ -97,8 +97,8 @@ public class Sl_moneda extends HttpServlet {
 
 		case 3:
 			moneda.setIdMoneda(Integer.parseInt(request.getParameter("IdMoneda")));
-			moneda.setUsuarioEliminacion(40);
-			// moneda.setUsuarioEliminacion(Integer.parseInt(request.getParameter("usuario")));
+			// moneda.setUsuarioEliminacion(40);
+			moneda.setUsuarioEliminacion(Integer.parseInt(request.getParameter("usuario")));
 			moneda.setFechaEliminacion(date);
 			moneda.setEstado(3);
 			try {
