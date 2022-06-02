@@ -22,6 +22,12 @@ Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
 Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
 cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
 
+Tbl_cuentaContable tCuentaContable = new Tbl_cuentaContable(); 
+int idCuentaContable = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+Dt_cuentaContable cuentaContable = new Dt_cuentaContable(); 
+
+tCuentaContable = cuentaContable.getCuentaContableByIdTable(idCuentaContable); 
+
 %>
 <!-- //DETALLE  -->
 <%
@@ -203,7 +209,7 @@ if (!permiso) {
 													listaTc = dtTc.listaTipocuentaActivos();
 													%>
 
-								                 <select class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
+								                 <select id="cbxTipoCuenta" class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
 												  <option value="">Seleccione...</option>
 													<%
 												  		for(Tbl_tipocuenta tc : listaTc){
@@ -229,8 +235,8 @@ if (!permiso) {
 													listaCat = dtCat.listarCatalogocuenta();
 													%>
 
-								                 <select class="form-control js-example-basic-single" 
-								                 		 name="cbxCatalogoCuenta" id="cbxCatalogoCuenta" required="required">
+								                 <select  id="cbxCatalogoCuenta" class="form-control js-example-basic-single" 
+								                 		 name="cbxCatalogoCuenta" required="required">
 												  <option value="">Seleccione...</option>
 												  	<%
 												  		for(Vw_catalogocuenta_empresa cat : listaCat){
@@ -335,19 +341,14 @@ if (!permiso) {
 
 	<!-- Script cbx -->
 	
-	<script type="text/javascript">
-	
-	function fillTip(){
-		document.getElementById("cbxTipoCuenta").value = "<%=ctc.getIdTipoCuenta()%>";
-	};
-	
-	function fillCat(){
-		document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo()%>";
-	}
-	
-	window.onload = fillTip();
-	window.onload = fillCat();
-	
+	<script>
+    function setForm(){
+
+    	document.getElementById("cbxTipoCuenta").value =  <%=tCuentaContable.getIdTipoCuenta()%>
+    	document.getElementById("cbxCatalogoCuenta").value =  <%=tCuentaContable.getIdCatalogo()%>
+
+		}
+		window.onload = setForm;
 	</script>
 
 	<!-- jQuery -->

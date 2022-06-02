@@ -200,6 +200,59 @@ public class Dt_cuentaContable {
 		return cc;
 	}
 	
+	public Tbl_cuentaContable getCuentaContableByIdTable(int idCuenta) {
+		Tbl_cuentaContable cc = new Tbl_cuentaContable();
+		try {
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.cuentacontable WHERE idCuenta =?", 
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, idCuenta);
+			rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				cc.setIdCuenta(this.rs.getInt("idCuenta"));
+				
+				cc.setIdTipoCuenta(rs.getInt("idTipoCuenta"));
+				cc.setIdCatalogo(rs.getInt("idCatalogo"));
+
+				cc.setNumeroCuenta(this.rs.getString("numeroCuenta"));
+				cc.setsC(this.rs.getString("SC"));
+				cc.setSsC(this.rs.getString("SsC"));
+				cc.setSssC(this.rs.getString("SssC"));
+				cc.setNombreCuenta(this.rs.getString("nombreCuenta"));
+				cc.setNivel(this.rs.getInt("nivel"));
+				cc.setRubro(this.rs.getInt("rubro"));
+				cc.setEstado(this.rs.getInt("estado"));
+				System.out.println(cc);
+			}
+			
+		} catch(Exception e) {
+			System.out.println("DATOS: ERROR EN VER CUENTAS CONTABLES "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally 
+		{
+		try {
+			if (this.rs != null) {
+				this.rs.close();
+			}
+				if (this.ps != null) {
+				this.ps.close();
+			}
+
+			if (this.c != null) {
+				poolConexion.closeConnection(this.c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+		
+		return cc;
+	}
+	
+	
 	public int idCuentaContable() {
 	    int idCC = 0;
 	    
