@@ -147,7 +147,7 @@ if (!permiso) {
 
 								<div class="x_content">
 									<form class="" action="../Sl_asientoContable" method="post"
-										novalidate>
+										data-parsley-validate>
 										<input type="hidden" id="idMensaje" value="<%=codigoMensaje %>" />
 										
 										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
@@ -215,7 +215,7 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fecha" id="fecha">
+													placeholder="Fecha de inicio" name="fecha" id="fecha" required="required">
 											</div>
 										</div>
 
@@ -226,7 +226,7 @@ if (!permiso) {
 
 												<textarea class="form-control" rows="3"
 													placeholder="Concepto" id="descripcion"
-													name="descripcion" maxlength="150"></textarea>
+													name="descripcion" maxlength="150" required="required"></textarea>
 
 
 												<div id="contador">
@@ -348,7 +348,7 @@ if (!permiso) {
 											<div class="ln_solid">
 												<div class="form-group">
 													<div class="col-md-6 offset-md-3">
-														<button type='submit' class="btn btn-danger">Guardar
+														<button id="btnGuardar" type='submit' class="btn btn-danger">Guardar
 															todo</button>
 														<a href="tbl_asientoContable.jsp" type="button"
 															class="btn btn-primary">Cancelar</a>
@@ -531,6 +531,15 @@ if (!permiso) {
 		var saldo = 0;
 		var debe = 0;
 		var haber = 0;
+		
+		var botonGuardar = document.getElementById("btnGuardar");
+
+        botonGuardar.addEventListener('click', (e) => {
+            if(saldo !== 0){
+                alert('El saldo debe ser 0 para poder guardar.');
+                e.preventDefault();
+            };
+        });
 
 		$("#agregardet")
 				.click(
@@ -656,6 +665,12 @@ if (!permiso) {
 					"background" : "pink"
 				});
 			}
+			
+			var tableBody = document.getElementById("tbldet");
+            var rows = tableBody.childNodes[3].childNodes.length - 1;
+            var cantDetalles = document.getElementById("detalles");
+            cantDetalles.setAttribute('value', ""+rows+"");
+			
 		});
 
 		$("#vaciardet").click(function() {
@@ -667,6 +682,10 @@ if (!permiso) {
 					"background" : "lightgreen"
 				});
 			}
+			
+			var cantDetalles = document.getElementById("detalles");
+            cantDetalles.setAttribute('value', "0");
+			
 		});
 
 		$(window).on('load', function() {

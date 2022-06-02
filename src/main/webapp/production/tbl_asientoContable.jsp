@@ -128,9 +128,11 @@ if (!permiso) {
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Asientos Contables Registrados</h2>
+									<h2>Asientos Contables Registrados <small><a href="imprimirAsientoContable.jsp"><i class="fa fa-print"></i>Imprimir asientos contables</a></small> </h2>
 
-									<div class="clearfix"></div>
+									<div class="clearfix">
+										
+									</div>
 								</div>
 
 								<div class="x_content">

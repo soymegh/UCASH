@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptFichaAsientoContable" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="64228b3d-8f94-40de-98a2-8c105433e9f4">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZGJ1Y2FzaC52d19hc2llbnRvcmVwb3J0ZSAsMTUsMTUsMDBiYmU0ZjYtYzkwNi00YWM3LWIwOWQt
+YWNiYmYzYTc1MjEyOw==]]>
+	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dadbucash"/>
 	<parameter name="asientoContableID" class="java.lang.Integer"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM dbucash.vw_asientoreporte WHERE idAsientoContable =  $P{asientoContableID}]]>
+		<![CDATA[SELECT *
+FROM dbucash.vw_asientoreporte
+WHERE 
+	 dbucash.vw_asientoreporte.`idAsientoContable` = $P{asientoContableID}]]>
 	</queryString>
 	<field name="idAsientoContable" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="idAsientoContable"/>
@@ -107,7 +113,7 @@
 		<band height="207" splitType="Stretch">
 			<image>
 				<reportElement stretchType="ContainerHeight" x="240" y="20" width="80" height="50" uuid="052fdee4-a7e2-46c2-85f0-32c3fe404312"/>
-				<imageExpression><![CDATA["C:/payara5/glassfish/logoEmpresa/UCAlogotipo.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/payara5/glassfish/logoEmpresa/logoEmpresa.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="80" y="70" width="399" height="30" uuid="dd9097be-65aa-4dfd-95c4-c0479649dbf3"/>
@@ -143,12 +149,12 @@
 	<pageHeader>
 		<band height="97" splitType="Stretch">
 			<textField>
-				<reportElement x="150" y="40" width="286" height="20" uuid="0a4b7935-356d-41f0-80c8-3fb6d7d44a66"/>
+				<reportElement x="150" y="40" width="330" height="20" uuid="0a4b7935-356d-41f0-80c8-3fb6d7d44a66"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ContainerHeight" x="150" y="10" width="340" height="20" uuid="9d53e135-890a-4da4-b0c8-7119c9a5232b"/>
+				<reportElement stretchType="ContainerHeight" x="150" y="10" width="330" height="20" uuid="9d53e135-890a-4da4-b0c8-7119c9a5232b"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
@@ -163,7 +169,7 @@
 				<text><![CDATA[Moneda:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="150" y="60" width="96" height="20" uuid="336c6cb3-c1cb-4b99-a0e9-e42925a9d4fb"/>
+				<reportElement x="150" y="60" width="330" height="20" uuid="336c6cb3-c1cb-4b99-a0e9-e42925a9d4fb"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
 			</textField>

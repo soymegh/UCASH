@@ -125,7 +125,7 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type="button" class="btn btn-danger">Cancelar</button>
+													<button onClick="window.location.href='indexPeriodoFiscal.jsp'" type="button" class="btn btn-danger">Cancelar</button>
 													<button type='submit' class="btn btn-primary">Aceptar</button>
 												</div>
 											</div>
