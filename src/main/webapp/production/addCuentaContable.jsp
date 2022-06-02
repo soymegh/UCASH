@@ -239,7 +239,7 @@ if (!permiso) {
 													for (Vw_catalogocuenta_empresa cat : listaCat) {
 													%>
 													<option value="<%=cat.getIdCatalogo()%>">
-														<%=cat.getTitulo()%>
+														<%=cat.getTitulo() + "/ " + cat.getnombreComercial()%>
 													</option>
 													<%
 													}

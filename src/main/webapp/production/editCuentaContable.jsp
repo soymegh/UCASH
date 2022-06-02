@@ -29,6 +29,7 @@ Dt_cuentaContable cuentaContable = new Dt_cuentaContable();
 
 tCuentaContable = cuentaContable.getCuentaContableByIdTable(idCuentaContable); 
 
+
 %>
 <!-- //DETALLE  -->
 <%
@@ -47,18 +48,6 @@ ccd = dtCcd.getCcdbyID(idCCD);
 vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 
-<!-- Script cbx -->
-	
-	<script>
-	
-	function setForm(){
-		document.getElementById("cbxTipoCuenta").value = "<%=ttc.getIdTipoCuenta() %>";
-		document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo() %>";
-	}
-	
-	window.onload = setForm;
-	
-	</script>
 
 
 <%
@@ -223,14 +212,9 @@ if (!permiso) {
 													Dt_tipocuenta dtTc = new Dt_tipocuenta();
 													listaTc = dtTc.listaTipocuentaActivos();
 													%>
-
-<<<<<<< HEAD
+													
 								                 <select id="cbxTipoCuenta" class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
-=======
-								                 <select class="form-control js-example-basic-single" 
-								                 name="TipoCuenta" id="cbxTipoCuenta" required="required" >
->>>>>>> c337f1f477ff73cf776f9ff206ed0d3c780042f8
-												  <option value="">Seleccione...</option>
+								                 <option value="">Seleccione...</option>
 													<%
 												  		for(Tbl_tipocuenta tc : listaTc){
 												  	%>
@@ -245,7 +229,7 @@ if (!permiso) {
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta::</label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta:</label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
@@ -254,20 +238,14 @@ if (!permiso) {
 													Dt_catalogocuenta dtCat = new Dt_catalogocuenta();
 													listaCat = dtCat.listarCatalogocuenta();
 													%>
-
-<<<<<<< HEAD
-								                 <select  id="cbxCatalogoCuenta" class="form-control js-example-basic-single" 
-								                 		 name="cbxCatalogoCuenta" required="required">
+													
+								                 <select  id="cbxCatalogoCuenta" class="form-control js-example-basic-single" name="cbxCatalogoCuenta" required="required">
 												  <option value="">Seleccione...</option>
-=======
-								                 <select class="form-control js-example-basic-single" name="CatalogoCuenta" id="cbxCatalogoCuenta" required="required">
-												  <option value=""></option>
->>>>>>> c337f1f477ff73cf776f9ff206ed0d3c780042f8
 												  	<%
 												  		for(Vw_catalogocuenta_empresa cat : listaCat){
 												  	%>
 												  <option value="<%=cat.getIdCatalogo()%>">
-													<%=cat.getTitulo()%>
+													<%=cat.getTitulo() + "/ " + cat.getnombreComercial() %>
 												</option>
 													<%
 													}
@@ -364,7 +342,6 @@ if (!permiso) {
 		}).prop('checked', false);
 	</script>
 	
-<<<<<<< HEAD
 	<script>
     function setForm(){
 
@@ -374,8 +351,6 @@ if (!permiso) {
 		}
 		window.onload = setForm;
 	</script>
-=======
->>>>>>> c337f1f477ff73cf776f9ff206ed0d3c780042f8
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
