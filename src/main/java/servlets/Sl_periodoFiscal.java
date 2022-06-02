@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -123,14 +122,22 @@ public class Sl_periodoFiscal extends HttpServlet {
 			break;
 		case 4:
 			
-			int idPeriodoFiscal = Integer.parseInt(request.getParameter("combobox_periodoFiscal"));
-			try {
-				if(dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal)) {
-					response.sendRedirect("production/indexPeriodoContable.jsp?idPF=" + idPeriodoFiscal);
+			int idPeriodoFiscal = 0; 
+			
+			if(request.getParameter("combobox_periodoFiscal") != null && request.getParameter("combobox_periodoFiscal").matches("[0-9]")) {
+				idPeriodoFiscal = Integer.parseInt(request.getParameter("combobox_periodoFiscal"));
+				
+				try {
+					if(dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal)) {
+						response.sendRedirect("production/indexPeriodoContable.jsp");
+					};
+				}catch(Exception e) {
+					e.printStackTrace();
 				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+				
+			}else {
+				response.sendRedirect("production/indexPeriodoFiscal.jsp?msj=1");
+			};
 			
 		break; 	
 		default:

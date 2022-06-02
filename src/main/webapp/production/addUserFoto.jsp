@@ -7,6 +7,12 @@
 %>
     
 <%
+//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}
+
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -26,10 +32,6 @@
 		
 		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 		
-		for(int x = 0; x < listOpc.size(); x++){
-			System.out.print(listOpc.get(x).getOpciones());
-		};
-		
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
 		int index = request.getRequestURL().lastIndexOf("/");
@@ -39,7 +41,6 @@
 		for(Vw_rolopciones vrop : listOpc){
 			if(vrop.getOpciones().trim().equals(miPagina.trim())){
 				permiso = true; //ACCESO CONCEDIDO
-				System.out.print("ESTA ES LA PAGINA RECUPERADA: " + " " + vrop.getOpciones().trim() +  " " + "ESTA ES LA PAGINA EN LA QUE NOS ENCONTRAMOS: " + miPagina.trim());
 				break;
 			}
 		}
@@ -145,7 +146,7 @@
 	                                        %>
                                         	<input type="hidden" name="iduser" value="<%=tus.getIdUsuario()%>">
                                             <div class="cuadro-fotoNima" align="center">
-												<img id="preview" name="preview" src="../<%=tus.getUrlFoto()==null?"#":tus.getUrlFoto()%>"  alt="Foto Usuario" style="width: 100px; height: 100px; border-bottom-color: white; margin: 2px;" />
+												<img id="preview" name="preview" src="../<%=tus.getUrlFoto()==null?"fotos_usuarios/img.jpg":tus.getUrlFoto()%>"  alt="Foto Usuario" style="width: 100px; height: 100px; border-bottom-color: white; margin: 2px;" />
 											</div>
                                         </div>
                                         <div class="form-group" align="center">

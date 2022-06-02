@@ -7,6 +7,8 @@
 	 java.util.ArrayList;"%>
 
 <%
+//JAlert flag
+
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -18,12 +20,13 @@ Vw_usuariorol vwur = new Vw_usuariorol();
 Dt_rolOpciones dtro = new Dt_rolOpciones();
 ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 boolean permiso = false; //VARIABLE DE CONTROL
-
+int currentUsuario;
 //OBTENEMOS LA SESION
 vwur = (Vw_usuariorol) session.getAttribute("acceso");
+
 if (vwur != null) {
 	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-
+	currentUsuario = vwur.getId_user();
 	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 
 	//RECUPERAMOS LA URL = MI OPCION ACTUAL
@@ -65,6 +68,7 @@ if (!permiso) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Agregar | Empresa</title>
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -152,8 +156,7 @@ if (!permiso) {
 														<span class="required">*</span>
 													</label>
 													<div class="col-md-6 col-sm-6">
-														<input class="form-control" class='optional' name="nombre" id="nombreRL"
-															data-validate-length-range="5,15" type="text"
+														<input class="form-control" class='optional' name="nombre" id="nombreRL" type="text"
 															required="required" />
 													</div>
 												</div>
@@ -164,7 +167,7 @@ if (!permiso) {
 													</label>
 													<div class="col-md-6 col-sm-6">
 														<input class="form-control" class='optional'
-															name="apellido" data-validate-length-range="5,15" id="apellido"
+															name="apellido" id="apellido"
 															type="text" required="required" />
 													</div>
 												</div>
@@ -217,7 +220,7 @@ if (!permiso) {
 
 												<div class="field item form-group">
 													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
+														class="col-form-label col-md-3 col-sm-3  label-align">Telï¿½fono<span
 														class="required">*</span></label>
 													<div class="col-md-6 col-sm-6">
 														<input class="form-control" type="tel" class='tel' id="telefono"
@@ -255,18 +258,19 @@ if (!permiso) {
 									<div class="x_content">
 										<form class="" action="../Sl_empresa" method="post" novalidate>
 											<input type="hidden" value="1" name="opcion" id="opcion" />
+											<input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
 
 											<span class="section">Datos de empresa</span>
 											<div class="field item form-group">
 												<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
 													class="required">*</span></label>
 												<div class="col-md-6 col-sm-6">
-													<input required name="ruc" class="form-control"
+													<input required="required" name="ruc" class="form-control"
 														placeholder="ex. 2347827431" required="required" id="ruc"/>
 												</div>
 											</div>
 											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Razón
+												<label class="col-form-label col-md-3 col-sm-3  label-align">Razï¿½n
 													social<span class="required">*</span>
 												</label>
 												<div class="col-md-6 col-sm-6">
@@ -294,7 +298,7 @@ if (!permiso) {
 											</div>
 
 											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
+												<label class="col-form-label col-md-3 col-sm-3  label-align">Telï¿½fono<span
 													class="required">*</span></label>
 												<div class="col-md-6 col-sm-6">
 													<input name="telefono" class="form-control" type="tel" id="telefonoEm"
@@ -303,7 +307,7 @@ if (!permiso) {
 												</div>
 											</div>
 											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span
+												<label class="col-form-label col-md-3 col-sm-3  label-align">Direcciï¿½n<span
 													class="required">*</span>
 												</label>
 												<div class="col-md-6 col-sm-6">
@@ -527,6 +531,8 @@ if (!permiso) {
 					document.getElementById("agregarE").disabled = true;
 					document.getElementById("cancelarE").disabled = true;
 					document.getElementById("reiniciarE").disabled = true;
+					
+					console.log("<%=currentUsuario%>");
 				}
 			}
 
@@ -589,7 +595,7 @@ if (!permiso) {
 		<script>
 		function validarDatos(){
 			if(document.getElementbyId("ruc").value = ""){
-				alert("Ingrese un RUC");'
+				alert("Ingrese un RUC");
 			}
 			
 			if(document.getElementbyId("telefonoEm").length > 8){
@@ -614,6 +620,13 @@ if (!permiso) {
 		<!-- Custom Theme Scripts -->
 		<script src="../build/js/custom.min.js"></script>
 	</div>
+	
+		<!-- jAlert -->
+	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	
+	
 </body>
 
 </html>

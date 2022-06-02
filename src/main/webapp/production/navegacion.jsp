@@ -62,11 +62,10 @@ if (Vw_empresa.empresaActual != 0) {
 <meta charset="ISO-8859-1">
 </head>
 <body>
-	<div class="main_container">
-			<div class="col-md-3 left_col">
+	<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-money"></i>
+						<a href="index.jsp" class="site_title"><i class="fa fa-money"></i>
 							<span>Sistema Contable</span></a>
 					</div>
 
@@ -75,7 +74,7 @@ if (Vw_empresa.empresaActual != 0) {
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
+							<img src="../<%=vwur.getUrlFoto() == null ? "fotos_usuarios/img.jpg" : vwur.getUrlFoto()%>" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -91,12 +90,12 @@ if (Vw_empresa.empresaActual != 0) {
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
+								<li><a href="index.jsp"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
 
 						<div class="menu_section">
-							<h3>Gestión</h3>
+							<h3>Gestiï¿½n</h3>
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span
 										class="fa fa-chevron-down"></span></a>
@@ -163,11 +162,11 @@ if (Vw_empresa.empresaActual != 0) {
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+								aria-expanded="false"> <img src="../<%=vwur.getUrlFoto() == null ? "fotos_usuarios/img.jpg" : vwur.getUrlFoto()%>" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
+									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesiï¿½n</a>
 								</div>
 							</li>
 						</ul>

@@ -10,50 +10,57 @@ int idd = dtCcd.idCuentaContable();
 %>
 
 <%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
-	response.setHeader( "Pragma", "no-cache" );
-	response.setHeader( "Cache-Control", "no-store" );
-	response.setDateHeader( "Expires", 0 );
-	response.setDateHeader( "Expires", -1 );
-	
-	//DECLARACIONES
-	Vw_usuariorol vwur = new Vw_usuariorol();
-	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-	boolean permiso = false; //VARIABLE DE CONTROL
-	
-	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	if(vwur!=null){
-		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
-		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-		
-		
-		//RECUPERAMOS LA URL = MI OPCION ACTUAL
-		int index = request.getRequestURL().lastIndexOf("/");
-		String miPagina = request.getRequestURL().substring(index+1);
-		
-		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
-			}
+//JAlert flag
+String signal = "";
+if (request.getParameter("msj") != null) {
+	signal = request.getParameter("msj");
+}
+%>
+
+<%-- <%
+//INVALIDA LA CACHE DEL NAVEGADOR //
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setDateHeader("Expires", -1);
+
+//DECLARACIONES
+Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_rolOpciones dtro = new Dt_rolOpciones();
+ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+boolean permiso = false; //VARIABLE DE CONTROL
+
+//OBTENEMOS LA SESION
+vwur = (Vw_usuariorol) session.getAttribute("acceso");
+if (vwur != null) {
+	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+
+	//RECUPERAMOS LA URL = MI OPCION ACTUAL
+	int index = request.getRequestURL().lastIndexOf("/");
+	String miPagina = request.getRequestURL().substring(index + 1);
+
+	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+	for (Vw_rolopciones vrop : listOpc) {
+		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+	permiso = true; //ACCESO CONCEDIDO
+	break;
 		}
 	}
-	else{
-		response.sendRedirect("../login.jsp?msj=401");
-		return;
-	}
-		
-	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
-		return;
-	}
-	
-%>
+} else {
+	response.sendRedirect("../login.jsp?msj=401");
+	return;
+}
+
+if (!permiso) {
+	response.sendRedirect("../login.jsp?msj=403");
+	//response.sendRedirect("page_403.jsp");
+	return;
+}
+%> --%>
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -63,7 +70,7 @@ int idd = dtCcd.idCuentaContable();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Gestión | Cuentas Contables</title>
-
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -100,120 +107,7 @@ int idd = dtCcd.idCuentaContable();
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-money"></i>
-							<span>Sistema Contable</span></a>
-					</div>
-
-					<div class="clearfix"></div>
-
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
-						</div>
-					</div>
-					<!-- /menu profile quick info -->
-
-					<br />
-
-					<!-- sidebar menu -->
-					<div id="sidebar-menu"
-						class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
-							</ul>
-						</div>
-
-						<div class="menu_section">
-							<h3>Gestión</h3>
-							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
-										<li><a href="tbl_rol.jsp">Roles</a></li>
-										<li><a href="tbl_opciones.jsp">Opciones</a></li>
-										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
-										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-building"></i> Empresa<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-										<li><a href="tbl_departamento.jsp">Departamento</a></li>
-										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante
-												Legal</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
-										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-dollar"></i> Moneda<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_moneda.jsp">Moneda</a></li>
-										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento
-												Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo
-												Contable</a></li>
-										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
-										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /sidebar menu -->
-				</div>
-			</div>
-
-			<!-- top navigation -->
-			<div class="top_nav">
-				<div class="nav_menu">
-					<div class="nav toggle">
-						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-					</div>
-					<nav class="nav navbar-nav">
-						<ul class=" navbar-right">
-							<li class="nav-item dropdown open" style="padding-left: 15px;">
-								<a href="javascript:;" class="user-profile dropdown-toggle"
-								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
-							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="../login.jsp">
-									<i class="fa fa-sign-out pull-right"></i> Sesión</a>
-
-								</div>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-			<!-- /top navigation -->
-
-			<!-- page content -->
+			<jsp:include page="navegacion.jsp"></jsp:include>
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
@@ -239,95 +133,101 @@ int idd = dtCcd.idCuentaContable();
 
 					<div class="row">
 
-								<div class="x_content">
-									<div class="row">
-						<div class="col-md-12 col-md-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Cuentas Contables Registradas</h2>
-									
-									<div class="clearfix"></div>
-								</div>
+						<div class="x_content">
+							<div class="row">
+								<div class="col-md-12 col-md-12">
+									<div class="x_panel">
+										<div class="x_title">
+											<h2>Cuentas Contables Registradas</h2>
 
-								<div class="x_content">
-									<div class="row">
-										<div class="col-md-12">
-											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
+											<div class="clearfix"></div>
+										</div>
 
-													<a href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable()+1%>"> <i
-														class="fa fa-plus-square"></i> Nueva Cuenta Contable
-													</a> <br></br>
+										<div class="x_content">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="card-box table-responsive">
+														<div class="text-muted font-13 col-md-12"
+															style="text-align: right;">
+															<a
+																href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
+																<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
+															</a> <br></br>
+															<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
+														</div>
+														<table id="datatable-buttons"
+															class="table table-striped table-bordered"
+															style="width: 100%">
+															<%
+															ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+															Dt_cuentaContable dtCc = new Dt_cuentaContable();
+															listaCuentasContables = dtCc.listaCuentasContables();
+															%>
+															<thead>
+																<tr>
+																	<th>ID</th>
+																	<th>Numero de Cuenta</th>
+																	<th>Nombre Cuenta</th>
+																	<th>Nivel</th>
+																	<th>Rubro</th>
+																	<th>Tipo de Cuenta</th>
+																	<th>Catalogo de Cuenta</th>
+																	<th>Estado</th>
+																	<th>Acciones</th>
+																</tr>
+															</thead>
+															<tbody>
+																<%
+																for (Vw_catalogo_tipo_cuentacontable cc : listaCuentasContables) {
+																	String estado = "";
+																	if (cc.getEstado() == 1) {
+																		estado = "ACTIVO";
+																	} else {
+																		if (cc.getEstado() == 2) {
+																	estado = "MODIFICADO";
+																		} else {
+																	estado = "INACTIVO";
+																		}
+																	}
+																%>
+																<tr>
+
+																	<td><%=cc.getIdCuenta()%></td>
+																	<td><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%></td>
+																	<td><%=cc.getNombreCuenta()%></td>
+																	<th><%=cc.getNivel()%></th>
+																	<td><%=cc.getRubro()%></td>
+																	<td><%=cc.getTipoCuenta()%></td>
+																	<td><%=cc.getCatalogoCuenta()%></td>
+																	<td><%=estado%></td>
+
+																	<td><a
+																		href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
+																			<i class="fa fa-edit" title="Editar"></i>
+																	</a> &nbsp;&nbsp; <a
+																		href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
+																			<i class="fa fa-eye" title="Mostrar"></i>
+																	</a> &nbsp;&nbsp; <a
+																		href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
+																			<i class="fa fa-trash" title="Eliminar"></i>
+																	</a></td>
+																</tr>
+																<%
+																}
+																%>
+															</tbody>
+
+														</table>
+													</div>
 												</div>
-												<table id="datatable-buttons"
-													class="table table-striped table-bordered"
-													style="width: 100%">
-													<%
-													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
-													Dt_cuentaContable dtCc = new Dt_cuentaContable();
-													listaCuentasContables = dtCc.getCuentaContableByIdEmpresa(Vw_empresa.empresaActual);
-													%>
-													<thead>
-														<tr>
-															<th>ID</th>
-															<th>Numero de Cuenta</th>
-															<th>Nombre Cuenta</th>
-															<th>Nivel</th>
-															<th>Rubro</th>
-															<th>Tipo de Cuenta</th>
-															<th>Catalogo de Cuenta</th>
-															<th>Estado</th>
-															<th>Acciones</th>
-														</tr>
-													</thead>
-													<tbody>
-														<%
-														for (Vw_catalogo_tipo_cuentacontable cc : listaCuentasContables) {
-															String estado = "";
-															if (cc.getEstado() != 3){
-																estado = "ACTIVO";
-															}else{
-																estado = "INACTIVO";
-															}
-														%>
-														<tr>
-
-															<td><%=cc.getIdCuenta()%></td>
-															<td><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%></td>
-															<td><%=cc.getNombreCuenta()%></td>
-															<th><%=cc.getNivel()%></th>
-															<td><%=cc.getRubro()%></td>
-															<td><%=cc.getTipoCuenta()%></td>
-															<td><%=cc.getCatalogoCuenta()%></td>
-															<td><%=estado%></td>
-															
-															<td>
-															<a href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>">
-																	<i class="fa fa-edit" title="Editar"></i>
-															</a> &nbsp;&nbsp; <a href="viewCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>"> 
-																	<i class="fa fa-eye" title="Mostrar" ></i>
-															</a> &nbsp;&nbsp; <a href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta() %>"> 
-																	<i class="fa fa-trash" title="Eliminar"></i>
-															</a>
-															</td>
-														</tr>
-														<%
-														}
-														%>
-													</tbody>
-
-												</table>
 											</div>
 										</div>
 									</div>
 								</div>
+
+
 							</div>
-						</div>
-
-
-					</div>
-					<%-- <div class="row">
+							<%-- <div class="row">
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">
@@ -391,11 +291,11 @@ int idd = dtCcd.idCuentaContable();
 							</div>
 						</div>
 					</div> --%>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
 	</div>
 	<!-- /page content -->
 
@@ -443,6 +343,59 @@ int idd = dtCcd.idCuentaContable();
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	<script>
+		var mensaje = "";
+		mensaje = document.getElementById("JAlertInput").value;
+		console.log(mensaje);
+
+		$(document)
+				.ready(
+						function() {
+							if (mensaje == "1") {
+								successAlert('Exito',
+										'La cuenta contable ha sido registrado correctamente.')
+								console.log(mensaje);
+
+							}
+
+							if (mensaje == "2") {
+								errorAlert('Error',
+										'La cuenta contable no se ha podido guardar. Por favor verifique los datos')
+							}
+
+							if (mensaje == "3") {
+								successAlert('Exito',
+										'Los cuenta contable de la empresa se han editado correctamente.')
+							}
+
+							if (mensaje == "4") {
+								errorAlert('Error',
+										'Los cuenta contable de la empresa no se han editado correctamente.')
+							}
+
+							$("#example1").DataTable({
+								"responsive" : true,
+								"lengthChange" : false,
+								"autoWidth" : false,
+								"buttons" : [ "excel", "pdf" ]
+							}).buttons().container().appendTo(
+									'#example1_wrapper .col-md-6:eq(0)');
+							/*$('#example2').DataTable({
+							    "paging": true,
+							    "lengthChange": false,
+							    "searching": false,
+							    "ordering": true,
+							    "info": true,
+							    "autoWidth": false,
+							    "responsive": true,
+							});*/
+						});
+	</script>
 
 </body>
 </html>

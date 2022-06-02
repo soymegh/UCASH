@@ -159,6 +159,12 @@
 														Nuevo Usuario
 													</a> <br></br>
 												</div>
+												<div class="text-muted font-13 col-md-12"
+													style="text-align: right;">
+													<a href="restaurarUsuario.jsp"> <i class="fa fa-plus-square"></i>
+														Restaurar Usuario
+													</a> <br></br>
+												</div>
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"

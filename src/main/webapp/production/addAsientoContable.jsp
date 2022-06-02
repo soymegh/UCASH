@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
+	pageEncoding="ISO-8859-1"
+	import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
 	datos.Dt_asientoContableDet, java.sql.Timestamp, java.util.*;"%>
 
 <%
+
+// Placeholder para el mensaje
+String codigoMensaje = "";
+
+if (request.getParameter("msj") != null)
+	codigoMensaje = request.getParameter("msj");
+
 //Obteniendo fecha y hora actual del sistema 
 
 //INVALIDA LA CACHE DEL NAVEGADOR //
@@ -45,15 +53,15 @@ if (vwur != null) {
 
 if (!permiso) {
 	// response.sendRedirect("../login.jsp?msj=401");
-	response.sendRedirect("page_403.jsp");
+	response.sendRedirect("../login.jsp?msj=403");
 	return;
 }
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- Meta, title, CSS, favicons, etc. -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -95,8 +103,8 @@ if (!permiso) {
 <!--Jquery Toast Plugin -->
 <link href="../vendors/jquery-toast-plugin/jquery.toast.min.css"
 	rel="stylesheet">
-	
-	<!-- Select2 -->
+
+<!-- Select2 -->
 <link href="../vendors/select2/dist/css/select2.min.css"
 	rel="stylesheet" />
 
@@ -122,25 +130,37 @@ if (!permiso) {
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title periodoContableParent">
-									<h2>Datos de Asiento Contable</h2><br><br>
+									<h2>Datos de Asiento Contable</h2>
+									<br> <br>
 									<h2 id="fecha_hora_sistem"></h2>
 									<div class="float-right periodoContable">
-										<h2>Periodo contable:</h2><br><br>
-										<h2>Inicio: <%=Tbl_periodoContable.fechaInicioActual %> - Final: <%=Tbl_periodoContable.fechaFinalActual %></h2>
+										<h2>Periodo contable:</h2>
+										<br> <br>
+										<h2>
+											Inicio:
+											<%=Tbl_periodoContable.fechaInicioActual%>
+											- Final:
+											<%=Tbl_periodoContable.fechaFinalActual%></h2>
 									</div>
 									<div class="clearfix"></div>
 								</div>
 
 								<div class="x_content">
 									<form class="" action="../Sl_asientoContable" method="post"
-										novalidate>
+										data-parsley-validate>
+										<input type="hidden" id="idMensaje" value="<%=codigoMensaje %>" />
+										
 										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
-											class="section"></span>
-										<input type="hidden" value="0" name="detalles" id="detalles" />
-										<input type="hidden" value="<%=Tbl_periodoContable.idPeriodoActual %>" name="periodoContable" id="periodoContable" />
-										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
-										<input type="hidden" value="<%=vwur.getId_user() %>" name="usuarioCreacion" id="usuarioCreacion" />
-										<input type="hidden" value="<%=Tbl_moneda.idMonedaActual%>" name="moneda" id="moneda" />
+											class="section"></span> <input type="hidden" value="0"
+											name="detalles" id="detalles" /> <input type="hidden"
+											value="<%=Tbl_periodoContable.idPeriodoActual%>"
+											name="periodoContable" id="periodoContable" /> <input
+											type="hidden" value="<%=Vw_empresa.empresaActual%>"
+											name="empresaActual" id="empresaActual" /> <input
+											type="hidden" value="<%=vwur.getId_user()%>"
+											name="usuarioCreacion" id="usuarioCreacion" /> <input
+											type="hidden" value="<%=Tbl_moneda.idMonedaActual%>"
+											name="moneda" id="moneda" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
 												documento: <span class="required">*</span>
@@ -195,23 +215,18 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fecha" id="fecha">
+													placeholder="Fecha de inicio" name="fecha" id="fecha" required="required">
 											</div>
 										</div>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align"
-												for="descripcion">Descripciï¿½n<span class="required">*</span></label>
+												for="descripcion">Concepto<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 
-												<!-- 											<textarea class="resizable_textarea form-control" -->
-												<!-- 													id="descripcion" name="descripcion" maxlength="150" -->
-												<!-- 													required="required"> -->
-												<!-- 													</textarea> -->
-
 												<textarea class="form-control" rows="3"
-													placeholder="Descripciï¿½n" id="descripcion"
-													name="descripcion" maxlength="150"></textarea>
+													placeholder="Concepto" id="descripcion"
+													name="descripcion" maxlength="150" required="required"></textarea>
 
 
 												<div id="contador">
@@ -233,7 +248,7 @@ if (!permiso) {
 													<div class="col-md-12 col-md-12">
 														<div class="x_panel">
 															<div class="x_content">
-																<div>
+																<div class="row">
 																	<div class="field item form-group">
 																		<label class="col-form-label  label-align">Cuenta:
 																		</label>
@@ -243,8 +258,8 @@ if (!permiso) {
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
 																			listaCC = dtcc.listaCuentasContables();
 																			%>
-																			<select class="js-example-basic-single"
-																				name="cbxCC" id="cbxCC" required="required">
+																			<select class="js-example-basic-single" name="cbxCC"
+																				id="cbxCC" required="required">
 																				<option value="" disabled selected>Seleccione...</option>
 																				<%
 																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
@@ -258,7 +273,7 @@ if (!permiso) {
 																			</select>
 																		</div>
 																	</div>
-																	<div class="row">
+																	<div class="row float-center">
 																		<div>
 																			<label
 																				class="col-form-label col-md-3 col-sm-12  label-align">Debe:
@@ -271,7 +286,7 @@ if (!permiso) {
 																		</div>
 																	</div>
 
-																	<div class="row">
+																	<div class="row float-right">
 																		<div>
 																			<label
 																				class="col-form-label col-md-3 col-sm-3  label-align">Haber:
@@ -284,9 +299,12 @@ if (!permiso) {
 																		</div>
 																	</div>
 
-																	<a id="agregardet" class="btn btn-success"
-																		style="color: white"> Agregar </a>
-																		<a id="vaciardet" class="btn btn-warning" style="color: black">Vaciar</a>
+																</div>
+																<div class="row">
+																	<a tabindex="0" id="agregardet"
+																		class="btn btn-success col" style="color: white">
+																		Agregar </a> <a tabindex="0" id="vaciardet"
+																		class="btn btn-warning col" style="color: black">Vaciar</a>
 																</div>
 																<div class="row">
 																	<div class="col-md-12">
@@ -298,14 +316,14 @@ if (!permiso) {
 																				style="width: 100%" id="tbldet">
 																				<thead>
 																					<tr>
-																						<th>Opciï¿½n</th>
+																						<th>Opción</th>
 																						<th>ID Cuenta</th>
 																						<th>Cuenta</th>
 																						<th>Debe</th>
 																						<th>Haber</th>
 																					</tr>
 																				</thead>
-																				
+
 																				<tbody>
 
 																				</tbody>
@@ -313,8 +331,12 @@ if (!permiso) {
 																			</table>
 																		</div>
 																	</div>
-																	<div class="alert" role="alert" id="divTotal" style="background:lightgreen; width:100%">
-																			<p style="color:black;text-align: center; font-size: 25px">Saldo: <span id="total" style="color:black">0</span></p>	
+																	<div class="alert" role="alert" id="divTotal"
+																		style="background: lightgreen; width: 100%">
+																		<p
+																			style="color: black; text-align: center; font-size: 25px">
+																			Saldo: <span id="total" style="color: black">0</span>
+																		</p>
 																	</div>
 																</div>
 															</div>
@@ -326,7 +348,7 @@ if (!permiso) {
 											<div class="ln_solid">
 												<div class="form-group">
 													<div class="col-md-6 offset-md-3">
-														<button type='submit' class="btn btn-danger">Guardar
+														<button id="btnGuardar" type='submit' class="btn btn-danger">Guardar
 															todo</button>
 														<a href="tbl_asientoContable.jsp" type="button"
 															class="btn btn-primary">Cancelar</a>
@@ -409,147 +431,277 @@ if (!permiso) {
 	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-	
+
 	<script src="../vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
-
-
-<script>
-	var counter = 100000;  
-	var dateContainer = document.getElementById("fecha_hora_sistem");
-	var today = new Date();
-	dateContainer.innerHTML = "Fecha del sistema: " + today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear() + "<br><br>";
-	var temp = dateContainer.innerHTML;
 	
-	function refreshHour(){
-		var todayTime = new Date();
-		var time = "";
-		var newFormat = (todayTime.getHours()) >= 12 ? 'PM' : 'AM';
+	<script>
+	
+		// Toasts y alertas
+		$("document").ready(function(){
+			var codigoMensaje = $("#idMensaje").val();
+			
+			switch (codigoMensaje) {
+				case "1":
+					$.toast({
+					    text: "Asiento contable agregado correctamente", 
+					    heading: 'Éxito', 
+					    icon: 'success', 
+					    showHideTransition: 'slide', 
+					    allowToastClose: false, 
+					    hideAfter: 3000, 
+					    stack: 5, 
+					    position: 'top-center', 
+					    textAlign: 'left',  
+					    loader: true,  
+					    loaderBg: '#9EC600',
+					});
+					break;
+					
+				case "2":
+					$.toast({
+					    text: "No se pudieron guardar los detalles del asiento contable", // Text that is to be shown in the toast
+					    heading: 'Advertencia', // Optional heading to be shown on the toast
+					    icon: 'warning', // Type of toast icon
+					    showHideTransition: 'slide', // fade, slide or plain
+					    allowToastClose: false, // Boolean value true or false
+					    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+					    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+					    position: 'top-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+					    
+					    textAlign: 'left',  // Text alignment i.e. left, right or center
+					    loader: true,  // Whether to show loader or not. True by default
+					    loaderBg: '#9EC600',  // Background color of the toast loader
+					});
+					break;
+					
+				default:	
+					break;
+			}
+		});
 		
-		dateContainer.innerHTML = "";
-		if(counter > 0){
-			counter--; 
-			time = "Hora del sistema: " + (todayTime.getHours() < 12 ? "0" + todayTime.getHours() : todayTime.getHours() - 12) + ":" + (todayTime.getMinutes() < 10 ? "0" + todayTime.getMinutes() : todayTime.getMinutes()) + ":" + (todayTime.getSeconds() < 10 ? "0" + todayTime.getSeconds() : todayTime.getSeconds()) +" "+  newFormat;
-			dateContainer.innerHTML = temp + time; 
-			setTimeout(refreshHour, 1000);
-		}else {
-			counter = 100000; 
-			setTimeout(refreshHour, 1000);
+	</script>
+
+	<script>
+		var counter = 100000;
+		var dateContainer = document.getElementById("fecha_hora_sistem");
+		var today = new Date();
+		dateContainer.innerHTML = "Fecha del sistema: " + today.getDate() + "/"
+				+ (today.getMonth() + 1) + "/" + today.getFullYear()
+				+ "<br><br>";
+		var temp = dateContainer.innerHTML;
+
+		function refreshHour() {
+			var todayTime = new Date();
+			var time = "";
+			var newFormat = (todayTime.getHours()) >= 12 ? 'PM' : 'AM';
+
+			dateContainer.innerHTML = "";
+			if (counter > 0) {
+				counter--;
+				time = "Hora del sistema: "
+						+ (todayTime.getHours() < 12 ? "0"
+								+ todayTime.getHours()
+								: todayTime.getHours() - 12)
+						+ ":"
+						+ (todayTime.getMinutes() < 10 ? "0"
+								+ todayTime.getMinutes() : todayTime
+								.getMinutes())
+						+ ":"
+						+ (todayTime.getSeconds() < 10 ? "0"
+								+ todayTime.getSeconds() : todayTime
+								.getSeconds()) + " " + newFormat;
+				dateContainer.innerHTML = temp + time;
+				setTimeout(refreshHour, 1000);
+			} else {
+				counter = 100000;
+				setTimeout(refreshHour, 1000);
+			}
+			;
 		};
-	};
-	
-	refreshHour();
-</script>
 
-<script>	
+		refreshHour();
+	</script>
 
-//Inicio select2
-$(document).ready(function() {
-	$('.js-example-basic-single').select2();
-});
-//Cierre Select2
+	<script>
+		//Inicio select2
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2();
+		});
+		//Cierre Select2
 		var saldo = 0;
 		var debe = 0;
 		var haber = 0;
 		
-        $("#agregardet").click(function(){
-        	if(!$.isNumeric($("#debe").val())
-					|| !$.isNumeric($("#haber").val()) 
-						|| $("#cbxCC option:checked").val() == 0){
-        		$.toast({
-        		    text: "Datos invï¿½lidos", // Text that is to be shown in the toast
-        		    
-        		    icon: 'warning', // Type of toast icon
-        		    showHideTransition: 'plain', // fade, slide or plain
-        		    allowToastClose: false, // Boolean value true or false
-        		    hideAfter: 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
-        		    stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
-        		    position: 'mid-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
-        		    
-        		    
-        		    
-        		    textAlign: 'left',  // Text alignment i.e. left, right or center
-        		    loader: true,  // Whether to show loader or not. True by default
-        		    loaderBg: '#9EC600',  // Background color of the toast loader
-        		    beforeShow: function () {}, // will be triggered before the toast is shown
-        		    afterShown: function () {}, // will be triggered after the toat has been shown
-        		    beforeHide: function () {}, // will be triggered before the toast gets hidden
-        		    afterHidden: function () {}  // will be triggered after the toast has been hidden
-        		});
-        	}else{
-            $("#tbldet tbody").append("<tr>" + 
-                "<td>" + '<input type="button" id="btnBorrarDetalle" value="Borrar" />' + "</td>" +
-                "<td>" + '<input type="text" class="form-control col-sm-3" value='+$("#cbxCC").val()+' readOnly>' + "</td>" + 
-                "<td>" + '<input type="text" class="form-control col-sm-6" value='+$('#cbxCC option:selected').text()+' readOnly>' + "</td>" + 
-                "<td id='tddebe'>" + '<input type="text" class="form-control col-sm-6" value='+$('#debe').val()+' readOnly>' + "</td>" + 
-                "<td id='tdhaber'>" + '<input type="text" class="form-control col-sm-6" value='+$('#haber').val()+' readOnly>'  + "</td>" 
-                + "</tr>");    
-            
-            debe = parseFloat($("#debe").val());
-            haber = parseFloat($("#haber").val());
-            saldo = saldo + (debe - haber);
-            
-            $("#debe").val(0);
-            $("#haber").val(0);
-            
-            if(saldo == 0){
-            	$("#divTotal").css({"background": "lightgreen"});
-            }else if(saldo > 0){
-            	$("#divTotal").css({"background": "lightblue"});
-            }else if(saldo < 0){
-            	$("#divTotal").css({"background": "pink"});
-            }
-        	}
-            $("#total").text(saldo);
-			
-            var tableBody = document.getElementById("tbldet");
-			var cantDetalles = document.getElementById("detalles");
-			var columns = 5; 
-			var columnsName = ["idCuenta", "cuenta", "debe", "haber"];
-			var rows = tableBody.childNodes[3].childNodes.length - 1;
+		var botonGuardar = document.getElementById("btnGuardar");
 
+        botonGuardar.addEventListener('click', (e) => {
+            if(saldo !== 0){
+            	$.toast({
+            	    text: "El saldo debe ser 0 para poder guardar",
+            	    heading: 'Advertencia - saldo',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
+                e.preventDefault();
+            };
+        });
+
+		$("#agregardet")
+				.click(
+						function() {
+							if (!$.isNumeric($("#debe").val())
+									|| !$.isNumeric($("#haber").val())
+									|| $("#cbxCC option:checked").val() == 0) {
+								$.toast({
+									text : "Datos inválidos", // Text that is to be shown in the toast
+
+									icon : 'warning', // Type of toast icon
+									showHideTransition : 'plain', // fade, slide or plain
+									allowToastClose : false, // Boolean value true or false
+									hideAfter : 5000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+									stack : 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+									position : 'mid-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+
+									textAlign : 'left', // Text alignment i.e. left, right or center
+									loader : true, // Whether to show loader or not. True by default
+									loaderBg : '#9EC600', // Background color of the toast loader
+
+								});
+							} else {
+								$("#tbldet tbody")
+										.append(
+												"<tr>"
+														+ "<td>"
+														+ '<input type="button" id="btnBorrarDetalle" value="Borrar" />'
+														+ "</td>"
+														+ "<td>"
+														+ '<input type="text" class="form-control col-sm-3" value='
+														+ $("#cbxCC").val()
+														+ ' readOnly>'
+														+ "</td>"
+														+ "<td>"
+														+ '<input type="text" class="form-control col-sm-6" value='
+														+ $(
+																'#cbxCC option:selected')
+																.text()
+														+ ' readOnly>'
+														+ "</td>"
+														+ "<td id='tddebe'>"
+														+ '<input type="text" class="form-control col-sm-6" value='
+														+ $('#debe').val()
+														+ ' readOnly>'
+														+ "</td>"
+														+ "<td id='tdhaber'>"
+														+ '<input type="text" class="form-control col-sm-6" value='
+														+ $('#haber').val()
+														+ ' readOnly>'
+														+ "</td>" + "</tr>");
+
+								debe = parseFloat($("#debe").val());
+								haber = parseFloat($("#haber").val());
+								saldo = saldo + (debe - haber);
+
+								$("#debe").val(0);
+								$("#haber").val(0);
+
+								if (saldo == 0) {
+									$("#divTotal").css({
+										"background" : "lightgreen"
+									});
+								} else if (saldo > 0) {
+									$("#divTotal").css({
+										"background" : "lightblue"
+									});
+								} else if (saldo < 0) {
+									$("#divTotal").css({
+										"background" : "pink"
+									});
+								}
+							}
+							$("#total").text(saldo);
+
+							var tableBody = document.getElementById("tbldet");
+							var cantDetalles = document
+									.getElementById("detalles");
+							var columns = 5;
+							var columnsName = [ "idCuenta", "cuenta", "debe",
+									"haber" ];
+							var rows = tableBody.childNodes[3].childNodes.length - 1;
+
+							for (var x = 1; x < columns; x++) {
+								for (var y = 0; y < rows; y++) {
+									tableBody.childNodes[3].childNodes[y + 1].childNodes[x].firstElementChild
+											.setAttribute('name',
+													columnsName[x - 1] + y);
+								}
+							}
+							;
+
+							cantDetalles.value = rows;
+							console.log(tableBody.childNodes[3]);
+							console.log("Filas" + rows);
+							
+							$("#cbxCC").focus();
+						});
+		$("#tbldet").on('click', '#btnBorrarDetalle', function() {
+			var currentRow = $(this).closest("tr");
+			debe = parseFloat(currentRow.find("#tddebe").children().val());
+			haber = parseFloat(currentRow.find("#tdhaber").children().val());
+			$(this).parent().parent().remove();
+			saldo = saldo - debe + haber;
+			$("#total").text(saldo);
+			if (saldo == 0) {
+				$("#divTotal").css({
+					"background" : "lightgreen"
+				});
+			} else if (saldo > 0) {
+				$("#divTotal").css({
+					"background" : "lightblue"
+				});
+			} else if (saldo < 0) {
+				$("#divTotal").css({
+					"background" : "pink"
+				});
+			}
 			
-			for(var x = 1; x < columns; x++){
-				for(var y = 0; y < rows; y++){
-					tableBody.childNodes[3].childNodes[y+1].childNodes[x].firstElementChild.setAttribute('name', columnsName[x-1] + y);
-				}
-			};
+			var tableBody = document.getElementById("tbldet");
+            var rows = tableBody.childNodes[3].childNodes.length - 1;
+            var cantDetalles = document.getElementById("detalles");
+            cantDetalles.setAttribute('value', ""+rows+"");
 			
-			cantDetalles.value = rows;
-			console.log(tableBody.childNodes[3]);
-			console.log("Filas" + rows);
-        });
-        $("#tbldet").on('click', '#btnBorrarDetalle', function(){
-        	var currentRow=$(this).closest("tr");
-        	debe = parseFloat(currentRow.find("#tddebe").children().val());
-        	haber = parseFloat(currentRow.find("#tdhaber").children().val());
-            $(this).parent().parent().remove();
-            saldo = saldo - debe + haber;
-            $("#total").text(saldo);
-            if(saldo == 0){
-            	$("#divTotal").css({"background": "lightgreen"});
-            }else if(saldo > 0){
-            	$("#divTotal").css({"background": "lightblue"});
-            }else if(saldo < 0){
-            	$("#divTotal").css({"background": "pink"});
-            }
-        });
-        
-        $("#vaciardet").click(function(){
-        	saldo = 0;
-            $("#tbldet tbody tr").remove();
-            $("#total").text(saldo);
-            if(saldo == 0){
-            	$("#divTotal").css({"background": "lightgreen"});
-            }
-        });
-        
-        $(window).on('load', function() {
+		});
+
+		$("#vaciardet").click(function() {
+			saldo = 0;
+			$("#tbldet tbody tr").remove();
+			$("#total").text(saldo);
+			if (saldo == 0) {
+				$("#divTotal").css({
+					"background" : "lightgreen"
+				});
+			}
+			
+			var cantDetalles = document.getElementById("detalles");
+            cantDetalles.setAttribute('value', "0");
+			
+		});
+
+		$(window).on('load', function() {
 			$('#eclise').contents().find('#example2-insert').click(function() {
 				alert($('asientoJSON').val());
 			});
 		});
-        
-        const mensaje = document.getElementById('descripcion');
+
+		const mensaje = document.getElementById('descripcion');
 		const contador = document.getElementById('cantidadCaracteres');
 
 		mensaje.addEventListener('input', function(e) {
@@ -557,8 +709,8 @@ $(document).ready(function() {
 			const longitudMax = target.getAttribute('maxlength');
 			const longitudAct = target.value.length;
 			contador.innerHTML = longitudAct;
-			});
- </script>
- <script src="../vendors/select2/dist/js/select2.min.js"></script>
+		});
+	</script>
+	<script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
 </html>

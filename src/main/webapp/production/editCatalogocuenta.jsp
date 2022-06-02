@@ -43,7 +43,7 @@
 		// response.sendRedirect("../login.jsp?msj=401");
 		response.sendRedirect("page_403.jsp");
 		return;
-	}
+	}*/
 	
 %>
     
@@ -189,7 +189,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 											<div class="ln_solid">
 											<div class="form-group" align="center">
 												<a href="tbl_catalogocuenta.jsp"
-													title="Retornar a la página anterior"> <i
+													title="Retornar a la pï¿½gina anterior"> <i
 													class="fa fa-arrow-circle-o-left"></i> Cancelar
 												</a>
 											</div>

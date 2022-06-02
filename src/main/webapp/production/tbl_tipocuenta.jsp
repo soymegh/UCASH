@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>	
 	
+	
+	
+	
 	<%
 	//JAlert flag
     String signal = "";
@@ -62,7 +65,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Tipo cuenta</title>
+<title>Gestiï¿½n | Tipo cuenta</title>
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 
 <!-- Bootstrap -->
@@ -159,7 +162,8 @@
 													style="text-align: right;">
 													<a href="addTipocuenta.jsp"> <i class="fa fa-plus-square"></i>
 														Nuevo Tipo de Cuenta
-													</a> <br></br>												
+													</a> <br></br>
+													<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												</div>
 												
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>

@@ -2,6 +2,12 @@
     pageEncoding="ISO-8859-1" import="datos.*, entidades.*, java.util.*"%>
 
 <%
+//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}	
+	
 
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
@@ -82,6 +88,7 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
@@ -103,7 +110,7 @@
 									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
 										<span class="section">Periodo Fiscal</span>
-			
+										<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 										<div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal<span class="required">:</span></label>
                                             <div class="col-md-6 col-sm-6">
@@ -129,7 +136,7 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type="button" class="btn btn-danger">Cancelar</button>
+													<button onClick="window.location.href='indexMultiempresa.jsp'" type="button" class="btn btn-danger">Cancelar</button>
 													<button type='submit' class="btn btn-primary">Aceptar</button>
 												</div>
 											</div>
@@ -184,5 +191,38 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	<script>
+	var mensaje = "";
+	mensaje = document.getElementById("JAlertInput").value; 
+	
+	$(document).ready(function() {
+
+        if (mensaje == "1") {
+        	errorAlert('Error', 'No eligio un periodo fiscal.')
+        }
+
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["excel", "pdf"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        /*$('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });*/
+    });
+	</script>
 </body>
 </html>

@@ -104,7 +104,7 @@
 											<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre Opcion<span class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional' name="nombreOpcion" data-validate-length-range="5,15" type="text" required="required" />
+												<input class="form-control" class='optional' name="nombreOpcion" type="text" required="required" />
 											</div>
 										</div>
 										
