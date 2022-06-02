@@ -43,7 +43,7 @@
 		// response.sendRedirect("../login.jsp?msj=401");
 		response.sendRedirect("page_403.jsp");
 		return;
-	}*/
+	}
 	
 %>  
     
