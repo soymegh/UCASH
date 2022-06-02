@@ -100,11 +100,11 @@ public class Dt_cuentaContable {
 		ArrayList<Vw_catalogo_tipo_cuentacontable> listCuentaContable = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 		try {
 			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_catalogo_tipo_cuentacontable WHERE estado <>3 AND idEmpresa=?", 
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_catalogo_tipo_cuentacontable WHERE estado <> 3 AND idEmpresa=?", 
 					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ps.setInt(1, idEmpresa);
 			rs = ps.executeQuery();
-			
+
 			while(this.rs.next()) {
 				Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
 				cc.setIdCuenta(this.rs.getInt("idCuenta"));
@@ -120,7 +120,7 @@ public class Dt_cuentaContable {
 				cc.setEstado(this.rs.getInt("estado"));
 				listCuentaContable.add(cc);
 			}
-			
+
 		} catch(Exception e) {
 			System.out.println("DATOS: ERROR EN VER CUENTAS CONTABLES "+ e.getMessage());
 			e.printStackTrace();
@@ -141,11 +141,12 @@ public class Dt_cuentaContable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-		
+
 		return listCuentaContable;
 	}
+
 	
 	//Método para ver cuenta contable por id
 	
