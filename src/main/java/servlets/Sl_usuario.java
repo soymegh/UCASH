@@ -166,6 +166,23 @@ public class Sl_usuario extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case 4: 
+			user.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+			try {
+				user.setFechaModificacion(new java.sql.Timestamp(fechaSistema.getTime()));
+				user.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuarioModificacion")));//1 valor temporal mientras se programa la sesion
+				
+				if(dtu.modificarUsuarioInactivo(user)) {
+					response.sendRedirect("production/restaurarUsuario.jsp?msj=1");
+				}
+				else {
+					response.sendRedirect("production/restaurarUsuario.jsp?msj=2");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_gestionUser opc3: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break; 
 
 		default:
 			break;

@@ -215,7 +215,7 @@
 			$(document).ready(function() {
 				
                 if (mensaje == "403") {
-                	errorAlert('Error', 'Usted no tiene permisos para acceder a esta página.')
+                	errorAlert('Error', 'Usted no tiene permisos para acceder a esta página o su usuario no existe.')
                 }
 
                 $("#example1").DataTable({

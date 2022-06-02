@@ -74,7 +74,7 @@ if (Vw_empresa.empresaActual != 0) {
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
+							<img src="../<%=vwur.getUrlFoto() == null ? "fotos_usuarios/img.jpg" : vwur.getUrlFoto()%>" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -162,7 +162,7 @@ if (Vw_empresa.empresaActual != 0) {
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+								aria-expanded="false"> <img src="../<%=vwur.getUrlFoto() == null ? "fotos_usuarios/img.jpg" : vwur.getUrlFoto()%>" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">

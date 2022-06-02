@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones,entidades.Tbl_tipoDocumento,
-	datos.Dt_rolOpciones, datos.Dt_tipoDocumento, java.util.*;"%>
-	
-	<%
+    pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+    
+    
+    
+<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -22,6 +23,11 @@
 		
 		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 		
+		for(int x = 0; x < listOpc.size(); x++){
+			System.out.print(listOpc.get(x).getOpciones());
+		};
+		
+		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
 		int index = request.getRequestURL().lastIndexOf("/");
 		String miPagina = request.getRequestURL().substring(index+1);
@@ -30,6 +36,7 @@
 		for(Vw_rolopciones vrop : listOpc){
 			if(vrop.getOpciones().trim().equals(miPagina.trim())){
 				permiso = true; //ACCESO CONCEDIDO
+				System.out.print("ESTA ES LA PAGINA RECUPERADA: " + " " + vrop.getOpciones().trim() +  " " + "ESTA ES LA PAGINA EN LA QUE NOS ENCONTRAMOS: " + miPagina.trim());
 				break;
 			}
 		}
@@ -40,22 +47,23 @@
 	}
 		
 	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
 		response.sendRedirect("../login.jsp?msj=403");
 		return;
 	}
 	
 %>
+    
+    
 <!DOCTYPE html>
-
+<html>
 <%
-Tbl_tipoDocumento td = new Tbl_tipoDocumento();
-Dt_tipoDocumento dtd = new Dt_tipoDocumento();
-int idtd = (request.getParameter("idTipoDocumento") != null) ? Integer.parseInt(request.getParameter("idTipoDocumento")) : 0;
-td = dtd.obtenerTipoDocPorId(idtd);
-%>
+Tbl_usuario user = new Tbl_usuario();
+Dt_usuario datosUsuario = new Dt_usuario();
 
-<html lang="en">
+int idUser = (request.getParameter("idUsuario") != null) ? Integer.parseInt(request.getParameter("idUsuario")) : 0;
+
+user = datosUsuario.ObtenerUsuarioPorIdInactivo(idUser);
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -63,10 +71,9 @@ td = dtd.obtenerTipoDocPorId(idtd);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Eliminar Tipo Documento</title>
+<title><%=user.getNombre()%> | Detalle Usuarios Inactivo</title>
 
 <!-- Bootstrap -->
-<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
@@ -76,22 +83,19 @@ td = dtd.obtenerTipoDocPorId(idtd);
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 <!-- iCheck -->
 <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-<!-- Datatables -->
-
-<link
-	href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"
+<!-- bootstrap-wysiwyg -->
+<link href="../vendors/google-code-prettify/bin/prettify.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"
+<!-- Switchery -->
+<link href="../vendors/switchery/dist/switchery.min.css"
 	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
+<!-- starrr -->
+<link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css"
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
@@ -102,52 +106,78 @@ td = dtd.obtenerTipoDocPorId(idtd);
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="navegacion.jsp"></jsp:include>
-			<!-- /top navigation -->
-			
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Eliminar tipo documento</h3>
+							<h3>Restaurar Usuario Inactivo</h3>
 						</div>
-
 					</div>
-					<div class="clearfix"></div>
-					<div class="row">
 					
-					<div class="col-md-12 col-sm-12">
-						<div class="x_panel">
+					<div class="title_right">
+							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
+								<div class="input-group">
+									<input type="text" class="form-control"
+										placeholder="Buscar..."> <span
+										class="input-group-btn">
+										<button class="btn btn-default" type="button">Go!</button>
+									</span>
+								</div>
+							</div>
+						</div>
+						
+					<div class="clearfix"></div>
+
+
+
+
+
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<div class="x_panel">
 							<div class="x_title">
 								<h2>
-									Formulario tipo documento  
+									Formulario de usuarios inactivos  
 								</h2>
 								
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-							<form class="" action="../Sl_TipoDocumento" method="post" novalidate>
-							<input type="hidden" value="3" name="opcion" id="opcion"/>
-							
-							<input type="hidden" value="<%=td.getIdTipoDocumento() %>" name="idTipoDocEliminar" id="idTipoDocEliminar" />
-							
-									<div class="field item form-group">
-										<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
-										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtTipo" value="<%= td.getTipo() %>" placeholder="" readOnly>
+								<form class="" action="../Sl_usuario" method="post" novalidate>
+									<input type="hidden" value="4" name="opcion" id="opcion" />
+									<input type="hidden" class="form-control" value="<%=user.getIdUsuario()%>" name="idUsuario" readonly>
+									<input type="hidden" class="form-control" value="<%=vwur.getId_user()%>" name="usuarioModificacion" readonly>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Usuario<span class="required">:</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" placeholder="Nombre de usuario" value="<%=user.getUsuario()%>" readonly>
 										</div>
 									</div>
-									<div class="field item form-group">
-										<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
-										<div class="col-md-6 col-sm-6">
-											<input type="text" class="form-control" name="txtAcronimo" value="<%= td.getAcronimo() %>" placeholder="" readOnly>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre<span class="required">:</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=user.getNombre()%>" placeholder="Nombres" readonly>
 										</div>
 									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Apellido<span class="required">:</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=user.getApellidos()%>" placeholder="Apellidos" readonly>
+										</div>
+									</div>
+									<div class="form-group row ">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span class="required">:</span></label>
+										<div class="col-md-6 col-sm-6 ">
+											<input type="text" class="form-control" value="<%=user.getEmail()%>" placeholder="Correo electrónico" readonly>
+										</div>
+									</div>
+
 									<div class="ln_solid"></div>
 									<div class="form-group">
-										<div class="col-md-9 col-sm-9  offset-md-3">										    
-											<a href="tbl_tipoDocumento.jsp" class="btn btn-primary">Cancelar</a>
-											<button type="submit" class="btn btn-danger">Eliminar</button>
+										<div class="col-md-6 offset-md-3">
+											<button type='button' onClick="window.location.href='restaurarUsuario.jsp'" class="btn btn-primary">Regresar</button>
+											<button type="submit" class="btn btn-primary">Restaurar este usuario</button>
 										</div>
 									</div>
 
@@ -155,17 +185,12 @@ td = dtd.obtenerTipoDocPorId(idtd);
 							</div>
 						</div>
 					</div>
+
 				</div>
-			  </div>
 			</div>
-			<!-- footer content -->
-            <footer>
-                <div class="pull-right">Sistema contable by Eldian's Software</div>
-                <div class="clearfix"></div>
-            </footer>
-            <!-- /footer content -->
-        </div>
-    </div>
+		</div>
+	</div>
+	</div>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
