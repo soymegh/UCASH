@@ -8,7 +8,7 @@ if(request.getParameter("msj") != null){
 	}
 %>
 	
-<%-- 	<%
+	<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -51,7 +51,7 @@ if(request.getParameter("msj") != null){
 		return;
 	}
 	
-%> --%>
+%> 
 	
 <!DOCTYPE html>
 <html>
@@ -159,7 +159,9 @@ if(request.getParameter("msj") != null){
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type='button'
+														onClick="window.location.href='tbl_departamento.jsp'"
+														class="btn btn-primary">Regresar</button>
 												</div>
 											</div>
 										</div>

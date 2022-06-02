@@ -8,7 +8,7 @@ if(request.getParameter("msj") != null){
 	}
 %>
 
-<%-- <%
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -49,7 +49,7 @@ if (!permiso) {
 	response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%> 
 
 <!DOCTYPE html>
 <html>

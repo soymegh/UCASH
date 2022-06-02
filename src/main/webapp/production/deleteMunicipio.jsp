@@ -8,7 +8,7 @@ if(request.getParameter("msj") != null){
 	}
 %>
 	
-<%-- 	 <%
+	 <%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -51,7 +51,7 @@ if(request.getParameter("msj") != null){
 		return;
 	}
 	
-%> --%>
+%> 
 	
 <!DOCTYPE html>
 <html>

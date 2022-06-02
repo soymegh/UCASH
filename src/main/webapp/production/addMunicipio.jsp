@@ -179,7 +179,9 @@ if(request.getParameter("msj") != null){
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Agregar</button>
-													<button type="button" class="btn btn-primary">Cancelar</button>
+													<button type='button'
+														onClick="window.location.href='tbl_municipio.jsp'"
+														class="btn btn-primary">Regresar</button>
 												</div>
 											</div>
 										</div>
