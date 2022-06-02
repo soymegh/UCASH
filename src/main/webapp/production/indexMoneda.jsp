@@ -2,6 +2,12 @@
     pageEncoding="ISO-8859-1" import="datos.*, entidades.*, java.util.*"%>
 
 <%
+	//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}
+	
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -71,6 +77,7 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
@@ -91,6 +98,7 @@
 							<div class="x_content">
 									<form class="" action="../Sl_moneda" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 										<span class="section">Moneda</span>
 
 										<div class="field item form-group">
@@ -173,5 +181,37 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	<script>
+    var mensaje = "";
+	mensaje = document.getElementById("JAlertInput").value; 
+	
+	$(document).ready(function() {
+
+        if (mensaje == "1") {
+        	errorAlert('Error', 'No eligio una moneda.')
+        }
+
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["excel", "pdf"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        /*$('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });*/
+    });
+    </script>
 </body>
 </html>

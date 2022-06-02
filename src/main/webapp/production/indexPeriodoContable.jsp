@@ -2,6 +2,11 @@
     pageEncoding="ISO-8859-1" import="datos.*, entidades.*, java.util.*"%>
     
 <%
+//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}		
 
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
@@ -46,15 +51,6 @@
 	}
 	
 %>
-
-<%
-	int idPeriodoFiscal = 0; 
-	//Setting company configurations
-	if(request.getParameter("idPF") != null){
-		idPeriodoFiscal = Integer.parseInt(request.getParameter("idPF"));
-	}
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,6 +76,7 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
@@ -100,6 +97,7 @@
 							<div class="x_content">
 									<form class="" action="../Sl_periodoContable" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 										<span class="section">Periodo Contable</span>
 			
 										<div class="field item form-group">
@@ -109,7 +107,7 @@
 												<%
 							                      	ArrayList<Vw_periodoContable> listPeriodosContable = new ArrayList<Vw_periodoContable>();
 							                      	Dt_periodoContable dtpc = new Dt_periodoContable();
-							                      	listPeriodosContable = dtpc.listarperiodoContablePorIdFiscal(idPeriodoFiscal);
+							                      	listPeriodosContable = dtpc.listarperiodoContablePorIdFiscal(Tbl_periodoFiscal.idPeriodoFiscalActual);
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="combobox_periodoContable" id="combobox_periodoContable" required="required">
 												  <option value="">Seleccione...</option>
@@ -182,5 +180,37 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+    
+    <script>
+    var mensaje = "";
+	mensaje = document.getElementById("JAlertInput").value; 
+	
+	$(document).ready(function() {
+
+        if (mensaje == "1") {
+        	errorAlert('Error', 'No eligio un periodo contable.')
+        }
+
+        $("#example1").DataTable({
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
+            "buttons": ["excel", "pdf"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        /*$('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });*/
+    });
+    </script>
 </body>
 </html>
