@@ -187,7 +187,7 @@ td = dtdp.getDeptbyID(tm.getIdDepartamento());
 														type='button' class="btn btn-primary">Eliminar
 														este municipio</button>
 
-													<a href="tbl_departamento.jsp" class="btn btn-primary">Regresar</a>
+													<a href="tbl_municipio.jsp" class="btn btn-primary">Regresar</a>
 
 
 
