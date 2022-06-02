@@ -21,6 +21,9 @@ import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
+import datos.Dt_empresa;
+import entidades.Vw_empresa;
+
 /**
  * Servlet implementation class Sl_rptFichaAsientoContable
  */
@@ -41,10 +44,18 @@ public class Sl_rptFichaAsientoContable extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		Dt_empresa datosEmpresa = new Dt_empresa();
+		Vw_empresa emp = new Vw_empresa();
+		
+		
 		try {
 			
 			String idAsientoContable = request.getParameter("idAC") == null ? "0" : (request.getParameter("idAC"));
-			String nombreEmpresa = request.getParameter("cbxIDE");
+			String idEmpresa = request.getParameter("empresaActual");
+
+			emp = datosEmpresa.getEmpresaByID(Integer.parseInt(idEmpresa));
+			
+			String nombreEmpresa = emp.getNombreComercial();
 			
 			poolConexion pc = poolConexion.getInstance();
 			Connection c = poolConexion.getConnection();

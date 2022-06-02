@@ -6,7 +6,7 @@
 	<parameter name="asientoContableID" class="java.lang.Integer" isForPrompting="false"/>
 	<parameter name="EmpresaID" class="java.lang.Integer"/>
 	<parameter name="FechaInicio" class="java.sql.Date"/>
-	<parameter name="FechaFinal" class="java.sql.Timestamp"/>
+	<parameter name="FechaFinal" class="java.sql.Date"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT 
     *

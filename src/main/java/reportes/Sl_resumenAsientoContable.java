@@ -16,13 +16,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datos.Dt_empresa;
 import datos.poolConexion;
+import entidades.Vw_empresa;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+
+
 
 /**
  * Servlet implementation class Sl_resumenAsientoContable
@@ -56,17 +60,22 @@ public class Sl_resumenAsientoContable extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 		
+		Dt_empresa datosEmpresa = new Dt_empresa();
+		Vw_empresa emp = new Vw_empresa();
+		
 		try {
 
 			String idEmpresa = request.getParameter("empresaActual") == null ? "0" : (request.getParameter("empresaActual"));
+			emp = datosEmpresa.getEmpresaByID(Integer.parseInt(idEmpresa));
+			String nombreEmpresa = emp.getNombreComercial();
 			
 			String fechaInicialString = request.getParameter("fecha_inicio").toString();
 			java.util.Date dateInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fechaInicialString);
-			Timestamp fechaInicio = new java.sql.Timestamp(dateInicio.getTime());
+			Date fechaInicio = new java.sql.Date(dateInicio.getTime());
 			
 			String fechaFinalString = request.getParameter("fecha_final").toString();
 			java.util.Date dateFinal = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinalString);
-			Timestamp fechaFinal = new java.sql.Timestamp(dateFinal.getTime());
+			Date fechaFinal = new java.sql.Date(dateFinal.getTime());
 			
 
 			poolConexion pc = poolConexion.getInstance();
@@ -89,7 +98,7 @@ public class Sl_resumenAsientoContable extends HttpServlet {
 
 			response.setContentType("application/pdf");
 			response.setHeader("Content-Disposition",
-					"inline; filename=\"" + "_ReporteAsientoContable_" + "_.pdf");
+					"inline; filename=\"" + nombreEmpresa + "_ReporteAsientoContable_del_" + fechaInicialString + "_al_" + fechaFinalString + "_.pdf");
 
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputSt));

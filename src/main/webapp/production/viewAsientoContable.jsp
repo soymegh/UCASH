@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="entidades.Vw_usuariorol,
+	import="entidades.Vw_usuariorol, entidades.Vw_empresa,
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
@@ -123,7 +123,7 @@ if (!permiso) {
 								<div class="x_title">
 									<h2>Datos de Asiento Contable</h2><br>
 									<br> <span class="section"><a
-										href="../Sl_rptFichaAsientoContable?idAC=<%=idac%>"
+										href="../Sl_rptFichaAsientoContable?idAC=<%=idac%>&empresaActual=<%=Vw_empresa.empresaActual%>"
 										target="_blank">Imprimir asiento contable <i
 											class="fa fa-print"></i></a></span>
 
@@ -133,7 +133,7 @@ if (!permiso) {
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
 										<span class="section"></span>
-
+										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
 												documento: </label>

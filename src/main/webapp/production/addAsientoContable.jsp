@@ -61,9 +61,9 @@ if (!permiso) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -316,7 +316,7 @@ if (!permiso) {
 																				style="width: 100%" id="tbldet">
 																				<thead>
 																					<tr>
-																						<th>OpciÃ³n</th>
+																						<th>Opción</th>
 																						<th>ID Cuenta</th>
 																						<th>Cuenta</th>
 																						<th>Debe</th>
@@ -444,7 +444,7 @@ if (!permiso) {
 				case "1":
 					$.toast({
 					    text: "Asiento contable agregado correctamente", 
-					    heading: 'Ã‰xito', 
+					    heading: 'Éxito', 
 					    icon: 'success', 
 					    showHideTransition: 'slide', 
 					    allowToastClose: false, 
@@ -536,7 +536,21 @@ if (!permiso) {
 
         botonGuardar.addEventListener('click', (e) => {
             if(saldo !== 0){
-                alert('El saldo debe ser 0 para poder guardar.');
+            	$.toast({
+            	    text: "El saldo debe ser 0 para poder guardar",
+            	    heading: 'Advertencia - saldo',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
                 e.preventDefault();
             };
         });
@@ -548,7 +562,7 @@ if (!permiso) {
 									|| !$.isNumeric($("#haber").val())
 									|| $("#cbxCC option:checked").val() == 0) {
 								$.toast({
-									text : "Datos invï¿½lidos", // Text that is to be shown in the toast
+									text : "Datos inválidos", // Text that is to be shown in the toast
 
 									icon : 'warning', // Type of toast icon
 									showHideTransition : 'plain', // fade, slide or plain
@@ -560,14 +574,7 @@ if (!permiso) {
 									textAlign : 'left', // Text alignment i.e. left, right or center
 									loader : true, // Whether to show loader or not. True by default
 									loaderBg : '#9EC600', // Background color of the toast loader
-									beforeShow : function() {
-									}, // will be triggered before the toast is shown
-									afterShown : function() {
-									}, // will be triggered after the toat has been shown
-									beforeHide : function() {
-									}, // will be triggered before the toast gets hidden
-									afterHidden : function() {
-									} // will be triggered after the toast has been hidden
+
 								});
 							} else {
 								$("#tbldet tbody")

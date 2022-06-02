@@ -110,37 +110,40 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="207" splitType="Stretch">
+		<band height="217" splitType="Stretch">
 			<image>
-				<reportElement stretchType="ContainerHeight" x="240" y="20" width="80" height="50" uuid="052fdee4-a7e2-46c2-85f0-32c3fe404312"/>
+				<reportElement stretchType="ElementGroupHeight" x="240" y="0" width="80" height="80" uuid="052fdee4-a7e2-46c2-85f0-32c3fe404312">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<imageExpression><![CDATA["C:/payara5/glassfish/logoEmpresa/logoEmpresa.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="80" y="70" width="399" height="30" uuid="dd9097be-65aa-4dfd-95c4-c0479649dbf3"/>
+				<reportElement x="80" y="80" width="399" height="30" uuid="dd9097be-65aa-4dfd-95c4-c0479649dbf3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Torres & Ortega CIA. LTA.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="80" y="100" width="400" height="30" uuid="636c686d-6917-448d-a22d-866b0238703f"/>
+				<reportElement x="80" y="110" width="400" height="30" uuid="636c686d-6917-448d-a22d-866b0238703f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="15"/>
 				</textElement>
 				<text><![CDATA[Reporte de asientos contables]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="80" y="131" width="400" height="30" uuid="f29b9e0a-b7ed-4e76-9f64-fcb683d6389b"/>
+				<reportElement x="80" y="141" width="400" height="30" uuid="f29b9e0a-b7ed-4e76-9f64-fcb683d6389b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombreComercial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="161" width="399" height="20" uuid="a37d2426-c7b4-424f-b1b7-b50b030e0fdc"/>
+				<reportElement x="80" y="171" width="399" height="20" uuid="a37d2426-c7b4-424f-b1b7-b50b030e0fdc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Del: " + $F{fechaInicio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="180" width="399" height="20" uuid="6b07c27a-9cbb-4c60-ab73-34022479a27e"/>
+				<reportElement x="80" y="190" width="399" height="20" uuid="6b07c27a-9cbb-4c60-ab73-34022479a27e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Al: " + $F{fechaFinal}]]></textFieldExpression>
 			</textField>
