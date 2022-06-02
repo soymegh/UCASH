@@ -255,7 +255,7 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 								<div class="ln_solid">
 									<div class="form-group">
 										<div class="col-md-6 offset-md-3">
-											<button type='submit' class="btn btn-primary">Agregar</button>
+											<button type='submit' class="btn btn-primary">Editar</button>
 
 											<button type='reset' class="btn btn-success">Reiniciar</button>
 
