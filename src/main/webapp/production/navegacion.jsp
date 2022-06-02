@@ -62,11 +62,10 @@ if (Vw_empresa.empresaActual != 0) {
 <meta charset="ISO-8859-1">
 </head>
 <body>
-	<div class="main_container">
-			<div class="col-md-3 left_col">
+	<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-money"></i>
+						<a href="index.jsp" class="site_title"><i class="fa fa-money"></i>
 							<span>Sistema Contable</span></a>
 					</div>
 
@@ -75,7 +74,7 @@ if (Vw_empresa.empresaActual != 0) {
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="img.jpg" alt="..." class="img-circle profile_img">
+							<img src="../<%=vwur.getUrlFoto() == null ? "fotos_usuarios/img.jpg" : vwur.getUrlFoto()%>" alt="..." class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
@@ -91,7 +90,7 @@ if (Vw_empresa.empresaActual != 0) {
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
+								<li><a href="index.jsp"><i class="fa fa-home"></i>Inicio</a></li>
 							</ul>
 						</div>
 
@@ -115,7 +114,8 @@ if (Vw_empresa.empresaActual != 0) {
 										<li><a href="tbl_departamento.jsp">Departamento</a></li>
 										<li><a href="tbl_municipio.jsp">Municipio</a></li>
 										<li><a href="tbl_TipoIdentificacion.jsp">Tipo Identificacion</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
+										<li><a href="tbl_representanteLegal.jsp">Representante
+												Legal</a></li>
 									</ul></li>
 
 								<li><a><i class="fa fa-file"></i> Cuenta Contable<span
@@ -147,17 +147,6 @@ if (Vw_empresa.empresaActual != 0) {
 						</div>
 					</div>
 					<!-- /sidebar menu -->
-					<div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <span>
-						<a data-toggle="tooltip" data-placement="top" title="Logout" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i></a>
-						</span>
-					</div>
 					<!-- /menu footer buttons -->
 				</div>
 			</div>
@@ -173,7 +162,8 @@ if (Vw_empresa.empresaActual != 0) {
 							<li class="nav-item dropdown open" style="padding-left: 15px;">
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+								aria-expanded="false"> <img src="../<%=vwur.getUrlFoto() == null ? "fotos_usuarios/img.jpg" : vwur.getUrlFoto()%>" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">

@@ -126,7 +126,7 @@ public class Sl_upload extends HttpServlet {
 					
 				listcd.forEach(System.out::println);
 				Tbl_tasaCambio tsc = new Tbl_tasaCambio();
-				tsc.setMes(mes);
+				tsc.setMes(Integer.parseInt(mes));
 				tsc.setAnio(anio);
 				tsc.setId_monedaO(monedaO);
 				tsc.setId_monedaC(monedaC);
