@@ -15,6 +15,7 @@ Vw_empresa vEmpresa = new Vw_empresa();
 Dt_empresa dtEmpresa = new Dt_empresa();
 tEmpresa = dtEmpresa.getTableEmpresaByID(Integer.parseInt(empresa));
 vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
+int currentUsuario;
 %>
 	<script>
     function setForm(){
@@ -52,7 +53,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 	vwur = (Vw_usuariorol) session.getAttribute("acceso");
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
+		currentUsuario = vwur.getId_user();
 		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 		
 		
@@ -164,7 +165,10 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 								</div>
 								<div class="x_content">
 									<form class="" action="../Sl_empresa" method="post" novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
+										<input type="hidden" value="2" name="opcion" id="opcion" /> 
+									    <input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
+										
+										<input
 											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>"
 											name="idEmpresa" id="idEmpresa" /> <span class="section">Datos
 											de empresa</span>
@@ -177,7 +181,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Razï¿½n
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Razón
 												social<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
@@ -206,7 +210,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 										</div>
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Telï¿½fono<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input name="telefono" class="form-control" type="tel"
@@ -214,7 +218,7 @@ vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Direcciï¿½n<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span
 												class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">

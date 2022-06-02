@@ -22,6 +22,7 @@
 	
 	//OBTENEMOS LA SESION
 	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	System.out.print("Este es el id de la sesión (JSP - indexMoneda): " + session.getId());
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
@@ -105,6 +106,8 @@
 							<a href="tbl_departamento.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-location-arrow" style="padding-right:10px;"></i>Departamento</a>
 							<a style="padding-left:20px; padding-right:20px;"> </a>
 							<a href="tbl_municipio.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-location-arrow" style="padding-right:10px;"></i>Municipio</a>
+							<a style="padding-left:20px; padding-right:20px;"> </a>
+							<a href="tbl_TipoIdentificacion.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-credit-card" style="padding-right:10px;"></i>Tipo de identificacion</a>
 							<a style="padding-left:20px; padding-right:20px;"> </a>
 							<a href="tbl_representanteLegal.jsp" style="font-size:20px; padding-left:15px;"><i class="fa fa-lg fa-user" style="padding-right:10px;"></i>Representante Legal</a>
 						</div>

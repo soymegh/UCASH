@@ -47,7 +47,7 @@ public class Dt_cuentaContable {
 		}
 	}
 	
-	//Método para listar cuentas contables
+	//Mï¿½todo para listar cuentas contables
 	public ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables(){
 		ArrayList<Vw_catalogo_tipo_cuentacontable> listCuentaContable = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 		try {
@@ -148,7 +148,7 @@ public class Dt_cuentaContable {
 	}
 
 	
-	//Método para ver cuenta contable por id
+	//Mï¿½todo para ver cuenta contable por id
 	
 	public Vw_catalogo_tipo_cuentacontable getCuentaContableById(int idCuenta) {
 		Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
@@ -290,7 +290,7 @@ public class Dt_cuentaContable {
 		return idCC;
 	}
 	
-	//Método para agregar una cuenta contable
+	//Mï¿½todo para agregar una cuenta contable
 	
 	public boolean addCuentaContable(Tbl_cuentaContable cc) {
 		boolean guardado = false;
@@ -335,7 +335,7 @@ public class Dt_cuentaContable {
 		return guardado;
 	}
 	
-	//Método para editar cuenta contable
+	//Mï¿½todo para editar cuenta contable
 	
 	public boolean editCuentaContable(Tbl_cuentaContable cc) {
 		boolean modificado = false;
@@ -386,7 +386,7 @@ public class Dt_cuentaContable {
 		return modificado;
 	}
 	
-	//Método para elminar cuenta contable
+	//Mï¿½todo para elminar cuenta contable
 	
 	public boolean deleteCuentaContable(Tbl_cuentaContable cc) {
 		boolean eliminado = false;

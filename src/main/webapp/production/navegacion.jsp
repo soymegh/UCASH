@@ -95,7 +95,7 @@ if (Vw_empresa.empresaActual != 0) {
 						</div>
 
 						<div class="menu_section">
-							<h3>Gestión</h3>
+							<h3>Gestiï¿½n</h3>
 							<ul class="nav side-menu">
 								<li><a><i class="fa fa-shield"></i> Seguridad <span
 										class="fa fa-chevron-down"></span></a>
@@ -167,7 +167,7 @@ if (Vw_empresa.empresaActual != 0) {
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
+									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesiï¿½n</a>
 								</div>
 							</li>
 						</ul>

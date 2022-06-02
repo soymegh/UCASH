@@ -68,7 +68,7 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Cuentas Contables</title>
+<title>Gestiï¿½n | Cuentas Contables</title>
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -356,7 +356,6 @@ if (!permiso) {
 	<!-- jAlert -->
 	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
 	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
-
 	<script>
 		var mensaje = "";
 		mensaje = document.getElementById("JAlertInput").value;
