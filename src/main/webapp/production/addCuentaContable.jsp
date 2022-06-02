@@ -15,7 +15,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 
 
-<%-- <%
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -56,7 +56,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%>
 
 
 <!DOCTYPE html>
@@ -117,6 +117,7 @@ if (!permiso) {
 								<div class="x_content">
 									<form class="" action="../Sl_cuentaContable" method="post"
 										novalidate>
+										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
 										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
 											class="section">Datos de CC Maestro</span>
 

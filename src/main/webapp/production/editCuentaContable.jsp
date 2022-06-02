@@ -40,8 +40,7 @@ ccd = dtCcd.getCcdbyID(idCCD);
 vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 
-
-<%-- <%
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -82,7 +81,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -134,7 +133,7 @@ if (!permiso) {
 										<input type="hidden" value="2" name="opcion" id="opcion"/>
 										<input type="hidden" value="<%= vwCc.getIdCuenta()%>" name="idCuenta" id="idCuenta" />
 										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
-										
+										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
 										<span class="section">Datos de Cuenta Contable Maestro</span>
 										
 										<div class="field item form-group">

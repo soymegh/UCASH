@@ -165,7 +165,7 @@ if (!permiso) {
 															<%
 															ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 															Dt_cuentaContable dtCc = new Dt_cuentaContable();
-															listaCuentasContables = dtCc.listaCuentasContables();
+															listaCuentasContables = dtCc.getCuentaContableByIdEmpresa(Vw_empresa.empresaActual);
 															%>
 															<thead>
 																<tr>

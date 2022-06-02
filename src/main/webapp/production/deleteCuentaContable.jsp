@@ -22,7 +22,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 
 
-<%-- <%
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -63,7 +63,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
