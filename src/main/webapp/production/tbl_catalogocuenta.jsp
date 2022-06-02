@@ -9,7 +9,7 @@
 		signal = request.getParameter("msj");
 	}
 	
-	/*//INVALIDA LA CACHE DEL NAVEGADOR //
+	//INVALIDA LA CACHE DEL NAVEGADOR //
 		response.setHeader( "Pragma", "no-cache" );
 		response.setHeader( "Cache-Control", "no-store" );
 		response.setDateHeader( "Expires", 0 );
@@ -50,7 +50,7 @@
 			// response.sendRedirect("../login.jsp?msj=401");
 			response.sendRedirect("page_403.jsp");
 			return;
-		}*/
+		}
 %>
 	
 <!DOCTYPE html>
@@ -187,14 +187,13 @@
 															<td><%=catalogocuenta.getDescripcion()%></td>
 															<td><a
 																href="viewCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
-																target="blank"> <i class="fa fa-eye" title="Mostrar"></i>
+																target=""> <i class="fa fa-eye" title="Mostrar"></i>
 															</a> &nbsp; <a
 																href="editCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
-																target="blank"> <i class="fa fa-edit" title="Editar"></i></a>
+																target=""> <i class="fa fa-edit" title="Editar"></i></a>
 																&nbsp; <a
 																href="deleteCatalogocuenta.jsp?IdCatalogo=<%=catalogocuenta.getIdCatalogo()%>"
-																target="blank"> <i class="fa fa-trash"
-																	title="Eliminar"></i>
+																target=""> <i class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%
