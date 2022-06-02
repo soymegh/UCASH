@@ -46,6 +46,7 @@ public class Sl_asientoContable extends HttpServlet {
 		
 		switch (opc) {
 		case 1:
+		
 			try {
 				//Asiento Contable
 				Date fechaSistema = new Date();

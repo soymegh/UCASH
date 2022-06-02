@@ -74,7 +74,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Eliminar| Periodo Contable</title>
+<title>Cerrar| Periodo Contable</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -120,7 +120,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Eliminar Periodo Contable</h3>
+							<h3>Cerrar Periodo Contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -130,7 +130,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>
-										Formulario <small>Eliminar Periodo Contable</small>
+										Formulario <small>Cerrar Periodo Contable</small>
 									</h2>
 
 									<div class="clearfix"></div>
@@ -210,7 +210,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-												<button type='submit' class="btn btn-primary">Eliminar</button>
+												<button type='submit' class="btn btn-primary">Cerrar</button>
 													<a href="tbl_periodoContable.jsp" type="button"
 														class="btn btn-primary">Cancelar</a>
 												</div>
