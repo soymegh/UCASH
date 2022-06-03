@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 	
+	
+	
+	
 	<%
+	//JAlert flag
+    String signal = "";
+    if (request.getParameter("msj") != null) {
+        signal = request.getParameter("msj");
+    }
+    
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -57,6 +66,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Gestión | Tipo cuenta</title>
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -255,6 +265,7 @@
 													<a href="addTipocuenta.jsp"> <i class="fa fa-plus-square"></i>
 														Nuevo Tipo de Cuenta
 													</a> <br></br>
+													<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												</div>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
@@ -360,6 +371,118 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
+
+	<script>
+		var mensaje = "";
+		mensaje = document.getElementById("JAlertInput").value;
+		console.log(mensaje);
+		$(document)
+				.ready(
+						function() {
+							if (mensaje == "1") {
+								successAlert('Exito',
+										'El catalogo de cuenta ha sido registrado correctamente.')
+								console.log(mensaje);
+							}
+							if (mensaje == "2") {
+								errorAlert('Error',
+										'El catalogo de cuenta no se ha podido guardar. Por favor verifique los datos.')
+							}
+							if (mensaje == "3") {
+								successAlert('Exito',
+										'Los datos del catalogo de cuenta seleccionado han sido editados.')
+							}
+							if (mensaje == "4") {
+								errorAlert('Error',
+										'Los datos del catalogo de cuenta seleccionado no se han podido editar.')
+							}							
+							if (mensaje == "5") {
+								successAlert('Exito',
+										'El catalogo de cuenta se ha eliminado correctamente.')
+							}
+							if (mensaje == "6") {
+								errorAlert('Error',
+										'El catalogo de cuenta no se ha podido eliminar.')
+							}
+							
+							$("#example1").DataTable({
+								"responsive" : true,
+								"lengthChange" : false,
+								"autoWidth" : false,
+								"buttons" : [ "excel", "pdf" ]
+							}).buttons().container().appendTo(
+									'#example1_wrapper .col-md-6:eq(0)');
+							/*$('#example2').DataTable({
+							    "paging": true,
+							    "lengthChange": false,
+							    "searching": false,
+							    "ordering": true,
+							    "info": true,
+							    "autoWidth": false,
+							    "responsive": true,
+							});*/
+						});
+	</script><!-- jAlert -->
+	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
+
+	<script>
+		var mensaje = "";
+		mensaje = document.getElementById("JAlertInput").value;
+		console.log(mensaje);
+		$(document)
+				.ready(
+						function() {
+							if (mensaje == "1") {
+								successAlert('Exito',
+										'El tipo de cuenta ha sido registrado correctamente.')
+								console.log(mensaje);
+							}
+							if (mensaje == "2") {
+								errorAlert('Error',
+										'El  tipo de cuenta no se ha podido guardar. Por favor verifique los datos.')
+							}
+							if (mensaje == "3") {
+								successAlert('Exito',
+										'Los datos tipo de cuenta seleccionado han sido editados.')
+							}
+							if (mensaje == "4") {
+								errorAlert('Error',
+										'Los datos del tipo de cuenta seleccionado no se han podido editar.')
+							}							
+							if (mensaje == "5") {
+								successAlert('Exito',
+										'El  tipo de cuenta se ha eliminado correctamente.')
+							}
+							if (mensaje == "6") {
+								errorAlert('Error',
+										'El  tipo de cuenta no se ha podido eliminar.')
+							}
+							
+							$("#example1").DataTable({
+								"responsive" : true,
+								"lengthChange" : false,
+								"autoWidth" : false,
+								"buttons" : [ "excel", "pdf" ]
+							}).buttons().container().appendTo(
+									'#example1_wrapper .col-md-6:eq(0)');
+							/*$('#example2').DataTable({
+							    "paging": true,
+							    "lengthChange": false,
+							    "searching": false,
+							    "ordering": true,
+							    "info": true,
+							    "autoWidth": false,
+							    "responsive": true,
+							});*/
+						});
+	</script>
 
 </body>
 </html>

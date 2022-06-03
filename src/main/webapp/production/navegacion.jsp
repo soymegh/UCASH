@@ -15,7 +15,7 @@
 	boolean permiso = false; //VARIABLE DE CONTROL
 	
 	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	vwur = (Vw_usuariorol) request.getSession(true).getAttribute("acceso");
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
@@ -78,12 +78,15 @@ if (Vw_empresa.empresaActual != 0) {
 						</div>
 						<div class="profile_info">
 							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
+							<h2><%=vwur.getNombre()+" "+vwur.getApellido()%></h2>
 						</div>
 					</div>
 					<!-- /menu profile quick info -->
-
-					<br />
+					
+					<div class="clearfix">
+						<h2 class="site_title" style="font-size: 16px; font-family: serif;"><%=nombreEmpresa %> </h2>	
+					</div>
+					<br>
 
 					<!-- sidebar menu -->
 					<div id="sidebar-menu"

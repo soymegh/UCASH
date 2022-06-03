@@ -53,7 +53,6 @@ public class poolConexion {
             }
         } catch (Exception var2) {
             var2.printStackTrace();
-            System.out.println(var2.getMessage());
         }
 
         return resp;
@@ -63,10 +62,8 @@ public class poolConexion {
         if (!EstaConectado()) {
             try {
                 con = dataSource.getConnection();
-                System.out.println("se conecto a BD SEGURIDAD!!!");
             } catch (SQLException var1) {
                 var1.printStackTrace();
-                System.out.println(var1.getMessage());
             }
         }
 
@@ -77,10 +74,8 @@ public class poolConexion {
         if (EstaConectado()) {
             try {
                 con.close();
-                System.out.println("Cerrando la Conexion");
             } catch (SQLException var2) {
                 var2.printStackTrace();
-                System.out.println(var2.getMessage());
             }
         }
 

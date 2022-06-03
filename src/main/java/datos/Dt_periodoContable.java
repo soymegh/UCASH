@@ -290,7 +290,7 @@ public class Dt_periodoContable {
 		} 
 		catch (Exception e)
 		{
-			System.err.println("ERROR AL ObTENER Periodo Fiscal POR ID: " + e.getMessage());
+			System.err.println("ERROR AL ObTENER Periodo Contable POR ID: " + e.getMessage());
 			e.printStackTrace();
 		}
 		finally

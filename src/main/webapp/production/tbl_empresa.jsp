@@ -1,56 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
+	pageEncoding="ISO-8859-1"
+	import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
 	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio,
 	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones , 
 	 
 	 java.util.ArrayList;"%>
 
 <%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
-	response.setHeader( "Pragma", "no-cache" );
-	response.setHeader( "Cache-Control", "no-store" );
-	response.setDateHeader( "Expires", 0 );
-	response.setDateHeader( "Expires", -1 );
-	
-	//DECLARACIONES
-	Vw_usuariorol vwur = new Vw_usuariorol();
-	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-	boolean permiso = false; //VARIABLE DE CONTROL
-	
-	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	if(vwur!=null){
-		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
-		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-		
-		
-		//RECUPERAMOS LA URL = MI OPCION ACTUAL
-		int index = request.getRequestURL().lastIndexOf("/");
-		String miPagina = request.getRequestURL().substring(index+1);
-		
-		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
-			}
+//JAlert flag
+String signal = "";
+if (request.getParameter("msj") != null) {
+	signal = request.getParameter("msj");
+}
+%>
+<%
+//INVALIDA LA CACHE DEL NAVEGADOR //
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setDateHeader("Expires", -1);
+
+//DECLARACIONES
+Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_rolOpciones dtro = new Dt_rolOpciones();
+ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+boolean permiso = false; //VARIABLE DE CONTROL
+
+//OBTENEMOS LA SESION
+vwur = (Vw_usuariorol) session.getAttribute("acceso");
+if (vwur != null) {
+	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+
+	//RECUPERAMOS LA URL = MI OPCION ACTUAL
+	int index = request.getRequestURL().lastIndexOf("/");
+	String miPagina = request.getRequestURL().substring(index + 1);
+
+	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+	for (Vw_rolopciones vrop : listOpc) {
+		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+	permiso = true; //ACCESO CONCEDIDO
+	break;
 		}
 	}
-	else{
-		response.sendRedirect("../login.jsp?msj=401");
-		return;
-	}
-		
-	if(!permiso){
-		response.sendRedirect("../login.jsp?msj=403");
-		//response.sendRedirect("page_403.jsp");
-		return;
-	}
-	
+} else {
+	response.sendRedirect("../login.jsp?msj=401");
+	return;
+}
+
+if (!permiso) {
+	response.sendRedirect("../login.jsp?msj=403");
+	//response.sendRedirect("page_403.jsp");
+	return;
+}
 %>
-	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +66,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Gestión | Empresa</title>
-
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -144,8 +149,11 @@
 													style="text-align: right;">
 													<a href="addEmpresa.jsp"> <i class="fa fa-plus-square"></i>
 														Nuevo Empresa
+													</a>&nbsp;&nbsp; <a href="#" onclick="printListEmpresa();">
+														<i class="fa fa-print" title="Imprimir Lista de Empresas"></i>
 													</a> <br></br>
 												</div>
+												<input type="hidden" value="<%=signal%>" id="JAlertInput" />
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
@@ -199,7 +207,11 @@
 															</a> &nbsp;&nbsp; <a
 																href="viewEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>">
 																	<i class="fa fa-eye" title="Ver empresa"></i>
-															</a> &nbsp;&nbsp;</td>
+															</a> &nbsp;&nbsp; <a
+																href="../Sl_rptEmpresa?idEmpresa=<%=empresa.getIdEmpresa()%>"
+																title="Imprimir Ficha del Usuario" target="_blank">
+																	<i class="fa fa-print"></i>
+															</a></td>
 														</tr>
 														<%
 														}
@@ -220,9 +232,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
 	<!-- /page content -->
 
 	<!-- footer content -->
@@ -231,8 +240,14 @@
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	</div>
-	</div>
+	<script>
+		// IMPRIMIR REPORTE SIN PARAMETROS //
+		function printListEmpresa() {
+			window.open("../Sl_rptListEmpresas", '_blank');
+		}
+	</script>
+
+
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -271,6 +286,60 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+
+	<!-- jAlert -->
+	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
+
+	<script>
+		var mensaje = "";
+		mensaje = document.getElementById("JAlertInput").value;
+		console.log(mensaje);
+
+		$(document)
+				.ready(
+						function() {
+							if (mensaje == "1") {
+								successAlert('Exito',
+										'La empresa ha sido registrado correctamente.')
+								console.log(mensaje);
+
+							}
+
+							if (mensaje == "2") {
+								errorAlert('Error',
+										'La empresa no se ha podido guardar. Por favor verifique los datos')
+							}
+
+							if (mensaje == "3") {
+								successAlert('Exito',
+										'Los datos de la empresa se han editado correctamente.')
+							}
+
+							if (mensaje == "4") {
+								errorAlert('Error',
+										'Los datos de la empresa no se han editado correctamente.')
+							}
+
+							$("#example1").DataTable({
+								"responsive" : true,
+								"lengthChange" : false,
+								"autoWidth" : false,
+								"buttons" : [ "excel", "pdf" ]
+							}).buttons().container().appendTo(
+									'#example1_wrapper .col-md-6:eq(0)');
+							/*$('#example2').DataTable({
+							    "paging": true,
+							    "lengthChange": false,
+							    "searching": false,
+							    "ordering": true,
+							    "info": true,
+							    "autoWidth": false,
+							    "responsive": true,
+							});*/
+						});
+	</script>
 
 </body>
 </html>

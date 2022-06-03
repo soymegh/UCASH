@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 
-<%
+<% //JAlert flag     
+String signal = "";      
+if(request.getParameter("msj") != null){
+	signal = request.getParameter("msj");
+	}
+%>
+
+ <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -19,8 +26,8 @@ vwur = (Vw_usuariorol) session.getAttribute("acceso");
 if (vwur != null) {
 	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 
-	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-
+listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+	
 	//RECUPERAMOS LA URL = MI OPCION ACTUAL
 	int index = request.getRequestURL().lastIndexOf("/");
 	String miPagina = request.getRequestURL().substring(index + 1);
@@ -38,11 +45,11 @@ if (vwur != null) {
 }
 
 if (!permiso) {
-	response.sendRedirect("../login.jsp?msj=403");
-	//response.sendRedirect("page_403.jsp");
+	// response.sendRedirect("../login.jsp?msj=401");
+	response.sendRedirect("page_403.jsp");
 	return;
 }
-%>
+%> 
 
 <!DOCTYPE html>
 <html>
@@ -86,12 +93,14 @@ if (!permiso) {
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="navegacion.jsp"></jsp:include>
+			</div>
 
 			<!-- page content -->
 			<div class="right_col" role="main">
@@ -146,6 +155,7 @@ if (!permiso) {
 													<a href="addMoneda.jsp"> <i class="fa fa-plus-square"></i>
 														Nueva Moneda
 													</a> <br></br>
+													<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												</div>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
@@ -182,13 +192,13 @@ if (!permiso) {
 
 															<td><a
 																href="editMoneda.jsp?idMon=<%=tm.getIdMoneda()%>"
-																target="blank"> <i class="fa fa-edit" title="Editar"></i></a>
+																target=""> <i class="fa fa-edit" title="Editar"></i></a>
 																&nbsp;&nbsp; <a
 																href="viewMoneda.jsp?idMon=<%=tm.getIdMoneda()%>"
-																target="blank"> <i class="fa fa-eye" title="Ver"></i>
+																target=""> <i class="fa fa-eye" title="Ver"></i>
 															</a> &nbsp;&nbsp; <a
 																href="deleteMoneda.jsp?idMon=<%=tm.getIdMoneda()%>"
-																target="blank"> <i class="fa fa-trash"
+																target=""> <i class="fa fa-trash"
 																	title="Eliminar"></i>
 															</a></td>
 														</tr>
@@ -210,7 +220,7 @@ if (!permiso) {
 				</div>
 			</div>
 		</div>
-	</div>
+
 
 	<!-- /page content -->
 
@@ -257,6 +267,47 @@ if (!permiso) {
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
+    <script>
+            var mensaje = "";
+            mensaje = document.getElementById("JAlertInput").value; 
+
+            $(document).ready(function() {
+                if (mensaje == "1") {
+                    successAlert('Exito', 'La moneda ha sido registrada correctamente.')
+                }
+
+                if (mensaje == "2") {
+                    errorAlert('Error', 'Los datos de la moneda no se han podido guardar.')
+                }
+
+                if (mensaje == "3") {
+                    successAlert('Exito', 'Los datos de la moneda se han editado correctamente.')
+                }
+
+                if (mensaje == "4") {
+                    errorAlert('Error', 'Los datos de la moneda no se han editado correctamente.')
+                }
+
+                if (mensaje == "5") {
+                    successAlert('Exito', 'Los datos de la moneda se han eliminado correctamente.')
+                }
+
+                if (mensaje == "6") {
+                    errorAlert('Error', 'Los datos de la moneda no se han eliminado correctamente.')
+                }
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["excel", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+    </script>
 
 </body>
 </html>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import datos.Dt_asientoContable;
 import datos.Dt_asientoContableDet;
+import datos.Dt_cuentaContable_Det;
 import entidades.Tbl_asientoContable;
 import entidades.Tbl_asientoContableDet;
 import org.json.simple.JSONObject;
@@ -42,6 +43,7 @@ public class Sl_asientoContable extends HttpServlet {
 		opc = Integer.parseInt(request.getParameter("opcion"));
 		Dt_asientoContable dtsc = new Dt_asientoContable();
 		Dt_asientoContableDet dtscd = new Dt_asientoContableDet();
+		Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
 		Tbl_asientoContable ac = new Tbl_asientoContable();
 		
 		switch (opc) {
@@ -89,6 +91,7 @@ public class Sl_asientoContable extends HttpServlet {
 						asientoContableDet.setHaber(Double.parseDouble(request.getParameter("haber" + y)));
 						
 						dtscd.guardarAsientoContableDet(asientoContableDet);
+						dtCCD.editarCuentaContableDetMovimientosPositivoPorId(asientoContableDet.getIdCuenta(), asientoContableDet.getDebe(), asientoContableDet.getHaber());
 					}
 					// Mensaje de guardado con éxito
 					response.sendRedirect("production/addAsientoContable.jsp?msj=1");
@@ -148,7 +151,12 @@ public class Sl_asientoContable extends HttpServlet {
 						if(request.getParameter("detalleEliminado" + y) != null) {
 							Tbl_asientoContableDet asientoContableDet = new Tbl_asientoContableDet();
 							asientoContableDet.setIdAsientoContableDet(Integer.parseInt(request.getParameter("detalleEliminado" + y)));
+							asientoContableDet.setIdCuenta(Integer.parseInt(request.getParameter("idCuentaSaliente" + y)));
+							asientoContableDet.setDebe(Double.parseDouble(request.getParameter("debeSaliente" + y)));
+							asientoContableDet.setHaber(Double.parseDouble(request.getParameter("haberSaliente" + y)));
+							dtCCD.editarCuentaContableDetMovimientosNegativoPorId(asientoContableDet.getIdCuenta(), asientoContableDet.getDebe(), asientoContableDet.getHaber());
 							detalleEdit = dtscd.EliminarAContableDetPorId(asientoContableDet.getIdAsientoContableDet());
+							
 						};
 					}
 					
@@ -158,10 +166,8 @@ public class Sl_asientoContable extends HttpServlet {
 						asientoContableDet.setIdCuenta(Integer.parseInt(request.getParameter("idCuenta" + y)));
 						asientoContableDet.setDebe(Double.parseDouble(request.getParameter("debe" + y)));
 						asientoContableDet.setHaber(Double.parseDouble(request.getParameter("haber" + y)));
-						System.out.print("Haber: " + asientoContableDet.getHaber());
-						System.out.print("Debe: " + asientoContableDet.getDebe());
-						System.out.print("IdCuenta: " + asientoContableDet.getIdCuenta());
 						detalleEdit = dtscd.guardarAsientoContableDet(asientoContableDet);
+						dtCCD.editarCuentaContableDetMovimientosPositivoPorId(asientoContableDet.getIdCuenta(), asientoContableDet.getDebe(), asientoContableDet.getHaber());
 					}
 					
 					
