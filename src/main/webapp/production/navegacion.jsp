@@ -163,6 +163,7 @@ if (Vw_empresa.empresaActual != 0) {
 								<a href="javascript:;" class="user-profile dropdown-toggle"
 								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
 								aria-expanded="false"> <img src="../<%=vwur.getUrlFoto() == null ? "fotos_usuarios/img.jpg" : vwur.getUrlFoto()%>" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
+
 							</a>
 								<div class="dropdown-menu dropdown-usermenu pull-right"
 									aria-labelledby="navbarDropdown">
