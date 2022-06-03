@@ -4,6 +4,13 @@
 	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
 
 <%
+
+//JAlert flag
+		String signal = ""; 
+		if(request.getParameter("msj") != null){
+			signal = request.getParameter("msj");
+		}
+		
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -90,6 +97,11 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
+
 </head>
 
 <body class="nav-md">
@@ -142,6 +154,8 @@
 														class="fa fa-plus-square"></i> Nuevo Periodo Contable
 													</a> <br></br>
 												</div>
+												
+												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>							
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
@@ -274,5 +288,59 @@
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
+<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+    
+    <script>
+			var mensaje = "";
+			mensaje = document.getElementById("JAlertInput").value; 
+			console.log(mensaje);
+			
+			$(document).ready(function() {
+
+                if (mensaje == "1") {
+                    successAlert('Exito', 'El Periodo Contable se ha guardado correctamente.')
+                }
+                
+                if (mensaje == "2") {
+                	errorAlert('Error', 'Los datos del Periodo Contable no se lograron guardar.')
+                }
+                
+                if (mensaje == "3") {
+                	successAlert('Exito', 'Los datos del Periodo Contable se editaron correctamente.')
+                }
+                
+                if (mensaje == "4") {
+                	errorAlert('Error', 'Los datos del Periodo Contable no se pudieron editar.')
+                }
+                
+                if (mensaje == "5") {
+                	successAlert('Exito', 'El periodo Contable fue cerrado correctamente.')
+                }
+                
+                if (mensaje == "6") {
+                	errorAlert('Error', 'No se pudo cerrar el Periodo Contable.')
+                }
+                            
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["excel", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+                /*$('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });*/
+            });
+    </script>
+    
 </body>
 </html>

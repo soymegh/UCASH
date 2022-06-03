@@ -102,7 +102,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
 	rel="stylesheet">
 <!--Jquery Toast Plugin -->
-<link href="../vendors/jquery-toast-plugin/jquery.toast.min.css"
+<link href="../vendors/jquery.toast.min.css"
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
@@ -529,7 +529,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
-	<script src="../vendors/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script src="../vendors/jquery.toast.min.js"></script>
 
 <script>
 	var counter = 100000;  

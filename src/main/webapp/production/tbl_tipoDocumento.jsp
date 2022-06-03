@@ -3,50 +3,53 @@
 	datos.Dt_rolOpciones, datos.Dt_tipoDocumento, java.util.*;"%>
 	
 	<%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
-	response.setHeader( "Pragma", "no-cache" );
-	response.setHeader( "Cache-Control", "no-store" );
-	response.setDateHeader( "Expires", 0 );
-	response.setDateHeader( "Expires", -1 );
-	
-	//DECLARACIONES
-	Vw_usuariorol vwur = new Vw_usuariorol();
-	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-	boolean permiso = false; //VARIABLE DE CONTROL
-	
-	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	if(vwur!=null){
-		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
-	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-		
-		
-		//RECUPERAMOS LA URL = MI OPCION ACTUAL
-		int index = request.getRequestURL().lastIndexOf("/");
-		String miPagina = request.getRequestURL().substring(index+1);
-		
-		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
-			}
+		//JAlert flag
+		String signal = "";
+		if (request.getParameter("msj") != null) {
+			signal = request.getParameter("msj");
 		}
-	}
-	else{
-		response.sendRedirect("../login.jsp?msj=401");
-		return;
-	}
-		
-	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("../login.jsp?msj=403");
-		return;
-	}
-	
-%>
+
+		//INVALIDA LA CACHE DEL NAVEGADOR //
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Cache-Control", "no-store");
+		response.setDateHeader("Expires", 0);
+		response.setDateHeader("Expires", -1);
+
+		//DECLARACIONES
+		Vw_usuariorol vwur = new Vw_usuariorol();
+		Dt_rolOpciones dtro = new Dt_rolOpciones();
+		ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+		boolean permiso = false; //VARIABLE DE CONTROL
+
+		//OBTENEMOS LA SESION
+		vwur = (Vw_usuariorol) session.getAttribute("acceso");
+		if (vwur != null) {
+			//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+			listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+
+			//RECUPERAMOS LA URL = MI OPCION ACTUAL
+			int index = request.getRequestURL().lastIndexOf("/");
+			String miPagina = request.getRequestURL().substring(index + 1);
+
+			//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+			for (Vw_rolopciones vrop : listOpc) {
+				if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+			permiso = true; //ACCESO CONCEDIDO
+			break;
+				}
+			}
+		} else {
+			response.sendRedirect("../login.jsp?msj=401");
+			return;
+		}
+
+		if (!permiso) {
+			// response.sendRedirect("../login.jsp?msj=401");
+			response.sendRedirect("../login.jsp?msj=403");
+			return;
+		}
+		%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,6 +92,11 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
+
 </head>
 
 <body class="nav-md">
@@ -142,6 +150,7 @@
 														class="fa fa-plus-square"></i> Nuevo tipo de documento
 													</a> <br></br>
 												</div>
+												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>	
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
@@ -208,9 +217,7 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
+
 	<!-- /page content -->
 
 	<!-- footer content -->
@@ -219,8 +226,7 @@
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	</div>
-	</div>
+
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -259,6 +265,61 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	<script>
+			var mensaje = "";
+			mensaje = document.getElementById("JAlertInput").value; 
+			console.log(mensaje);
+			
+			$(document).ready(function() {
+
+                if (mensaje == "1") {
+                    successAlert('Exito', 'El Tipo Documento se ha guardado correctamente.')
+                }
+                
+                if (mensaje == "2") {
+                	errorAlert('Error', 'Los datos del Tipo Documento no se lograron guardar.')
+                }
+                
+                if (mensaje == "3") {
+                	successAlert('Exito', 'Los datos del Tipo Documento se editaron correctamente.')
+                }
+                
+                if (mensaje == "4") {
+                	errorAlert('Error', 'Los datos del Tipo Documento no se pudieron editar.')
+                }
+                
+                if (mensaje == "5") {
+                	successAlert('Exito', 'El Tipo Documento fue eliminado correctamente.')
+                }
+                
+                if (mensaje == "6") {
+                	errorAlert('Error', 'No se pudo eliminar el Tipo Documento.')
+                }
+                            
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["excel", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+                /*$('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });*/
+            });
+    </script>
+    
 
 </body>
 </html>
