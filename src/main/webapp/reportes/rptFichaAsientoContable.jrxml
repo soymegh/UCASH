@@ -208,7 +208,7 @@ WHERE
 				<text><![CDATA[SSSC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="50" width="81" height="30" uuid="f422fa9f-e84f-41a1-8ff8-271c20473c1e">
+				<reportElement x="329" y="50" width="121" height="30" uuid="f422fa9f-e84f-41a1-8ff8-271c20473c1e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68354f70-cc47-404f-8a21-59e55f3fc08a"/>
 				</reportElement>
 				<box>
@@ -220,7 +220,7 @@ WHERE
 				<text><![CDATA[Debe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="491" y="50" width="81" height="30" uuid="d7a98035-f9a3-4db6-8e82-8f1a02b7a21b">
+				<reportElement x="450" y="50" width="122" height="30" uuid="d7a98035-f9a3-4db6-8e82-8f1a02b7a21b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd32cb8-6ab2-4df4-abad-449c6ba5f5ef"/>
 				</reportElement>
 				<box>
@@ -230,18 +230,6 @@ WHERE
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Haber]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="329" y="50" width="81" height="30" uuid="7a985f4d-cbf3-48ed-b3af-21d56d3c873e">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68354f70-cc47-404f-8a21-59e55f3fc08a"/>
-				</reportElement>
-				<box>
-					<bottomPen lineWidth="1.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Parcial]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="10" width="572" height="30" uuid="23cd838f-0386-4dd4-bcc8-665a117a8119">
@@ -333,7 +321,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{SssC}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ContainerHeight" x="410" y="0" width="81" height="30" uuid="2f766b4b-c57e-4c2a-ba7c-ddb354ebe1a3">
+				<reportElement stretchType="ContainerHeight" x="329" y="0" width="121" height="30" uuid="2f766b4b-c57e-4c2a-ba7c-ddb354ebe1a3">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="68354f70-cc47-404f-8a21-59e55f3fc08a"/>
 				</reportElement>
 				<box>
@@ -343,10 +331,10 @@ WHERE
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{debe}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF(!$F{nombre}.equals( "Córdoba" ),$F{debe}*$F{tipoCambio},$F{debe})]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ContainerHeight" x="491" y="0" width="81" height="30" uuid="84c9e33b-f9c7-4010-9916-08e3626a6ce5">
+				<reportElement stretchType="ContainerHeight" x="450" y="0" width="122" height="30" uuid="84c9e33b-f9c7-4010-9916-08e3626a6ce5">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6dd32cb8-6ab2-4df4-abad-449c6ba5f5ef"/>
 				</reportElement>
 				<box>
@@ -356,7 +344,7 @@ WHERE
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{haber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF(!$F{nombre}.equals( "Córdoba" ),$F{debe}*$F{tipoCambio},$F{haber})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="100" y="0" width="65" height="30" uuid="f366557d-ceed-4edd-829c-20c6eec10137">
@@ -415,12 +403,12 @@ WHERE
 			<textField>
 				<reportElement x="491" y="10" width="81" height="30" uuid="913ffa46-ae06-410b-943c-7ca29443cd17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{haber2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF($F{nombre}.equals( "Córdoba" ),$V{haber2},$V{haber2}*$F{tipoCambio})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="410" y="10" width="81" height="30" uuid="1f397961-ccae-4539-87f9-0953212b40d6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$V{debe4}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF($F{nombre}.equals( "Córdoba" ),$V{debe4},$V{debe4}*$F{tipoCambio})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="120" width="180" height="30" uuid="0dc7ff0a-4a6f-4197-9c9c-4261ae6774f4"/>
