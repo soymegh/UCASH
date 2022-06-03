@@ -318,7 +318,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																				%>
 																				<thead>
 																					<tr>
-																						<th>Opción</th>
+																						<th>Opciï¿½n</th>
 																						<th>ID Cuenta</th>
 																						<th>Cuenta</th>
 																						<th>Debe</th>
@@ -582,7 +582,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 				.click(function() {
 							if (!$.isNumeric($("#debe").val()) || !$.isNumeric($("#haber").val()) || $("#cbxCC option:checked").val() == 0) {
 								$.toast({
-									text : "Datos inválidos", // Text that is to be shown in the toast
+									text : "Datos invï¿½lidos", // Text that is to be shown in the toast
 
 									icon : 'warning', // Type of toast icon
 									showHideTransition : 'plain', // fade, slide or plain

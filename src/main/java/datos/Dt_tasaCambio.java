@@ -83,16 +83,18 @@ public class Dt_tasaCambio {
 			ArrayList<Vw_tasaCambioDet> listTCD = new ArrayList<Vw_tasaCambioDet>();
 			try {
 				c = poolConexion.getConnection();
-				ps = c.prepareStatement("SELECT * FROM  dbucash.vw_tasacambiodetalle;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				ps = c.prepareStatement("SELECT * FROM  dbucash.vw_tasacambiodetalle ORDER BY fecha;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				rsTsc = ps.executeQuery();
 				while(rsTsc.next()) { 
 					Vw_tasaCambioDet tblTCD = new Vw_tasaCambioDet();
 					tblTCD.setIdTasaCambioDet(rsTsc.getInt("id_tasaCambio_det"));
 					tblTCD.setIdTasaCambio(rsTsc.getInt("id_tasaCambio"));
+					tblTCD.setMes(rsTsc.getString("mes"));
 					tblTCD.setIdMonedaO(rsTsc.getInt("id_monedaO"));
 					tblTCD.setNombreO(rsTsc.getString("nombreO"));
 					tblTCD.setIdMonedaC(rsTsc.getInt("id_monedaC"));
 					tblTCD.setNombreC(rsTsc.getString("nombreC"));
+					tblTCD.setAnio(rsTsc.getInt("anio"));
 					tblTCD.setFecha(rsTsc.getDate("fecha"));
 					tblTCD.setTipoCambio(rsTsc.getDouble("tipoCambio"));
 					listTCD.add(tblTCD);
@@ -131,7 +133,7 @@ public class Dt_tasaCambio {
 				c = poolConexion.getConnection();
 				this.llenarsTsc(c);
 				rsTsc.moveToInsertRow();
-				rsTsc.updateInt("mes", tsc.getMes());
+				rsTsc.updateString("mes", tsc.getMes());
 				rsTsc.updateInt("anio", tsc.getAnio());
 				rsTsc.updateInt("id_monedaO", tsc.getId_monedaO());
 				rsTsc.updateInt("id_monedaC", tsc.getId_monedaC());
@@ -168,23 +170,23 @@ public class Dt_tasaCambio {
 		
 		//Metodo para filtrar una tasa cambio por su ID
 		
-		public Tbl_tasaCambio getTasaCambiobyID(int idTc) {
-			Tbl_tasaCambio tc = new Tbl_tasaCambio();
+		public Vw_tasacambio getTasaCambiobyID(int idTc) {
+			Vw_tasacambio tc = new Vw_tasacambio();
 			
 			try {
 				c = poolConexion.getConnection();
-				ps = c.prepareStatement("SELECT * FROM dbucash.tasacambio WHERE id_tasaCambio=?",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+				ps = c.prepareStatement("SELECT * FROM dbucash.vw_tasacambio WHERE id_tasaCambio=?",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 				ps.setInt(1, idTc);
 				rsTsc = ps.executeQuery();
 				
 				if (rsTsc.next()) {
-					tc.setId_tasaCambio(rsTsc.getInt("id_tasaCambio"));
-					tc.setId_monedaO(rsTsc.getInt("id_monedaO"));
-					tc.setId_monedaC(rsTsc.getInt("id_monedaC"));
+					tc.setIdTasaCambio(rsTsc.getInt("id_tasaCambio"));
+					tc.setIdMonedaO(rsTsc.getInt("id_monedaO"));
+					tc.setNombreO(rsTsc.getString("nombreO"));
+					tc.setIdMonedaC(rsTsc.getInt("id_monedaC"));
+					tc.setNombreC(rsTsc.getString("nombreC"));
 					tc.setMes(rsTsc.getInt("mes"));
-					tc.setAnio(rsTsc.getInt("anio"));
-					tc.setEstado(rsTsc.getInt("estado"));
-					
+					tc.setAnio(rsTsc.getInt("anio"));					
 				}
 				
 			} catch (Exception e) {

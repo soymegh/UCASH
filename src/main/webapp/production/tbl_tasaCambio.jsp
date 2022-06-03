@@ -3,6 +3,12 @@
 	
 	
 <%
+//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}
+	
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -60,7 +66,7 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Tasa Cambio</title>
+<title>Gestiï¿½n | Tasa Cambio</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -93,6 +99,9 @@ if (!permiso) {
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
+
 </head>
 
 <body class="nav-md">
@@ -152,125 +161,104 @@ if (!permiso) {
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
+													<br></br>
 													<a href="addTasaCambio.jsp"> <i
 														class="fa fa-plus-square"></i> Nueva Tasa Cambio
-													</a> <br></br>
+													</a>
+													<br></br>
+													<a href="tbl_tasaCambioMaestro.jsp"> <i
+														class="fa fa-trash"></i> Eliminar Tasa Cambio
+													</a> 
+													<br></br>
 												</div>
+												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-													ArrayList<Vw_tasacambio> listaTasaCambio = new ArrayList<Vw_tasacambio>();
+													ArrayList<Vw_tasaCambioDet> listaTasaCambio = new ArrayList<Vw_tasaCambioDet>();
 													Dt_tasaCambio dttc = new Dt_tasaCambio();
-													listaTasaCambio = dttc.listarTasaCambioActivas();
+													listaTasaCambio = dttc.listarTasaCambioDet();
 													%>
 													<thead>
 														<tr>
-															<th>Id</th>
-															<th>Moneda Origen</th>
-															<th>Moneda Destino</th>
 															<th>Mes</th>
-															<th>Año</th>
-															<th>Estado</th>
-															<th>Acciones</th>
-														</tr>
-													</thead>
-													<tbody>
-														<%
-														for (Vw_tasacambio tc : listaTasaCambio) {
-															String estado = "";
-															if (tc.getEstado() != 3) {
-																estado = "ACTIVO";
-															} else {
-																estado = "INACTIVO";
-															}
-														%>
-														<tr>
-														
-														<td><%=tc.getIdTasaCambio()%></td>
-														<td><%=tc.getNombreO()%></td>
-														<td><%=tc.getNombreC()%></td>
-														<td><%=tc.getMes()%></td>
-														<td><%=tc.getAnio()%></td>
-														<td><%=estado%></td>
-															
-
-															<td>
-															 &nbsp;&nbsp; <a href="deleteTasaCambio.jsp?idTC=<%=tc.getIdTasaCambio() %>" target=""> <i
-																	class="fa fa-trash" title="Eliminar"></i>
-															</a></td>
-														</tr>
-														<%
-														}
-														%>
-													</tbody>
-													
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="row">
-						<div class="col-md-12 col-sm-12 ">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>Detalles de tasas de Cambio registradas</h2>
-									<ul class="nav navbar-right panel_toolbox">
-										<li><a class="collapse-link"><i
-												class="fa fa-chevron-up"></i></a></li>
-										<li class="dropdown"><a href="#" class="dropdown-toggle"
-											data-toggle="dropdown" role="button" aria-expanded="false"><i
-												class="fa fa-wrench"></i></a>
-											<div class="dropdown-menu"
-												aria-labelledby="dropdownMenuButton">
-												<a class="dropdown-item" href="#">Settings 1</a> <a
-													class="dropdown-item" href="#">Settings 2</a>
-											</div></li>
-										<li><a class="close-link"><i class="fa fa-close"></i></a>
-										</li>
-									</ul>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<div class="row">
-										<div class="col-sm-12">
-											<div class="card-box table-responsive">
-												<div class="text-muted font-13 col-md-12"
-													style="text-align: right;">
-												 <br></br>
-												</div>
-												<table id="datatable-buttons"
-													class="table table-striped table-bordered"
-													style="width: 100%">
-													<%
-													ArrayList<Vw_tasaCambioDet> listaTasaCambioDet = new ArrayList<Vw_tasaCambioDet>();
-													Dt_tasaCambio dttca = new Dt_tasaCambio();
-													listaTasaCambioDet = dttca.listarTasaCambioDet();
-													%>
-													<thead>
-														<tr>
-															<th>Id</th>
 															<th>Moneda Origen</th>
 															<th>Moneda Destino</th>
+															<th>Aï¿½o</th>
 															<th>Fecha</th>
 															<th>Tipo de Cambio</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
-														for (Vw_tasaCambioDet tcd : listaTasaCambioDet) {
+														for (Vw_tasaCambioDet tc : listaTasaCambio) {
+															
+															String mes = "";
+															switch(Integer.parseInt(tc.getMes())){
+															case 1:
+																mes = "Enero";
+																break;
+																
+															case 2:
+																mes = "Febrero";
+																break;
+																
+															case 3:
+																mes = "Marzo";
+																break;
+															
+															case 4:
+																mes = "Abril";
+																break;
+																
+															case 5:
+																mes = "Mayo";
+																break;
+																
+															case 6:
+																mes = "Junio";
+																break;
+																
+															case 7:
+																mes = "Julio";
+																break;
+																
+															case 8:
+																mes = "Agosto";
+																break;
+																
+															case 9:
+																mes = "Septiembre";
+																break;
+																
+															case 10:
+																mes = "Octubre";
+																break;
+																
+															case 11:
+																mes = "Noviembre";
+																break;
+																
+															case 12:
+																mes = "Diciembre";
+																break;
+																
+															default:
+																break;
+															}
 														%>
 														<tr>
 														
-														<td><%=tcd.getIdTasaCambioDet()%></td>
-														<td><%=tcd.getNombreO()%></td>
-														<td><%=tcd.getNombreC()%></td>
-														<td><%=tcd.getFecha()%></td>
-														<td><%=tcd.getTipoCambio()%></td>															
+														
+														<td><%=mes%></td>
+														<td><%=tc.getNombreO()%></td>
+														<td><%=tc.getNombreC()%></td>
+														<td><%=tc.getAnio()%></td>
+														<td><%=tc.getFecha()%></td>
+														<td><%=tc.getTipoCambio()%></td>
+															
+
 														</tr>
 														<%
 														}
@@ -284,10 +272,7 @@ if (!permiso) {
 								</div>
 							</div>
 						</div>
-
-
-					</div>
-					
+					</div>					
 				</div>
 			</div>
 		</div>
@@ -338,6 +323,47 @@ if (!permiso) {
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
+	<script>
+			var mensaje = "";
+			mensaje = document.getElementById("JAlertInput").value; 
+			
+			$(document).ready(function() {
+                if (mensaje == "1") {
+                    successAlert('Exito', 'La opciï¿½n ha sido registrada correctamente.')
+                }
+                
+                if (mensaje == "2") {
+                	errorAlert('Error', 'Los datos de la opciï¿½n no se han podido guardar.')
+                }
+                
+                if (mensaje == "3") {
+                	successAlert('Exito', 'Los datos de la opciï¿½n se han editado correctamente.')
+                }
+                
+                if (mensaje == "4") {
+                	errorAlert('Error', 'Los datos de la opciï¿½n no se han editado correctamente.')
+                }
+                
+                if (mensaje == "5") {
+                	successAlert('Exito', 'Los datos de la opciï¿½n se han eliminado correctamente.')
+                }
+                
+                if (mensaje == "6") {
+                	errorAlert('Error', 'Los datos de la opciï¿½n no se han eliminado correctamente.')
+                }
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["excel", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+    </script>
 
 </body>
 </html>

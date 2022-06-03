@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"
-	import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
-	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio,
-	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones , 
-	 
-	 java.util.ArrayList;"%>
-
-<%
-//JAlert flag
-String signal = "";
-if (request.getParameter("msj") != null) {
-	signal = request.getParameter("msj");
-}
-%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	
+	
 <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
@@ -33,6 +22,10 @@ if (vwur != null) {
 
 	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 
+	for (int x = 0; x < listOpc.size(); x++) {
+		System.out.print(listOpc.get(x).getOpciones());
+	} ;
+
 	//RECUPERAMOS LA URL = MI OPCION ACTUAL
 	int index = request.getRequestURL().lastIndexOf("/");
 	String miPagina = request.getRequestURL().substring(index + 1);
@@ -41,6 +34,8 @@ if (vwur != null) {
 	for (Vw_rolopciones vrop : listOpc) {
 		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
 	permiso = true; //ACCESO CONCEDIDO
+	System.out.print("ESTA ES LA PAGINA RECUPERADA: " + " " + vrop.getOpciones().trim() + " "
+			+ "ESTA ES LA PAGINA EN LA QUE NOS ENCONTRAMOS: " + miPagina.trim());
 	break;
 		}
 	}
@@ -51,11 +46,11 @@ if (vwur != null) {
 
 if (!permiso) {
 	response.sendRedirect("../login.jsp?msj=403");
-	//response.sendRedirect("page_403.jsp");
 	return;
 }
 %>
-
+	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,8 +60,8 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Empresa</title>
-<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
+<title>Gestión | Tasa Cambio</title>
+
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -99,17 +94,19 @@ if (!permiso) {
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
+
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="navegacion.jsp"></jsp:include>
+			</div>
+
+			<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>
-								Empresa <small> Datos de empresa</small>
-							</h3>
+							<h3>Tasa Cambio</h3>
 						</div>
 
 						<div class="title_right">
@@ -117,7 +114,7 @@ if (!permiso) {
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
-										placeholder="Buscar por..."> <span
+										placeholder="Buscar..."> <span
 										class="input-group-btn">
 										<button class="btn btn-secondary" type="button">Go!</button>
 									</span>
@@ -129,95 +126,127 @@ if (!permiso) {
 					<div class="clearfix"></div>
 
 					<div class="row">
-						<div class="col-md-12 col-md-12">
+						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Empresas registradas</h2>
+									<h2>Seleccione tasa cambio a eliminar</h2>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
 												class="fa fa-chevron-up"></i></a></li>
-
-
+										<li class="dropdown"><a href="#" class="dropdown-toggle"
+											data-toggle="dropdown" role="button" aria-expanded="false"><i
+												class="fa fa-wrench"></i></a>
+											<div class="dropdown-menu"
+												aria-labelledby="dropdownMenuButton">
+												<a class="dropdown-item" href="#">Settings 1</a> <a
+													class="dropdown-item" href="#">Settings 2</a>
+											</div></li>
+										<li><a class="close-link"><i class="fa fa-close"></i></a>
+										</li>
 									</ul>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-sm-12">
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addEmpresa.jsp"> <i class="fa fa-plus-square"></i>
-														Nuevo Empresa
-													</a>&nbsp;&nbsp; <a href="#" onclick="printListEmpresa();">
-														<i class="fa fa-print" title="Imprimir Lista de Empresas"></i>
-													</a> <br></br>
+													 <br></br>
 												</div>
-												<input type="hidden" value="<%=signal%>" id="JAlertInput" />
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-													ArrayList<Vw_empresa> listaEmpresa = new ArrayList<Vw_empresa>();
-													Dt_empresa dtE = new Dt_empresa();
-													listaEmpresa = dtE.listarEmpresa();
+													ArrayList<Vw_tasacambio> listaTasaCambio = new ArrayList<Vw_tasacambio>();
+													Dt_tasaCambio dttc = new Dt_tasaCambio();
+													listaTasaCambio = dttc.listarTasaCambioActivas();
 													%>
 													<thead>
 														<tr>
-															<th>Id</th>
-															<th>RUC</th>
-															<th>Razon social</th>
-															<th>Nombre comercial</th>
-
-															<th>Direccion</th>
-															<th>Representante legal</th>
-															<th>Departamento</th>
-															<th>Municipio</th>
-															<th>Periodo Fiscal</th>
-
-															<th>Telefono</th>
-															<th>Correo</th>
-
+															<th>Mes</th>
+															<th>Moneda Origen</th>
+															<th>Moneda Destino</th>
+															<th>Año</th>
 															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
-														for (Vw_empresa empresa : listaEmpresa) {
+														for (Vw_tasacambio tc : listaTasaCambio) {
+															
+															String mes = "";
+															switch(tc.getMes()){
+															case 1:
+																mes = "Enero";
+																break;
+																
+															case 2:
+																mes = "Febrero";
+																break;
+																
+															case 3:
+																mes = "Marzo";
+																break;
+															
+															case 4:
+																mes = "Abril";
+																break;
+																
+															case 5:
+																mes = "Mayo";
+																break;
+																
+															case 6:
+																mes = "Junio";
+																break;
+																
+															case 7:
+																mes = "Julio";
+																break;
+																
+															case 8:
+																mes = "Agosto";
+																break;
+																
+															case 9:
+																mes = "Septiembre";
+																break;
+																
+															case 10:
+																mes = "Octubre";
+																break;
+																
+															case 11:
+																mes = "Noviembre";
+																break;
+																
+															case 12:
+																mes = "Diciembre";
+																break;
+																
+															default:
+																break;
+															}
 														%>
 														<tr>
-															<td><%=empresa.getIdEmpresa()%></td>
-															<td><%=empresa.getRuc()%></td>
-															<td><%=empresa.getRazonSocial()%></td>
-															<td><%=empresa.getNombreComercial()%></td>
+														
+														
+														<td><%=mes%></td>
+														<td><%=tc.getNombreO()%></td>
+														<td><%=tc.getNombreC()%></td>
+														<td><%=tc.getAnio()%></td>
 
-															<td><%=empresa.getDireccion()%></td>
-															<td><%=empresa.getRepresentante()%></td>
-															<td><%=empresa.getDepartamentoNombre()%></td>
-															<td><%=empresa.getMunicipioNombre()%></td>
-
-															<td><%=empresa.getPeriodoFiscal()%></td>
-
-															<td><%=empresa.getTelefono()%></td>
-															<td><%=empresa.getCorreo()%></td>
-
-															<td><a
-																href="editEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>">
-																	<i class="fa fa-edit" title="Editar empresa"></i>
-															</a> &nbsp;&nbsp; <a
-																href="viewEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>">
-																	<i class="fa fa-eye" title="Ver empresa"></i>
-															</a> &nbsp;&nbsp; <a
-																href="../Sl_rptEmpresa?idEmpresa=<%=empresa.getIdEmpresa()%>"
-																title="Imprimir Ficha del Usuario" target="_blank">
-																	<i class="fa fa-print"></i>
+															<td>
+															 &nbsp;&nbsp; <a href="deleteTasaCambio.jsp?idTC=<%=tc.getIdTasaCambio() %>" target=""> <i
+																	class="fa fa-trash" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%
 														}
 														%>
 													</tbody>
-
+													
 												</table>
 											</div>
 										</div>
@@ -225,29 +254,19 @@ if (!permiso) {
 								</div>
 							</div>
 						</div>
-
-
-					</div>
+					</div>					
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	<!-- /page content -->
 
 	<!-- footer content -->
 	<footer>
-		<div class="pull-right">Sistema contable by UCASH</div>
+		<div class="pull-right">Sistema contable multi-empresa UCASH.</div>
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	<script>
-		// IMPRIMIR REPORTE SIN PARAMETROS //
-		function printListEmpresa() {
-			window.open("../Sl_rptListEmpresas", '_blank');
-		}
-	</script>
-
-
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -286,60 +305,6 @@ if (!permiso) {
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-
-	<!-- jAlert -->
-	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
-	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
-
-
-	<script>
-		var mensaje = "";
-		mensaje = document.getElementById("JAlertInput").value;
-		console.log(mensaje);
-
-		$(document)
-				.ready(
-						function() {
-							if (mensaje == "1") {
-								successAlert('Exito',
-										'La empresa ha sido registrado correctamente.')
-								console.log(mensaje);
-
-							}
-
-							if (mensaje == "2") {
-								errorAlert('Error',
-										'La empresa no se ha podido guardar. Por favor verifique los datos')
-							}
-
-							if (mensaje == "3") {
-								successAlert('Exito',
-										'Los datos de la empresa se han editado correctamente.')
-							}
-
-							if (mensaje == "4") {
-								errorAlert('Error',
-										'Los datos de la empresa no se han editado correctamente.')
-							}
-
-							$("#example1").DataTable({
-								"responsive" : true,
-								"lengthChange" : false,
-								"autoWidth" : false,
-								"buttons" : [ "excel", "pdf" ]
-							}).buttons().container().appendTo(
-									'#example1_wrapper .col-md-6:eq(0)');
-							/*$('#example2').DataTable({
-							    "paging": true,
-							    "lengthChange": false,
-							    "searching": false,
-							    "ordering": true,
-							    "info": true,
-							    "autoWidth": false,
-							    "responsive": true,
-							});*/
-						});
-	</script>
 
 </body>
 </html>

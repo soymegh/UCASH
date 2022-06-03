@@ -659,7 +659,7 @@ public class Dt_usuario {
 			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt, key);
 			/////////////////////////////////////////
 
-			System.out.print("ESTA ES LA CONTRASEÑA DESENCRIPTADA GARDELLL!: " + pwdDecrypt);
+			System.out.print("ESTA ES LA CONTRASEï¿½A DESENCRIPTADA GARDELLL!: " + pwdDecrypt);
 		}
 		catch (Exception e){
 			System.out.println("DATOS: ERROR dtverificarLogin() "+ e.getMessage());
@@ -686,7 +686,7 @@ public class Dt_usuario {
 		return pwdDecrypt;
 	}
 	
-	// Metodo para visualizar los datos de un usuario específico
+	// Metodo para visualizar los datos de un usuario especï¿½fico
 		public Tbl_usuario getUsuario(int idUsuario)
 		{
 			Tbl_usuario user = new Tbl_usuario();

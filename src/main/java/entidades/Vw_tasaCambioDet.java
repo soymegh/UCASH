@@ -6,12 +6,15 @@ public class Vw_tasaCambioDet {
 	
 	private int idTasaCambioDet;
 	private int idTasaCambio;
+	private String mes;
 	private int idMonedaO;
 	private String nombreO;
 	private int idMonedaC;
 	private String nombreC;
+	private int anio;
 	private Date fecha;
 	private double tipoCambio;
+	private int estado;
 	
 	public int getIdTasaCambioDet() {
 		return idTasaCambioDet;
@@ -24,6 +27,12 @@ public class Vw_tasaCambioDet {
 	}
 	public void setIdTasaCambio(int idTasaCambio) {
 		this.idTasaCambio = idTasaCambio;
+	}
+	public String getMes() {
+		return mes;
+	}
+	public void setMes(String mes) {
+		this.mes = mes;
 	}
 	public int getIdMonedaO() {
 		return idMonedaO;
@@ -49,6 +58,12 @@ public class Vw_tasaCambioDet {
 	public void setNombreC(String nombreC) {
 		this.nombreC = nombreC;
 	}
+	public int getAnio() {
+		return anio;
+	}
+	public void setAnio(int anio) {
+		this.anio = anio;
+	}
 	public Date getFecha() {
 		return fecha;
 	}
@@ -61,7 +76,12 @@ public class Vw_tasaCambioDet {
 	public void setTipoCambio(double tipoCambio) {
 		this.tipoCambio = tipoCambio;
 	}
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
 	
 	
-
 }
