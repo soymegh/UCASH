@@ -23,14 +23,14 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 /**
  * Servlet implementation class Sl_rptIndCuentaContable
  */
-@WebServlet("/Sl_rptIndCuentaContable")
-public class Sl_rptIndCuentaContable extends HttpServlet {
+@WebServlet("/Sl_LibroMayorAuxiliar")
+public class Sl_LibroMayorAuxiliar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Sl_rptIndCuentaContable() {
+    public Sl_LibroMayorAuxiliar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,30 +42,27 @@ public class Sl_rptIndCuentaContable extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 try {
-			
-			String idCuenta = "";
-			idCuenta = request.getParameter("idCuenta")==null?"0":request.getParameter("idCuenta");
-			System.out.println("idCuenta: "+idCuenta);
 	
 			poolConexion p = poolConexion.getInstance();
 			Connection c = poolConexion.getConnection();
 			
-			HashMap<String, Object> hm = new HashMap<>();
-			hm.put("cuentaID" , Integer.parseInt(idCuenta));
+			HashMap hm = new HashMap();
 			
 			OutputStream otps = response.getOutputStream();
 			ServletContext context = getServletContext();
 			String path = context.getRealPath("/");
-			String template = "reportes\\rptIndCuentaContable.jasper";
+			String template = "reportes\\rptLibroMayorAuxiliar.jasper";
 			System.out.println("Path: "+path+template);
 			
 			Exporter exporter = new JRPdfExporter();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(path+template, hm, c);
 			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "inline; filename=\"rptIndCuentaContable_"+ idCuenta +".pdf");
+			response.setHeader("Content-Disposition", "inline; filename=\"LibroMayorAuxiliar.pdf");
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(otps));
 			exporter.exportReport();
+			
+			System.out.print("hola");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
