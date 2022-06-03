@@ -77,6 +77,50 @@ public class Dt_usuario {
 
 		return listUser;
 	}
+	
+	public ArrayList<Tbl_usuario> listaUserInactivos() {
+		ArrayList<Tbl_usuario> listUser = new ArrayList<Tbl_usuario>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.usuario WHERE estado = 3;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				Tbl_usuario user = new Tbl_usuario();
+				user.setIdUsuario(rs.getInt("idUsuario"));
+				user.setUsuario(rs.getString("usuario"));
+				user.setPwd(rs.getString("password"));
+				user.setNombre(rs.getString("nombre"));
+				user.setApellidos(rs.getString("apellido"));
+				user.setEmail(rs.getString("email"));
+				user.setEstado(rs.getInt("estado"));
+				listUser.add(user);
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR USUARIOS " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return listUser;
+	}
 
 	public int addUsuario(Tbl_usuario User) {
 		int guardado = 0;
@@ -160,6 +204,49 @@ public class Dt_usuario {
 		return user;
 	}
 	
+	
+	public Tbl_usuario ObtenerUsuarioPorIdInactivo(int id) {
+		Tbl_usuario user = new Tbl_usuario();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.usuario WHERE estado = 3 and idUsuario = ?;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				user.setIdUsuario(rs.getInt("idUsuario"));
+				user.setUsuario(rs.getString("usuario"));
+				user.setNombre(rs.getString("nombre"));
+				user.setApellidos(rs.getString("apellido"));
+				user.setEmail(rs.getString("email"));
+				user.setEstado(rs.getInt("estado"));
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR USUARIOS " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return user;
+	}
+	
 	// Metodo para modificar usuario
 		public boolean modificarUsuario(Tbl_usuario tus)
 		{
@@ -178,8 +265,52 @@ public class Dt_usuario {
 						rsUsuario.updateString("apellido", tus.getApellidos());
 						rsUsuario.updateString("email",tus.getEmail());
 						rsUsuario.updateTimestamp("fechaModificacion", tus.getFechaModificacion());
-						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioCreacion());
+						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioModificacion());
 						rsUsuario.updateInt("estado", 2);
+						rsUsuario.updateRow();
+						modificado=true;
+						break;
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println("ERROR AL modificarUser() "+e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try {
+					if(rsUsuario != null){
+						rsUsuario.close();
+					}
+					if(c != null){
+						poolConexion.closeConnection(c);
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return modificado;
+		}
+		
+		public boolean modificarUsuarioInactivo(Tbl_usuario tus)
+		{
+			boolean modificado=false;	
+			try
+			{
+				c = poolConexion.getConnection();
+				llenaRsUsuario(c);
+				rsUsuario.beforeFirst();
+				while (rsUsuario.next())
+				{
+					if(rsUsuario.getInt(1)==tus.getIdUsuario())
+					{
+						rsUsuario.updateTimestamp("fechaModificacion", tus.getFechaModificacion());
+						rsUsuario.updateInt("usuarioModificacion", tus.getUsuarioModificacion());
+						rsUsuario.updateInt("estado", 1);
 						rsUsuario.updateRow();
 						modificado=true;
 						break;
@@ -424,7 +555,6 @@ public class Dt_usuario {
 			
 			pwdEncrypt = vwur.getPassword();
 			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt,vwur.getKey());
-			System.out.print("ESTA ES LA CONTRASEÑA: "+ pwdDecrypt + "ESTE ES EL USUARIO: " + login);
 			/////////////////////////////////////////
 			c = poolConexion.getConnection();
 			ps = c.prepareStatement(SQL);
@@ -432,17 +562,14 @@ public class Dt_usuario {
 			
 			if(clave.equals(pwdDecrypt)){
 				ps.setString(2, pwdEncrypt);
-				System.out.print("Esta es la contraseña, dentro de la verificación (linea 433): " + clave);
 			}
 			else {
 				ps.setString(2, clave);
-				System.out.print("Esta es la contraseña, dentro del else (linea 433): " + clave);
 			}
 			ps.setInt(3, rol);
 			rs = ps.executeQuery();
 			if(rs.next()){
 				existe=true;
-				System.out.print("Esta es la contraseña, dentro de la verificación (linea 443): " + rol);
 			}
 		}
 		catch (Exception e){
@@ -470,7 +597,96 @@ public class Dt_usuario {
 		return existe;
 	}
 	
-	// Metodo para visualizar los datos de un usuario específico
+	public Vw_usuariorol recoverPassword(String login, String email){
+		 Vw_usuariorol vwur = new  Vw_usuariorol();
+		String SQL = ("SELECT * FROM dbucash.vw_usuariorol WHERE usuario=? AND email=? AND estado<>3 AND estado<>0");
+		try{
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement(SQL);
+			ps.setString(1, login);
+			ps.setString(2, email);
+			rs = ps.executeQuery();
+			if(rs.next()){
+				vwur.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
+				vwur.setId_user(rs.getInt("idUsuario"));
+				vwur.setUsuario(rs.getString("usuario"));
+				vwur.setPassword(rs.getString("password"));
+				vwur.setKey(rs.getString("key"));
+				vwur.setCodVerificacion(rs.getString("codVerificacion"));
+				vwur.setNombre(rs.getString("nombre"));
+				vwur.setApellido(rs.getString("apellido"));
+				vwur.setEmail(rs.getString("email"));
+				vwur.setEstado(rs.getInt("estado"));
+				vwur.setUrlFoto(rs.getString("urlFoto"));
+				vwur.setId_rol(rs.getInt("id_rol"));
+				vwur.setRol(rs.getString("rol"));
+			}
+		}
+		catch (Exception e){
+			System.out.println("DATOS: ERROR EN dtGetVwUR "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return vwur;
+	}
+	
+	public String desencriptarPassword(String login, String key, String pwdEncriptada)
+	{
+		Encrypt enc = new Encrypt();
+		String pwdDecrypt = "";
+		String pwdEncrypt = "";
+
+		try{
+			/////// DESENCRIPTACION DE LA PWD //////////
+			pwdEncrypt = pwdEncriptada;
+			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt, key);
+			/////////////////////////////////////////
+
+			System.out.print("ESTA ES LA CONTRASEï¿½A DESENCRIPTADA GARDELLL!: " + pwdDecrypt);
+		}
+		catch (Exception e){
+			System.out.println("DATOS: ERROR dtverificarLogin() "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return pwdDecrypt;
+	}
+	
+	// Metodo para visualizar los datos de un usuario especï¿½fico
 		public Tbl_usuario getUsuario(int idUsuario)
 		{
 			Tbl_usuario user = new Tbl_usuario();

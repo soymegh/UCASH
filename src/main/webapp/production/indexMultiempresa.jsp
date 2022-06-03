@@ -2,6 +2,52 @@
     pageEncoding="ISO-8859-1" import="datos.*, entidades.*, java.util.*"%>
 
 <%
+
+	//INVALIDA LA CACHE DEL NAVEGADOR //
+	response.setHeader( "Pragma", "no-cache" );
+	response.setHeader( "Cache-Control", "no-store" );
+	response.setDateHeader( "Expires", 0 );
+	response.setDateHeader( "Expires", -1 );
+	
+	//DECLARACIONES
+	Vw_usuariorol vwur = new Vw_usuariorol();
+	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+	boolean permiso = false; //VARIABLE DE CONTROL
+	
+	//OBTENEMOS LA SESION
+	vwur = (Vw_usuariorol) session.getAttribute("acceso");
+	if(vwur!=null){
+		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+		
+		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+		
+		//RECUPERAMOS LA URL = MI OPCION ACTUAL
+		int index = request.getRequestURL().lastIndexOf("/");
+		String miPagina = request.getRequestURL().substring(index+1);
+		
+		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+		for(Vw_rolopciones vrop : listOpc){
+			if(vrop.getOpciones().trim().equals(miPagina.trim())){
+				permiso = true; //ACCESO CONCEDIDO
+				break;
+			}
+		}
+	}
+	else{
+		response.sendRedirect("../login.jsp?msj=401");
+		return;
+	}
+		
+	if(!permiso){
+		// response.sendRedirect("../login.jsp?msj=401");
+		response.sendRedirect("page_403.jsp");
+		return;
+	}
+	
+%>
+
+<%
 ArrayList<Vw_empresa> listadoEmpresas = new ArrayList<>();
 Dt_empresa datosEmpresas = new Dt_empresa();
 listadoEmpresas = datosEmpresas.listarEmpresa();
@@ -44,7 +90,7 @@ listadoEmpresas = datosEmpresas.listarEmpresa();
 						<div class="x_panel">
 
 							<div class="x_title">
-								<p style="font-size: 30px">¡Buenos días, Lic. José Ortega!</p>
+								<p style="font-size: 30px">¡Buenos días, <%=vwur.getUsuario() %>!</p>
 								<p>¿Qué empresa vamos a trabajar hoy?</p>
 								<div class="clearfix"></div>
 							</div>
@@ -55,7 +101,7 @@ listadoEmpresas = datosEmpresas.listarEmpresa();
 									request.setAttribute("idE", empresa.getIdEmpresa());
 								%>
 								<div class="field item form-group col">
-									<a href="index.jsp?idE=<%=empresa.getIdEmpresa()%>"> <jsp:include
+									<a href="indexPeriodoFiscal.jsp?idE=<%=empresa.getIdEmpresa()%>"> <jsp:include
 											page="fichaEmpresa.jsp">
 											<jsp:param name="nombreEmp"
 												value="<%=empresa.getNombreComercial()%>" />

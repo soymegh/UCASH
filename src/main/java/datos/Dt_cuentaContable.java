@@ -47,7 +47,7 @@ public class Dt_cuentaContable {
 		}
 	}
 	
-	//Método para listar cuentas contables
+	//Mï¿½todo para listar cuentas contables
 	public ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables(){
 		ArrayList<Vw_catalogo_tipo_cuentacontable> listCuentaContable = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 		try {
@@ -96,7 +96,59 @@ public class Dt_cuentaContable {
 		return listCuentaContable;
 	}
 	
-	//Método para ver cuenta contable por id
+	public ArrayList<Vw_catalogo_tipo_cuentacontable> getCuentaContableByIdEmpresa(int idEmpresa) {
+		ArrayList<Vw_catalogo_tipo_cuentacontable> listCuentaContable = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+		try {
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_catalogo_tipo_cuentacontable WHERE estado <> 3 AND idEmpresa=?", 
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, idEmpresa);
+			rs = ps.executeQuery();
+
+			while(this.rs.next()) {
+				Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
+				cc.setIdCuenta(this.rs.getInt("idCuenta"));
+				cc.setNumeroCuenta(this.rs.getString("numeroCuenta"));
+				cc.setsC(this.rs.getString("SC"));
+				cc.setSsC(this.rs.getString("SsC"));
+				cc.setSssC(this.rs.getString("SssC"));
+				cc.setNombreCuenta(this.rs.getString("nombreCuenta"));
+				cc.setNivel(this.rs.getInt("nivel"));
+				cc.setRubro(this.rs.getInt("rubro"));
+				cc.setTipoCuenta(this.rs.getString("tipoCuenta"));
+				cc.setCatalogoCuenta(this.rs.getString("titulo"));
+				cc.setEstado(this.rs.getInt("estado"));
+				listCuentaContable.add(cc);
+			}
+
+		} catch(Exception e) {
+			System.out.println("DATOS: ERROR EN VER CUENTAS CONTABLES "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally 
+		{
+		try {
+			if (this.rs != null) {
+				this.rs.close();
+			}
+				if (this.ps != null) {
+				this.ps.close();
+			}
+
+			if (this.c != null) {
+				poolConexion.closeConnection(this.c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+		return listCuentaContable;
+	}
+
+	
+	//Mï¿½todo para ver cuenta contable por id
 	
 	public Vw_catalogo_tipo_cuentacontable getCuentaContableById(int idCuenta) {
 		Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
@@ -149,18 +201,21 @@ public class Dt_cuentaContable {
 		return cc;
 	}
 	
-	public ArrayList<Vw_catalogo_tipo_cuentacontable> getCuentaContableByIdEmpresa(int idEmpresa) {
-		ArrayList<Vw_catalogo_tipo_cuentacontable> listCuentaContable = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+	public Tbl_cuentaContable getCuentaContableByIdTable(int idCuenta) {
+		Tbl_cuentaContable cc = new Tbl_cuentaContable();
 		try {
 			c = poolConexion.getConnection();
-			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_catalogo_tipo_cuentacontable WHERE idEmpresa =?", 
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.cuentacontable WHERE idCuenta =?", 
 					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ps.setInt(1, idEmpresa);
+			ps.setInt(1, idCuenta);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
-				Vw_catalogo_tipo_cuentacontable cc = new Vw_catalogo_tipo_cuentacontable();
 				cc.setIdCuenta(this.rs.getInt("idCuenta"));
+				
+				cc.setIdTipoCuenta(rs.getInt("idTipoCuenta"));
+				cc.setIdCatalogo(rs.getInt("idCatalogo"));
+
 				cc.setNumeroCuenta(this.rs.getString("numeroCuenta"));
 				cc.setsC(this.rs.getString("SC"));
 				cc.setSsC(this.rs.getString("SsC"));
@@ -168,10 +223,8 @@ public class Dt_cuentaContable {
 				cc.setNombreCuenta(this.rs.getString("nombreCuenta"));
 				cc.setNivel(this.rs.getInt("nivel"));
 				cc.setRubro(this.rs.getInt("rubro"));
-				cc.setTipoCuenta(this.rs.getString("tipoCuenta"));
-				cc.setCatalogoCuenta(this.rs.getString("titulo"));
 				cc.setEstado(this.rs.getInt("estado"));
-				listCuentaContable.add(cc);
+				System.out.println(cc);
 			}
 			
 		} catch(Exception e) {
@@ -197,8 +250,9 @@ public class Dt_cuentaContable {
 		
 	}
 		
-		return listCuentaContable;
+		return cc;
 	}
+	
 	
 	public int idCuentaContable() {
 	    int idCC = 0;
@@ -236,7 +290,7 @@ public class Dt_cuentaContable {
 		return idCC;
 	}
 	
-	//Método para agregar una cuenta contable
+	//Mï¿½todo para agregar una cuenta contable
 	
 	public boolean addCuentaContable(Tbl_cuentaContable cc) {
 		boolean guardado = false;
@@ -281,7 +335,7 @@ public class Dt_cuentaContable {
 		return guardado;
 	}
 	
-	//Método para editar cuenta contable
+	//Mï¿½todo para editar cuenta contable
 	
 	public boolean editCuentaContable(Tbl_cuentaContable cc) {
 		boolean modificado = false;
@@ -332,7 +386,7 @@ public class Dt_cuentaContable {
 		return modificado;
 	}
 	
-	//Método para elminar cuenta contable
+	//Mï¿½todo para elminar cuenta contable
 	
 	public boolean deleteCuentaContable(Tbl_cuentaContable cc) {
 		boolean eliminado = false;
@@ -371,4 +425,6 @@ public class Dt_cuentaContable {
 		}
 		return eliminado;
 	}
+	
+	
 }

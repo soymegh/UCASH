@@ -210,7 +210,7 @@ tc = dttasa.getTasaCambiobyID(Integer.parseInt(tasa));
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Año<span class="required"></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Aï¿½o<span class="required"></span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="TipoCambio" value="<%=tc.getAnio() %>"  type="text" required='required' readonly/>
 											</div>

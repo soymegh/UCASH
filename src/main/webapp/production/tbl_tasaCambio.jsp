@@ -66,7 +66,7 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Tasa Cambio</title>
+<title>Gestiï¿½n | Tasa Cambio</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -185,7 +185,7 @@ if (!permiso) {
 															<th>Mes</th>
 															<th>Moneda Origen</th>
 															<th>Moneda Destino</th>
-															<th>Año</th>
+															<th>Aï¿½o</th>
 															<th>Fecha</th>
 															<th>Tipo de Cambio</th>
 														</tr>
@@ -334,27 +334,27 @@ if (!permiso) {
 			
 			$(document).ready(function() {
                 if (mensaje == "1") {
-                    successAlert('Exito', 'La opción ha sido registrada correctamente.')
+                    successAlert('Exito', 'La opciï¿½n ha sido registrada correctamente.')
                 }
                 
                 if (mensaje == "2") {
-                	errorAlert('Error', 'Los datos de la opción no se han podido guardar.')
+                	errorAlert('Error', 'Los datos de la opciï¿½n no se han podido guardar.')
                 }
                 
                 if (mensaje == "3") {
-                	successAlert('Exito', 'Los datos de la opción se han editado correctamente.')
+                	successAlert('Exito', 'Los datos de la opciï¿½n se han editado correctamente.')
                 }
                 
                 if (mensaje == "4") {
-                	errorAlert('Error', 'Los datos de la opción no se han editado correctamente.')
+                	errorAlert('Error', 'Los datos de la opciï¿½n no se han editado correctamente.')
                 }
                 
                 if (mensaje == "5") {
-                	successAlert('Exito', 'Los datos de la opción se han eliminado correctamente.')
+                	successAlert('Exito', 'Los datos de la opciï¿½n se han eliminado correctamente.')
                 }
                 
                 if (mensaje == "6") {
-                	errorAlert('Error', 'Los datos de la opción no se han eliminado correctamente.')
+                	errorAlert('Error', 'Los datos de la opciï¿½n no se han eliminado correctamente.')
                 }
                 $("#example1").DataTable({
                     "responsive": true,

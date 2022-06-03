@@ -14,13 +14,21 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
 Tbl_tipocuenta ttc = new Tbl_tipocuenta();
-Dt_tipocuenta dtTcc = new Dt_tipocuenta();
-ttc = dtTcc.getTableTipocuentaByID(Integer.parseInt(cc));
+Dt_tipocuenta dtCtc = new Dt_tipocuenta();
+ttc = dtCtc.getTableTipocuentaByID(Integer.parseInt(cc));
 
 
 Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
 Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
 cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
+
+
+Tbl_cuentaContable tCuentaContable = new Tbl_cuentaContable(); 
+int idCuentaContable = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+Dt_cuentaContable cuentaContable = new Dt_cuentaContable(); 
+
+tCuentaContable = cuentaContable.getCuentaContableByIdTable(idCuentaContable); 
+
 
 %>
 <!-- //DETALLE  -->
@@ -40,50 +48,49 @@ ccd = dtCcd.getCcdbyID(idCCD);
 vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 
+
+
 <%
-	//INVALIDA LA CACHE DEL NAVEGADOR //
-	response.setHeader( "Pragma", "no-cache" );
-	response.setHeader( "Cache-Control", "no-store" );
-	response.setDateHeader( "Expires", 0 );
-	response.setDateHeader( "Expires", -1 );
-	
-	//DECLARACIONES
-	Vw_usuariorol vwur = new Vw_usuariorol();
-	Dt_rolOpciones dtro = new Dt_rolOpciones();
-	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
-	boolean permiso = false; //VARIABLE DE CONTROL
-	
-	//OBTENEMOS LA SESION
-	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	if(vwur!=null){
-		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
-		
-		listOpc = dtro.listarRolOpciones(vwur.getId_rol());
-		
-		
-		//RECUPERAMOS LA URL = MI OPCION ACTUAL
-		int index = request.getRequestURL().lastIndexOf("/");
-		String miPagina = request.getRequestURL().substring(index+1);
-		
-		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
-			}
+//INVALIDA LA CACHE DEL NAVEGADOR //
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store");
+response.setDateHeader("Expires", 0);
+response.setDateHeader("Expires", -1);
+
+//DECLARACIONES
+Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_rolOpciones dtro = new Dt_rolOpciones();
+ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+boolean permiso = false; //VARIABLE DE CONTROL
+
+//OBTENEMOS LA SESION
+vwur = (Vw_usuariorol) session.getAttribute("acceso");
+if (vwur != null) {
+	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
+
+	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+
+	//RECUPERAMOS LA URL = MI OPCION ACTUAL
+	int index = request.getRequestURL().lastIndexOf("/");
+	String miPagina = request.getRequestURL().substring(index + 1);
+
+	//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
+	for (Vw_rolopciones vrop : listOpc) {
+		if (vrop.getOpciones().trim().equals(miPagina.trim())) {
+	permiso = true; //ACCESO CONCEDIDO
+	break;
 		}
 	}
-	else{
-		response.sendRedirect("../login.jsp?msj=401");
-		return;
-	}
-		
-	if(!permiso){
-		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
-		return;
-	}
-	
+} else {
+	response.sendRedirect("../login.jsp?msj=401");
+	return;
+}
+
+if (!permiso) {
+	response.sendRedirect("../login.jsp?msj=403");
+	//response.sendRedirect("page_403.jsp");
+	return;
+}
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -108,112 +115,8 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-paw"></i>
-							<span>Sistema Contable</span></a>
-					</div>
-
-					<div class="clearfix"></div>
-
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
-						</div>
-					</div>
-					<!-- /menu profile quick info -->
-
-					<br />
-
-					<!-- sidebar menu -->
-					<div id="sidebar-menu"
-						class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<h3>Control General</h3>
-							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a>
-									<ul class="nav child_menu">
-										<li><a href="index.html">Página Principal</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-shield"></i> Seguridad <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
-										<li><a href="tbl_rol.jsp">Roles</a></li>
-										<li><a href="tbl_opciones.jsp">Opciones</a></li>
-										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
-										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
-									</ul></li>
-									<li><a><i class="fa fa-building"></i>Gestion Empresa<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
-									</ul></li>
-									<li><a><i class="fa fa-file"></i>Gestion Cuenta Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-										<li><a href="tbl_tipocuenta.jsp">Tipo cuenta</a></li>
-										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
-									</ul></li>
-									<li><a><i class="fa fa-dollar"></i>Gestion Moneda<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_moneda.jsp">Moneda</a></li>
-										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-book"></i>Gestion Asiento Contable<span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
-										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
-										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- top navigation -->
-			<div class="top_nav">
-				<div class="nav_menu">
-					<div class="nav toggle">
-						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-					</div>
-					<nav class="nav navbar-nav">
-						<ul class=" navbar-right">
-							<li class="nav-item dropdown open" style="padding-left: 15px;">
-								<a href="javascript:;" class="user-profile dropdown-toggle"
-								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
-							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"
-									aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="../login.jsp">
-									<i class="fa fa-sign-out pull-right"></i> Sesión</a>
-
-								</div>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-			<!-- /top navigation -->
-
-<!-- page content -->
+		<jsp:include page="navegacion.jsp"></jsp:include>
+		<!-- page content -->
 			<div class="right_col" role="main">
 				<div class="">
 					<div class="page-title">
@@ -240,7 +143,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 										<input type="hidden" value="2" name="opcion" id="opcion"/>
 										<input type="hidden" value="<%= vwCc.getIdCuenta()%>" name="idCuenta" id="idCuenta" />
 										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
-										
+										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
 										<span class="section">Datos de Cuenta Contable Maestro</span>
 										
 										<div class="field item form-group">
@@ -309,9 +212,9 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 													Dt_tipocuenta dtTc = new Dt_tipocuenta();
 													listaTc = dtTc.listaTipocuentaActivos();
 													%>
-
-								                 <select class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
-												  <option value="">Seleccione...</option>
+													
+								                 <select id="cbxTipoCuenta" class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
+								                 <option value="">Seleccione...</option>
 													<%
 												  		for(Tbl_tipocuenta tc : listaTc){
 												  	%>
@@ -326,7 +229,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta Contable:</label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta:</label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
@@ -335,15 +238,14 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 													Dt_catalogocuenta dtCat = new Dt_catalogocuenta();
 													listaCat = dtCat.listarCatalogocuenta();
 													%>
-
-								                 <select class="form-control js-example-basic-single" 
-								                 		 name="cbxCatalogoCuenta" id="cbxCatalogoCuenta" required="required">
+													
+								                 <select  id="cbxCatalogoCuenta" class="form-control js-example-basic-single" name="cbxCatalogoCuenta" required="required">
 												  <option value="">Seleccione...</option>
 												  	<%
 												  		for(Vw_catalogocuenta_empresa cat : listaCat){
 												  	%>
 												  <option value="<%=cat.getIdCatalogo()%>">
-													<%=cat.getTitulo()%>
+													<%=cat.getTitulo() + "/ " + cat.getnombreComercial() %>
 												</option>
 													<%
 													}
@@ -354,30 +256,32 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
                                         </div>
                                         
                                         <div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>
+											<div class="col-md-6 col-sm-6">
+												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial" step="0.001" oninput="calcular()"/>
+											</div>
+										</div>
+                                        
+                                        <div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" />
+												<input class="form-control" value="<%=vwCCD.getDebe()%>" name="debe" id="debe" step="0.001" oninput="calcular()"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control"  value="<%=vwCCD.getHaber()%>" name="haber" id="haber"/>
+												<input class="form-control"  value="<%=vwCCD.getHaber()%>" name="haber" id="haber" step="0.001" oninput="calcular()"/>
 											</div>
 										</div>
 										
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" value="<%=vwCCD.getSaldoInicial()%>" name="saldoInicial" id="saldoInicial"/>
-											</div>
-										</div>
+										
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Final:</label>
 											<div class="col-md-6 col-sm-6">
-												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal"/>
+												<input class="form-control" value="<%=vwCCD.getSaldoFinal()%>" name="saldoFinal" id="saldoFinal" step="0.001" oninput="calcular()" readonly/>
 											</div>
 										</div>
 											
@@ -437,19 +341,15 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
-
-	<!-- Script cbx -->
 	
 	<script>
-	
-	function setForm(){
-		
-		document.getElementById("cbxTipoCuenta").value = "<%=ttc.getIdTipoCuenta()%>";
-    	document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo()%>";
-    	
+    function setForm(){
+
+    	document.getElementById("cbxTipoCuenta").value =  <%=tCuentaContable.getIdTipoCuenta()%>
+    	document.getElementById("cbxCatalogoCuenta").value =  <%=tCuentaContable.getIdCatalogo()%>
+
 		}
-	window.onload = setForm;
-	
+		window.onload = setForm;
 	</script>
 
 	<!-- jQuery -->
@@ -483,4 +383,32 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
+
+
+
+
+
+
+
+<script type="text/javascript">
+	
+	function calcular(){
+		try{
+			var a = parseFloat(document.getElementById("saldoInicial").value) || 0,
+			b = parseFloat(document.getElementById("debe").value) || 0,
+			c = parseFloat(document.getElementById("haber").value) ||0;
+			
+			var resultado = 0;
+			
+			resultado = a + b;
+			resultado =  resultado - c;
+			
+			document.getElementById("saldoFinal").value = resultado;
+			
+		}catch (e){
+			
+		}
+	}
+	
+	</script>
 </html>

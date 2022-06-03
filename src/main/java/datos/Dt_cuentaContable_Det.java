@@ -284,6 +284,175 @@ public class Dt_cuentaContable_Det {
 		return eliminado;
 	}
 	
+	public boolean editarCuentaContableDetMovimientosPositivoPorId(int idCuenta, double debe, double haber) {
+		double totalDebe = 0;
+		double totalHaber = 0;
+		
+		totalDebe = this.getDebe(idCuenta);
+		totalHaber = this.getHaber(idCuenta);
+		
+		
+		
+		boolean modificado = false;
+		try {
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContableDet(c);
+			rsCuentaContableDet.beforeFirst();
+			while (rsCuentaContableDet.next()) {
+				if (rsCuentaContableDet.getInt(1)== idCuenta) {
+					rsCuentaContableDet.updateDouble("debe", (debe + totalDebe));
+					rsCuentaContableDet.updateDouble("haber", (haber + totalHaber));
+					rsCuentaContableDet.updateRow();
+					modificado=true;
+					break;
+				}
+				
+			}
+		} catch (Exception e) {
+			System.err.println("ERROR AL EDITAR CUENTA CONTABLE DET() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if(rsCuentaContableDet != null){
+					rsCuentaContableDet.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return modificado;
+	}
+	
+	public boolean editarCuentaContableDetMovimientosNegativoPorId(int idCuenta, double debe, double haber) {
+		double totalDebe = 0;
+		double totalHaber = 0;
+		
+		totalDebe = this.getDebe(idCuenta);
+		totalHaber = this.getHaber(idCuenta);
+		
+		System.out.print("DEBE (Parametro): " + debe);
+		System.out.print("HABER (Parametro): " + haber);
+		System.out.print("DEBE (BD): "+ totalDebe);
+		System.out.print("HABER (BD): "+ totalDebe);
+		
+		boolean modificado = false;
+		try {
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContableDet(c);
+			rsCuentaContableDet.beforeFirst();
+			while (rsCuentaContableDet.next()) {
+				if (rsCuentaContableDet.getInt(1)== idCuenta) {
+					rsCuentaContableDet.updateDouble("debe", (totalDebe - debe));
+					rsCuentaContableDet.updateDouble("haber", (totalHaber - haber));
+					rsCuentaContableDet.updateRow();
+					modificado=true;
+					break;
+				}
+				
+			}
+		} catch (Exception e) {
+			System.err.println("ERROR AL EDITAR CUENTA CONTABLE DET() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if(rsCuentaContableDet != null){
+					rsCuentaContableDet.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return modificado;
+	}
 	
 	
+	public double getDebe(int idCuentaContableDet) {
+		double debe  = 0; 
+		
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.cuentacontabledet WHERE idCuentaContableDet=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps.setInt(1, idCuentaContableDet);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				debe = this.rs.getDouble("debe");
+			}
+		}catch (Exception e)
+		{
+			System.out.println("DATOS ERROR getCcdbyID(): "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return debe;
+	}
+	
+	public double getHaber(int idCuentaContableDet) {
+		double haber = 0; 
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.cuentacontabledet WHERE idCuentaContableDet=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps.setInt(1, idCuentaContableDet);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				haber = this.rs.getDouble("haber"); 
+				
+			}
+		}catch (Exception e)
+		{
+			System.out.println("DATOS ERROR getCcdbyID(): "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return haber;
+	}
 }

@@ -9,12 +9,12 @@ public class Dt_enviarEmail {
 	
 	//ATRIBUTOS
 	
-	/*---------------------- Configuración Localhost------------------------------*/
+	/*---------------------- ConfiguraciÃ³n Localhost------------------------------*/
 	private static final String SMTP_HOST_NAME = "smtp.gmail.com";
-	private static final String SMTP_AUTH_USER = "megh130203@gmail.com";
-	private static final String SMTP_AUTH_PWD = "ywxxirzwywkebzzn";
+	private static final String SMTP_AUTH_USER = "jaol260549@gmail.com";
+	private static final String SMTP_AUTH_PWD = "hrtomvrniwskgtsv";
 	
-	//Enlace de verificación de correo
+	//Enlace de verificaciÃ³n de correo
     String linkHR = "http://localhost:8080/SistemaContable/";
 	
     //DECLARAMOS UNA CLASE PRIVADA COMO ATRIBUTO QUE HEREDA JAVAX.MAIL.AUTHENTICATOR
@@ -45,7 +45,7 @@ public class Dt_enviarEmail {
 	   Properties properties = new Properties();
 	   
 	   
-	   /*---------------------- Configuración del servidor de correo---------------------------*/ 
+	   /*---------------------- ConfiguraciÃ³n del servidor de correo---------------------------*/ 
 	   properties.setProperty("mail.smtp.host", SMTP_HOST_NAME);
 	   properties.put("mail.smtp.auth", "true");
 	   properties.setProperty("mail.smtp.port", "587");
@@ -92,7 +92,7 @@ public class Dt_enviarEmail {
 	      transport.connect(SMTP_HOST_NAME, SMTP_AUTH_USER, SMTP_AUTH_PWD);
 	      Transport.send(message);
 	      debug = true;
-	      System.out.println("El mensaje fue enviado con éxito");
+	      System.out.println("El mensaje fue enviado con Ã©xito");
 	      return debug;
 	}
     

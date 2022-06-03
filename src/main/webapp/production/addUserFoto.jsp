@@ -7,6 +7,12 @@
 %>
     
 <%
+//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}
+
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -25,10 +31,6 @@
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
 		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
-		
-		for(int x = 0; x < listOpc.size(); x++){
-			System.out.print(listOpc.get(x).getOpciones());
-		};
 		
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
@@ -145,7 +147,7 @@
 	                                        %>
                                         	<input type="hidden" name="iduser" value="<%=tus.getIdUsuario()%>">
                                             <div class="cuadro-fotoNima" align="center">
-												<img id="preview" name="preview" src="../<%=tus.getUrlFoto()==null?"#":tus.getUrlFoto()%>"  alt="Foto Usuario" style="width: 100px; height: 100px; border-bottom-color: white; margin: 2px;" />
+												<img id="preview" name="preview" src="../<%=tus.getUrlFoto()==null?"fotos_usuarios/img.jpg":tus.getUrlFoto()%>"  alt="Foto Usuario" style="width: 100px; height: 100px; border-bottom-color: white; margin: 2px;" />
 											</div>
                                         </div>
                                         <div class="form-group" align="center">

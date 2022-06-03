@@ -75,14 +75,14 @@ public class Sl_guardarFoto extends HttpServlet {
 				FileItem uploaded = item;
 				if(!uploaded.isFormField())
 				{
-					/////////TAMAÑO DEL ARCHIVO ////////
+					/////////TAMAï¿½O DEL ARCHIVO ////////
 					long size = uploaded.getSize();
 					System.out.println("size: "+size);
 					
 					/////// GUARDAMOS EN UN ARREGLO LOS FORMATOS QUE SE DESEAN PERMITIR
 					List<String> formatos = Arrays.asList("image/jpeg");
 					
-					////// COMPROBAR SI EL TAMAÑO Y FORMATO SON PERMITIDOS //////////
+					////// COMPROBAR SI EL TAMAï¿½O Y FORMATO SON PERMITIDOS //////////
 //					if(formatos.contains(uploaded.getContentType()) && size <= 102400)
 					if(formatos.contains(uploaded.getContentType())){
 						System.out.println("Filetype: "+uploaded.getContentType());
@@ -99,7 +99,7 @@ public class Sl_guardarFoto extends HttpServlet {
 						
 						System.out.println("SERVIDOR: FOTO GUARDADA CON EXITO!!!");
 						/////// ACTUALIZAMOS EL CAMPO URLFOTO EN LA BASE DE DATOS
-						String url = "fotos_usuarios/"+rutaFichero;
+						String url = "fotos_usuarios\\"+rutaFichero;
 						
 						if(dtu.guardarFotoUser(Integer.parseInt(idusuario),url)){
 							response.sendRedirect("production/addUserFoto.jsp?idUsuario="+idusuario+"&msj=1");

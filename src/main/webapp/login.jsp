@@ -2,6 +2,13 @@
     pageEncoding="ISO-8859-1" import="entidades.Tbl_rol, datos.Dt_rol, java.util.*;"%>
     
 <%
+//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}	
+
+
 //INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -46,6 +53,8 @@
 
     <!-- Custom Theme Style -->
     <link href="build/css/custom.min.css" rel="stylesheet">
+    
+<link rel="stylesheet" href="vendors/jAlert/dist/jAlert.css" />
 </head>
 <body class="login">
     <div>
@@ -56,6 +65,7 @@
         <div class="animate form login_form">
           <section class="login_content">
             <form method="post" action="./Sl_login">
+            <input type="hidden" value="<%=signal%>" id="JAlertInput"/>
               <h1>Acceso de Usuarios</h1>
               <input type="hidden" name="opcion" id="opcion" value="<%=opcion%>">
               <input type="hidden" name="codVerificacion" value="<%=codigo%>">
@@ -117,13 +127,14 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form method="post" action="./#">
+            <form method="post" action="./Sl_login">
+            <input type="hidden" name="opcion" id="opcion" value="3">
               <h1>Recuperar Contraseña</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Usuario" required />
+                <input type="text" class="form-control" placeholder="Usuario" name="usuario" required />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required />
+                <input type="email" class="form-control" placeholder="Email" name="email" required />
               </div>
               
               <div style="margin-right: 38px; margin-left: -38px;">
@@ -155,5 +166,76 @@
         </div>
       </div>
     </div>
+    <!-- jQuery -->
+	<script src="vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="vendors/nprogress/nprogress.js"></script>
+	<!-- iCheck -->
+	<script src="vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+	<script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="vendors/jszip/dist/jszip.min.js"></script>
+	<script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script src="build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+    <script src="vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	<script>
+			var mensaje = "";
+			mensaje = document.getElementById("JAlertInput").value; 
+			
+			$(document).ready(function() {
+				
+                if (mensaje == "403") {
+                	errorAlert('Error', 'Usted no tiene permisos para acceder a esta página o su usuario no existe.')
+                }
+
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["excel", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+                /*$('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });*/
+            });
+    </script>
+    
   </body>
 </html>

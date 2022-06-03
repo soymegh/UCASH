@@ -6,6 +6,7 @@ public class Vw_asientoContableDet {
 	private int idAsientoContableDet;
 	private int idCuenta;
 	private String numeroCuenta;
+	private String nombreCuenta;
 	private String SC;
 	private String SsC;
 	private String SssC;
@@ -15,6 +16,13 @@ public class Vw_asientoContableDet {
 	private Double debe;
 	private Double haber;
 	//Metodos
+
+	public String getNombreCuenta() {
+		return nombreCuenta;
+	}
+	public void setNombreCuenta(String nombreCuenta) {
+		this.nombreCuenta = nombreCuenta;
+	}
 	public int getIdAsientoContableDet() {
 		return idAsientoContableDet;
 	}

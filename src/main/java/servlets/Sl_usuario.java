@@ -81,7 +81,7 @@ public class Sl_usuario extends HttpServlet {
 			user.setEmail(request.getParameter("email"));
 			user.setPwd(request.getParameter("pwd"));
 			user.setFechaCreacion(new java.sql.Timestamp(fechaSistema.getTime()));
-			user.setUsuarioCreacion(1); // 1 valor temporal mientras se programa la sesion
+			user.setUsuarioCreacion(Integer.parseInt(request.getParameter("usuarioCreacion"))); // 1 valor temporal mientras se programa la sesion
 			user.setEstado(0);
 			confirmarContraseña = request.getParameter("txtclave2");
 			confirmarEmail = request.getParameter("email2");
@@ -104,7 +104,7 @@ public class Sl_usuario extends HttpServlet {
 
 			try {
 				if(ngu.existeUser(user.getUsuario()) || ngu.existeEmail(user.getEmail())) {
-					response.sendRedirect("production/tbl_usuarios.jsp?msj=7");
+					response.sendRedirect("production/tbl_usuario.jsp?msj=7");
 				}else {
 					if(contraseñaBandera && emailBandera) {
 						tus2.setId_user(dtu.addUsuario(user));
@@ -137,7 +137,7 @@ public class Sl_usuario extends HttpServlet {
 			user.setEmail(request.getParameter("txtemail"));
 			try {
 				user.setFechaModificacion(new java.sql.Timestamp(fechaSistema.getTime()));
-				user.setUsuarioModificacion(1);//1 valor temporal mientras se programa la sesion
+				user.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuarioModificacion")));//1 valor temporal mientras se programa la sesion
 				if(dtu.modificarUsuario(user)) {
 					response.sendRedirect("production/tbl_usuario.jsp?msj=3");
 				}
@@ -154,7 +154,7 @@ public class Sl_usuario extends HttpServlet {
 			user.setIdUsuario(Integer.parseInt(request.getParameter("txtid")));
 			try {
 				user.setFechaEliminacion(new java.sql.Timestamp(fechaSistema.getTime()));
-				user.setUsuarioEliminacion(1);//1 valor temporal mientras se programa la sesion
+				user.setUsuarioEliminacion(Integer.parseInt(request.getParameter("usuarioEliminacion")));//1 valor temporal mientras se programa la sesion
 				if(dtu.eliminarUsuario(user)) {
 					response.sendRedirect("production/tbl_usuario.jsp?msj=5");
 				}
@@ -166,6 +166,23 @@ public class Sl_usuario extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case 4: 
+			user.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+			try {
+				user.setFechaModificacion(new java.sql.Timestamp(fechaSistema.getTime()));
+				user.setUsuarioModificacion(Integer.parseInt(request.getParameter("usuarioModificacion")));//1 valor temporal mientras se programa la sesion
+				
+				if(dtu.modificarUsuarioInactivo(user)) {
+					response.sendRedirect("production/restaurarUsuario.jsp?msj=1");
+				}
+				else {
+					response.sendRedirect("production/restaurarUsuario.jsp?msj=2");
+				}
+			}catch(Exception e) {
+				System.out.println("Error Sl_gestionUser opc3: "+e.getMessage());
+				e.printStackTrace();
+			}
+			break; 
 
 		default:
 			break;

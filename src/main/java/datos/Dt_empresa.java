@@ -24,7 +24,7 @@ public class Dt_empresa {
 	// Metodo para llenar el ResultSet
 	public void llenar_rsEmpresa(Connection c) {
 		try {
-			ps = c.prepareStatement("Select * from empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,
+			ps = c.prepareStatement("Select * from dbucash.empresa;", ResultSet.TYPE_SCROLL_SENSITIVE,
 					ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			rsEmpresa = ps.executeQuery();
 		} catch (Exception e) {
@@ -315,5 +315,44 @@ public class Dt_empresa {
 		}
 		return modificado;
 	}
+	public boolean getTableEmpresaByIdLogin(int idEmpresa) {
+        boolean flag = false; 
+        try {
+            c = poolConexion.getConnection();
+            ps = c.prepareStatement("SELECT * FROM dbucash.empresa WHERE idEmpresa =?",
+                    ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+            ps.setInt(1, idEmpresa);
+            rs = ps.executeQuery();
 
+            // Hace peticion a la base de datos, por lo que los nombres en parentesis son
+            // los de la base de datos.
+            if (rs.next()) {
+                Vw_empresa.empresaActual = rs.getInt("idEmpresa");
+
+                flag = true; 
+            }
+
+        } catch (Exception e) {
+            System.out.println("DATOS ERROR AL OBTENER TABLA EMPRESA POR ID: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (c != null) {
+                    poolConexion.closeConnection(c);
+                }
+
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return flag;
+
+    }
 }

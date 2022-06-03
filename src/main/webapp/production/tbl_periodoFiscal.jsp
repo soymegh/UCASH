@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
+	datos.Dt_rolOpciones, datos.Dt_periodoFiscal, java.util.*;"%>
 	
 	<%
+	
+	//JAlert flag
+		String signal = ""; 
+		if(request.getParameter("msj") != null){
+			signal = request.getParameter("msj");
+		}
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -40,7 +47,7 @@
 		
 	if(!permiso){
 		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
+		response.sendRedirect("../login.jsp?msj=403");
 		return;
 	}
 	
@@ -54,7 +61,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Periodo Fiscal</title>
+<title>Gestiï¿½n | Periodo Fiscal</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -87,124 +94,17 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+
+<!-- Custom Theme Style -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
+
 </head>
 
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<div class="col-md-3 left_col">
-				<div class="left_col scroll-view">
-					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-money"></i>
-							<span>Sistema Contable</span></a>
-					</div>
-
-					<div class="clearfix"></div>
-
-					<!-- menu profile quick info -->
-					<div class="profile clearfix">
-						<div class="profile_pic">
-							<img src="img.jpg" alt="..."
-								class="img-circle profile_img">
-						</div>
-						<div class="profile_info">
-							<span>Bienvenido,</span>
-							<h2><%=vwur.getNombre()+" "+vwur.getApellido() %></h2>
-						</div>
-					</div>
-					<!-- /menu profile quick info -->
-
-					<br />
-
-					<!-- sidebar menu -->
-					<div id="sidebar-menu"
-						class="main_menu_side hidden-print main_menu">
-						<div class="menu_section">
-							<ul class="nav side-menu">
-								<li><a href="index.html"><i class="fa fa-home"></i>Inicio</a></li>
-							</ul>
-						</div>
-						
-						<div class="menu_section">
-							<h3>Gestión</h3>
-							<ul class="nav side-menu">
-								<li><a><i class="fa fa-shield"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_usuario.jsp">Usuarios</a></li>
-										<li><a href="tbl_rol.jsp">Roles</a></li>
-										<li><a href="tbl_opciones.jsp">Opciones</a></li>
-										<li><a href="tbl_usuarioRol.jsp">Roles de Usuario</a></li>
-										<li><a href="tbl_rolOpciones.jsp">Opciones de Rol</a></li>
-									</ul></li>
-									
-									<li><a><i class="fa fa-building"></i> Empresa<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_empresa.jsp">Empresas</a></li>
-										<li><a href="tbl_departamento.jsp">Departamento</a></li>
-										<li><a href="tbl_municipio.jsp">Municipio</a></li>
-										<li><a href="tbl_representanteLegal.jsp">Representante Legal</a></li>
-									</ul></li>
-									
-									<li><a><i class="fa fa-file"></i> Cuenta Contable<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_catalogocuenta.jsp">Catalogo Cuenta</a></li>
-										<li><a href="tbl_tipocuenta.jsp">Tipo Cuenta</a></li>
-										<li><a href="tbl_cuentacontable.jsp">Cuenta Contable</a></li>
-									</ul></li>
-									
-									<li><a><i class="fa fa-dollar"></i> Moneda<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_moneda.jsp">Moneda</a></li>
-										<li><a href="tbl_tasaCambio.jsp">Tasa Cambio</a></li>
-									</ul></li>
-
-								<li><a><i class="fa fa-book"></i> Asiento Contable<span class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
-										<li><a href="tbl_asientoContable.jsp">Asiento Contable</a></li>
-										<li><a href="tbl_periodoContable.jsp">Periodo Contable</a></li>
-										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
-										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
-									</ul></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /sidebar menu -->
-					<div class="sidebar-footer hidden-small">
-						<a data-toggle="tooltip" data-placement="top" title="Settings">
-							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-							<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-						</a> <a data-toggle="tooltip" data-placement="top" title="Lock"> <span
-							class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-						</a> <span>
-						<a data-toggle="tooltip" data-placement="top" title="Logout" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i></a>
-						</span>
-					</div>
-					<!-- /menu footer buttons -->
-				</div>
-			</div>
-
-			<!-- top navigation -->
-			<div class="top_nav">
-				<div class="nav_menu">
-					<div class="nav toggle">
-						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-					</div>
-					<nav class="nav navbar-nav">
-						<ul class=" navbar-right">
-							<li class="nav-item dropdown open" style="padding-left: 15px;">
-								<a href="javascript:;" class="user-profile dropdown-toggle"
-								aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown"
-								aria-expanded="false"> <img src="img.jpg" alt=""><%=vwur.getNombre()+" "+vwur.getApellido() %>
-							</a>
-								<div class="dropdown-menu dropdown-usermenu pull-right"	aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="../login.jsp"><i class="fa fa-sign-out pull-right"></i> Sesión</a>
-								</div>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
+			<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- /top navigation -->
 
 			<!-- page content -->
@@ -254,6 +154,7 @@
 														Nuevo Periodo Fiscal
 													</a> <br></br>
 												</div>
+												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
@@ -280,6 +181,7 @@
     														} else {
     															estado = "CERRADO";
     														}
+    														if(PF.getEstado() != 3){
                       									%>
 														<tr>
 															<td><%=PF.getIdPeriodoFiscal()%></td>
@@ -293,10 +195,27 @@
 																	</a>&nbsp;&nbsp; <a href="viewPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>">
 																	<i class="fa fa-eye" title="Ver Periodo Fiscal"></i>
 															</a> &nbsp;&nbsp;
-															 <a href="eliminarPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i	class="fa fa-trash" title="Eliminar"></i>
+															 <a href="eliminarPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i	class="fa fa-lock" title="Eliminar"></i>
 															</a></td>
 														</tr>
 														<%
+    														}else if(PF.getEstado() == 3){
+    															
+    															%>
+    															
+    															<tr>
+															<td><%=PF.getIdPeriodoFiscal()%></td>
+															<td><%=PF.getFechaInicio()%></td>
+															<td><%=PF.getFechaFinal()%></td>
+															<td><%=estado%></td>
+															
+															<td><a href="viewPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>">
+																	<i class="fa fa-eye" title="Ver Periodo Fiscal"></i>
+															</a></td>
+														</tr>
+    															
+    															<%
+    														}
 														}
 														%>
 													</tbody>
@@ -314,6 +233,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<!-- /page content -->
 
 	<!-- footer content -->
@@ -359,6 +279,63 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	<script>
+			var mensaje = "";
+			mensaje = document.getElementById("JAlertInput").value; 
+			console.log(mensaje);
+			
+			$(document).ready(function() {
+
+                if (mensaje == "1") {
+                    successAlert('Exito', 'El Periodo Fiscal se ha guardado correctamente.')
+                }
+                
+                if (mensaje == "2") {
+                	errorAlert('Error', 'Los datos del Periodo Fiscal no se lograron guardar.')
+                }
+                
+                if (mensaje == "3") {
+                	successAlert('Exito', 'Los datos del Periodo Fiscal se editaron correctamente.')
+                }
+                
+                if (mensaje == "4") {
+                	errorAlert('Error', 'Los datos del Periodo Fiscal no se pudieron editar.')
+                }
+                
+                if (mensaje == "5") {
+                	successAlert('Exito', 'El periodo Fiscal fue cerrado correctamente.')
+                }
+                
+                if (mensaje == "6") {
+                	errorAlert('Error', 'No se pudo cerrar el periodo Fiscal.')
+                }
+                
+                if (mensaje == "7") {
+                	errorAlert('Error', 'Cierre primero los periodos contables que pertenezcan a este periodo fiscal.')
+                }
+
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["excel", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+                /*$('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });*/
+            });
+    </script>
 
 </body>
 </html>

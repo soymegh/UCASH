@@ -126,7 +126,7 @@ user = datosUsuario.ObtenerUsuarioPorId(idUser);
 							<div class="x_content">
 								<form class="" action="../Sl_usuario" method="post" novalidate>
 								<input type="hidden" value="2" name="opcion" id="opcion"/>
-								
+								<input type="hidden" value="<%=vwur.getId_user()%>" name="usuarioModificacion" id="usuarioModificacion" />
 									<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Id Usuario<span class="required">:</span></label>
 											<div class="col-md-6 col-sm-6">

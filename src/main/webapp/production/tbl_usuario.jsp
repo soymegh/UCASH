@@ -3,6 +3,12 @@
 	
 	
 <%
+	//JAlert flag
+	String signal = ""; 
+	if(request.getParameter("msj") != null){
+		signal = request.getParameter("msj");
+	}
+
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -91,6 +97,7 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 </head>
 
 <body class="nav-md">
@@ -152,6 +159,13 @@
 														Nuevo Usuario
 													</a> <br></br>
 												</div>
+												<div class="text-muted font-13 col-md-12"
+													style="text-align: right;">
+													<a href="restaurarUsuario.jsp"> <i class="fa fa-plus-square"></i>
+														Restaurar Usuario
+													</a> <br></br>
+												</div>
+												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
@@ -215,9 +229,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
-	</div>
-	</div>
 	<!-- /page content -->
 
 	<!-- footer content -->
@@ -226,10 +237,8 @@
 		<div class="clearfix"></div>
 	</footer>
 	<!-- /footer content -->
-	</div>
-	</div>
 	<!--Keyboard navigation-->
-	<script src="js/navigation/userTableNav.js"></script>
+	<script src="js/navigation/userTableNavigation.js"></script>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -267,6 +276,64 @@
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
+	
+	<!-- jAlert -->
+    <script src="../vendors/jAlert/dist/jAlert.min.js"></script>
+    <script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+	
+	
+	<script>
+			var mensaje = "";
+			mensaje = document.getElementById("JAlertInput").value; 
+			console.log(mensaje);
+			
+			$(document).ready(function() {
 
+                if (mensaje == "1") {
+                    successAlert('Exito', 'El usuario ha sido registrado correctamente.')
+                }
+                
+                if (mensaje == "2") {
+                	errorAlert('Error', 'Los datos de usuario no se han podido guardar.')
+                }
+                
+                if (mensaje == "3") {
+                	successAlert('Exito', 'Los datos de usuario se han editado correctamente.')
+                }
+                
+                if (mensaje == "4") {
+                	errorAlert('Error', 'Los datos de usuario no se han editado correctamente.')
+                }
+                
+                if (mensaje == "5") {
+                	successAlert('Exito', 'Los datos de usuario se han eliminado correctamente.')
+                }
+                
+                if (mensaje == "6") {
+                	errorAlert('Error', 'Los datos de usuario no se han eliminado correctamente.')
+                }
+                
+                if (mensaje == "7") {
+                	errorAlert('Error', 'El correo electronico, contraseña o usuario proporcionado no coincide o ya existe.')
+                }
+
+                $("#example1").DataTable({
+                    "responsive": true,
+                    "lengthChange": false,
+                    "autoWidth": false,
+                    "buttons": ["excel", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+                /*$('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                });*/
+            });
+    </script>
 </body>
 </html>

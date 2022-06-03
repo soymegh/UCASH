@@ -93,9 +93,9 @@ public class Sl_rolOpciones extends HttpServlet {
 			
 			try {
 				if(dtro.eliminarRolOpcion(tro.getIdRolOpciones())) {
-					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=3");
+					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=5");
 				}else {
-					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=4");
+					response.sendRedirect("production/tbl_rolOpciones.jsp?msj=6");
 				}
 			}catch(Exception e) {
 				System.out.println("Error Sl_usuarioRol opc2: "+e.getMessage());
