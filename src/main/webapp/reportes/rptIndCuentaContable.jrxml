@@ -3,8 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptIndCuentaContable" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7c35f83-434c-4223-ba04-a1e2f542535b">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DBUCASH"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="cuentaID" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT * FROM vw_cuentacontabledet_js ORDER BY idCuenta]]>
+		<![CDATA[SELECT * FROM vw_cuentacontabledet_js WHERE idCuenta = $P{cuentaID}  ORDER BY idCuenta]]>
 	</queryString>
 	<field name="idCuenta" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="idCuenta"/>
@@ -63,7 +64,7 @@
 		<band height="98" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="80" height="79" uuid="8cc1cd8b-33c1-4098-bb80-60fb8db0d5d9"/>
-				<imageExpression><![CDATA["C:/payara5/glassfish/foto_empresa.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["C:/payara-5.2022.2/payara5/glassfish/logoEmpresa/logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="114" y="14" width="396" height="15" uuid="48f77a7b-6fbe-43b8-a28f-3f9ffbc1bc1e"/>
@@ -158,7 +159,7 @@
 				<text><![CDATA[SSSC]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="208" y="0" width="104" height="30" uuid="ff88431b-0533-4142-8557-31e4799fcce7">
+				<reportElement x="208" y="0" width="142" height="30" uuid="ff88431b-0533-4142-8557-31e4799fcce7">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc37f348-1b1d-499f-ac85-9c51e3420ecf"/>
 				</reportElement>
 				<box>
@@ -171,7 +172,7 @@
 				<text><![CDATA[Concepto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="312" y="0" width="68" height="30" uuid="77102a6e-dc35-4db2-a958-476c321a49b0">
+				<reportElement x="350" y="0" width="60" height="30" uuid="77102a6e-dc35-4db2-a958-476c321a49b0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d697dce-abe8-4251-ae00-4631d9f740ae"/>
 				</reportElement>
 				<box>
@@ -184,7 +185,7 @@
 				<text><![CDATA[Saldo Inicial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="0" width="60" height="30" uuid="521a52c3-c543-4fe9-aecd-2d710536550f">
+				<reportElement x="410" y="0" width="50" height="30" uuid="521a52c3-c543-4fe9-aecd-2d710536550f">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13c7b224-1a0e-4808-a562-4ff4b64c7e57"/>
 				</reportElement>
 				<box>
@@ -197,7 +198,7 @@
 				<text><![CDATA[Debe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="0" width="62" height="30" uuid="45ce92aa-9984-4d65-9500-31ad0eeabfa1">
+				<reportElement x="460" y="0" width="50" height="30" uuid="45ce92aa-9984-4d65-9500-31ad0eeabfa1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2a30170-4c5f-4e8c-8ff8-0202ebfbf182"/>
 				</reportElement>
 				<box>
@@ -210,7 +211,7 @@
 				<text><![CDATA[Haber]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="502" y="0" width="70" height="30" uuid="ee1e09bd-139e-42b8-a30c-4a0c65760b31">
+				<reportElement x="510" y="0" width="62" height="30" uuid="ee1e09bd-139e-42b8-a30c-4a0c65760b31">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6de23aed-932d-4a7a-959b-4e7956ff13cb"/>
 				</reportElement>
 				<box>
@@ -292,7 +293,7 @@
 				<textFieldExpression><![CDATA[$F{SssC}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="208" y="0" width="104" height="30" uuid="a406f298-2052-468a-9cfe-995253cd9e20">
+				<reportElement x="208" y="0" width="142" height="30" uuid="a406f298-2052-468a-9cfe-995253cd9e20">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc37f348-1b1d-499f-ac85-9c51e3420ecf"/>
 				</reportElement>
 				<box>
@@ -305,7 +306,7 @@
 				<textFieldExpression><![CDATA[$F{nombreCuenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="312" y="0" width="68" height="30" uuid="0b6287de-54c7-43cf-9be4-1c3e05315f5d">
+				<reportElement x="350" y="0" width="60" height="30" uuid="0b6287de-54c7-43cf-9be4-1c3e05315f5d">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d697dce-abe8-4251-ae00-4631d9f740ae"/>
 				</reportElement>
 				<box>
@@ -318,7 +319,7 @@
 				<textFieldExpression><![CDATA[$F{saldoInicial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="60" height="30" uuid="e50baf74-51f0-4961-b91a-685a91ec2bdc">
+				<reportElement x="410" y="0" width="50" height="30" uuid="e50baf74-51f0-4961-b91a-685a91ec2bdc">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13c7b224-1a0e-4808-a562-4ff4b64c7e57"/>
 				</reportElement>
 				<box>
@@ -331,7 +332,7 @@
 				<textFieldExpression><![CDATA[$F{debe}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="440" y="0" width="62" height="30" uuid="ed9ec48e-d2bd-4f00-9b2e-e93664bb4203">
+				<reportElement x="460" y="0" width="50" height="30" uuid="ed9ec48e-d2bd-4f00-9b2e-e93664bb4203">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a2a30170-4c5f-4e8c-8ff8-0202ebfbf182"/>
 				</reportElement>
 				<box>
@@ -344,7 +345,7 @@
 				<textFieldExpression><![CDATA[$F{haber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="502" y="0" width="70" height="30" uuid="cf142525-6d01-421f-bb74-f58638aa789a">
+				<reportElement x="510" y="0" width="62" height="30" uuid="cf142525-6d01-421f-bb74-f58638aa789a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6de23aed-932d-4a7a-959b-4e7956ff13cb"/>
 				</reportElement>
 				<box>

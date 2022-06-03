@@ -14,13 +14,21 @@ vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
 
 
 Tbl_tipocuenta ttc = new Tbl_tipocuenta();
-Dt_tipocuenta dtTcc = new Dt_tipocuenta();
-ttc = dtTcc.getTableTipocuentaByID(Integer.parseInt(cc));
+Dt_tipocuenta dtCtc = new Dt_tipocuenta();
+ttc = dtCtc.getTableTipocuentaByID(Integer.parseInt(cc));
 
 
 Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
 Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
 cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
+
+
+Tbl_cuentaContable tCuentaContable = new Tbl_cuentaContable(); 
+int idCuentaContable = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+Dt_cuentaContable cuentaContable = new Dt_cuentaContable(); 
+
+tCuentaContable = cuentaContable.getCuentaContableByIdTable(idCuentaContable); 
+
 
 %>
 <!-- //DETALLE  -->
@@ -41,7 +49,8 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 
 
-<%-- <%
+
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -82,7 +91,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -134,7 +143,7 @@ if (!permiso) {
 										<input type="hidden" value="2" name="opcion" id="opcion"/>
 										<input type="hidden" value="<%= vwCc.getIdCuenta()%>" name="idCuenta" id="idCuenta" />
 										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
-										
+										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
 										<span class="section">Datos de Cuenta Contable Maestro</span>
 										
 										<div class="field item form-group">
@@ -203,9 +212,9 @@ if (!permiso) {
 													Dt_tipocuenta dtTc = new Dt_tipocuenta();
 													listaTc = dtTc.listaTipocuentaActivos();
 													%>
-
-								                 <select class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
-												  <option value="">Seleccione...</option>
+													
+								                 <select id="cbxTipoCuenta" class="form-control js-example-basic-single" name="cbxTipoCuenta" id="cbxTipoCuenta" required="required" >
+								                 <option value="">Seleccione...</option>
 													<%
 												  		for(Tbl_tipocuenta tc : listaTc){
 												  	%>
@@ -220,7 +229,7 @@ if (!permiso) {
                                         </div>
                                         
                                         <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta Contable:</label>
+                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta:</label>
                                             <div class="col-md-6 col-sm-6">
 <!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
 
@@ -229,15 +238,14 @@ if (!permiso) {
 													Dt_catalogocuenta dtCat = new Dt_catalogocuenta();
 													listaCat = dtCat.listarCatalogocuenta();
 													%>
-
-								                 <select class="form-control js-example-basic-single" 
-								                 		 name="cbxCatalogoCuenta" id="cbxCatalogoCuenta" required="required">
+													
+								                 <select  id="cbxCatalogoCuenta" class="form-control js-example-basic-single" name="cbxCatalogoCuenta" required="required">
 												  <option value="">Seleccione...</option>
 												  	<%
 												  		for(Vw_catalogocuenta_empresa cat : listaCat){
 												  	%>
 												  <option value="<%=cat.getIdCatalogo()%>">
-													<%=cat.getTitulo()%>
+													<%=cat.getTitulo() + "/ " + cat.getnombreComercial() %>
 												</option>
 													<%
 													}
@@ -333,19 +341,15 @@ if (!permiso) {
 				$('form .alert').remove();
 		}).prop('checked', false);
 	</script>
-
-	<!-- Script cbx -->
 	
 	<script>
-	
-	function setForm(){
-		
-		document.getElementById("cbxTipoCuenta").value = "<%=ttc.getIdTipoCuenta()%>";
-    	document.getElementById("cbxCatalogoCuenta").value = "<%=cata.getIdCatalogo()%>";
-    	
+    function setForm(){
+
+    	document.getElementById("cbxTipoCuenta").value =  <%=tCuentaContable.getIdTipoCuenta()%>
+    	document.getElementById("cbxCatalogoCuenta").value =  <%=tCuentaContable.getIdCatalogo()%>
+
 		}
-	window.onload = setForm;
-	
+		window.onload = setForm;
 	</script>
 
 	<!-- jQuery -->

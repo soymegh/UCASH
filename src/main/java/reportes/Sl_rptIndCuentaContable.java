@@ -21,49 +21,51 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 /**
- * Servlet implementation class Sl_rptCuentaContable
+ * Servlet implementation class Sl_rptIndCuentaContable
  */
-@WebServlet("/Sl_rptCuentaContable")
-public class Sl_rptCuentaContable extends HttpServlet {
+@WebServlet("/Sl_rptIndCuentaContable")
+public class Sl_rptIndCuentaContable extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Sl_rptIndCuentaContable() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public Sl_rptCuentaContable() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
-
-		try {
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
+try {
 			
+			String idCuenta = "";
+			idCuenta = request.getParameter("idCuenta")==null?"0":request.getParameter("idCuenta");
+			System.out.println("idCuenta: "+idCuenta);
+	
 			poolConexion p = poolConexion.getInstance();
 			Connection c = poolConexion.getConnection();
-			HashMap hm = new HashMap();
+			
+			HashMap<String, Object> hm = new HashMap<>();
+			hm.put("cuentaID" , Integer.parseInt(idCuenta));
+			
 			OutputStream otps = response.getOutputStream();
 			ServletContext context = getServletContext();
 			String path = context.getRealPath("/");
-			String template = "reportes\\rptListaCuentas.jasper";
+			String template = "reportes\\rptIndCuentaContable.jasper";
 			System.out.println("Path: "+path+template);
 			
 			Exporter exporter = new JRPdfExporter();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(path+template, hm, c);
 			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "inline; filename=\"rptListaCuentas.pdf");
+			response.setHeader("Content-Disposition", "inline; filename=\"rptIndCuentaContable_"+ idCuenta +".pdf");
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(otps));
 			exporter.exportReport();
-			
-			System.out.println("Hola");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,11 +74,9 @@ public class Sl_rptCuentaContable extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

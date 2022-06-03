@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.*, datos.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +10,7 @@ cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCu
 Vw_catalogo_tipo_cuentacontable vwCc = new Vw_catalogo_tipo_cuentacontable();
 Dt_cuentaContable dtCc = new Dt_cuentaContable();
 vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
+
 %>
 
 <%
@@ -22,7 +23,7 @@ vwCCD = dtCCD.getCCDbyID(idCCD);
 %>
 
 
-<%-- <%
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -63,7 +64,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -204,7 +205,7 @@ if (!permiso) {
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="text" class="optional" name="catalogoCuenta" id="catalogoCuenta" 
-												value="<%= vwCc.getCatalogoCuenta() %>"/>
+												value="<%= vwCc.getCatalogoCuenta()%>"/>
 											</div>
 										</div>
 										

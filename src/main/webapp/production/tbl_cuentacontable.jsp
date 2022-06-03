@@ -17,7 +17,7 @@ if (request.getParameter("msj") != null) {
 }
 %>
 
-<%-- <%
+<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -58,8 +58,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
-
+%>
 
 <html>
 <head>
@@ -69,7 +68,7 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Cuentas Contables</title>
+<title>Gestiï¿½n | Cuentas Contables</title>
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -152,8 +151,13 @@ if (!permiso) {
 															<a
 																href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
 																<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
-															</a> <br></br>
-															<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
+															</a> 
+															
+															<a href ="../Sl_rptCuentaContable" target='_blank'>
+																<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables"></i>
+															</a><br></br> 
+															
+															<input type="hidden" value="<%=signal%>" id="JAlertInput" />
 														</div>
 														<table id="datatable-buttons"
 															class="table table-striped table-bordered"
@@ -161,7 +165,7 @@ if (!permiso) {
 															<%
 															ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 															Dt_cuentaContable dtCc = new Dt_cuentaContable();
-															listaCuentasContables = dtCc.listaCuentasContables();
+															listaCuentasContables = dtCc.getCuentaContableByIdEmpresa(Vw_empresa.empresaActual);
 															%>
 															<thead>
 																<tr>
@@ -210,7 +214,12 @@ if (!permiso) {
 																	</a> &nbsp;&nbsp; <a
 																		href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
 																			<i class="fa fa-trash" title="Eliminar"></i>
-																	</a></td>
+																	</a> &nbsp;&nbsp; <a
+																		href="../Sl_rptIndCuentaContable?idCuenta=<%=cc.getIdCuenta()%>" target='_blank'>
+																			<i class="fa fa-print" title="Imprimir Cuenta Contable"></i>
+																	</a>
+																	
+																	</td>
 																</tr>
 																<%
 																}
@@ -347,7 +356,6 @@ if (!permiso) {
 	<!-- jAlert -->
 	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
 	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
-	
 	<script>
 		var mensaje = "";
 		mensaje = document.getElementById("JAlertInput").value;
@@ -370,12 +378,12 @@ if (!permiso) {
 
 							if (mensaje == "3") {
 								successAlert('Exito',
-										'Los cuenta contable de la empresa se han editado correctamente.')
+										'Los datos de la Cuenta Contable se han editado correctamente.')
 							}
 
 							if (mensaje == "4") {
 								errorAlert('Error',
-										'Los cuenta contable de la empresa no se han editado correctamente.')
+										'Los datos de la Cuenta Contable no se han editado correctamente.')
 							}
 
 							$("#example1").DataTable({
