@@ -151,11 +151,15 @@ if (!permiso) {
 															<a
 																href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
 																<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
-															</a> 
+															</a> &nbsp;&nbsp;
 															
 															<a href ="../Sl_rptCuentaContable" target='_blank'>
-																<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables"></i>
-															</a><br></br> 
+																<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables">Imprimir Lista de Cuentas Contables</i>
+															</a>&nbsp;&nbsp;
+															
+															<a href ="../Sl_LibroMayorAuxiliar" target='_blank'>
+																<i class="fa fa-print" title="Imprimir Libro Mayor Auxiliar"> Imprimir Libro Mayor Auxiliar</i>
+															</a>&nbsp;&nbsp;<br></br> 
 															
 															<input type="hidden" value="<%=signal%>" id="JAlertInput" />
 														</div>
@@ -214,11 +218,7 @@ if (!permiso) {
 																	</a> &nbsp;&nbsp; <a
 																		href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
 																			<i class="fa fa-trash" title="Eliminar"></i>
-																	</a> &nbsp;&nbsp; <a
-																		href="../Sl_rptIndCuentaContable?idCuenta=<%=cc.getIdCuenta()%>" target='_blank'>
-																			<i class="fa fa-print" title="Imprimir Cuenta Contable"></i>
-																	</a>
-																	
+																	</a> 
 																	</td>
 																</tr>
 																<%
