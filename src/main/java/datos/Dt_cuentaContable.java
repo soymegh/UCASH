@@ -425,4 +425,6 @@ public class Dt_cuentaContable {
 		}
 		return eliminado;
 	}
+	
+	
 }

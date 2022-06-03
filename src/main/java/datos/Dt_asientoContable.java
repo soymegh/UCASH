@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import entidades.Tbl_asientoContable;
 import entidades.Tbl_periodoContable;
 import entidades.Vw_asientoContable;
+import datos.Dt_cuentaContable_Det;
 
 public class Dt_asientoContable {
 	poolConexion pc = poolConexion.getInstance();
@@ -17,7 +18,8 @@ public class Dt_asientoContable {
 	private ResultSet rsAsientoCon = null;
 	private ResultSet rs = null;
 	private PreparedStatement ps = null;
-	
+	Dt_asientoContableDet acDet = new Dt_asientoContableDet();
+	Dt_cuentaContable_Det ccDet = new Dt_cuentaContable_Det();
 	public Dt_asientoContable() {
 		
 	}
@@ -343,6 +345,14 @@ public class Dt_asientoContable {
 public boolean EliminarAContablePorId(int idEliminar){
 		
 		boolean borrado = false;
+		double debe  = 0; 
+		double haber = 0; 
+		int idCuenta = acDet.getIdCuentaByIdACD(idEliminar);
+		
+		debe = acDet.getTotalDebeByIdCuenta(idCuenta);
+		haber = acDet.getTotalHaberByIdCuenta(idCuenta);
+		
+		ccDet.editarCuentaContableDetMovimientosNegativoPorId(idCuenta, debe, haber);
 		
 		try {
 			

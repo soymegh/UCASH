@@ -330,6 +330,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																				<tbody>
 
 																					<%
+																					int detallesSalientes = 0; 
 																					for (Vw_asientoContableDet ac : listaAsientoContable) {
 																						if (ac.getIdAsientoContable() == idac) {
 																					%>
@@ -337,7 +338,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																						<td><input type="button"
 																							id="btnBorrarDetalle" value="Borrar" /></td>
 																						<td><input type="text"
-																							class="form-control col-sm-3"
+																							class="form-control col-sm-3" name = "<%="idCuentaSaliente"+detallesSalientes%>"
 																							value="<%=ac.getIdCuenta()%>"
 																							readonly="readonly"></td>
 																						<td><input type="text"
@@ -346,10 +347,10 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																							readonly="readonly"></td>
 																						<td id='tddebe'><input type="text"
 																							class="form-control col-sm-6"
-																							value="<%=ac.getDebe()%>" readonly="readonly"></td>
+																							value="<%=ac.getDebe()%>" name = "<%="debeSaliente"+detallesSalientes%>" readonly="readonly"></td>
 																						<td id="tdhaber"><input type="text"
 																							class="form-control col-sm-6"
-																							value="<%=ac.getHaber()%>" readonly="readonly"></td>
+																							value="<%=ac.getHaber()%>" name = "<%="haberSaliente"+detallesSalientes%>" readonly="readonly"></td>
 																						<td id='agreg'><input type="text"
 																							hidden="hidden"
 																							value="<%=ac.getIdAsientoContableDet()%>"></td>
@@ -358,6 +359,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																					total = total + ac.getDebe() - ac.getHaber();
 																					debe += ac.getDebe();
 																					haber += ac.getHaber();
+																					detallesSalientes++;  
 																					}
 																					}
 																					%>
