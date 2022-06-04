@@ -61,7 +61,7 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Asiento Contable</title>
+<title>Gestión | Asiento Contable</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -178,7 +178,7 @@ if (!permiso) {
 																		for (Vw_asientoContable ac : listaAsientoContable) {
 
 																			tblpc = dtpc.obtenerPContablePorId(ac.getIdPeriodoContable());
-																			if (tblpc.getEstado() != 3) {
+																			if (tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual) {
 																		%>
 																		<tr>
 
@@ -204,27 +204,7 @@ if (!permiso) {
 																			</a></td>
 																		</tr>
 																		<%
-																		} else if (tblpc.getEstado() == 3) {
-																		%>
-																		<tr>
-
-																			<td><%=ac.getIdAsientoContable()%></td>
-																			<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
-																			<td><%=ac.getNombreComercial()%></td>
-																			<td><%=ac.getTipo()%></td>
-																			<td><%=ac.getNombre()%></td>
-																			<td><%=ac.getTipoCambio()%></td>
-																			<th><%=ac.getFecha()%></th>
-																			<td><%=ac.getDescripcion()%></td>
-
-
-																			<td><a
-																				href="viewAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
-																					<i class="fa fa-eye" title="Mostrar"></i>
-																			</a></td>
-																		</tr>
-																		<%
-																		}
+																			}
 																		}
 																		%>
 																	</tbody>

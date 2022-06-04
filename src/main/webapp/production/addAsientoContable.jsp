@@ -264,7 +264,7 @@ if (!permiso) {
 																				<%
 																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
 																				%>
-																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>/<%=cc.getsC()%>/<%=cc.getSsC()%>/<%=cc.getSssC()%>
+																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%>
 																					--
 																					<%=cc.getNombreCuenta()%></option>
 																				<%
@@ -316,7 +316,7 @@ if (!permiso) {
 																				style="width: 100%" id="tbldet">
 																				<thead>
 																					<tr>
-																						<th>Opciï¿½n</th>
+																						<th>Opción</th>
 																						<th>ID Cuenta</th>
 																						<th>Cuenta</th>
 																						<th>Debe</th>
@@ -444,7 +444,7 @@ if (!permiso) {
 				case "1":
 					$.toast({
 					    text: "Asiento contable agregado correctamente", 
-					    heading: 'ï¿½xito', 
+					    heading: 'Éxito', 
 					    icon: 'success', 
 					    showHideTransition: 'slide', 
 					    allowToastClose: false, 
@@ -539,6 +539,25 @@ if (!permiso) {
             	$.toast({
             	    text: "El saldo debe ser 0 para poder guardar",
             	    heading: 'Advertencia - saldo',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
+                e.preventDefault();
+            };
+            
+            if($("#detalles").val() == 0){
+            	$.toast({
+            	    text: "Tiene que haber detalles para poder guardar",
+            	    heading: 'Advertencia - detalles',
             	    icon: 'warning',
             	    showHideTransition: 'slide',
             	    allowToastClose: false, 
