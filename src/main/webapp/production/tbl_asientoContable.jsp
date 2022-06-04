@@ -130,6 +130,9 @@ if (!permiso) {
 								<div class="x_title">
 									<h2>Asientos Contables Registrados <small><a href="imprimirAsientoContable.jsp"><i class="fa fa-print"></i>Imprimir asientos contables</a></small> </h2>
 
+									<div class="float-right">
+										<h2>Periodo contable: <%=Tbl_periodoContable.fechaInicioActual%> - <%=Tbl_periodoContable.fechaFinalActual %> </h2>
+									</div>	
 									<div class="clearfix">
 										
 									</div>
@@ -178,7 +181,7 @@ if (!permiso) {
 																		for (Vw_asientoContable ac : listaAsientoContable) {
 
 																			tblpc = dtpc.obtenerPContablePorId(ac.getIdPeriodoContable());
-																			if (tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual) {
+																			if (tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual && tblpc.getEstado() != 3) {
 																		%>
 																		<tr>
 
@@ -204,7 +207,27 @@ if (!permiso) {
 																			</a></td>
 																		</tr>
 																		<%
-																			}
+																			} else if (tblpc.getEstado() == 3 && tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual) {
+																				%>
+																				<tr>
+
+																					<td><%=ac.getIdAsientoContable()%></td>
+																					<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
+																					<td><%=ac.getNombreComercial()%></td>
+																					<td><%=ac.getTipo()%></td>
+																					<td><%=ac.getNombre()%></td>
+																					<td><%=ac.getTipoCambio()%></td>
+																					<th><%=ac.getFecha()%></th>
+																					<td><%=ac.getDescripcion()%></td>
+
+
+																					<td><a
+																						href="viewAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
+																							<i class="fa fa-eye" title="Mostrar"></i>
+																					</a></td>
+																				</tr>
+																				<%
+																				}
 																		}
 																		%>
 																	</tbody>
