@@ -29,6 +29,11 @@ Dt_cuentaContable cuentaContable = new Dt_cuentaContable();
 
 tCuentaContable = cuentaContable.getCuentaContableByIdTable(idCuentaContable); 
 
+Vw_catalogocuenta_empresa Cata = new Vw_catalogocuenta_empresa();
+Dt_catalogocuenta dtcata = new Dt_catalogocuenta();
+
+Cata = dtcata.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
+
 
 %>
 <!-- //DETALLE  -->
@@ -228,32 +233,16 @@ if (!permiso) {
 											</div>
                                         </div>
                                         
-                                        <div class="field item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta:</label>
-                                            <div class="col-md-6 col-sm-6">
-<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-
-								                 	<% 
-													ArrayList<Vw_catalogocuenta_empresa> listaCat = new ArrayList<Vw_catalogocuenta_empresa>();
-													Dt_catalogocuenta dtCat = new Dt_catalogocuenta();
-													listaCat = dtCat.listarCatalogocuenta();
-													%>
-													
-								                 <select  id="cbxCatalogoCuenta" class="form-control js-example-basic-single" name="cbxCatalogoCuenta" required="required">
-												  <option value="">Seleccione...</option>
-												  	<%
-												  		for(Vw_catalogocuenta_empresa cat : listaCat){
-												  	%>
-												  <option value="<%=cat.getIdCatalogo()%>">
-													<%=cat.getTitulo() + "/ " + cat.getnombreComercial() %>
-												</option>
-													<%
-													}
-													%>
-													
-												</select>
+                                        <input type="hidden" id="catalogoCuenta"
+													name="catalogoCuenta" value="<%=Cata.getIdCatalogo()%>"/>
+										<div class="field item form-group">
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta<span
+												class="required">*</span></label>
+											<div class="col-md-6 col-sm-6">
+													<input type="text" class="form-control" id="txtCatalogo"
+													name="txtCatalogo" value="<%=Cata.getTitulo()+ " / " + Cata.getnombreComercial()%>" class="required" readonly="readonly" />
 											</div>
-                                        </div>
+										</div>
                                         
                                         <div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Saldo Inicial</label>

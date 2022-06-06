@@ -107,7 +107,7 @@ public class Sl_cuentaContable extends HttpServlet {
 			cc.setNivel(Integer.parseInt(request.getParameter("nivel")));
 			cc.setRubro(Integer.parseInt(request.getParameter("rubro")));
 			cc.setIdTipoCuenta(Integer.parseInt(request.getParameter("cbxTipoCuenta")));
-			cc.setIdCatalogo(Integer.parseInt(request.getParameter("cbxCatalogoCuenta")));
+			cc.setIdCatalogo(Integer.parseInt(request.getParameter("catalogoCuenta")));
 			
 			ccd.setIdCuentaContableDet(Integer.parseInt(request.getParameter("idCuentaContableDet")));
 			Double debeU = Double.parseDouble(request.getParameter("debe"));

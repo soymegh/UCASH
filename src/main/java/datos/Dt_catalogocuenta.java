@@ -350,4 +350,52 @@ public class Dt_catalogocuenta {
 			}
 			return eliminado;
 		}
+		
+		public Vw_catalogocuenta_empresa getCatalogoByIdEmpresa(int idEmpresa) {
+			Vw_catalogocuenta_empresa catalogo = new Vw_catalogocuenta_empresa();
+			try {
+				c = poolConexion.getConnection();
+				ps = c.prepareStatement("SELECT * FROM dbucash.vw_catalogocuenta_empresa WHERE idEmpresa =?",
+						ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+				ps.setInt(1, idEmpresa);
+				rs = ps.executeQuery();
+
+				// Hace peticion a la base de datos, por lo que los nombres en parentesis son los de la base de datos
+				if (rs.next()) {
+					catalogo.setIdCatalogo(rs.getInt("idCatalogo"));
+					catalogo.setIdEmpresa(rs.getInt("idEmpresa"));
+					catalogo.setTitulo(rs.getString("titulo"));
+					catalogo.setnombreComercial(rs.getString("nombreComercial"));
+					catalogo.setDescripcion(rs.getString("descripcion"));
+					catalogo.setFechaCreacion(rs.getDate("fechaCreacion"));
+					catalogo.setFechaModificacion(rs.getDate("fechaModificacion"));
+					catalogo.setFechaEliminacion(rs.getDate("fechaEliminacion"));
+					catalogo.setUsuarioCreacion(rs.getInt("usuarioCreacion"));
+					catalogo.setUsuarioModificacion(rs.getInt("usuarioModificacion"));
+					catalogo.setUsuarioEliminacion(rs.getInt("usuarioEliminacion"));
+
+				}
+
+			} catch (Exception e) {
+				System.out.println("DATOS ERROR AL OBTENER CATALOGO DE CUENTA POR ID EMPRESA: " + e.getMessage());
+				e.printStackTrace();
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (ps != null) {
+						ps.close();
+					}
+					if (c != null) {
+						poolConexion.closeConnection(c);
+					}
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return catalogo;
+		}
 }

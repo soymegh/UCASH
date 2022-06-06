@@ -46,24 +46,36 @@ public class Sl_rptCuentaContable extends HttpServlet {
 
 		try {
 			
+			
+			String idPeriodoContable = "";
+			idPeriodoContable = request.getParameter("idPeriodoContable")==null?"0":request.getParameter("idPeriodoContable");
+			System.out.println("idPeriodoContable: "+idPeriodoContable);
+			
+			String idEmpresa = ""; 
+			idEmpresa = request.getParameter("idE")==null?"0":request.getParameter("idE");
+			System.out.println("idE: "+ idEmpresa);
+
 			poolConexion p = poolConexion.getInstance();
 			Connection c = poolConexion.getConnection();
-			HashMap hm = new HashMap();
+			
+			HashMap<String, Object> hm = new HashMap<>();
+			hm.put("periodoContable" , idPeriodoContable.toString());
+			hm.put("idE" , Integer.parseInt(idEmpresa));
+
 			OutputStream otps = response.getOutputStream();
 			ServletContext context = getServletContext();
 			String path = context.getRealPath("/");
-			String template = "reportes\\rptListaCuentas.jasper";
+			String template = "reportes\\rptCatalogoCuentas.jasper";
 			System.out.println("Path: "+path+template);
 			
 			Exporter exporter = new JRPdfExporter();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(path+template, hm, c);
 			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "inline; filename=\"rptListaCuentas.pdf");
+			response.setHeader("Content-Disposition", "inline; filename=\"rptCatalogoCuentas_"+ idPeriodoContable +".pdf");
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(otps));
 			exporter.exportReport();
 			
-			System.out.println("Hola");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

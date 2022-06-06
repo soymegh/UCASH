@@ -153,11 +153,11 @@ if (!permiso) {
 																<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
 															</a> &nbsp;&nbsp;
 															
-															<a href ="../Sl_rptCuentaContable" target='_blank'>
+															<a href ="../Sl_rptCuentaContable?idPeriodoContable=Del: <%=Tbl_periodoContable.fechaInicioActual%> Al: <%=Tbl_periodoContable.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>" target='_blank'>
 																<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables">Imprimir Lista de Cuentas Contables</i>
 															</a>&nbsp;&nbsp;
 															
-															<a href ="../Sl_LibroMayorAuxiliar" target='_blank'>
+															<a href ="../Sl_LibroMayorAuxiliar?idE=<%=Vw_empresa.empresaActual%>" target='_blank'>
 																<i class="fa fa-print" title="Imprimir Libro Mayor Auxiliar"> Imprimir Libro Mayor Auxiliar</i>
 															</a>&nbsp;&nbsp;<br></br> 
 															
