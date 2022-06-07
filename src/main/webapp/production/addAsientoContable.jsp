@@ -1,3 +1,4 @@
+<%@page import="datos.Dt_periodoContable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
 	import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
@@ -167,6 +168,10 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<%
+												Tbl_periodoContable pc = new Tbl_periodoContable();
+												Dt_periodoContable dtpc = new Dt_periodoContable();
+												pc = dtpc.obtenerPContablePorId(Tbl_periodoContable.idPeriodoActual);
+												
 												ArrayList<Tbl_tipoDocumento> listaTD = new ArrayList<Tbl_tipoDocumento>();
 												Dt_tipoDocumento dttd = new Dt_tipoDocumento();
 												listaTD = dttd.listaTipoDocumento();
@@ -558,6 +563,25 @@ if (!permiso) {
             	$.toast({
             	    text: "Tiene que haber detalles para poder guardar",
             	    heading: 'Advertencia - detalles',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
+                e.preventDefault();
+            };
+            
+            if(<%=pc.getEstado()%> == 3){
+            	$.toast({
+            	    text: "El periodo contable está cerrado",
+            	    heading: 'Advertencia - Periodo Contable',
             	    icon: 'warning',
             	    showHideTransition: 'slide',
             	    allowToastClose: false, 
