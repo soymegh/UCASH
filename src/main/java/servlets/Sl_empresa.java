@@ -77,7 +77,7 @@ public class Sl_empresa extends HttpServlet {
 			empresa.setIdMunicipio(municipio);
 			int periodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));
 			empresa.setIdPeriodoFiscal(periodoFiscal);
-			empresa.setUsuarioCreacion(Integer.parseInt(request.getParameter("currentUsuario")));
+			empresa.setUsuarioCreacion(1);
 			empresa.setFechaCreacion(date);
 
 			try {

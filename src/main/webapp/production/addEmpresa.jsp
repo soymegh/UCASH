@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
 	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio,entidades.Tbl_tipoIdentificacion, entidades.Tbl_representanteLegal, 
@@ -6,7 +6,8 @@
 	 
 	 java.util.ArrayList;"%>
 
-<%
+
+<%-- <%
 //JAlert flag
 
 //INVALIDA LA CACHE DEL NAVEGADOR //
@@ -50,7 +51,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%>
+%> --%>
 
 
 
@@ -128,336 +129,250 @@ if (!permiso) {
 							</div>
 						</div>
 					</div>
-					<div class="clearfix"></div>
+					<div class="col-md-12 col-sm-12">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2>
+									Formulario <small>Agregar empresa</small>
+								</h2>
 
-					<div class="column">
-						<div class="row">
-							<div class="col-md-12 col-sm-12">
-								<div class="x_panel">
-									<div class="x_title">
-										<h2>
-											Formulario <small>Agregar Representante Legal.
-												Primero agregue un representante legal para poder agregar la
-												empresa</small>
-										</h2>
-
-										<div class="clearfix"></div>
-									</div>
-									<div class="x_content">
-										<div class="x_content">
-											<form class="" action="../Sl_representanteLegal"
-												method="post" novalidate>
-												<input type="hidden" value="1" name="opcion" id="opcion" />
-												<span class="section">Datos de Representante Legal</span>
-
-												<div class="field item form-group">
-													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Nombre
-														<span class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6">
-														<input class="form-control" class='optional' name="nombre" id="nombreRL" type="text"
-															required="required" />
-													</div>
-												</div>
-												<div class="field item form-group">
-													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Apellido
-														<span class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6">
-														<input class="form-control" class='optional'
-															name="apellido" id="apellido"
-															type="text" required="required" />
-													</div>
-												</div>
-
-
-
-
-												<div class="field item form-group">
-													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Tipo
-														de identificacion <span class="required">*</span>
-													</label>
-													<div class="col-md-6 col-sm-6">
-
-														<%
-														ArrayList<Tbl_tipoIdentificacion> listaTI = new ArrayList<Tbl_tipoIdentificacion>();
-														Dt_tipoIdentificacion dtTI = new Dt_tipoIdentificacion();
-														listaTI = dtTI.listarTipoIdentificacion();
-														%>
-														<select class="form-control js-example-basic-single"
-															name="idTipoIdentifiacion" id="idTipoIdentifiacion"
-															required="required">
-															<option value="0">Seleccione...</option>
-															<%
-															for (Tbl_tipoIdentificacion identificacion : listaTI) {
-															%>
-															<option
-																value="<%=identificacion.getIdTipoIdentifiacion()%>">
-																<%=identificacion.getTipo()%>
-															</option>
-															<%
-															}
-															%>
-
-														</select>
-													</div>
-												</div>
-
-
-
-												<div class="field item form-group">
-													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
-														class="required">*</span></label>
-													<div class="col-md-6 col-sm-6">
-														<input id="correo" class="form-control" name="correo" id="correo"
-															class='email' required="required" type="email" />
-													</div>
-												</div>
-
-												<div class="field item form-group">
-													<label
-														class="col-form-label col-md-3 col-sm-3  label-align">Tel�fono<span
-														class="required">*</span></label>
-													<div class="col-md-6 col-sm-6">
-														<input class="form-control" type="tel" class='tel' id="telefono"
-															name="telefono" required='required'
-															data-validate-length-range="8,8" />
-													</div>
-												</div>
-										</div>
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button id="agregarRL" type='submit'
-														class="btn btn-primary">Agregar</button>
-													<button id="reiniciarRL" type='reset'
-														onClick=(location.reload()) class="btn btn-success">Reiniciar</button>
-													<button id="cancelarRL" type="button"
-														class="btn btn-primary">Cancelar</button>
-												</div>
-											</div>
-										</div>
-										</form>
-									</div>
-								</div>
+								<div class="clearfix"></div>
 							</div>
-
-							<div class="col-md-12 col-sm-12">
-								<div class="x_panel">
-									<div class="x_title">
-										<h2>
-											Formulario <small>Agregar empresa</small>
-										</h2>
-
-										<div class="clearfix"></div>
+							<div class="x_content">
+								<form class="" action="../Sl_empresa" method="post" novalidate>
+									<input type="hidden" value="1" name="opcion" id="opcion" />
+									<%-- 											<input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
+ --%>
+									<span class="section">Datos de empresa</span>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
+											class="required">*</span></label>
+										<div class="col-md-6 col-sm-6">
+											<input required="required" name="ruc" class="form-control"
+												placeholder="ex. 2347827431" required="required" id="ruc" />
+										</div>
 									</div>
-									<div class="x_content">
-										<form class="" action="../Sl_empresa" method="post" novalidate>
-											<input type="hidden" value="1" name="opcion" id="opcion" />
-											<input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Raz�n
+											social<span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6">
+											<input name="razonSocial" class="form-control"
+												class='optional' type="text" required="required" />
+										</div>
+									</div>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
+											comercial<span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6">
+											<input name="nombreComercial" class="form-control"
+												class='optional' name="occupation" type="text"
+												required="required" />
+										</div>
+									</div>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
+											class="required">*</span></label>
+										<div class="col-md-6 col-sm-6">
+											<input name="correo" class="form-control" class='email'
+												required="required" type="email" />
+										</div>
+									</div>
 
-											<span class="section">Datos de empresa</span>
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
-													class="required">*</span></label>
-												<div class="col-md-6 col-sm-6">
-													<input required="required" name="ruc" class="form-control"
-														placeholder="ex. 2347827431" required="required" id="ruc"/>
-												</div>
-											</div>
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Raz�n
-													social<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<input name="razonSocial" class="form-control"
-														class='optional' type="text" required="required" />
-												</div>
-											</div>
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Nombre
-													comercial<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<input name="nombreComercial" class="form-control"
-														class='optional' name="occupation" type="text"
-														required="required" />
-												</div>
-											</div>
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Correo<span
-													class="required">*</span></label>
-												<div class="col-md-6 col-sm-6">
-													<input name="correo" class="form-control" class='email'
-														required="required" type="email" />
-												</div>
-											</div>
-
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Tel�fono<span
-													class="required">*</span></label>
-												<div class="col-md-6 col-sm-6">
-													<input name="telefono" class="form-control" type="tel" id="telefonoEm"
-														class='tel' required='required'
-														data-validate-length-range="8,8" />
-												</div>
-											</div>
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Direcci�n<span
-													class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<input name="direccion" class="form-control"
-														class='optional' name="occupation"
-														data-validate-length-range="5,100" type="text"
-														required="required" />
-												</div>
-											</div>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Tel�fono<span
+											class="required">*</span></label>
+										<div class="col-md-6 col-sm-6">
+											<input name="telefono" class="form-control" type="tel"
+												id="telefonoEm" class='tel' required='required'
+												data-validate-length-range="8,8" />
+										</div>
+									</div>
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Direcci�n<span
+											class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6">
+											<input name="direccion" class="form-control" class='optional'
+												name="occupation" data-validate-length-range="5,100"
+												type="text" required="required" />
+										</div>
+									</div>
 
 
 
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Representante
-													legal<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<input readonly name="valueIdR" class="form-control"
-														class='optional' id="valueIdR" />
-												</div>
-											</div>
-
-
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo
-													fiscal: <span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<!--                                                 
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Representante legal:
+										 <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6">
+											<!--                                                 
 												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-													<%
-													ArrayList<Tbl_periodoFiscal> listaPeriodo = new ArrayList<Tbl_periodoFiscal>();
-													Dt_periodoFiscal dtPeriodo = new Dt_periodoFiscal();
-													listaPeriodo = dtPeriodo.listarperiodoFiscal();
-													%>
+											<%
+											ArrayList<Vw_representanteLegal> listaRep = new ArrayList<Vw_representanteLegal>();
+											Dt_representanteLegal dtRep = new Dt_representanteLegal();
+											listaRep = dtRep.listarRepresentanteLegal();
+											%>
 
-													<select class="form-control js-example-basic-single"
-														name="periodoFiscal" id="periodoFiscal"
-														required="required">
-														<option value="0">Seleccione...</option>
-														<%
-														for (Tbl_periodoFiscal periodo : listaPeriodo) {
-														%>
-														<option value="<%=periodo.getIdPeriodoFiscal()%>">
-															<%=periodo.getFechaInicio()%> ->
-															<%=periodo.getFechaFinal()%>
-														</option>
-														<%
-														}
-														%>
+											<select class="form-control js-example-basic-single"
+												name="valueIdR" id="valueIdR" required="required">
+												<option value="0">Seleccione...</option>
+												<%
+												for (Vw_representanteLegal rep : listaRep) {
+												%>
+												<option value="<%=rep.getIdRepresentante()%>">
+													<%=rep.getNombreCompleto()%>
+												</option>
+												<%
+												}
+												%>
 
-													</select>
-												</div>
-											</div>
-
-
-
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento:
-													<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-													<%
-													ArrayList<Tbl_departamento> listaDep = new ArrayList<Tbl_departamento>();
-													Dt_departamento dtDep = new Dt_departamento();
-													listaDep = dtDep.listarDepartamento();
-													%>
-													<select class="form-control js-example-basic-single"
-														name="departamento" id="departamento" required="required">
-														<option value="0">Seleccione...</option>
-														<%
-														for (Tbl_departamento depa : listaDep) {
-														%>
-														<option value="<%=depa.getIdDepartamento()%>">
-															<%=depa.getDepartamento()%>
-														</option>
-														<%
-														}
-														%>
-
-													</select>
-												</div>
-											</div>
-
-											<div class="field item form-group">
-												<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio:
-													<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6">
-													<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-													<%
-													ArrayList<Vw_municipio> listaMuni = new ArrayList<Vw_municipio>();
-													Dt_municipio dtMunicipio = new Dt_municipio();
-													listaMuni = dtMunicipio.listarMunicipio();
-													%>
-													<select class="form-control js-example-basic-single"
-														name="municipio" id="municipio" required="required">
-														<option value="0">Seleccione...</option>
-														<%
-														for (Vw_municipio muni : listaMuni) {
-														%>
-														<option value="<%=muni.getIdMunicipio()%>">
-															<%=muni.getMunicipio()%>
-														</option>
-														<%
-														}
-														%>
-
-													</select>
-												</div>
-											</div>
-											<div class="ln_solid">
-												<div class="form-group">
-													<div class="col-md-6 offset-md-3">
-														<button id="agregarE" type='submit'
-														onClick=(validarDatos()) class="btn btn-primary">Agregar</button>
-														<button id="reiniciarE" type='reset'
-															onClick=(location.reload()) class="btn btn-success">Reiniciar</button>
-														<button id="cancelarE" type="button"
-															class="btn btn-primary">Cancelar</button>
-													</div>
-												</div>
-											</div>
-										</form>
+											</select>
+										</div>
+										
+										<p>No encuentra el representante legal? <br />
+										<a href="/SistemaContable/production/addRepresentanteLegal.jsp">Agregar representante legal aqui</a>
+										</p>
 									</div>
-								</div>
+
+
+
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo
+											fiscal: <span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6">
+											<!--                                                 
+												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+											<%
+											ArrayList<Tbl_periodoFiscal> listaPeriodo = new ArrayList<Tbl_periodoFiscal>();
+											Dt_periodoFiscal dtPeriodo = new Dt_periodoFiscal();
+											listaPeriodo = dtPeriodo.listarperiodoFiscal();
+											%>
+
+											<select class="form-control js-example-basic-single"
+												name="periodoFiscal" id="periodoFiscal" required="required">
+												<option value="0">Seleccione...</option>
+												<%
+												for (Tbl_periodoFiscal periodo : listaPeriodo) {
+												%>
+												<option value="<%=periodo.getIdPeriodoFiscal()%>">
+													<%=periodo.getFechaInicio()%> ->
+													<%=periodo.getFechaFinal()%>
+												</option>
+												<%
+												}
+												%>
+
+											</select>
+										</div>
+									</div>
+
+
+
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento:
+											<span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6">
+											<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+											<%
+											ArrayList<Tbl_departamento> listaDep = new ArrayList<Tbl_departamento>();
+											Dt_departamento dtDep = new Dt_departamento();
+											listaDep = dtDep.listarDepartamento();
+											ArrayList<Vw_municipio> listaMuni = new ArrayList<Vw_municipio>();
+											Dt_municipio dtMunicipio = new Dt_municipio();
+											int currentDepId = 0; 
+											%>
+											<select onchange="checkDep()" class="form-control js-example-basic-single"
+												name="departamento" id="departamento" required="required">
+												<option value="0">Seleccione...</option>
+												<%
+												for (Tbl_departamento depa : listaDep) {
+													
+												%>
+												<option value="<%=depa.getIdDepartamento()%>">
+													<%=depa.getDepartamento()%>
+												</option>
+												<%
+												currentDepId = depa.getIdDepartamento();
+												
+												}
+												listaMuni = dtMunicipio.listarMunicipioByDepId(currentDepId);
+
+												%>
+
+											</select>
+										</div>
+									</div>
+
+									<div class="field item form-group">
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Municipio:
+											<span class="required">*</span>
+										</label>
+										<div class="col-md-6 col-sm-6">
+											<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
+											<%
+											
+										
+										
+									
+											
+											%>
+											<select class="form-control js-example-basic-single"
+												name="municipio" id="municipio" required="required">
+												<option value="0">Seleccione...</option>
+												<%
+												System.out.println(listaMuni); 
+
+												for (Vw_municipio muni : listaMuni) {
+												%>
+												<option value="<%=muni.getIdMunicipio()%>">
+													<%=muni.getMunicipio()%>
+												</option>
+												<%
+												}
+												%>
+
+											</select>
+										</div>
+									</div>
+									<div class="ln_solid">
+										<div class="form-group">
+											<div class="col-md-6 offset-md-3">
+												<button id="agregarE" type='submit' onClick=(validarDatos())
+													class="btn btn-primary">Agregar</button>
+												<button id="reiniciarE" type='reset'
+													onClick=(location.reload()) class="btn btn-success">Reiniciar</button>
+												<button id="cancelarE" type="button" class="btn btn-primary">Cancelar</button>
+											</div>
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- /page content -->
-
-				<!-- footer content -->
-				<footer>
-					<div class="pull-right">Sistema contable by Eldian's Software</div>
-					<div class="clearfix"></div>
-				</footer>
-				<!-- /footer content -->
 			</div>
 		</div>
+		<!-- /page content -->
 
+		<!-- footer content -->
+		<footer>
+			<div class="pull-right">Sistema contable by Eldian's Software</div>
+			<div class="clearfix"></div>
+		</footer>
+		<!-- /footer content -->
+	</div>
 
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="../vendors/validator/multifield.js"></script>
-		<script src="../vendors/validator/validator.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../vendors/validator/multifield.js"></script>
+	<script src="../vendors/validator/validator.js"></script>
 
-		<!-- Javascript functions	-->
-		<script>
+	<!-- Javascript functions	-->
+	<script>
 			function hideshow() {
 				var password = document.getElementById("password1");
 				var slash = document.getElementById("slash");
@@ -476,7 +391,7 @@ if (!permiso) {
 			}
 		</script>
 
-		<script>
+	<script>
 			// initialize a validator instance from the "FormValidator" constructor.
 			// A "<form>" element is optionally passed as an argument, but is not a must
 			var validator = new FormValidator({
@@ -500,133 +415,56 @@ if (!permiso) {
 			}).prop('checked', false);
 		</script>
 
-		<%
-		StringBuffer url = request.getRequestURL();
-		String queryString = request.getQueryString();
-		if (queryString != null) {
-			url.append('?');
-			url.append(queryString);
-		}
-		String requestURL = url.toString();
-		%>
-		<script>
-			function getURL() {
-				const url = "<%=requestURL%>";
-				const idR = url.substring(url.indexOf('=') + 1);
-				const ver = url.substring(url.lastIndexOf("/"));
+	
 
-				if (ver == "/addEmpresa.jsp?msj="+ idR) {
-					document.getElementById("agregarRL").disabled = true;
-					document.getElementById("cancelarRL").disabled = true;
-					document.getElementById("reiniciarRL").disabled = true;
-
-					document.getElementById("agregarE").disabled = false;
-					document.getElementById("cancelarE").disabled = false;
-					document.getElementById("reiniciarE").disabled = false;
-				} else if (ver == "/addEmpresa.jsp") {
-					document.getElementById("agregarRL").disabled = false;
-					document.getElementById("cancelarRL").disabled = false;
-					document.getElementById("reiniciarRL").disabled = false;
-
-					document.getElementById("agregarE").disabled = true;
-					document.getElementById("cancelarE").disabled = true;
-					document.getElementById("reiniciarE").disabled = true;
-					
-					console.log("<%=currentUsuario%>");
-				}
-			}
-
-			window.onload = getURL();
-		</script>
-		<script>
-			function returnIdR() {
-				const url = "<%=requestURL%>";
-				const idR = url.substring(url.indexOf('=') + 1);
-				const ver = url.substring(url.lastIndexOf("/"));
-				if (ver == "/addEmpresa.jsp") {
-					document.getElementById('valueIdR').value = "Se ingresara automaticamente cuando guarde el representante legal";
-
-				} else {
-
-					<% 
-					String Representante = "";
-					Representante = request.getParameter("msj") == null ? "0" : request.getParameter("msj");
-
-					Vw_representanteLegal vRL = new Vw_representanteLegal();
-					Tbl_representanteLegal tRL = new Tbl_representanteLegal();
-
-					Dt_representanteLegal dtRl = new Dt_representanteLegal();
-
-					vRL = dtRl.getViewRepresentanteLegalbyID(Integer.parseInt(Representante));
-					tRL = dtRl.getRepresentanteLegalbyID(Integer.parseInt(Representante));
-
-					Tbl_tipoIdentificacion tipI = new Tbl_tipoIdentificacion();
-					Dt_tipoIdentificacion dtTId = new Dt_tipoIdentificacion();
-					tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
-
-					%>
-					
-					
-					document.getElementById('valueIdR').value = idR;
-					document.getElementById('valueIdR').placeholder = "<%=tRL.getNombre() +" "+ tRL.getApellido()%>";
-
-
-					document.getElementById('nombreRL').value = "<%=tRL.getNombre()%>";
-					document.getElementById('nombreRL').readOnly = true;
-					
-					document.getElementById('apellido').value = "<%=tRL.getApellido()%>";
-					document.getElementById('apellido').readOnly = true;
-
-					document.getElementById('correo').value = "<%=tRL.getCorreo()%>";
-					document.getElementById('correo').readOnly = true;
-					
-					document.getElementById('telefono').value = "<%=tRL.getTelefono()%>";
-					document.getElementById('telefono').readOnly = true;
-
-					document.getElementById('idTipoIdentifiacion').value = "<%=tRL.getIdTipoIdentifiacion()%>";
-					document.getElementById('idTipoIdentifiacion').disabled = true;
-				}
-
-			}
-
-			window.onload = returnIdR();
-		</script>
-
-		<script>
-		function validarDatos(){
-			if(document.getElementbyId("ruc").value = ""){
+	<script>
+		function validarDatos() {
+			if (document.getElementbyId("ruc").value = "") {
 				alert("Ingrese un RUC");
 			}
-			
-			if(document.getElementbyId("telefonoEm").length > 8){
+
+			if (document.getElementbyId("telefonoEm").length > 8) {
 				alert("El telefono no puede ser mayor a 8 numeros");
 			}
 		}
-		
+	</script>
+	<!-- jQuery -->
+	<script src="../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../vendors/nprogress/nprogress.js"></script>
+	<!-- validator -->
+	<!-- <script src="../vendors/validator/validator.js"></script> -->
 
-		
-		</script>
-		<!-- jQuery -->
-		<script src="../vendors/jquery/dist/jquery.min.js"></script>
-		<!-- Bootstrap -->
-		<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- FastClick -->
-		<script src="../vendors/fastclick/lib/fastclick.js"></script>
-		<!-- NProgress -->
-		<script src="../vendors/nprogress/nprogress.js"></script>
-		<!-- validator -->
-		<!-- <script src="../vendors/validator/validator.js"></script> -->
-
-		<!-- Custom Theme Scripts -->
-		<script src="../build/js/custom.min.js"></script>
-	</div>
+	<!-- Custom Theme Scripts -->
+	<script src="../build/js/custom.min.js"></script>
 	
-		<!-- jAlert -->
+	<!-- jAlert -->
 	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
 	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
+
+	<script>
+	var dep = document.getElementById("departamento"); 
+	document.getElementById("municipio").disabled = false; 
+
+	function checkDep(){
+	if (document.getElementById("departamento").value != "0"){
+			document.getElementById("municipio").disabled = false; 
+		}
 	
+	console.log(dep.value)
+	}
 	
-	
+		
+		
+		
+	</script>
+
+
 </body>
 
 </html>

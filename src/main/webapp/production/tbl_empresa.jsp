@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"
 	import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
 	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio,
@@ -12,7 +12,7 @@ String signal = "";
 if (request.getParameter("msj") != null) {
 	signal = request.getParameter("msj");
 }
-%>
+%><%-- 
 <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
@@ -55,7 +55,7 @@ if (!permiso) {
 	return;
 }
 %>
-
+ --%>
 <!DOCTYPE html>
 <html>
 <head>
