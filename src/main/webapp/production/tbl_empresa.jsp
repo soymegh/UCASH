@@ -11,8 +11,24 @@
 String signal = "";
 if (request.getParameter("msj") != null) {
 	signal = request.getParameter("msj");
+	
+	
+
 }
-%><%-- 
+%>
+
+
+
+<%
+Dt_empresa dtEmpresa = new Dt_empresa();
+
+int idEmpresa = dtEmpresa.idEmpresa() + 1;
+%>
+
+
+
+
+<%-- 
 <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
@@ -147,7 +163,7 @@ if (!permiso) {
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addEmpresa.jsp"> <i class="fa fa-plus-square"></i>
+													<a href="addEmpresa.jsp?idEmpresaHidden=<%=idEmpresa%>">
 														Nuevo Empresa
 													</a>&nbsp;&nbsp; <a href="#" onclick="printListEmpresa();">
 														<i class="fa fa-print" title="Imprimir Lista de Empresas"></i>

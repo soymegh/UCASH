@@ -6,7 +6,11 @@
 	 
 	 java.util.ArrayList;"%>
 
+<%
 
+int idEmpresaHidden = request.getParameter("idEmpresaHidden") != null ? Integer.parseInt(request.getParameter("idEmpresaHidden")) : 0;
+ 
+%>
 <%-- <%
 //JAlert flag
 
@@ -141,6 +145,7 @@ if (!permiso) {
 							<div class="x_content">
 								<form class="" action="../Sl_empresa" method="post" novalidate>
 									<input type="hidden" value="1" name="opcion" id="opcion" />
+									<input type="hidden" value=<%=idEmpresaHidden%> name="idEmpresaHidden" id="idEmpresaHidden" />
 									<%-- 											<input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
  --%>
 									<span class="section">Datos de empresa</span>

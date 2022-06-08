@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import datos.Dt_empresa;
+import datos.Dt_periodoEmpresa;
 import entidades.Tbl_empresa;
+import entidades.Tbl_periodoEmpresa;
 
 /**
  * Servlet implementation class SL_empresa
@@ -55,6 +57,9 @@ public class Sl_empresa extends HttpServlet {
 		Tbl_empresa empresa = new Tbl_empresa();
 		Dt_empresa dtEmpresa = new Dt_empresa();
 
+		
+		Tbl_periodoEmpresa periodoEmpresa = new Tbl_periodoEmpresa(); 
+		Dt_periodoEmpresa dtPeriodoEmpresa = new Dt_periodoEmpresa(); 
 		// Se tienen que usar los ID de los formularios Add
 
         
@@ -63,6 +68,8 @@ public class Sl_empresa extends HttpServlet {
 
 		switch (opc) {
 		case 1:
+			
+			//Agregar una empresa nueva
 			empresa.setRuc(request.getParameter("ruc"));
 			empresa.setNombreComercial(request.getParameter("nombreComercial"));
 			empresa.setRazonSocial(request.getParameter("razonSocial"));
@@ -75,13 +82,20 @@ public class Sl_empresa extends HttpServlet {
 			empresa.setIdDepartamento(departamento);
 			int municipio = Integer.parseInt(request.getParameter("municipio"));
 			empresa.setIdMunicipio(municipio);
-			int periodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));
-			empresa.setIdPeriodoFiscal(periodoFiscal);
 			empresa.setUsuarioCreacion(1);
 			empresa.setFechaCreacion(date);
+			
+			
+			
+			//Agregar una tabla nueva de periodoEmpresa
+			int periodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));
+			int idEmpresaHidden = Integer.parseInt(request.getParameter("idEmpresaHidden"));
+			periodoEmpresa.setIdEmpresa(idEmpresaHidden);
+			periodoEmpresa.setIdPeriodoFiscal(periodoFiscal);
+
 
 			try {
-				if (dtEmpresa.addEmpresa(empresa)) {
+				if (dtEmpresa.addEmpresa(empresa)  && dtPeriodoEmpresa.addPeriodoEmpresa(periodoEmpresa)) {
 					response.sendRedirect("production/tbl_empresa.jsp?msj=1");
 				} else {
 					response.sendRedirect("production/tbl_empresa.jsp?msj=2");
@@ -99,33 +113,42 @@ public class Sl_empresa extends HttpServlet {
 			int idRepresentanteLegal = Integer.parseInt(request.getParameter("representanteLegal")); 
 			int idMunicipio  = Integer.parseInt(request.getParameter("municipio")); 
 			int idPeriodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));  
-			
 			empresa.setIdEmpresa(idEmpresa); 
 			empresa.setIdDepartamento(idDepartamento); 
 			empresa.setIdMunicipio(idMunicipio);  
 			empresa.setIdRepresentanteLegal(idRepresentanteLegal);
-			empresa.setIdPeriodoFiscal(idPeriodoFiscal); 
-			
-			
+
+			idEmpresaHidden = Integer.parseInt(request.getParameter("idEmpresaHidden")); 
 			empresa.setRuc(request.getParameter("ruc")); 
 			empresa.setRazonSocial(request.getParameter("razonSocial")); 
 			empresa.setNombreComercial(request.getParameter("nombreComercial")); 
 			empresa.setTelefono(request.getParameter("telefono")); 
 			empresa.setCorreo(request.getParameter("correo")); 
 			empresa.setDireccion(request.getParameter("direccion"));
-			empresa.setUsuarioModificacion(Integer.parseInt(request.getParameter("currentUsuario"))); 
+			empresa.setUsuarioModificacion(1); 
 			empresa.setFechaModificacion(date); 
 			
+			//Editar periodo empresa
+			periodoEmpresa.setIdPeriodoFiscal(idPeriodoFiscal); 
+			periodoEmpresa.setIdEmpresa(idEmpresaHidden);
+			
+			//Obtener el periodo empresa actual
+			int currentPeriodoEmpresa = dtPeriodoEmpresa.getTablePeriodoEmpresaByIdEmpresa(idEmpresaHidden).getIdPeriodoEmpresa(); 
+			periodoEmpresa.setIdPeriodoEmpresa(currentPeriodoEmpresa); 
 			try {
-				if(dtEmpresa.modificarEmpresa(empresa)) { 
+				if(dtEmpresa.modificarEmpresa(empresa) && dtPeriodoEmpresa.modificarPeriodoEmpresa(periodoEmpresa)) { 
+					System.out.println(idPeriodoFiscal + " " + idEmpresaHidden + " " + periodoEmpresa); 
+
 					response.sendRedirect("production/tbl_empresa.jsp?msj=3"); 
 				} else {
 					response.sendRedirect("production/tbl_empresa.jsp?msj=4"); 
+					System.out.println(idPeriodoFiscal + " " + idEmpresaHidden + " " + periodoEmpresa); 
 
 				}
 			} catch(Exception e) {
 				System.out.println("Error al modificar empresa opc2: "+e.getMessage());
 				e.printStackTrace();
+				
 			}
 			break; 
 		default:
