@@ -46,9 +46,7 @@ public class Sl_periodoFiscal extends HttpServlet {
         	  }
           }catch(ParseException e) {
         	  e.printStackTrace();
-          }
-
-    
+          }    
         
         //fechaFinal
 		
@@ -62,11 +60,6 @@ public class Sl_periodoFiscal extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-     
-             
-          
-            		
-
        
 		switch(opc) {
 		case 1:
@@ -155,7 +148,30 @@ public class Sl_periodoFiscal extends HttpServlet {
 				response.sendRedirect("production/indexPeriodoFiscal.jsp?msj=1");
 			};
 			
-		break; 	
+		break; 
+		
+		case 5:
+			
+			periodofiscal.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("idPFiscalAbrir")));
+			
+			try 
+			{
+				if (dpf.modificarPeriodoFiscal(periodofiscal))
+				{
+					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=8");
+				}
+				else
+				{
+					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=9");
+				}
+			} 
+			catch (Exception e)
+			{
+				System.err.println("ERROR ABRIR (Servlet) Periodo Fiscal: " + e.getMessage());
+				e.printStackTrace();
+			}
+			break;
+			
 		default:
 			break;
 		}		

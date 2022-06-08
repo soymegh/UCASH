@@ -1,3 +1,4 @@
+<%@page import="datos.Dt_periodoContable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
 	import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
@@ -167,6 +168,10 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<%
+												Tbl_periodoContable pc = new Tbl_periodoContable();
+												Dt_periodoContable dtpc = new Dt_periodoContable();
+												pc = dtpc.obtenerPContablePorId(Tbl_periodoContable.idPeriodoActual);
+												
 												ArrayList<Tbl_tipoDocumento> listaTD = new ArrayList<Tbl_tipoDocumento>();
 												Dt_tipoDocumento dttd = new Dt_tipoDocumento();
 												listaTD = dttd.listaTipoDocumento();
@@ -264,7 +269,7 @@ if (!permiso) {
 																				<%
 																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
 																				%>
-																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>/<%=cc.getsC()%>/<%=cc.getSsC()%>/<%=cc.getSssC()%>
+																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%>
 																					--
 																					<%=cc.getNombreCuenta()%></option>
 																				<%
@@ -316,7 +321,7 @@ if (!permiso) {
 																				style="width: 100%" id="tbldet">
 																				<thead>
 																					<tr>
-																						<th>Opciï¿½n</th>
+																						<th>Opción</th>
 																						<th>ID Cuenta</th>
 																						<th>Cuenta</th>
 																						<th>Debe</th>
@@ -444,7 +449,7 @@ if (!permiso) {
 				case "1":
 					$.toast({
 					    text: "Asiento contable agregado correctamente", 
-					    heading: 'ï¿½xito', 
+					    heading: 'Éxito', 
 					    icon: 'success', 
 					    showHideTransition: 'slide', 
 					    allowToastClose: false, 
@@ -553,6 +558,44 @@ if (!permiso) {
             	});
                 e.preventDefault();
             };
+            
+            if($("#detalles").val() == 0){
+            	$.toast({
+            	    text: "Tiene que haber detalles para poder guardar",
+            	    heading: 'Advertencia - detalles',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
+                e.preventDefault();
+            };
+            
+            if(<%=pc.getEstado()%> == 3){
+            	$.toast({
+            	    text: "El periodo contable está cerrado",
+            	    heading: 'Advertencia - Periodo Contable',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
+                e.preventDefault();
+            };
         });
 
 		$("#agregardet")
@@ -562,7 +605,7 @@ if (!permiso) {
 									|| !$.isNumeric($("#haber").val())
 									|| $("#cbxCC option:checked").val() == 0) {
 								$.toast({
-									text : "Datos invï¿½lidos", // Text that is to be shown in the toast
+									text : "Datos inválidos", // Text that is to be shown in the toast
 
 									icon : 'warning', // Type of toast icon
 									showHideTransition : 'plain', // fade, slide or plain

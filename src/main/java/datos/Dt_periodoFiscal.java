@@ -200,6 +200,7 @@ public class Dt_periodoFiscal {
 	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
 	        	pfiscal.setFechaFinal(new java.sql.Date(date2.getTime()));
 				
+	        	pfiscal.setEstado(rs.getInt("estado"));
 				
 			}
 		} 
