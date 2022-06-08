@@ -11,7 +11,6 @@ public class Tbl_empresa {
 	private String correo;
 	private String direccion;
 	private int idRepresentanteLegal;
-	private int idPeriodoFiscal;
 	private int idDepartamento;
 	private int idMunicipio;
 	private Date fechaCreacion;
@@ -71,12 +70,6 @@ public class Tbl_empresa {
 		this.idRepresentanteLegal = idRepresentanteLegal;
 	}
 	
-	public int getIdPeriodoFiscal() {
-		return idPeriodoFiscal;
-	}
-	public void setIdPeriodoFiscal(int idPeriodoFiscal) {
-		this.idPeriodoFiscal = idPeriodoFiscal;
-	}
 	public int getIdDepartamento() {
 		return idDepartamento;
 	}
