@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
-	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio,
-	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones , 
+	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio, entidades.Tbl_periodoEmpresa, 
+	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones, datos.Dt_periodoEmpresa,  
 	 
 	 java.util.ArrayList;"%>
 <!DOCTYPE html>
@@ -16,6 +16,11 @@ Dt_empresa dtEmpresa = new Dt_empresa();
 tEmpresa = dtEmpresa.getTableEmpresaByID(Integer.parseInt(empresa));
 vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 int currentUsuario;
+
+Tbl_periodoEmpresa periodoEmpresa = new Tbl_periodoEmpresa();
+Dt_periodoEmpresa dtPeriodoEmpresa = new Dt_periodoEmpresa(); 
+periodoEmpresa = dtPeriodoEmpresa.getTablePeriodoEmpresaByIdEmpresa(Integer.parseInt(empresa));
+int idEmpresaHidden =  Integer.parseInt(empresa);
 %>
 	<script>
     function setForm(){
@@ -28,7 +33,7 @@ int currentUsuario;
     	
     	
     	
-    	document.getElementById("periodoFiscal").value = "<%=tEmpresa.getIdPeriodoFiscal()%>";
+    	document.getElementById("periodoFiscal").value = "<%=periodoEmpresa.getIdPeriodoFiscal()%>";
     	document.getElementById("representanteLegal").value = "<%=tEmpresa.getIdRepresentanteLegal()%>";
     	document.getElementById("departamento").value = "<%=tEmpresa.getIdDepartamento()%>";
     	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>";
@@ -36,7 +41,7 @@ int currentUsuario;
 		}
 		window.onload = setForm;
 	</script>
-<%
+<%-- <%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -80,7 +85,7 @@ int currentUsuario;
 		return;
 	}
 	
-%>
+%> --%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -166,8 +171,10 @@ int currentUsuario;
 								<div class="x_content">
 									<form class="" action="../Sl_empresa" method="post" novalidate>
 										<input type="hidden" value="2" name="opcion" id="opcion" /> 
-									    <input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
+										<input type="hidden" value="<%=tEmpresa.getIdEmpresa()%>" name="idEmpresaHidden" id="idEmpresaHidden" /> 
 										
+<%-- 									    <input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
+ --%>										
 										<input
 											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>"
 											name="idEmpresa" id="idEmpresa" /> <span class="section">Datos

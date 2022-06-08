@@ -2,9 +2,10 @@
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptLibroMayorAuxiliar" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2dbc4485-e113-4cee-9975-d48b95ffbc72">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DBUCASH"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="daDBUcash"/>
+	<parameter name="idE" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from vw_libromayorauxiliar order by T]]>
+		<![CDATA[select * from vw_libromayorauxiliar where idEmpresa =$P{idE} order by T]]>
 	</queryString>
 	<field name="Fecha" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.name" value="Fecha"/>

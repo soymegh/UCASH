@@ -151,6 +151,50 @@ public class Dt_municipio {
 		return tm;
 	}
 	
+	public ArrayList<Vw_municipio> listarMunicipioByDepId(int depId){
+		ArrayList<Vw_municipio> listarMunicipio = new ArrayList<Vw_municipio>();
+		try {
+			this.c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.Vw_municipio_departamento where idDepartamento = ? ;", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, depId);
+			this.rs = this.ps.executeQuery();
+			
+			while(this.rs.next()) {
+				Vw_municipio mun = new Vw_municipio();
+				
+				mun.setIdMunicipio(this.rs.getInt("idMunicipio"));
+				mun.setMunicipio(this.rs.getString("municipio"));
+				mun.setDepartamento(this.rs.getString("departamento"));
+				 		
+				
+				listarMunicipio.add(mun);
+			}
+			} catch(Exception e) {
+				System.out.println("DATOS: ERROR EN LISTAR DEPARTAMENTO "+e.getMessage());
+				e.printStackTrace();
+			}
+		 finally {
+	            try {
+	                if (this.rs != null) {
+	                    this.rs.close();
+	                }
+
+	                if (this.ps != null) {
+	                    this.ps.close();
+	                }
+
+	                if (this.c != null) {
+	                    poolConexion.closeConnection(this.c);
+	                }
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+
+		}
+		
+		return listarMunicipio;
+	}
+	
 	public boolean modificarMunicipio(Tbl_municipio tm) {
 		boolean modificado = false;
 		try {

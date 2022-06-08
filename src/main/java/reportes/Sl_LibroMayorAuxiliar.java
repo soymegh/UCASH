@@ -43,10 +43,19 @@ public class Sl_LibroMayorAuxiliar extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 try {
 	
+	
+	
 			poolConexion p = poolConexion.getInstance();
 			Connection c = poolConexion.getConnection();
 			
-			HashMap hm = new HashMap();
+			String idEmpresa = ""; 
+			idEmpresa = request.getParameter("idE")==null?"0":request.getParameter("idE");
+			System.out.println("idE: "+ idEmpresa);
+
+					
+			HashMap<String, Object> hm = new HashMap<>();
+			hm.put("idE" , Integer.parseInt(idEmpresa));
+
 			
 			OutputStream otps = response.getOutputStream();
 			ServletContext context = getServletContext();

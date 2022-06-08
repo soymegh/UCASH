@@ -75,20 +75,20 @@ public class Sl_guardarFoto extends HttpServlet {
 				FileItem uploaded = item;
 				if(!uploaded.isFormField())
 				{
-					/////////TAMAï¿½O DEL ARCHIVO ////////
+					/////////TAMAÑO DEL ARCHIVO ////////
 					long size = uploaded.getSize();
 					System.out.println("size: "+size);
 					
 					/////// GUARDAMOS EN UN ARREGLO LOS FORMATOS QUE SE DESEAN PERMITIR
 					List<String> formatos = Arrays.asList("image/jpeg");
 					
-					////// COMPROBAR SI EL TAMAï¿½O Y FORMATO SON PERMITIDOS //////////
+					////// COMPROBAR SI EL TAMAÑO Y FORMATO SON PERMITIDOS //////////
 //					if(formatos.contains(uploaded.getContentType()) && size <= 102400)
 					if(formatos.contains(uploaded.getContentType())){
 						System.out.println("Filetype: "+uploaded.getContentType());
 						
 						rutaFichero = "fotoUsuario_"+idusuario+".jpg";
-						path = "C:\\payara5\\glassfish\\fotos_usuarios\\";
+						path = "C:\\payara-5.2022.2\\payara5\\glassfish\\fotos_usuarios\\";
 						System.out.println(path+rutaFichero);
 						
 						fichero = new File(path+rutaFichero);

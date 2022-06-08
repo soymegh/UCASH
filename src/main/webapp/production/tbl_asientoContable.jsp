@@ -255,7 +255,40 @@ if (!permiso) {
 
 	<!-- /footer content -->
 
-					<!-- /footer content -->
+	<!-- jQuery -->
+	<script src="../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../vendors/nprogress/nprogress.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+	<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+	<script
+		src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+	<script
+		src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+	<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+	<script
+		src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+	<script
+		src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	<script
+		src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+	<script
+		src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	<script src="../vendors/jszip/dist/jszip.min.js"></script>
+	<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+	<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
 	<!-- Custom Theme Scripts -->
 	<!-- jQuery -->
@@ -382,7 +415,7 @@ if (!permiso) {
 				case "7":
 					$.toast({
 					    text: "Asiento contable borrado exitosamente", // Text that is to be shown in the toast
-					    heading: 'ï¿½xito', // Optional heading to be shown on the toast
+					    heading: 'Éxito', // Optional heading to be shown on the toast
 					    icon: 'success', // Type of toast icon
 					    showHideTransition: 'slide', // fade, slide or plain
 					    allowToastClose: false, // Boolean value true or false
@@ -398,7 +431,7 @@ if (!permiso) {
 					
 				case "8":
 					$.toast({
-					    text: "Ocurriï¿½ un error al borrar el asiento contable", // Text that is to be shown in the toast
+					    text: "Ocurrió un error al borrar el asiento contable", // Text that is to be shown in the toast
 					    heading: 'Error', // Optional heading to be shown on the toast
 					    icon: 'error', // Type of toast icon
 					    showHideTransition: 'slide', // fade, slide or plain

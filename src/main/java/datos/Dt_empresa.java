@@ -136,7 +136,6 @@ public class Dt_empresa {
 			rsEmpresa.updateInt("idRepresentante", empresa.getIdRepresentanteLegal());
 			rsEmpresa.updateInt("idDepartamento", empresa.getIdDepartamento());
 			rsEmpresa.updateInt("idMunicipio", empresa.getIdMunicipio());
-			rsEmpresa.updateInt("idPeriodoFiscal", empresa.getIdPeriodoFiscal());
 			rsEmpresa.updateDate("fechaCreacion", empresa.getFechaCreacion());
 			rsEmpresa.updateInt("usuarioCreacion", empresa.getUsuarioCreacion());
 
@@ -235,7 +234,6 @@ public class Dt_empresa {
 				empresa.setIdDepartamento(rs.getInt("idDepartamento"));
 				empresa.setIdMunicipio(rs.getInt("idMunicipio"));
 				empresa.setIdRepresentanteLegal(rs.getInt("idRepresentante"));
-				empresa.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
 				empresa.setRuc(rs.getString("ruc"));
 				empresa.setRazonSocial(rs.getString("razonSocial"));
 				empresa.setNombreComercial(rs.getString("nombreComercial"));
@@ -281,7 +279,6 @@ public class Dt_empresa {
 					rsEmpresa.updateInt("idDepartamento", empresa.getIdDepartamento());
 					rsEmpresa.updateInt("idMunicipio", empresa.getIdMunicipio());
 					rsEmpresa.updateInt("idRepresentante", empresa.getIdRepresentanteLegal());
-					rsEmpresa.updateInt("idPeriodoFiscal", empresa.getIdPeriodoFiscal());
 					rsEmpresa.updateString("ruc", empresa.getRuc());
 					rsEmpresa.updateString("razonSocial", empresa.getRazonSocial());
 					rsEmpresa.updateString("nombreComercial", empresa.getNombreComercial());
@@ -355,4 +352,41 @@ public class Dt_empresa {
         return flag;
 
     }
+	
+	public int idEmpresa() {
+	    int idCC = 0;
+	    
+	    try {
+	    	c = poolConexion.getConnection(); 
+	    	ps = c.prepareStatement("SELECT idEmpresa FROM dbucash.empresa ORDER BY idEmpresa DESC LIMIT 1",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+	    	rs = ps.executeQuery();
+	    	if(rs.next()) { 
+	    		idCC = Integer.parseInt(rs.getObject(1).toString());
+	    	}
+	    } catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR idEmpresa " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (this.rs != null) {
+					this.rs.close();
+				}
+
+				if (this.ps != null) {
+					this.ps.close();
+				}
+
+				if (this.c != null) {
+					poolConexion.closeConnection(this.c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+	    
+		return idCC;
+	}
+	
 }
