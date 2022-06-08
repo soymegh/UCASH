@@ -2,6 +2,7 @@ package entidades;
 
 public class Tbl_periodoEmpresa {
 
+
 	private int idPeriodoEmpresa; 
 	private int idEmpresa; 
 	private int idPeriodoFiscal;
@@ -25,5 +26,3 @@ public class Tbl_periodoEmpresa {
 	} 
 	
 	
-	
-}

@@ -258,9 +258,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																				<%
 																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
 																				%>
-																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>/<%=cc.getsC()%>/<%=cc.getSsC()%>/<%=cc.getSssC()%>
-																					--
-																					<%=cc.getNombreCuenta()%></option>
+																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%>--<%=cc.getNombreCuenta()%></option>
 																				<%
 																				}
 																				%>
@@ -318,7 +316,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																				%>
 																				<thead>
 																					<tr>
-																						<th>Opciï¿½n</th>
+																						<th>Opción</th>
 																						<th>ID Cuenta</th>
 																						<th>Cuenta</th>
 																						<th>Debe</th>
@@ -343,7 +341,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																							readonly="readonly"></td>
 																						<td><input type="text"
 																							class="form-control col-sm-12"
-																							value="<%=ac.getNumeroCuenta()%>/<%=ac.getSC()%>/<%=ac.getSsC()%>/<%=ac.getSssC()%>--<%=ac.getNombreCuenta()%>"
+																							value="<%=ac.getNumeroCuenta()%>-<%=ac.getSC()%>-<%=ac.getSsC()%>-<%=ac.getSssC()%>--<%=ac.getNombreCuenta()%>"
 																							readonly="readonly"></td>
 																						<td id='tddebe'><input type="text"
 																							class="form-control col-sm-6"
@@ -582,7 +580,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 				.click(function() {
 							if (!$.isNumeric($("#debe").val()) || !$.isNumeric($("#haber").val()) || $("#cbxCC option:checked").val() == 0) {
 								$.toast({
-									text : "Datos invï¿½lidos", // Text that is to be shown in the toast
+									text : "Datos inválidos", // Text that is to be shown in the toast
 
 									icon : 'warning', // Type of toast icon
 									showHideTransition : 'plain', // fade, slide or plain

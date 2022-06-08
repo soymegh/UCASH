@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, 
+	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
 	entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal, entidades.Vw_periodoContable,
 	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
 
@@ -64,7 +64,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Periodo Contable</title>
+<title>Gestión | Periodo Contable</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -184,7 +184,13 @@
     														} else {
     															estado = "CERRADO";
     														}
-    														if(PC.getEstado() != 3){
+    														
+    														Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
+    														Tbl_periodoFiscal Tpf = new Tbl_periodoFiscal();
+    														Tpf = dtpf.obtenerPFiscalPorId(PC.getIdPeriodoFiscal());
+    														int estadopf = Tpf.getEstado();
+    														
+    														if(PC.getEstado() != 3){    															    						
                       									%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
@@ -205,10 +211,8 @@
 															</a></td>
 														</tr>
 														<%
-															}else if(PC.getEstado() == 3){
-															
+															}else if(estadopf != 3 && PC.getEstado() == 3){
 																%>
-
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
 															<td><%=PC.getFechaInicioPF() %></td>
@@ -216,15 +220,36 @@
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
 															<td><%=estado%></td>
-															<td><a
+															<td>
+															<a
 																href="viewPeriodoContable.jsp?contablever=<%=PC.getIdPeriodoContable() %>">
 																	<i class="fa fa-eye" title="Ver Periodo Contable"></i>
-
-															</a></td>
+															</a>
+															&nbsp;&nbsp; <a
+																href="openPeriodoContable.jsp?contable=<%=PC.getIdPeriodoContable() %>">
+																	<i class="fa fa-unlock" title="Abrir"></i></a>
+															</td>
 														</tr>
 
 														<%
+															}else if(estadopf == 3 && PC.getEstado() == 3){																
+																%>																
+																<tr>
+																	<td><%=PC.getIdPeriodoContable()%></td>
+																	<td><%=PC.getFechaInicioPF() %></td>
+																	<td><%=PC.getFechaFinalPF() %></td>
+																	<td><%=PC.getFechaInicio()%></td>
+																	<td><%=PC.getFechaFinal()%></td>
+																	<td><%=estado%></td>
+																	<td>
+																	<a
+																	href="viewPeriodoContable.jsp?contablever=<%=PC.getIdPeriodoContable()%>">
+																	<i class="fa fa-eye" title="Ver Periodo Contable"></i>
+																	</a>
+																
+																	<%
 															}
+																
                       									}
 																%>
 													</tbody>
@@ -321,6 +346,14 @@
                 
                 if (mensaje == "6") {
                 	errorAlert('Error', 'No se pudo cerrar el Periodo Contable.')
+                }
+                
+                if (mensaje == "7") {
+                	successAlert('Exito', 'El periodo Contable fue abierto correctamente.')
+                }
+                
+                if (mensaje == "8") {
+                	errorAlert('Error', 'No se pudo abrir el Periodo Contable.')
                 }
                             
                 $("#example1").DataTable({

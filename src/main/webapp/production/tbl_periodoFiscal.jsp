@@ -61,7 +61,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Periodo Fiscal</title>
+<title>Gestión | Periodo Fiscal</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -211,7 +211,11 @@
 															
 															<td><a href="viewPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>">
 																	<i class="fa fa-eye" title="Ver Periodo Fiscal"></i>
-															</a></td>
+															</a>
+															&nbsp;&nbsp;
+															 <a href="openPeriodoFiscal.jsp?idPeriodoFiscal=<%=PF.getIdPeriodoFiscal() %>"> <i	class="fa fa-unlock" title="Abrir"></i>
+															</a>
+															</td>
 														</tr>
     															
     															<%
@@ -291,7 +295,7 @@
 			$(document).ready(function() {
 
                 if (mensaje == "1") {
-                    successAlert('Exito', 'El Periodo Fiscal se ha guardado correctamente.')
+                    successAlert('Éxito', 'El Periodo Fiscal se ha guardado correctamente.')
                 }
                 
                 if (mensaje == "2") {
@@ -299,7 +303,7 @@
                 }
                 
                 if (mensaje == "3") {
-                	successAlert('Exito', 'Los datos del Periodo Fiscal se editaron correctamente.')
+                	successAlert('Éxito', 'Los datos del Periodo Fiscal se editaron correctamente.')
                 }
                 
                 if (mensaje == "4") {
@@ -307,7 +311,7 @@
                 }
                 
                 if (mensaje == "5") {
-                	successAlert('Exito', 'El periodo Fiscal fue cerrado correctamente.')
+                	successAlert('Éxito', 'El periodo Fiscal fue cerrado correctamente.')
                 }
                 
                 if (mensaje == "6") {
@@ -316,6 +320,14 @@
                 
                 if (mensaje == "7") {
                 	errorAlert('Error', 'Cierre primero los periodos contables que pertenezcan a este periodo fiscal.')
+                }
+                
+                if (mensaje == "8") {
+                	successAlert('Éxito', 'El Periodo fiscal se ha abierto correctamente.')
+                }
+                
+                if (mensaje == "9") {
+                	errorAlert('Error', 'El periodo fiscal no se logró abrir.')
                 }
 
                 $("#example1").DataTable({
