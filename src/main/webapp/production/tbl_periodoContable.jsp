@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
+	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
 	entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal, entidades.Vw_periodoContable,
 	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
 
@@ -162,7 +162,7 @@
 													<%
                       								ArrayList<Vw_periodoContable> listaperiodoContable = new ArrayList<Vw_periodoContable>();
                       								Dt_periodoContable dtPC = new Dt_periodoContable();
-                      								listaperiodoContable = dtPC.listarperiodoContable();
+                      								listaperiodoContable = dtPC.listarperiodoContable(Vw_empresa.empresaActual);
 	                  								%>
 													<thead>
 														<tr>

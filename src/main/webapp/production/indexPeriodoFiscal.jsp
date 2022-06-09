@@ -118,7 +118,7 @@
 												<%
 							                      	ArrayList<Tbl_periodoFiscal> listPeriodosFiscales = new ArrayList<Tbl_periodoFiscal>();
 							                      	Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin();
+							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin(Vw_empresa.empresaActual);
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="combobox_periodoFiscal" id="combobox_periodoFiscal" required="required">
 												  <option value="">Seleccione...</option>

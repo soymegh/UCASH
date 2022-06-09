@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
+	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
 	datos.Dt_rolOpciones, datos.Dt_periodoFiscal, java.util.*;"%>
 	<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
@@ -119,6 +119,7 @@
 								<div class="x_content">
 									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
 									  <input type="hidden" value="1" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=Vw_empresa.empresaActual%>" name="empresaActual" id="empresaActual"/>
 										<span class="section">Datos de Periodo Fiscal</span>
 										
 										<div class="field item form-group">

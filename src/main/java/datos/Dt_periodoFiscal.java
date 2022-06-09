@@ -31,12 +31,25 @@ public class Dt_periodoFiscal {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Tbl_periodoFiscal> listarperiodoFiscal(){
+	
+	public void llenaRsPeriodoFiscalEmpresa(Connection c) {
+		try {
+			this.ps = c.prepareStatement("SELECT * FROM dbucash.periodoempresa;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.rsperiodoFiscal = this.ps.executeQuery();
+			
+		} catch(Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR Periodo Fiscal " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Tbl_periodoFiscal> listarperiodoFiscal(int idEmpresa){
 		ArrayList<Tbl_periodoFiscal> listperiodoFiscal = new ArrayList<Tbl_periodoFiscal>();
 		try {
 			c = poolConexion.getConnection();
 
-			ps = c.prepareStatement("SELECT * FROM dbucash.periodofiscal;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT pf.* FROM dbucash.periodofiscal pf INNER JOIN dbucash.periodoEmpresa pe ON pf.idPeriodoFiscal = pe.idPeriodoFiscal WHERE pe.idEmpresa = ?;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEmpresa);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
@@ -85,12 +98,13 @@ public class Dt_periodoFiscal {
 		return listperiodoFiscal;
 	}
 	
-	public ArrayList<Tbl_periodoFiscal> listarperiodoFiscalLogin(){
+	public ArrayList<Tbl_periodoFiscal> listarperiodoFiscalLogin(int idEmpresa){
 		ArrayList<Tbl_periodoFiscal> listperiodoFiscal = new ArrayList<Tbl_periodoFiscal>();
 		try {
 			c = poolConexion.getConnection();
 
-			ps = c.prepareStatement("SELECT * FROM dbucash.periodofiscal WHERE estado <> 3;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT pf.* FROM dbucash.periodofiscal pf INNER JOIN dbucash.periodoEmpresa pe ON pf.idPeriodoFiscal = pe.idPeriodoFiscal WHERE pe.idEmpresa = ?;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEmpresa);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
@@ -173,6 +187,86 @@ public class Dt_periodoFiscal {
 			}
 		return guardado;
 		}
+	
+	
+	public int obtenerUltimoPeriodoFiscal()
+	{
+		int idPeriodoFiscal = 0; 
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.periodofiscal ORDER BY idPeriodoFiscal DESC LIMIT 1;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				idPeriodoFiscal = rs.getInt("idPeriodoFiscal"); 
+				
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER Periodo Fiscal POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsperiodoFiscal != null) 
+				{
+					rsperiodoFiscal.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+				if (ps != null) 
+				{
+					ps.close();
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return idPeriodoFiscal;
+	}
+	
+	public boolean agregarPeriodoEmpresa(int idPeriodoFiscal, int idEmpresa) {
+		boolean guardado = false;
+		
+		try {
+			c = poolConexion.getConnection();
+			this.llenaRsPeriodoFiscalEmpresa(c);
+			this.rsperiodoFiscal.moveToInsertRow();
+			rsperiodoFiscal.updateInt("idPeriodoFiscal", idPeriodoFiscal);
+			rsperiodoFiscal.updateInt("idEmpresa",  idEmpresa);
+			rsperiodoFiscal.insertRow();
+			rsperiodoFiscal.moveToCurrentRow();
+			guardado = true;
+		}
+		catch(Exception e) {
+			System.err.println("ERROR AL GUARDAR tbl_periodoFiscal "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rsperiodoFiscal != null) {
+					rsperiodoFiscal.close();
+				}
+				if(c != null) {
+					poolConexion.closeConnection(c);
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			}
+		return guardado;
+	}
 	
 	public Tbl_periodoFiscal obtenerPFiscalPorId(int id)
 	{
