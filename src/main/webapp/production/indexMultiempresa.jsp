@@ -50,7 +50,7 @@
 <%
 ArrayList<Vw_empresa> listadoEmpresas = new ArrayList<>();
 Dt_empresa datosEmpresas = new Dt_empresa();
-listadoEmpresas = datosEmpresas.listarEmpresa();
+listadoEmpresas = datosEmpresas.listarEmpresaLogin();
 %>
 
 <!DOCTYPE html>

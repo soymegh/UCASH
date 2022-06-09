@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
+	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
 	datos.Dt_rolOpciones, datos.Dt_periodoFiscal, java.util.*;"%>
 	
 	<%
@@ -159,9 +159,10 @@
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
+													System.out.print("Current company = " + Vw_empresa.empresaActual);
                       								ArrayList<Tbl_periodoFiscal> listarperiodoFiscal = new ArrayList<Tbl_periodoFiscal>();
                       								Dt_periodoFiscal dtPF = new Dt_periodoFiscal();
-                      								listarperiodoFiscal = dtPF.listarperiodoFiscal();
+                      								listarperiodoFiscal = dtPF.listarperiodoFiscal(Vw_empresa.empresaActual);
 	                  								%>
 													<thead>
 														<tr>

@@ -65,7 +65,12 @@ public class Sl_periodoFiscal extends HttpServlet {
 		case 1:
 			try {
 				if(dpf.agregarPeriodoFiscal(periodofiscal)) {
-					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=1");
+					int ultimoPeriodoFiscal = dpf.obtenerUltimoPeriodoFiscal(); 
+					int empresa = Integer.parseInt(request.getParameter("empresaActual"));
+					if(dpf.agregarPeriodoEmpresa(ultimoPeriodoFiscal, empresa)) {
+						response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=1");
+					}
+					
 				}else {
 					response.sendRedirect("production/tbl_periodoFiscal.jsp?msj=2");
 				}
@@ -96,11 +101,12 @@ public class Sl_periodoFiscal extends HttpServlet {
 			break;
 			
 		case 3:
-			
+		
 			int idBorrar = Integer.parseInt(request.getParameter("idPFiscalEliminar"));
+			int empresaActual = Integer.parseInt(request.getParameter("empresaActual"));
 			Dt_periodoContable dtpc = new Dt_periodoContable();
 			ArrayList<Vw_periodoContable> listaperiodoContable = new ArrayList<Vw_periodoContable>();
-			listaperiodoContable = dtpc.listarperiodoContable();
+			listaperiodoContable = dtpc.listarperiodoContable(empresaActual);
 			boolean close = true; 
 			for (Vw_periodoContable PC :listaperiodoContable) {
 				if(idBorrar == PC.getIdPeriodoFiscal()){
