@@ -131,10 +131,10 @@ public class Sl_periodoFiscal extends HttpServlet {
 			break;
 		case 4:
 			
-			int idPeriodoFiscal = 0; 
-			
-			if(request.getParameter("combobox_periodoFiscal") != null && request.getParameter("combobox_periodoFiscal").matches("[0-9]")) {
+			int idPeriodoFiscal = 0;
+			if(request.getParameter("combobox_periodoFiscal") != null) {
 				idPeriodoFiscal = Integer.parseInt(request.getParameter("combobox_periodoFiscal"));
+				
 				
 				try {
 					if(dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal)) {

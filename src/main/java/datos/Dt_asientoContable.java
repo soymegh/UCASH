@@ -138,6 +138,7 @@ public class Dt_asientoContable {
 				tblAsientoContable.setNombre(this.rs.getString("nombre"));
 				tblAsientoContable.setIdTasaCambioDetalle(this.rs.getInt("idTasaCambioDetalle"));
 				tblAsientoContable.setTipoCambio(this.rs.getFloat("tipoCambio"));
+				tblAsientoContable.setNumeroComprobante(this.rs.getInt("numeroComprobante"));
 				
 				String fecha = rs.getString("fecha");
 				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
@@ -247,6 +248,54 @@ public class Dt_asientoContable {
 		return pacontable;
 	}
 	
+	public int comprobarNumeroComprobanteAC(int idPeriodoContable)
+	{
+		int numeroComprobante = 0; 
+		try 
+		{
+			c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.asientocontable WHERE idPeriodoContable = ? ORDER BY idAsientoContable DESC LIMIT 1;",ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idPeriodoContable);
+			this.rs = this.ps.executeQuery();
+			
+			if (rs.next()) 
+			{
+				numeroComprobante = rs.getInt("numeroComprobante") + 1;
+			}else {
+				numeroComprobante = 1; 
+			}
+		} 
+		catch (Exception e)
+		{
+			System.err.println("ERROR AL ObTENER Asiento Contable POR ID: " + e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if (rsAsientoCon != null) 
+				{
+					rsAsientoCon.close();
+				}
+				if (c != null) 
+				{
+					poolConexion.closeConnection(c);
+				}
+				if (ps != null) 
+				{
+					ps.close();
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		return numeroComprobante;
+	}
+	
 	
 	
 	public int agregarAsientoContable(Tbl_asientoContable tac) {
@@ -261,6 +310,7 @@ public class Dt_asientoContable {
 			rsAsientoCon.updateInt("idTipoDocumento",tac.getIdTipoDocumento());
 			rsAsientoCon.updateInt("idMoneda", tac.getIdMoneda());
 			rsAsientoCon.updateInt("idTasaCambioDetalle", tac.getIdTasaCambioDet());
+			rsAsientoCon.updateInt("numeroComprobante", tac.getNumeroComprobante());
 			rsAsientoCon.updateDate("fecha", tac.getFecha());
 			rsAsientoCon.updateString("descripcion", tac.getDescripcion());
 			rsAsientoCon.updateTimestamp("fechaCreacion", tac.getFechaCreacion());
