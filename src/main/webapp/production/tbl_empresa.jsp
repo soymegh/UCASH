@@ -164,9 +164,9 @@ if (!permiso) {
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
 													<a href="addEmpresa.jsp?idEmpresaHidden=<%=idEmpresa%>">
-														Nuevo Empresa
-													</a>&nbsp;&nbsp; <a href="#" onclick="printListEmpresa();">
-														<i class="fa fa-print" title="Imprimir Lista de Empresas"></i>
+														Nuevo Empresa </a>&nbsp;&nbsp; <a href="#"
+														onclick="printListEmpresa();"> <i class="fa fa-print"
+														title="Imprimir Lista de Empresas"></i>
 													</a> <br></br>
 												</div>
 												<input type="hidden" value="<%=signal%>" id="JAlertInput" />
@@ -212,7 +212,12 @@ if (!permiso) {
 															<td><%=empresa.getDepartamentoNombre()%></td>
 															<td><%=empresa.getMunicipioNombre()%></td>
 
+
+															<%if(empresa.getPeriodoFiscal() != null){%>
 															<td><%=empresa.getPeriodoFiscal()%></td>
+															<%}
+else{%>
+															<td>No se ha establecido un periodo fiscal</td> <%}%>
 
 															<td><%=empresa.getTelefono()%></td>
 															<td><%=empresa.getCorreo()%></td>
@@ -306,6 +311,7 @@ if (!permiso) {
 	<!-- jAlert -->
 	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
 	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
+
 
 
 	<script>

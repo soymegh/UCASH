@@ -4,7 +4,7 @@
 	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones , 
 	 
 	 java.util.ArrayList;"%>
-<%
+<%-- <%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -48,7 +48,7 @@
 		return;
 	}
 	
-%>
+%> --%>
 <!DOCTYPE html>
 <html lang="es">
 <%
@@ -285,11 +285,19 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
     	document.getElementById("telefono").value = "<%=vwEmpresa.getTelefono()%>";
     	document.getElementById("correo").value = "<%=vwEmpresa.getCorreo()%>";
     	document.getElementById("direccion").value = "<%=vwEmpresa.getDireccion()%>";
-    	document.getElementById("periodoFiscal").value = "<%=vwEmpresa.getPeriodoFiscal()%>";
     	document.getElementById("representanteLegal").value = "<%=vwEmpresa.getRepresentante()%>";
     	document.getElementById("departamento").value = "<%=vwEmpresa.getDepartamentoNombre()%>";
     	document.getElementById("municipio").value = "<%=vwEmpresa.getMunicipioNombre()%>";
+    	
+    	
+    	
+    	if(<%=vwEmpresa.getPeriodoFiscal()%> != null) {
+    	document.getElementById("periodoFiscal").value = "<%=vwEmpresa.getPeriodoFiscal()%>";
+
+		} else {
+			document.getElementById("periodoFiscal").value = "No se ha asignado un periodo fiscal";
 		}
+    }
 
 		window.onload = setForm;
 	</script>

@@ -242,40 +242,6 @@ if (!permiso) {
 									</div>
 
 
-
-									<div class="field item form-group">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo
-											fiscal: <span class="required">*</span>
-										</label>
-										<div class="col-md-6 col-sm-6">
-											<!--                                                 
-												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-											<%
-											ArrayList<Tbl_periodoFiscal> listaPeriodo = new ArrayList<Tbl_periodoFiscal>();
-											Dt_periodoFiscal dtPeriodo = new Dt_periodoFiscal();
-											listaPeriodo = dtPeriodo.listarperiodoFiscal();
-											%>
-
-											<select class="form-control js-example-basic-single"
-												name="periodoFiscal" id="periodoFiscal" required="required">
-												<option value="0">Seleccione...</option>
-												<%
-												for (Tbl_periodoFiscal periodo : listaPeriodo) {
-												%>
-												<option value="<%=periodo.getIdPeriodoFiscal()%>">
-													<%=periodo.getFechaInicio()%> ->
-													<%=periodo.getFechaFinal()%>
-												</option>
-												<%
-												}
-												%>
-
-											</select>
-										</div>
-									</div>
-
-
-
 									<div class="field item form-group">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">Departamento:
 											<span class="required">*</span>
