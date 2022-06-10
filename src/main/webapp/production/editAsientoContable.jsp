@@ -1,10 +1,10 @@
 <%@page
 	import="com.mysql.cj.protocol.Protocol.GetProfilerEventHandlerInstanceFunction"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
-	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
+	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet, entidades.Tbl_cuentaContable, entidades.Vw_catalogocuenta_empresa,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
-	datos.Dt_asientoContableDet, java.sql.Timestamp, java.util.*;"%>
+	datos.Dt_asientoContableDet, datos.Dt_catalogocuenta, java.sql.Timestamp, java.util.*;"%>
 
 <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
@@ -143,8 +143,11 @@ tpacont = dtac.obtenerAContablePorId(idac);
 										novalidate>
 										<input type="hidden" value="2" name="opcion" id="opcion" /> <span
 											class="section"></span> <input type="hidden" value="0"
-											name="detallesEliminados" id="detallesEliminados" /> <input
-											type="hidden" value="0" name="detallesAgregados"
+											name="detallesEliminados" id="detallesEliminados" />
+											<input type="hidden" value="1" name="opcion" id="opcion" /> <span
+											class="section"></span> <input type="hidden" value="0"
+											name="detalles" id="detalles" />
+											<input type="hidden" value="0" name="detallesAgregados"
 											id="detallesAgregados" /> <input type="hidden"
 											value="<%=tpacont.getIdAsientoContable()%>" name="idAcont"
 											id="idAcont" /> <span class="section"></span>
@@ -208,7 +211,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechainicioc"
+													placeholder="Fecha de inicio" name="fechainicioc" min="<%=Tbl_periodoContable.fechaInicioActual %>" max="<%=Tbl_periodoContable.fechaFinalActual %>"
 													value="<%=tpacont.getFecha()%>">
 											</div>
 										</div>
@@ -248,15 +251,20 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																		</label>
 																		<div class="col-md-3 col-sm-3">
 																			<%
-																			ArrayList<Vw_catalogo_tipo_cuentacontable> listaCC = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+																			ArrayList<Tbl_cuentaContable> listaCC = new ArrayList<Tbl_cuentaContable>();
+																			Vw_catalogocuenta_empresa CE = new Vw_catalogocuenta_empresa();
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
-																			listaCC = dtcc.listaCuentasContables();
+																			Dt_catalogocuenta  dtcac = new Dt_catalogocuenta();
+																			CE = dtcac.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
+																			int idCatalogo = 0;
 																			%>
 																			<select class="js-example-basic-single" name="cbxCC"
 																				id="cbxCC" required="required">
 																				<option value="" disabled selected>Seleccione...</option>
 																				<%
-																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
+																				idCatalogo = CE.getIdCatalogo();
+																				listaCC = dtcc.getCuentasContablesByCatalogo(idCatalogo);
+																				for (Tbl_cuentaContable cc : listaCC) {
 																				%>
 																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%>--<%=cc.getNombreCuenta()%></option>
 																				<%
@@ -460,6 +468,25 @@ tpacont = dtac.obtenerAContablePorId(idac);
 	            	});
 	                e.preventDefault();
 	            };
+	            
+	            if($("#detalles").val() == 0){
+	            	$.toast({
+	            	    text: "Tiene que haber detalles para poder guardar los cambios",
+	            	    heading: 'Advertencia - detalles',
+	            	    icon: 'warning',
+	            	    showHideTransition: 'slide',
+	            	    allowToastClose: false, 
+	            	    hideAfter: 5000,
+	            	    stack: 5,
+	            	    position: 'top-center',  
+	            	    
+	            	    textAlign: 'left',
+	            	    loader: true,
+	            	    loaderBg: '#9EC600',
+	            	    
+	            	});
+	                e.preventDefault();
+	            };
 	        });
 			
 		});
@@ -564,12 +591,10 @@ tpacont = dtac.obtenerAContablePorId(idac);
 			$('.js-example-basic-single').select2();
 		});
 		//Cierre Select2
-
 		var saldo = 0;
 		var debe = 0;
 		var haber = 0;
 		var tableBody = document.getElementById("tbldet");
-		var cantDetalles = document.getElementById("detalles");
 		var rows = getCantRows();
 		var deletedRows = 0;
 		var addedRows = 0;
@@ -578,6 +603,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 
 		$("#agregardet")
 				.click(function() {
+					var cantDetalles = parseInt($("#detalles").val());
 							if (!$.isNumeric($("#debe").val()) || !$.isNumeric($("#haber").val()) || $("#cbxCC option:checked").val() == 0) {
 								$.toast({
 									text : "Datos inválidos", // Text that is to be shown in the toast
@@ -621,10 +647,13 @@ tpacont = dtac.obtenerAContablePorId(idac);
 
 								rows = getCantRows();
 								addedRowsNameMapper();
+								cantDetalles++;
+								$("#detalles").val(cantDetalles);
 							}
 						});
 
 		$("#tbldet").on('click', '#btnBorrarDetalle', function() {
+			var cantDetalles = parseInt($("#detalles").val());
 			var currentRow = $(this).closest("tr");
 			debe = parseFloat(currentRow.find("#tddebe").children().val());
 			haber = parseFloat(currentRow.find("#tdhaber").children().val());
@@ -633,7 +662,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 			deletedRowsNameMapper();
 			saldo = saldo - debe + haber;
 			$("#total").text(saldo);
-
+			console.log(cantDetalles);
 			$("#debe").val(0);
 			$("#haber").val(0);
 			if (saldo == 0) {
@@ -649,6 +678,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 					"background" : "pink"
 				});
 			}
+			cantDetalles--;
+			$("#detalles").val(cantDetalles);
 		});
 
 		function deletedRowsNameMapper() {
@@ -778,6 +809,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 								contador.innerHTML = longitudAct;
 							});
 						});
+		$("#detalles").val(<%=detallesSalientes%>);
 	</script>
 	<script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
