@@ -78,6 +78,7 @@ public class Sl_asientoContable extends HttpServlet {
 				ac.setIdTasaCambioDet(Integer.parseInt(request.getParameter("cbxIDTCD")));
 				ac.setUsuarioCreacion(Integer.parseInt(request.getParameter("usuarioCreacion")));
 				ac.setFechaCreacion(new java.sql.Timestamp(fechaSistema.getTime()));
+				ac.setNumeroComprobante(dtsc.comprobarNumeroComprobanteAC(ac.getIdPeriodoContable()));
 
 				int newAsientoID = dtsc.agregarAsientoContable(ac);
 				

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal,
+	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal,
 	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
 	
 	<%
@@ -133,7 +133,7 @@
 												<%
 												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
 												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-												listaPF = dtpf.listarperiodoFiscal();
+												listaPF = dtpf.listarperiodoFiscal(Vw_empresa.empresaActual);
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDPF" id="cbxIDPF" required="required" onchange="ShowSelected();">

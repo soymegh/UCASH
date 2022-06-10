@@ -15,6 +15,7 @@ public class Vw_asientoContable {
 	private String nombre;
 	private int idTasaCambioDetalle;
 	private float tipoCambio;
+	private int numeroComprobante; 
 	private Date fecha;
 	private String descripcion;
 	private int usuarioCreacion;
@@ -24,8 +25,15 @@ public class Vw_asientoContable {
 	private int usuarioEliminacion;
 	private Date fechaEliminacion;
 	//Metodos
+	
 	public int getIdAsientoContable() {
 		return idAsientoContable;
+	}
+	public int getNumeroComprobante() {
+		return numeroComprobante;
+	}
+	public void setNumeroComprobante(int numeroComprobante) {
+		this.numeroComprobante = numeroComprobante;
 	}
 	public void setIdAsientoContable(int idAsientoContable) {
 		this.idAsientoContable = idAsientoContable;
