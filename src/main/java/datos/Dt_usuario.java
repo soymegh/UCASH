@@ -204,6 +204,49 @@ public class Dt_usuario {
 		return user;
 	}
 	
+	public Tbl_usuario ObtenerUsuarioPorUserAndEmail(String usuario, String email) {
+		Tbl_usuario user = new Tbl_usuario();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.usuario WHERE estado<>3 and usuario = ? and email = ?;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setString(1, usuario);
+			ps.setString(2, email);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				user.setIdUsuario(rs.getInt("idUsuario"));
+				user.setUsuario(rs.getString("usuario"));
+				user.setNombre(rs.getString("nombre"));
+				user.setApellidos(rs.getString("apellido"));
+				user.setEmail(rs.getString("email"));
+				user.setEstado(rs.getInt("estado"));
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR USUARIOS " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return user;
+	}
+	
 	
 	public Tbl_usuario ObtenerUsuarioPorIdInactivo(int id) {
 		Tbl_usuario user = new Tbl_usuario();
@@ -658,8 +701,6 @@ public class Dt_usuario {
 			pwdEncrypt = pwdEncriptada;
 			pwdDecrypt = enc.getAESDecrypt(pwdEncrypt, key);
 			/////////////////////////////////////////
-
-			System.out.print("ESTA ES LA CONTRASE�A DESENCRIPTADA GARDELLL!: " + pwdDecrypt);
 		}
 		catch (Exception e){
 			System.out.println("DATOS: ERROR dtverificarLogin() "+ e.getMessage());

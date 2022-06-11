@@ -121,12 +121,21 @@ public class Sl_login extends HttpServlet {
 
 			try{
 				if(dtu.recoverPassword(user, email) != null){
-					vwur = dtu.recoverPassword(user, email);
-					recoverPwd.recoverPassword(dtu.desencriptarPassword(vwur.getUsuario(), vwur.getKey(), vwur.getPassword()), vwur.getEmail(), vwur.getUsuario());
-					response.sendRedirect("login.jsp");
+					if(dtu.recoverPassword(user, email) != null) {
+						vwur = dtu.recoverPassword(user, email);
+						if(dtu.desencriptarPassword(vwur.getUsuario(), vwur.getKey(), vwur.getPassword()) != null) {
+							recoverPwd.recoverPassword(dtu.desencriptarPassword(vwur.getUsuario(), vwur.getKey(), vwur.getPassword()), vwur.getEmail(), vwur.getUsuario());
+							response.sendRedirect("login.jsp");
+						}else {
+							response.sendRedirect("login.jsp?msj=404");
+						}
+					}else {
+						response.sendRedirect("login.jsp?msj=404");
+					}
+					
 				}
 				else{
-				response.sendRedirect("login.jsp?msj=403");
+					response.sendRedirect("login.jsp?msj=404");
 				}	
 			}
 			catch(Exception e){
