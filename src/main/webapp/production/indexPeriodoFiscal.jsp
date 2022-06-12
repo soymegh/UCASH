@@ -110,6 +110,9 @@
 									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
 										<span class="section">Periodo Fiscal</span>
+										<br>
+										<a href="./addNuevoPeriodoFiscal.jsp">Agregar período fiscla</a>
+										
 										<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 										<div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal<span class="required">:</span></label>
@@ -118,7 +121,7 @@
 												<%
 							                      	ArrayList<Tbl_periodoFiscal> listPeriodosFiscales = new ArrayList<Tbl_periodoFiscal>();
 							                      	Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin();
+							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin(Vw_empresa.empresaActual);
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="combobox_periodoFiscal" id="combobox_periodoFiscal" required="required">
 												  <option value="">Seleccione...</option>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
+	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
 	datos.Dt_rolOpciones, datos.Dt_periodoFiscal, java.util.*;"%>
 	
 	<%
@@ -131,6 +131,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 								<div class="x_content">
 									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
 									  <input type="hidden" value="3" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=Vw_empresa.empresaActual%>" name="empresaActual" id="empresaActual"/>
 									  
 									  <input type="hidden" value="<%=tpfiscal.getIdPeriodoFiscal()%>" name="idPFiscalEliminar" id="idPFiscalEliminar" />
 									  

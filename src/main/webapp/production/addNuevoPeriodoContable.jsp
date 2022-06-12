@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal,
 	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
+	
 	<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
@@ -47,23 +48,7 @@
 	
 %>
 <!DOCTYPE html>
-<html lang="es">
-
-<%
-Tbl_periodoContable tpcontable = new Tbl_periodoContable();
-Dt_periodoContable dtpcontable = new Dt_periodoContable();
-
-int idpcontable = (request.getParameter("contable") != null) ? Integer.parseInt(request.getParameter("contable")) : 0;
-
-tpcontable = dtpcontable.obtenerPContablePorId(idpcontable);
-
-Tbl_periodoFiscal tpfiscal = new Tbl_periodoFiscal();
-Dt_periodoFiscal dtpfiscal = new Dt_periodoFiscal();
-
-int idpfiscal = tpcontable.getIdPeriodoFiscal();
-
-tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
-%>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -71,7 +56,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Abrir | Periodo Contable</title>
+<title>Agregar | Periodo Contable</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -109,7 +94,6 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- /top navigation -->
 
 			<!-- page content -->
@@ -117,29 +101,29 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Abrir Periodo Contable</h3>
+							<h3>Agregar nuevo periodo contable</h3>
 						</div>
 
-						<div class="title_right"></div>
+
 					</div>
 					<div class="clearfix"></div>
+
+
+
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>
-										Formulario <small>Abrir Periodo Contable</small>
-									</h2>
+									<h2>Formulario de periodos contables</h2>
 
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
+									<br />
 									<form class="" action="../Sl_periodoContable" method="post"
 										novalidate>
-										<input type="hidden" value="5" name="opcion" id="opcion" /> <input
-											type="hidden" value="<%=tpcontable.getIdPeriodoContable()%>"
-											name="txtidpcontable" id="txtidpcontable" />
+										<input type="hidden" value="6" name="opcion" id="opcion" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
 												Inicio del Periodo Fiscal: <span class="required">*</span>
@@ -150,10 +134,8 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
 												listaPF = dtpf.listarperiodoFiscal(Vw_empresa.empresaActual);
 												%>
-												<input id="cbxIDPF" name="cbxIDPF" type="hidden" value="<%=tpcontable.getIdPeriodoFiscal()%>"></input>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDPFf" id="cbxIDPFf" required="required"
-													onchange="ShowSelected();" disabled='disabled'>
+													name="cbxIDPF" id="cbxIDPF" required="required" onchange="ShowSelected();">
 													<option value="">Seleccione...</option>
 													<%
 													for (Tbl_periodoFiscal pf : listaPF) {
@@ -165,7 +147,6 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 												</select>
 											</div>
 										</div>
-
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
@@ -186,14 +167,12 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 											</div>
 										</div>
 
-
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
 												de inicio: </label>
 											<div class="col-md-6 col-sm-6">
-												<input type="date" value="<%=tpcontable.getFechaInicio()%>"
-													class="form-control" placeholder="Fecha de inicio"
-													name="fechainicioc" readonly="readonly">
+												<input type="date" class="form-control"
+													placeholder="Fecha de inicio" name="fechainicioc">
 											</div>
 										</div>
 
@@ -203,21 +182,24 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
 												Final: </label>
 											<div class="col-md-6 col-sm-6">
-												<input type="date" value="<%=tpcontable.getFechaFinal()%>"
-													class="form-control" placeholder="Fecha de inicio"
-													name="fechafinalc" readonly="readonly">
+												<input type="date" class="form-control"
+													placeholder="Fecha de inicio" name="fechafinalc">
 											</div>
 										</div>
 
-										<div class="ln_solid">
-											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<a href="tbl_periodoContable.jsp" type="button"
-														class="btn btn-primary">Cancelar</a>
-														<button type='submit' class="btn btn-primary">Abrir Periodo	</button>
-												</div>
+
+
+
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-9 col-sm-9  offset-md-3">
+												<a href="tbl_periodoContable.jsp" type="button"
+													class="btn btn-primary">Cancelar</a>
+												<button type="reset" class="btn btn-primary">Reiniciar</button>
+												<button type="submit" class="btn btn-success">Agregar</button>
 											</div>
 										</div>
+
 									</form>
 								</div>
 							</div>
@@ -225,63 +207,22 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 					</div>
 				</div>
 			</div>
-			<!-- /page content -->
-
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
 		</div>
 	</div>
-
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="../vendors/validator/multifield.js"></script>
-	<script src="../vendors/validator/validator.js"></script>
-
-	<!-- Javascript functions	-->
-	<script>
-		function hideshow() {
-			var password = document.getElementById("password1");
-			var slash = document.getElementById("slash");
-			var eye = document.getElementById("eye");
-
-			if (password.type === 'password') {
-				password.type = "text";
-				slash.style.display = "block";
-				eye.style.display = "none";
-			} else {
-				password.type = "password";
-				slash.style.display = "none";
-				eye.style.display = "block";
-			}
-
-		}
-	</script>
-
-	<script>
-        ///SOLO ESTE VALOR NO LO PUEDO PONER DE OTRA MANERA
-        function setValores() {
-            $("#cbxIDPFf").val("<%=tpcontable.getIdPeriodoFiscal()%>");
-            $("#cbxIDPFFF").val("<%=tpcontable.getIdPeriodoFiscal()%>");
-		}
-
-		$(document).ready(function() {
-			////CARGAMOS LOS VALORES EN LOS CONTROLES 
-			setValores();
-		});
-	</script>
 
 	<script type="text/javascript">
 		function ShowSelected() {
 			/* Para obtener el valor */
 			var cod = document.getElementById("cbxIDPF").value;
-			$("#cbxIDPFFF").val("" + cod);
+			$("#cbxIDPFFF").val(""+cod);
 		}
 	</script>
+
+	<footer>
+		<div class="pull-right">Sistema contable by Eldian's Software</div>
+		<div class="clearfix"></div>
+	</footer>
+
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -290,12 +231,35 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 	<script src="../vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
 	<script src="../vendors/nprogress/nprogress.js"></script>
-	<!-- validator -->
-	<!-- <script src="../vendors/validator/validator.js"></script> -->
-
+	<!-- bootstrap-progressbar -->
+	<script
+		src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../vendors/moment/min/moment.min.js"></script>
+	<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+	<!-- Autosize -->
+	<script src="../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script
+		src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
 </body>
-
 </html>

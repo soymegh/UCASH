@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal,
-	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
-	
+	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
+	datos.Dt_rolOpciones, datos.Dt_periodoFiscal, java.util.*;"%>
 	<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
@@ -56,7 +55,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Agregar | Periodo Contable</title>
+<title>Agregar | Periodo Fiscal</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -94,7 +93,6 @@
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- /top navigation -->
 
 			<!-- page content -->
@@ -102,105 +100,49 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar nuevo periodo contable</h3>
+							<h3>Agregar Periodo Fiscal</h3>
 						</div>
-
 
 					</div>
 					<div class="clearfix"></div>
-
-
-
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Formulario de periodos contables</h2>
+									<h2>Agregar Periodo Fiscal</h2>
 
 									<div class="clearfix"></div>
 								</div>
+								
 								<div class="x_content">
-									<br />
-									<form class="" action="../Sl_periodoContable" method="post"
-										novalidate>
-										<input type="hidden" value="1" name="opcion" id="opcion" />
+									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
+									  <input type="hidden" value="6" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=Vw_empresa.empresaActual%>" name="empresaActual" id="empresaActual"/>
+										<span class="section">Datos de Periodo Fiscal</span>
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Inicio del Periodo Fiscal: <span class="required">*</span>
-											</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<%
-												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
-												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-												listaPF = dtpf.listarperiodoFiscal(Vw_empresa.empresaActual);
-												%>
-												<select class="form-control js-example-basic-single"
-													name="cbxIDPF" id="cbxIDPF" required="required" onchange="ShowSelected();">
-													<option value="">Seleccione...</option>
-													<%
-													for (Tbl_periodoFiscal pf : listaPF) {
-													%>
-													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaInicio()%></option>
-													<%
-													}
-													%>
-												</select>
+												<input class="form-control" class='optional' name="fechaInicio"  type="date" required="required" placeholder="Fecha de Inicio"/>
 											</div>
 										</div>
-
+										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Final del Periodo Fiscal: <span class="required">*</span>
-											</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<select class="form-control js-example-basic-single"
-													name="cbxIDPFFF" id="cbxIDPFFF" disabled="disabled">
-													<option value="">Seleccione...</option>
-													<%
-													for (Tbl_periodoFiscal pf : listaPF) {
-													%>
-													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaFinal()%></option>
-													<%
-													}
-													%>
-												</select>
+												<input class="form-control" class='optional' name="fechaFinal"  type="date" required="required" placeholder="Fecha Final"/>
 											</div>
 										</div>
-
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												de inicio: </label>
-											<div class="col-md-6 col-sm-6">
-												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechainicioc">
+										
+										<div class="ln_solid">
+											<div class="form-group">
+												<div class="col-md-6 offset-md-3">
+													<button type='submit' class="btn btn-primary">Agregar</button>
+													<a href="tbl_periodoFiscal.jsp" type="button" class="btn btn-primary">Cancelar</a>
+												</div>
 											</div>
 										</div>
-
-
-
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Final: </label>
-											<div class="col-md-6 col-sm-6">
-												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechafinalc">
-											</div>
-										</div>
-
-
-
-
-										<div class="ln_solid"></div>
-										<div class="form-group">
-											<div class="col-md-9 col-sm-9  offset-md-3">
-												<a href="tbl_periodoContable.jsp" type="button"
-													class="btn btn-primary">Cancelar</a>
-												<button type="reset" class="btn btn-primary">Reiniciar</button>
-												<button type="submit" class="btn btn-success">Agregar</button>
-											</div>
-										</div>
-
 									</form>
 								</div>
 							</div>
@@ -208,18 +150,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
+			<!-- /page content -->
+
+								
 	</div>
+</div>
 
-	<script type="text/javascript">
-		function ShowSelected() {
-			/* Para obtener el valor */
-			var cod = document.getElementById("cbxIDPF").value;
-			$("#cbxIDPFFF").val(""+cod);
-		}
-	</script>
-
-	<footer>
+<footer>
 		<div class="pull-right">Sistema contable by Eldian's Software</div>
 		<div class="clearfix"></div>
 	</footer>

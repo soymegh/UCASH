@@ -1,3 +1,6 @@
+<%@page import="datos.Dt_catalogocuenta"%>
+<%@page import="entidades.Tbl_cuentaContable"%>
+<%@page import="entidades.Vw_catalogocuenta_empresa"%>
 <%@page import="datos.Dt_periodoContable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
@@ -220,7 +223,8 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fecha" id="fecha" required="required">
+													 name="fecha" id="fecha" min="<%=Tbl_periodoContable.fechaInicioActual %>" max="<%=Tbl_periodoContable.fechaFinalActual %>"
+													 required="required">
 											</div>
 										</div>
 
@@ -259,15 +263,20 @@ if (!permiso) {
 																		</label>
 																		<div class="col-md-3 col-sm-3">
 																			<%
-																			ArrayList<Vw_catalogo_tipo_cuentacontable> listaCC = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+																			ArrayList<Tbl_cuentaContable> listaCC = new ArrayList<Tbl_cuentaContable>();
+																			Vw_catalogocuenta_empresa CE = new Vw_catalogocuenta_empresa();
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
-																			listaCC = dtcc.listaCuentasContables();
+																			Dt_catalogocuenta  dtcac = new Dt_catalogocuenta();
+																			CE = dtcac.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
+																			int idCatalogo = 0;
 																			%>
 																			<select class="js-example-basic-single" name="cbxCC"
 																				id="cbxCC" required="required">
 																				<option value="" disabled selected>Seleccione...</option>
 																				<%
-																				for (Vw_catalogo_tipo_cuentacontable cc : listaCC) {
+																				idCatalogo = CE.getIdCatalogo();
+																				listaCC = dtcc.getCuentasContablesByCatalogo(idCatalogo);
+																				for (Tbl_cuentaContable cc : listaCC) {
 																				%>
 																				<option value="<%=cc.getIdCuenta()%>"><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%>
 																					--
@@ -596,6 +605,7 @@ if (!permiso) {
             	});
                 e.preventDefault();
             };
+            
         });
 
 		$("#agregardet")
