@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 	
+<%
+Tbl_cuentaContable ccd = new Tbl_cuentaContable();
+Dt_cuentaContable dtCcd = new Dt_cuentaContable();
+
+int idd = dtCcd.idCuentaContable();
+%>
 	<%
 	
 	//JAlert flag
@@ -111,7 +117,7 @@
 						<div class="title_left">
 							<h3>Catalogo Cuenta</h3>
 						</div>
-						<div class="title_right">
+						<!-- <div class="title_right">
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 								<div class="input-group">
@@ -122,7 +128,7 @@
 									</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="clearfix"></div>
 					<div class="row">
@@ -154,7 +160,12 @@
 													style="text-align: right;">
 													<a href="addCatalogocuenta.jsp"> <i
 														class="fa fa-plus-square"></i> Nuevo catalogo de cuenta
-													</a> <br></br>
+													</a> &nbsp;&nbsp;
+													<a
+														href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
+														<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
+													</a> &nbsp;&nbsp;
+													<br></br>
 												</div>
 												
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
