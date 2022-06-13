@@ -65,9 +65,9 @@ if (!permiso) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -222,9 +222,9 @@ if (!permiso) {
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha:
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input type="date" class="form-control"
+												<input type="date" class="form-control" data-parsley-excluded=true
 													 name="fecha" id="fecha" min="<%=Tbl_periodoContable.fechaInicioActual %>" max="<%=Tbl_periodoContable.fechaFinalActual %>"
-													 required="required">
+													  />
 											</div>
 										</div>
 
@@ -549,6 +549,9 @@ if (!permiso) {
 		var botonGuardar = document.getElementById("btnGuardar");
 
         botonGuardar.addEventListener('click', (e) => {
+        	
+        	console.log($("#fecha").val());
+        	
             if(saldo !== 0){
             	$.toast({
             	    text: "El saldo debe ser 0 para poder guardar",
