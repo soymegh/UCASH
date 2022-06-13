@@ -224,7 +224,7 @@ if (!permiso) {
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control" data-parsley-excluded=true
 													 name="fecha" id="fecha" min="<%=Tbl_periodoContable.fechaInicioActual %>" max="<%=Tbl_periodoContable.fechaFinalActual %>"
-													  />
+													  required/>
 											</div>
 										</div>
 
@@ -550,7 +550,29 @@ if (!permiso) {
 
         botonGuardar.addEventListener('click', (e) => {
         	
-        	console.log($("#fecha").val());
+        	var contieneFecha = $("#fecha").val() != "";
+        	
+        	console.log(contieneFecha);
+        	
+        	if (!contieneFecha) {
+        		$.toast({
+            	    text: "Inserte una fecha válida",
+            	    heading: 'Advertencia - Fecha del asiento contable',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
+        		e.preventDefault();
+        	}
+        		
         	
             if(saldo !== 0){
             	$.toast({
