@@ -50,6 +50,7 @@ public class Sl_cuentaContable extends HttpServlet {
 		
 		
 		
+		
 		switch (opc) {
 		
 		case 1:
@@ -81,7 +82,10 @@ public class Sl_cuentaContable extends HttpServlet {
 			try
 			{
 				if(dtCc.addCuentaContable(cc) && dtccd.addCuentaContableDet(ccd)) {
-					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=1");
+					
+					Dt_cuentaContable idc = new Dt_cuentaContable();
+					int idCuenta = idc.idCuentaContable() +1;
+					response.sendRedirect("production/addCuentaContable.jsp?idCuenta=" + idCuenta);
 				}
 				else
 				{
