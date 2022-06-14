@@ -68,7 +68,7 @@ int idd = dtCcd.idCuentaContable();
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Catalogo de cuenta</title>
+<title>Gestión | Catalogo de cuentas</title>
 
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
@@ -136,7 +136,7 @@ int idd = dtCcd.idCuentaContable();
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Catalogos de cuenta registrados</h2>
-									<ul class="nav navbar-right panel_toolbox">
+									<!-- <ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
 												class="fa fa-chevron-up"></i></a></li>
 										<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -149,7 +149,7 @@ int idd = dtCcd.idCuentaContable();
 											</div></li>
 										<li><a class="close-link"><i class="fa fa-close"></i></a>
 										</li>
-									</ul>
+									</ul> -->
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -165,6 +165,10 @@ int idd = dtCcd.idCuentaContable();
 														href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
 														<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
 													</a> &nbsp;&nbsp;
+													<a 
+														href ="../Sl_rptCuentaContable?idPeriodoContable=Del: <%=Tbl_periodoContable.fechaInicioActual%> Al: <%=Tbl_periodoContable.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>" target='_blank'>
+														<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables">Imprimir Lista de Cuentas Contables</i>
+													</a>&nbsp;&nbsp;
 													<br></br>
 												</div>
 												

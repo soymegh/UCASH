@@ -31,8 +31,7 @@ public class Dt_catalogocuenta {
 		}
 	}
 	
-	//Metodo para listar la empresa
-	//Sujeto a cambio el Tbl_empresa por algun View
+	//Metodo para listar catalogo cuenta
 	public ArrayList<Vw_catalogocuenta_empresa> listarCatalogocuenta(){
 		
 		ArrayList<Vw_catalogocuenta_empresa> listCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
@@ -83,7 +82,7 @@ public class Dt_catalogocuenta {
 		return listCatalogocuenta;
 	}
 	
-	
+	//Metodo para listar catalogocuenta conforme a empresa
 	public ArrayList<Vw_catalogocuenta_empresa> listarCatalogocuentaDeEmpresa(int idEmpresa) {
 
 		ArrayList<Vw_catalogocuenta_empresa> listCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
