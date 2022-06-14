@@ -492,10 +492,27 @@ if (!permiso) {
 			
 			document.getElementById("saldoFinal").value = resultado;
 			
+			
 		}catch (e){
 			
 		}
 	}
+	
+	function setZero(){
+		try{
+			var a = parseFloat(document.getElementById("saldoInicial").value) || 0,
+			b = parseFloat(document.getElementById("debe").value) || 0,
+			c = parseFloat(document.getElementById("haber").value) ||0;
+			
+			document.getElementById("saldoInicial").value = 0;
+			document.getElementById("debe").value = 0;
+			document.getElementById("haber").value = 0;
+			document.getElementById("saldoFinal").value = 0;
+		}catch (e){
+			
+		}
+	}
+	window.onload = setZero;
 	
 	</script>
 

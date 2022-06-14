@@ -58,7 +58,7 @@ public class Sl_cuentaContable extends HttpServlet {
 			cc.setsC(request.getParameter("SC"));
 			cc.setSsC(request.getParameter("SsC"));
 			cc.setSssC(request.getParameter("SssC"));
-			cc.setNombreCuenta(request.getParameter("nombreCuenta"));
+			cc.setNombreCuenta(request.getParameter("nombreCuenta").toUpperCase());
 			int nivel = Integer.parseInt(request.getParameter("nivel"));
 			cc.setNivel(nivel);
 			int rubro = Integer.parseInt(request.getParameter("rubro"));
