@@ -123,7 +123,8 @@ public class Dt_asientoContableDet {
 		return  guardado;
 	}
 	
-	public int getIdCuentaByIdACD(int idACD) {
+	public ArrayList<Integer> getIdCuentaByIdACD(int idACD) {
+		ArrayList<Integer> idCuentaList = new ArrayList<>();
 	    int idCuenta = 0;
 	    try {
 	        c = poolConexion.getConnection();
@@ -134,6 +135,7 @@ public class Dt_asientoContableDet {
 
 	        while(this.rs.next()) {
 	            idCuenta = rs.getInt("idCuenta");
+	            idCuentaList.add(idCuenta);
 	        }
 
 	    } catch(Exception e) {
@@ -159,7 +161,7 @@ public class Dt_asientoContableDet {
 
 	}
 
-	    return idCuenta ;
+	    return idCuentaList ;
 	}
 	
 	public boolean EliminarAContableDetPorIdRestaTotal(int idEliminar)
