@@ -9,7 +9,7 @@
 <%
 
 int idEmpresaHidden = request.getParameter("idEmpresaHidden") != null ? Integer.parseInt(request.getParameter("idEmpresaHidden")) : 0;
- 
+int idTemporal = 0; 
 %>
 <%-- <%
 //JAlert flag
@@ -217,7 +217,7 @@ if (!permiso) {
 											<%
 											ArrayList<Vw_representanteLegal> listaRep = new ArrayList<Vw_representanteLegal>();
 											Dt_representanteLegal dtRep = new Dt_representanteLegal();
-											listaRep = dtRep.listarRepresentanteLegal();
+											listaRep = dtRep.listarRepresentanteLegalNoEnEmpresa();
 											%>
 
 											<select class="form-control js-example-basic-single"
@@ -254,7 +254,6 @@ if (!permiso) {
 											listaDep = dtDep.listarDepartamento();
 											ArrayList<Vw_municipio> listaMuni = new ArrayList<Vw_municipio>();
 											Dt_municipio dtMunicipio = new Dt_municipio();
-											int currentDepId = 0; 
 											%>
 											<select onchange="checkDep()" class="form-control js-example-basic-single"
 												name="departamento" id="departamento" required="required">
@@ -266,11 +265,9 @@ if (!permiso) {
 												<option value="<%=depa.getIdDepartamento()%>">
 													<%=depa.getDepartamento()%>
 												</option>
-												<%
-												currentDepId = depa.getIdDepartamento();
-												
+												<%											
+											
 												}
-												listaMuni = dtMunicipio.listarMunicipioByDepId(currentDepId);
 
 												%>
 
@@ -288,15 +285,13 @@ if (!permiso) {
 											
 										
 										
-									
+									listaMuni = dtMunicipio.listarMunicipio();
 											
 											%>
 											<select class="form-control js-example-basic-single"
 												name="municipio" id="municipio" required="required">
 												<option value="0">Seleccione...</option>
 												<%
-												System.out.println(listaMuni); 
-
 												for (Vw_municipio muni : listaMuni) {
 												%>
 												<option value="<%=muni.getIdMunicipio()%>">

@@ -244,7 +244,7 @@ Tbl_periodoEmpresa periodoEmpresa = new Tbl_periodoEmpresa();
 												<%
 												ArrayList<Vw_representanteLegal> listaRep = new ArrayList<Vw_representanteLegal>();
 												Dt_representanteLegal dtRep = new Dt_representanteLegal();
-												listaRep = dtRep.listarRepresentanteLegal();
+												listaRep = dtRep.listarRepresentanteLegalNoEnEmpresa();
 												%>
 
 												<select id="representanteLegal"
