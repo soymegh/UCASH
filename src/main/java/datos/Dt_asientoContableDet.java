@@ -128,7 +128,7 @@ public class Dt_asientoContableDet {
 	    int idCuenta = 0;
 	    try {
 	        c = poolConexion.getConnection();
-	        this.ps = this.c.prepareStatement("SELECT idCuenta FROM dbucash.asientocontabledet WHERE idAsientoContable = ?;", 
+	        this.ps = this.c.prepareStatement("SELECT DISTINCT idCuenta FROM dbucash.asientocontabledet WHERE idAsientoContable = ?;", 
 	                ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	        ps.setInt(1, idACD);
 	        rs = ps.executeQuery();
@@ -161,7 +161,7 @@ public class Dt_asientoContableDet {
 
 	}
 
-	    return idCuentaList ;
+	    return idCuentaList;
 	}
 	
 	public boolean EliminarAContableDetPorIdRestaTotal(int idEliminar)
@@ -255,13 +255,14 @@ public class Dt_asientoContableDet {
 			
 		}
 	
-	public double getTotalDebeByIdCuenta(int idCuenta) {
+	public double getTotalDebeByIdCuenta(int idCuenta, int idAsientoMaestro) {
 	    double totalDebe = 0;
 	    try {
 	        c = poolConexion.getConnection();
-	        this.ps = this.c.prepareStatement("SELECT sum(debe) AS 'totalDebe' FROM dbucash.asientocontabledet WHERE idCuenta = ?;", 
+	        this.ps = this.c.prepareStatement("SELECT sum(debe) AS 'totalDebe' FROM dbucash.asientocontabledet WHERE idCuenta = ? AND idAsientoContable = ?;", 
 	                ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	        ps.setInt(1, idCuenta);
+	        ps.setInt(2, idAsientoMaestro);
 	        rs = ps.executeQuery();
 
 	        while(this.rs.next()) {
@@ -294,13 +295,14 @@ public class Dt_asientoContableDet {
 	    return totalDebe ;
 	}
 	
-	public double getTotalHaberByIdCuenta(int idCuenta) {
+	public double getTotalHaberByIdCuenta(int idCuenta, int idAsientoMaestro) {
 	    double totalHaber = 0;
 	    try {
 	        c = poolConexion.getConnection();
-	        this.ps = this.c.prepareStatement("SELECT sum(haber) AS 'totalHaber' FROM dbucash.asientocontabledet WHERE idCuenta = ?;", 
+	        this.ps = this.c.prepareStatement("SELECT sum(haber) AS 'totalHaber' FROM dbucash.asientocontabledet WHERE idCuenta = ? AND idAsientoContable = ?;", 
 	                ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	        ps.setInt(1, idCuenta);
+	        ps.setInt(2, idAsientoMaestro);
 	        rs = ps.executeQuery();
 
 	        while(this.rs.next()) {

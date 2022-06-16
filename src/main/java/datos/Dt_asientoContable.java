@@ -400,10 +400,13 @@ public boolean EliminarAContablePorId(int idEliminar){
 		idCuentaList = acDet.getIdCuentaByIdACD(idEliminar);
 		
 		for(int x = 0; x < idCuentaList.size(); x++) {
-			debe = acDet.getTotalDebeByIdCuenta(idCuentaList.get(x));
-			haber = acDet.getTotalHaberByIdCuenta(idCuentaList.get(x));
+			debe = acDet.getTotalDebeByIdCuenta(idCuentaList.get(x), idEliminar);
+			haber = acDet.getTotalHaberByIdCuenta(idCuentaList.get(x), idEliminar);
 			
+			System.out.print("ESTE ES EL DEBE: "+debe+" Y ESTE ES EL HABER: "+haber+" DE LA CUENTA: "+idCuentaList.get(x)+" Y ESTE ES EL TAMAÑO DE LA LISTA: "+idCuentaList.size()+"");			
 			ccDet.editarCuentaContableDetMovimientosNegativoPorId(idCuentaList.get(x), debe, haber);
+			debe = 0; 
+			haber = 0; 
 		}
 		
 		
