@@ -8,7 +8,7 @@
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
-	datos.Dt_asientoContableDet, java.sql.Timestamp, java.util.*;"%>
+	datos.Dt_asientoContableDet, datos.Dt_tasacambio_det, java.sql.Timestamp, java.util.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter;"%>
 
 <%
 
@@ -27,10 +27,19 @@ response.setDateHeader("Expires", 0);
 response.setDateHeader("Expires", -1);
 
 //DECLARACIONES
+Dt_tasacambio_det tipoCambio  = new Dt_tasacambio_det();
 Vw_usuariorol vwur = new Vw_usuariorol();
 Dt_rolOpciones dtro = new Dt_rolOpciones();
 ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 boolean permiso = false; //VARIABLE DE CONTROL
+Vw_tasaCambioDet tipoCambioSugerido = new Vw_tasaCambioDet(); 
+
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+String fechaActual = dtf.format(LocalDateTime.now()); 
+
+tipoCambioSugerido = tipoCambio.ObtenerTasaCambioPorFecha(fechaActual);
+
+System.out.print("ESTE ES EL VALOR QUE RETORNA EL METODO: " + tipoCambio.ObtenerTasaCambioPorFecha(fechaActual));
 
 //OBTENEMOS LA SESION
 vwur = (Vw_usuariorol) session.getAttribute("acceso");
@@ -449,6 +458,19 @@ if (!permiso) {
 	<script src="../vendors/jquery.toast.min.js"></script>
 	
 	<script>
+	
+	var data = {
+			id : <%=tipoCambioSugerido.getIdTasaCambioDet()%>, 
+			valor : <%=tipoCambioSugerido.getTipoCambio()%>
+	}
+	function setVals() {
+		
+		var newOption = new Option(data.id, data.valor, false, false);
+		
+		$("#cbxIDTCD").val(data.id);
+	}
+	
+	setVals();
 	
 		// Toasts y alertas
 		$("document").ready(function(){

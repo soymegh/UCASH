@@ -75,6 +75,43 @@ public class Dt_tasacambio_det {
 				return listTCD;
 			}
 			
+			public Vw_tasaCambioDet ObtenerTasaCambioPorFecha(String fechaActual){
+				Vw_tasaCambioDet tblTCD = new Vw_tasaCambioDet();
+				try {
+					c = poolConexion.getConnection();
+					ps = c.prepareStatement("SELECT id_tasaCambio_det, tipoCambio FROM  dbucash.vw_tasacambiodetalle 	WHERE fecha = ?;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					ps.setString(1, fechaActual);
+					rsTscd = ps.executeQuery();
+					while(rsTscd.next()) { 
+						tblTCD.setTipoCambio(rsTscd.getDouble("tipoCambio"));
+						tblTCD.setIdTasaCambioDet(rsTscd.getInt("id_tasaCambio_det"));
+					}
+				} 
+				catch (Exception e){
+					System.out.println("DATOS: ERROR EN LISTAR TASA CAMBIO DETALLE "+ e.getMessage());
+					e.printStackTrace();
+				}
+				finally{
+					try {
+						if(rsTscd != null){
+							rsTscd.close();
+						}
+						if(ps != null){
+							ps.close();
+						}
+						if(c != null){
+							poolConexion.closeConnection(c);
+						}
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				return tblTCD;
+			}
+			
 	
 	//Metodo para almacenar nueva tbl_tasacambio_det
 	public boolean guardarTasacd(Tbl_tasaCambioDet tscd){
