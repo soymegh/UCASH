@@ -1,9 +1,11 @@
 package datos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entidades.Tbl_tasaCambioDet;
@@ -79,14 +81,47 @@ public class Dt_tasacambio_det {
 				Vw_tasaCambioDet tblTCD = new Vw_tasaCambioDet();
 				try {
 					c = poolConexion.getConnection();
-					ps = c.prepareStatement("SELECT id_tasaCambio_det, tipoCambio FROM  dbucash.vw_tasacambiodetalle 	WHERE fecha = ?;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					ps = c.prepareStatement("SELECT * FROM  dbucash.vw_tasacambiodetalle WHERE fecha = ?;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 					ps.setString(1, fechaActual);
 					rsTscd = ps.executeQuery();
+					
+					int filasSeleccionadas = 0;
+					
 					while(rsTscd.next()) { 
-						tblTCD.setTipoCambio(rsTscd.getDouble("tipoCambio"));
-						tblTCD.setIdTasaCambioDet(rsTscd.getInt("id_tasaCambio_det"));
+						filasSeleccionadas++;
 					}
-				} 
+					
+					// Regresamos el cursor del ResultSet antes de la primera fila
+					rsTscd.beforeFirst();
+				
+					if (filasSeleccionadas > 0) {
+						// En caso de que exista la tasa de cambio de la fecha del parámetro
+						while(rsTscd.next()) { 
+							tblTCD.setTipoCambio(rsTscd.getDouble("tipoCambio"));
+							tblTCD.setIdTasaCambioDet(rsTscd.getInt("id_tasaCambio_det"));
+							
+							String fechaCambio = rsTscd.getString("fecha");
+							java.util.Date fechaCambioFormateado = new SimpleDateFormat("yyyy-MM-dd").parse(fechaCambio);
+							tblTCD.setFecha(new java.sql.Date(fechaCambioFormateado.getTime()));
+						}
+					} else {
+						// Si no hay tasa de cambio, se devuelve el último que existe
+						ps = c.prepareStatement("SELECT * FROM dbucash.vw_tasacambiodetalle ORDER BY fecha DESC LIMIT 1;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+						rsTscd = ps.executeQuery();
+						
+						while(rsTscd.next()) { 
+							tblTCD.setTipoCambio(rsTscd.getDouble("tipoCambio"));
+							tblTCD.setIdTasaCambioDet(rsTscd.getInt("id_tasaCambio_det"));
+
+							String fechaCambio = rsTscd.getString("fecha");
+							java.util.Date fechaCambioFormateado = new SimpleDateFormat("yyyy-MM-dd").parse(fechaCambio);
+							tblTCD.setFecha(new java.sql.Date(fechaCambioFormateado.getTime()));
+							
+						}
+					}
+					
+				}
+				
 				catch (Exception e){
 					System.out.println("DATOS: ERROR EN LISTAR TASA CAMBIO DETALLE "+ e.getMessage());
 					e.printStackTrace();
@@ -109,6 +144,8 @@ public class Dt_tasacambio_det {
 					}
 					
 				}
+				System.out.print("FECHA DEL MÉTODO: " + tblTCD.getFecha());
+				System.out.print("TIPO DE CAMBIO DEL MÉTODO: " + tblTCD.getTipoCambio());
 				return tblTCD;
 			}
 			

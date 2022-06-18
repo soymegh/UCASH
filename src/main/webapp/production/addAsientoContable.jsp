@@ -8,7 +8,10 @@
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
-	datos.Dt_asientoContableDet, datos.Dt_tasacambio_det, java.sql.Timestamp, java.util.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter;"%>
+	datos.Dt_asientoContableDet, datos.Dt_tasacambio_det, java.sql.Timestamp, java.util.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter,
+	java.text.SimpleDateFormat,
+	java.sql.Date,
+	java.text.DateFormat;"%>
 
 <%
 
@@ -35,9 +38,20 @@ boolean permiso = false; //VARIABLE DE CONTROL
 Vw_tasaCambioDet tipoCambioSugerido = new Vw_tasaCambioDet(); 
 
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-String fechaActual = dtf.format(LocalDateTime.now()); 
+DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 
+String fechaActual = dtf.format(LocalDateTime.now());
 tipoCambioSugerido = tipoCambio.ObtenerTasaCambioPorFecha(fechaActual);
+
+// Comparación de la fecha actual del sistema con la que regresa el método ObtenerTasaCambioPorFecha
+String fechaDelCambioSugerido = df.format(tipoCambioSugerido.getFecha());
+
+System.out.println("fechaActual: " + fechaActual);
+System.out.println("fechaDelCambioSugerido: " + fechaDelCambioSugerido);
+
+boolean fechaIgual = (fechaActual.equals(fechaDelCambioSugerido)) ? true : false;
+
+System.out.println("La fecha actual es la misma que la de la tasa de cambio sugerido? " + fechaIgual);
 
 System.out.print("ESTE ES EL VALOR QUE RETORNA EL METODO: " + tipoCambio.ObtenerTasaCambioPorFecha(fechaActual));
 
@@ -474,6 +488,37 @@ if (!permiso) {
 	
 		// Toasts y alertas
 		$("document").ready(function(){
+			
+			if (<%=fechaIgual %>) {
+				$.toast({
+				    text: "Esta es la tasa de cambio de hoy: " + data.valor, 
+				    heading: 'Tasa de cambio del día', 
+				    icon: 'info', 
+				    showHideTransition: 'slide', 
+				    allowToastClose: false, 
+				    hideAfter: 10000, 
+				    stack: 5, 
+				    position: 'top-center', 
+				    textAlign: 'left',  
+				    loader: true,  
+				    loaderBg: '#9EC600',
+				});
+			} else {
+				$.toast({
+				    text: "La fecha de hoy no posee una tasa de cambio configurada. Se usará la última en el registro.", 
+				    heading: 'Tasa de cambio del día', 
+				    icon: 'warning', 
+				    showHideTransition: 'slide', 
+				    allowToastClose: false, 
+				    hideAfter: 10000, 
+				    stack: 5, 
+				    position: 'top-center', 
+				    textAlign: 'left',  
+				    loader: true,  
+				    loaderBg: '#9EC600',
+				});
+			}
+			
 			var codigoMensaje = $("#idMensaje").val();
 			
 			switch (codigoMensaje) {
