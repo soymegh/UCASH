@@ -146,6 +146,24 @@ if (Vw_empresa.empresaActual != 0) {
 										<li><a href="tbl_periodoFiscal.jsp">Periodo Fiscal</a></li>
 										<li><a href="tbl_tipoDocumento.jsp">Tipo Documento</a></li>
 									</ul></li>
+									
+									<%
+										if(vwur.getId_rol() == 12){										
+									%>
+									
+										<li><a><i class="fa fa-cog"></i>Opciones de entorno<span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="indexMultiempresa.jsp?pass=200">Cambiar empresa</a></li>
+										<li><a href="indexPeriodoFiscal.jsp?status=ADMINPASSPF">Cambiar periodo
+											fiscal</a></li>
+											<li><a href="indexPeriodoContable.jsp?status=ADMINPASSPC">Cambiar periodo
+											contable</a></li>
+										<li><a href="indexMoneda.jsp?pass=200">Cambiar moneda</a></li>
+									</ul></li>
+									<%
+										}										
+									%>
 							</ul>
 						</div>
 					</div>

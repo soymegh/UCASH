@@ -15,10 +15,21 @@
 	response.setDateHeader( "Expires", -1 );
 	
 	//DECLARACIONES
+	PermisoTemporal tempPass = new PermisoTemporal();
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 	boolean permiso = false; //VARIABLE DE CONTROL
+	int pass = 0; 
+	String adminPass = ""; 
+	
+	if(request.getParameter("pass") != null){
+		pass = Integer.parseInt(request.getParameter("pass"));
+	}
+	
+	if(request.getParameter("status") != null){
+		adminPass = request.getParameter("status"); 
+	}
 	
 	//OBTENEMOS LA SESION
 	vwur = (Vw_usuariorol) session.getAttribute("acceso");
@@ -32,11 +43,17 @@
 		String miPagina = request.getRequestURL().substring(index+1);
 		
 		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
+		if(tempPass.checkPermisson(Vw_empresa.empresaActual, Tbl_periodoContable.idPeriodoActual, Tbl_moneda.idMonedaActual) != true 
+		|| PermisoTemporal.temporalFlag == true || pass > 0 || adminPass.equals("ADMINPASS") || adminPass.equals("ADMINPASSPF") || adminPass.equals("ADMINPASSPC")){
+			for(Vw_rolopciones vrop : listOpc){
+				if(vrop.getOpciones().trim().equals(miPagina.trim())){
+					permiso = true; //ACCESO CONCEDIDO
+					break;
+				}
 			}
+		} else {
+			response.sendRedirect("index.jsp");
+			return; 
 		}
 	}
 	else{
@@ -97,6 +114,7 @@
 							<div class="x_content">
 									<form class="" action="../Sl_periodoContable" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=adminPass%>" name="admin_pass" id="admin_pass"/>
 									  <input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 										<span class="section">Periodo Contable</span><br>
 										<a href="./addNuevoPeriodoContable.jsp">Agregar período contable</a>
@@ -126,7 +144,25 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
+													<%
+														if(adminPass.equals("ADMINPASS")){
+													%>
+													<button onClick="window.location.href='indexPeriodoFiscal.jsp?status=<%=adminPass%>'" type="button" class="btn btn-danger">Cancelar</button>
+													<%
+													} else if(adminPass.equals("ADMINPASSPF")) {
+													%>
+													<button onClick="window.location.href='indexPeriodoFiscal.jsp?status=<%=adminPass%>'" type="button" class="btn btn-danger">Cancelar</button>
+													<%
+													} else if(adminPass.equals("ADMINPASSPC")) {
+													%>
+													<button onClick="window.location.href='index.jsp'" type="button" class="btn btn-danger">Cancelar</button>
+													<%
+													} else {
+													%>
 													<button onClick="window.location.href='indexPeriodoFiscal.jsp'" type="button" class="btn btn-danger">Cancelar</button>
+													<%
+													}
+													%>
 													<button type='submit' class="btn btn-primary">Aceptar</button>
 												</div>
 											</div>

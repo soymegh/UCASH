@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import datos.Dt_usuario;
+import entidades.PermisoTemporal;
 import entidades.Vw_usuariorol;
 import datos.Dt_recoverPassword;
 
@@ -77,6 +78,7 @@ public class Sl_login extends HttpServlet {
 					vwur = dtu.dtGetVwUR(usuario);
 					HttpSession hts = request.getSession(true);
 					hts.setAttribute("acceso", vwur);
+					PermisoTemporal.temporalFlag = true; 
 					response.sendRedirect("production/indexMultiempresa.jsp");
 				}
 				else{
