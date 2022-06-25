@@ -98,7 +98,8 @@
 									<form class="" action="../Sl_periodoContable" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
 									  <input type="hidden" value="<%=signal%>" id="JAlertInput"/>
-										<span class="section">Periodo Contable</span>
+										<span class="section">Periodo Contable</span><br>
+										<a href="./addNuevoPeriodoContable.jsp">Agregar período contable</a>
 			
 										<div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Contable<span class="required">:</span></label>

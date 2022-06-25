@@ -10,6 +10,7 @@ public class Tbl_asientoContable {
 	private int idTipoDocumento;
 	private int idMoneda;
 	private int idTasaCambioDet;
+	private int numeroComprobante; 
 	private Date fecha;
 	private String descripcion;
 	private int usuarioCreacion;
@@ -18,7 +19,14 @@ public class Tbl_asientoContable {
 	private Timestamp fechaModificacion;
 	private int usuarioEliminacion;
 	private Timestamp fechaEliminacion;
-
+	
+	
+	public int getNumeroComprobante() {
+		return numeroComprobante;
+	}
+	public void setNumeroComprobante(int numeroComprobante) {
+		this.numeroComprobante = numeroComprobante;
+	}
 	public int getIdAsientoContable() {
 		return idAsientoContable;
 	}

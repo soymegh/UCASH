@@ -166,6 +166,7 @@ if (!permiso) {
 																	<thead>
 																		<tr>
 																			<th>ID</th>
+																			<th>NC</th>
 																			<th>Periodo Contable</th>
 																			<th>Nombre Comercial</th>
 																			<th>Tipo de Documento</th>
@@ -186,6 +187,7 @@ if (!permiso) {
 																		<tr>
 
 																			<td><%=ac.getIdAsientoContable()%></td>
+																			<td><%=ac.getNumeroComprobante()%></td>
 																			<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
 																			<td><%=ac.getNombreComercial()%></td>
 																			<td><%=ac.getTipo()%></td>
@@ -212,6 +214,7 @@ if (!permiso) {
 																				<tr>
 
 																					<td><%=ac.getIdAsientoContable()%></td>
+																					<td><%=ac.getNumeroComprobante()%></td>
 																					<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
 																					<td><%=ac.getNombreComercial()%></td>
 																					<td><%=ac.getTipo()%></td>

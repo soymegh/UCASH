@@ -34,11 +34,12 @@ public class Dt_periodoContable {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Vw_periodoContable> listarperiodoContable(){
+	public ArrayList<Vw_periodoContable> listarperiodoContable(int idEmpresa){
 		ArrayList<Vw_periodoContable> listperiodoContable = new ArrayList<Vw_periodoContable>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontable;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_periodocontableempresa WHERE idEmpresa = ?;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEmpresa);
 			rs = ps.executeQuery();
 			
 			while(this.rs.next()) {
