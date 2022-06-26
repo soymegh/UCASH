@@ -156,14 +156,9 @@
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Agregar</button>
-											<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_catalogocuenta.jsp"
-													title="Retornar a la vista anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Cancelar
-												</a>
-											</div>
-											</div>
+													<button type='button'
+														onClick="window.location.href='tbl_catalogocuenta.jsp'"
+														class="btn btn-danger">Cancelar</button>
 												</div>
 											</div>
 										</div>
