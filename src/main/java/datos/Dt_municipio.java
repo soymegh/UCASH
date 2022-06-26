@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.sql.ResultSet;
 
 public class Dt_municipio {
 
@@ -270,5 +272,27 @@ public class Dt_municipio {
 		}
 		return eliminado;
 	}
+	
+	
+	
+	
 
+	public JSONArray convert() throws Exception {
+		this.c = poolConexion.getConnection();
+		this.ps = this.c.prepareStatement("SELECT idDepartamento, departamento, idMunicipio, municipio FROM dbucash.vw_municipio_departamento order by departamento asc", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		this.rs = this.ps.executeQuery();
+	    JSONArray jsonArray = new JSONArray();
+	 
+	    while (this.rs.next()) {
+	 
+	        int columns = this.rs.getMetaData().getColumnCount();
+	        JSONObject obj = new JSONObject();
+	 
+	        for (int i = 0; i < columns; i++)
+	            obj.put(this.rs.getMetaData().getColumnLabel(i + 1).toLowerCase(), this.rs.getObject(i + 1));
+	 
+	        jsonArray.put(obj);
+	    }
+	    return jsonArray;
+	}
 }

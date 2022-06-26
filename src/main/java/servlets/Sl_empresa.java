@@ -82,20 +82,19 @@ public class Sl_empresa extends HttpServlet {
 			empresa.setIdDepartamento(departamento);
 			int municipio = Integer.parseInt(request.getParameter("municipio"));
 			empresa.setIdMunicipio(municipio);
-			empresa.setUsuarioCreacion(1);
+			
+			empresa.setUsuarioCreacion(Integer.parseInt(request.getParameter("currentUsuario")));
 			empresa.setFechaCreacion(date);
 			
 			
 			
 			//Agregar una tabla nueva de periodoEmpresa
-			int periodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));
-			int idEmpresaHidden = Integer.parseInt(request.getParameter("idEmpresaHidden"));
-			periodoEmpresa.setIdEmpresa(idEmpresaHidden);
-			periodoEmpresa.setIdPeriodoFiscal(periodoFiscal);
+
+
 
 
 			try {
-				if (dtEmpresa.addEmpresa(empresa)  && dtPeriodoEmpresa.addPeriodoEmpresa(periodoEmpresa)) {
+				if (dtEmpresa.addEmpresa(empresa)) {
 					response.sendRedirect("production/tbl_empresa.jsp?msj=1");
 				} else {
 					response.sendRedirect("production/tbl_empresa.jsp?msj=2");
@@ -112,37 +111,30 @@ public class Sl_empresa extends HttpServlet {
 			int idDepartamento = Integer.parseInt(request.getParameter("departamento")); 
 			int idRepresentanteLegal = Integer.parseInt(request.getParameter("representanteLegal")); 
 			int idMunicipio  = Integer.parseInt(request.getParameter("municipio")); 
-			int idPeriodoFiscal = Integer.parseInt(request.getParameter("periodoFiscal"));  
 			empresa.setIdEmpresa(idEmpresa); 
 			empresa.setIdDepartamento(idDepartamento); 
 			empresa.setIdMunicipio(idMunicipio);  
 			empresa.setIdRepresentanteLegal(idRepresentanteLegal);
 
-			idEmpresaHidden = Integer.parseInt(request.getParameter("idEmpresaHidden")); 
 			empresa.setRuc(request.getParameter("ruc")); 
 			empresa.setRazonSocial(request.getParameter("razonSocial")); 
 			empresa.setNombreComercial(request.getParameter("nombreComercial")); 
 			empresa.setTelefono(request.getParameter("telefono")); 
 			empresa.setCorreo(request.getParameter("correo")); 
 			empresa.setDireccion(request.getParameter("direccion"));
-			empresa.setUsuarioModificacion(1); 
+			empresa.setUsuarioModificacion(Integer.parseInt(request.getParameter("currentUsuario"))); 
 			empresa.setFechaModificacion(date); 
 			
 			//Editar periodo empresa
-			periodoEmpresa.setIdPeriodoFiscal(idPeriodoFiscal); 
-			periodoEmpresa.setIdEmpresa(idEmpresaHidden);
 			
 			//Obtener el periodo empresa actual
-			int currentPeriodoEmpresa = dtPeriodoEmpresa.getTablePeriodoEmpresaByIdEmpresa(idEmpresaHidden).getIdPeriodoEmpresa(); 
-			periodoEmpresa.setIdPeriodoEmpresa(currentPeriodoEmpresa); 
+
 			try {
-				if(dtEmpresa.modificarEmpresa(empresa) && dtPeriodoEmpresa.modificarPeriodoEmpresa(periodoEmpresa)) { 
-					System.out.println(idPeriodoFiscal + " " + idEmpresaHidden + " " + periodoEmpresa); 
+				if(dtEmpresa.modificarEmpresa(empresa)) { 
 
 					response.sendRedirect("production/tbl_empresa.jsp?msj=3"); 
 				} else {
 					response.sendRedirect("production/tbl_empresa.jsp?msj=4"); 
-					System.out.println(idPeriodoFiscal + " " + idEmpresaHidden + " " + periodoEmpresa); 
 
 				}
 			} catch(Exception e) {
