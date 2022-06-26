@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
 	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio,
 	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones , 
 	 
 	 java.util.ArrayList;"%>
-<%-- <%
+<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -48,13 +48,12 @@
 		return;
 	}
 	
-%> --%>
+%>
 <!DOCTYPE html>
 <html lang="es">
 <%
 String empresa = "";
 empresa = request.getParameter("idEmpresa") == null ? "0" : request.getParameter("idEmpresa");
-
 Vw_empresa vwEmpresa = new Vw_empresa();
 Dt_empresa dtEmpresa = new Dt_empresa();
 vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
@@ -277,7 +276,6 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 	<!-- Javascript functions	-->
 
 	<script>
-
     function setForm(){
     	document.getElementById("ruc").value = "<%=vwEmpresa.getRuc()%>";
     	document.getElementById("razonSocial").value = "<%=vwEmpresa.getRazonSocial()%>";
@@ -289,16 +287,14 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
     	document.getElementById("departamento").value = "<%=vwEmpresa.getDepartamentoNombre()%>";
     	document.getElementById("municipio").value = "<%=vwEmpresa.getMunicipioNombre()%>";
     	
+    	var date = "<%=vwEmpresa.getPeriodoFiscal()%>"; 
     	
-    	
-    	if(<%=vwEmpresa.getPeriodoFiscal()%> != null) {
+    	if(date != null) {
     	document.getElementById("periodoFiscal").value = "<%=vwEmpresa.getPeriodoFiscal()%>";
-
 		} else {
 			document.getElementById("periodoFiscal").value = "No se ha asignado un periodo fiscal";
 		}
     }
-
 		window.onload = setForm;
 	</script>
 	<script>
@@ -306,7 +302,6 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 			var password = document.getElementById("password1");
 			var slash = document.getElementById("slash");
 			var eye = document.getElementById("eye");
-
 			if (password.type === 'password') {
 				password.type = "text";
 				slash.style.display = "block";
@@ -316,7 +311,6 @@ vwEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 				slash.style.display = "none";
 				eye.style.display = "block";
 			}
-
 		}
 	</script>
 

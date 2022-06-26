@@ -82,7 +82,8 @@ public class Sl_empresa extends HttpServlet {
 			empresa.setIdDepartamento(departamento);
 			int municipio = Integer.parseInt(request.getParameter("municipio"));
 			empresa.setIdMunicipio(municipio);
-			empresa.setUsuarioCreacion(1);
+			
+			empresa.setUsuarioCreacion(Integer.parseInt(request.getParameter("currentUsuario")));
 			empresa.setFechaCreacion(date);
 			
 			
@@ -121,7 +122,7 @@ public class Sl_empresa extends HttpServlet {
 			empresa.setTelefono(request.getParameter("telefono")); 
 			empresa.setCorreo(request.getParameter("correo")); 
 			empresa.setDireccion(request.getParameter("direccion"));
-			empresa.setUsuarioModificacion(1); 
+			empresa.setUsuarioModificacion(Integer.parseInt(request.getParameter("currentUsuario"))); 
 			empresa.setFechaModificacion(date); 
 			
 			//Editar periodo empresa
