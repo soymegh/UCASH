@@ -158,11 +158,9 @@ tTipocuenta = dttipocuenta.getTableTipocuentaByID(Integer.parseInt(tipocuenta));
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-											<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_tipocuenta.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Cancelar
+											<button type='button'
+														onClick="window.location.href='tbl_tipocuenta.jsp'"
+														class="btn btn-primary">Regresar</button>
 												</a>
 											</div>
 											</div>

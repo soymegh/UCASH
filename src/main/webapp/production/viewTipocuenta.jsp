@@ -139,10 +139,9 @@ tTipocuenta = dttipocuenta.getTableTipocuentaByID(Integer.parseInt(tipocuenta));
 											</div>
 										</div>
 											<div class="form-group" align="center">
-												<a href="tbl_tipocuenta.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Regresar
-												</a>
+												<button type='button'
+														onClick="window.location.href='tbl_tipocuenta.jsp'"
+														class="btn btn-primary">Regresar</button>
 											</div>
 										</div>
 									</form>
