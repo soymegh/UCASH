@@ -1,14 +1,12 @@
-<%@ page language="java" contentType="text/html;  charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
-
+	
 <%
-
 //JAlert flag
 String signal = "";
 if (request.getParameter("msj") != null) {
 	signal = request.getParameter("msj");
 }
-
 //INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -53,11 +51,8 @@ if (request.getParameter("msj") != null) {
 	}	
 	
 %>
-	
-	
-	
-	
-	
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +62,7 @@ if (request.getParameter("msj") != null) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Tipo Identificacion</title>
+<title>Gestión | Representante Legal</title>
 
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 
@@ -99,10 +94,8 @@ if (request.getParameter("msj") != null) {
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
-			<!-- sidebar menu -->
-					<jsp:include page="navegacion.jsp"></jsp:include>
-					<!-- /sidebar menu -->
-
+			
+<jsp:include page="navegacion.jsp"></jsp:include>
 			<!-- top navigation -->
 			
 			<!-- /top navigation -->
@@ -113,13 +106,11 @@ if (request.getParameter("msj") != null) {
 					<div class="page-title">
 						<div class="title_left">
 							<h3>
-								Tipo Identificacion <small></small>
+								Representante Legal <small></small>
 							</h3>
 						</div>
 
-						<div class="title_right">
-							
-						</div>
+						
 					</div>
 
 					<div class="clearfix"></div>
@@ -128,7 +119,7 @@ if (request.getParameter("msj") != null) {
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Tipo Identificacion</h2>
+									<h2>Representante Legal</h2>
 									
 									<div class="clearfix"></div>
 								</div>
@@ -138,9 +129,17 @@ if (request.getParameter("msj") != null) {
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addTipoIdentificacion.jsp"> <i class="fa fa-plus-square"></i>
-														Nuevo Tipo Identificacion
+													<a href="addRepresentanteLegal.jsp"> <i class="fa fa-plus-square"></i>
+														Nuevo Representante Legal
+													</a> 
+													
+													<br></br>
+													
+													<a href="tbl_representanteLegal.jsp"> <i class="fa fa-file"></i>
+														Gestion Representante Legal
 													</a> <br></br>
+													
+													
 												</div>
 												
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
@@ -149,49 +148,50 @@ if (request.getParameter("msj") != null) {
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-													ArrayList<Tbl_tipoIdentificacion> listarTipoIdentificacion = new ArrayList<Tbl_tipoIdentificacion>();
-													Dt_tipoIdentificacion dtTI = new Dt_tipoIdentificacion();
-													listarTipoIdentificacion = dtTI.listarTipoIdentificacion();
+													ArrayList<Vw_representanteLegal> listarRepresentanteLegal = new ArrayList<Vw_representanteLegal>();
+													Dt_representanteLegal dtRL = new Dt_representanteLegal();
+													listarRepresentanteLegal = dtRL.listarRepresentanteLegal();
 													%>
 													<thead>
 														<tr>
 															<th>ID</th>
-															
+															<th>Nombre Completo</th>
 															<th>Tipo</th>
-															
+															<th>Correo</th>
+															<th>Telefono</th>
 															<th>Estado</th>
-															
 															<th>Acciones</th>
 														</tr>
 													</thead>
 													<tbody>
 														<%
-														for (Tbl_tipoIdentificacion TI : listarTipoIdentificacion) {
+														for (Vw_representanteLegal RL : listarRepresentanteLegal) {
 															String estado = "";
-															if (TI.getEstado() != 3) {
+															if (RL.getEstado() != 3) {
 																estado = "ACTIVO";
 															} else {
 																estado = "INACTIVO";
 															}
+														
 														%>
 														<tr>
 															
-															<td><%=TI.getIdTipoIdentifiacion() %></td>
-														
-															<td><%=TI.getTipo() %></td>
-															
+															<td><%=RL.getIdRepresentante() %></td>
+															<td><%=RL.getNombreCompleto() %></td>
+															<td><%=RL.getTipo() %></td>
+															<td><%=RL.getCorreo() %></td>
+															<td><%=RL.getTelefono() %></td>
 															<td><%=estado %></td>
 															
 															
-															<td><a href="editTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion() %> "> <i
+															<td><a href="editRepresentanteLegal.jsp?idRepresentanteLegal=<%= RL.getIdRepresentante() %>" > <i
 																	class="fa fa-edit" title="Editar"></i></a>
 																	
-																&nbsp;&nbsp; <a href="viewTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion()  %>" >
+																&nbsp;&nbsp; <a href="viewRepresentanteLegal.jsp?idRepresentanteLegal=<%= RL.getIdRepresentante() %>"  >
 																	<i class="fa fa-eye" title="Mostrar"></i>
 																	
-															</a> &nbsp;&nbsp; <a href="deleteTipoIdentificacion.jsp?idTipoIdentificacion=<%= TI.getIdTipoIdentifiacion() %>" > <i
+															</a> &nbsp;&nbsp; <a href="deleteRepresentanteLegal.jsp?idRepresentanteLegal=<%= RL.getIdRepresentante() %>" > <i
 																	class="fa fa-trash" title="Eliminar"></i>
-																	
 															</a></td>
 														</tr>
 														<%
@@ -270,44 +270,36 @@ if (request.getParameter("msj") != null) {
 		var mensaje = "";
 		mensaje = document.getElementById("JAlertInput").value;
 		console.log(mensaje);
-
 		$(document)
 				.ready(
 						function() {
-							if (mensaje == "1") {
-								successAlert('Exito',
-										'Tipo identificacion ha sido registrado correctamente.')
-								console.log(mensaje);
-
-							}
-
-							if (mensaje == "2") {
-								errorAlert('Error',
-										'Tipo identificacion no se ha podido guardar. Por favor verifique los datos')
-							}
-
 							if (mensaje == "3") {
 								successAlert('Exito',
-										'Los datos de tipo identificacion se han editado correctamente.')
+										'Representante Legal ha sido registrado correctamente.')
+								console.log(mensaje);
 							}
-
 							if (mensaje == "4") {
 								errorAlert('Error',
-										'Los datos de tipo identificacion no se han editado correctamente.')
+										'Representante legal no se ha podido guardar. Por favor verifique los datos')
 							}
-							
 							if (mensaje == "5") {
 								successAlert('Exito',
-										'Los datos de tipo identificacion se han eliminado correctamente.')
+										'Los datos de representante legal se han editado correctamente.')
 							}
-
 							if (mensaje == "6") {
 								errorAlert('Error',
-										'Los datos de tipo identificacion no se han eliminado correctamente.')
+										'Los datos de representante legal no se han editado correctamente.')
 							}
 							
+							if (mensaje == "7") {
+								successAlert('Exito',
+										'Los datos de representante legal se han eliminado correctamente.')
+							}
+							if (mensaje == "8") {
+								errorAlert('Error',
+										'Los datos de representante legal no se han eliminado correctamente.')
+							}
 							
-
 							$("#example1").DataTable({
 								"responsive" : true,
 								"lengthChange" : false,
