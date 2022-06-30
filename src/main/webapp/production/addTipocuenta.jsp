@@ -142,12 +142,9 @@
 									<div class="form-group">
 										<div class="col-md-9 col-sm-9  offset-md-3">
 											<button type="submit" class="btn btn-primary">Agregar</button>
-											<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_tipocuenta.jsp"
-													title="Retornar a la página anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Cancelar
-												</a>
+											<button type='button'
+														onClick="window.location.href='tbl_tipocuenta.jsp'"
+														class="btn btn-primary">Regresar</button>
 											</div>
 											</div>
 										</div>
