@@ -243,7 +243,7 @@ tipI = dtTId.getTipoIdentificacionbyID(tRL.getIdTipoIdentifiacion());
 										</div>
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Telï¿½fono<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input value="<%=tRL.getTelefono()%>" class="form-control"

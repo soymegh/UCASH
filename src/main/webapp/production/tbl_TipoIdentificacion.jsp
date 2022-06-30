@@ -67,7 +67,7 @@ if (request.getParameter("msj") != null) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Tipo Identificacion</title>
+<title>Gestión | Tipo Identificacion</title>
 
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 
