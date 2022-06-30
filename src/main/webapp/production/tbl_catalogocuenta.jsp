@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 	
 <%
@@ -290,7 +290,7 @@ int idd = dtCcd.idCuentaContable();
 							}
 							if (mensaje == "2") {
 								errorAlert('Error',
-										'El catalogo de cuenta no se ha podido guardar. Por favor verifique los datos.')
+										'El catalogo de cuentas no se ha podido guardar. Por favor verifique los datos o cerciórese que la empresa que eligió para crear el nuevo catálogo no tiene un catalogo creado.')
 							}
 							if (mensaje == "3") {
 								successAlert('Exito',

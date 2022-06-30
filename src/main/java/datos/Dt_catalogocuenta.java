@@ -1,8 +1,10 @@
 package datos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -131,46 +133,48 @@ public class Dt_catalogocuenta {
 		return listCatalogocuenta;
 	}
 	
+	
 	// Metodo para agregar un catalogo de cuenta
-		public boolean addCatalogocuenta(Tbl_catalogocuenta catalogoC) {
-			boolean guardado = false;
+	public boolean addCatalogocuenta(Tbl_catalogocuenta catalogoC) {
+		boolean guardado = false;			
+		
+		try {
+            c = poolConexion.getConnection();
+            this.llenar_rsCatalogo(c);
+            this.rsCatalogocuenta.moveToInsertRow();            
 
+            rsCatalogocuenta.updateInt("IdCatalogo", catalogoC.getIdCatalogo());
+            rsCatalogocuenta.updateInt("idEmpresa", catalogoC.getIdEmpresa());
+            rsCatalogocuenta.updateString("titulo", catalogoC.getTitulo());
+            rsCatalogocuenta.updateString("descripcion", catalogoC.getDescripcion());
+            rsCatalogocuenta.updateDate("fecha", catalogoC.getFecha());
+            rsCatalogocuenta.updateInt("usuarioCreacion", catalogoC.getUsuarioCreacion());
+            rsCatalogocuenta.updateDate("fechaCreacion", catalogoC.getFechaCreacion());
+
+            rsCatalogocuenta.insertRow();
+            rsCatalogocuenta.moveToCurrentRow();
+            guardado = true;
+            
+            } catch (Exception e) {
+			System.err.println("ERROR AL GUARDAR CATALOGO DE CUENTA: " + e.getMessage());
+			e.printStackTrace();
+		} finally {
 			try {
-				c = poolConexion.getConnection();
-				this.llenar_rsCatalogo(c);
-				this.rsCatalogocuenta.moveToInsertRow();
-
-				rsCatalogocuenta.updateInt("IdCatalogo", catalogoC.getIdCatalogo());
-				rsCatalogocuenta.updateInt("idEmpresa", catalogoC.getIdEmpresa());
-				rsCatalogocuenta.updateString("titulo", catalogoC.getTitulo());
-				rsCatalogocuenta.updateString("descripcion", catalogoC.getDescripcion());
-				rsCatalogocuenta.updateDate("fecha", catalogoC.getFecha());
-				rsCatalogocuenta.updateInt("usuarioCreacion", catalogoC.getUsuarioCreacion());
-				rsCatalogocuenta.updateDate("fechaCreacion", catalogoC.getFechaCreacion());
-				
-				rsCatalogocuenta.insertRow();
-				rsCatalogocuenta.moveToCurrentRow();
-				guardado = true;
-			} catch (Exception e) {
-				System.err.println("ERROR AL GUARDAR CATALOGO DE CUENTA: " + e.getMessage());
-				e.printStackTrace();
-			} finally {
-				try {
-					if (rsCatalogocuenta != null) {
-						rsCatalogocuenta.close();
-					}
-					if (c != null) {
-						poolConexion.closeConnection(c);
-					}
-
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (rsCatalogocuenta != null) {
+					rsCatalogocuenta.close();
 				}
-			}
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
 
-			return guardado;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
+		return guardado;
+	}
 
 		//Obtener el ID del Catalogo
 		//sujeto a cambios por nombres de entidades de la view registrada en la base de datos
@@ -396,5 +400,57 @@ public class Dt_catalogocuenta {
 				}
 			}
 			return catalogo;
+		}		
+				
+		
+		
+		//filtrar catalogos unicos por empresa
+		public ArrayList<Vw_empresa> getTableEmpresaNoCatalogoCuenta() {
+
+			ArrayList<Vw_empresa> listEmpresa = new ArrayList<Vw_empresa>();
+			try {
+				c = poolConexion.getConnection();
+				ps = c.prepareStatement("SELECT * FROM vw_empresa WHERE idEmpresa NOT IN (SELECT idEmpresa FROM catalogocuenta);", ResultSet.TYPE_SCROLL_SENSITIVE,
+						ResultSet.CONCUR_READ_ONLY);
+				rs = ps.executeQuery();
+				while (rs.next()) {
+					Vw_empresa tblEmpresa = new Vw_empresa();
+					tblEmpresa.setIdEmpresa(rs.getInt("idEmpresa"));
+					tblEmpresa.setRuc(rs.getString("ruc"));
+					tblEmpresa.setRazonSocial(rs.getString("razonSocial"));
+					tblEmpresa.setNombreComercial(rs.getString("nombreComercial"));
+					tblEmpresa.setTelefono(rs.getString("telefono"));
+					tblEmpresa.setCorreo(rs.getString("correo"));
+					tblEmpresa.setDireccion(rs.getString("direccion"));
+					tblEmpresa.setRepresentante(rs.getString("Representante"));
+					tblEmpresa.setDepartamentoNombre(rs.getString("departamento"));
+					tblEmpresa.setMunicipioNombre(rs.getString("municipio"));
+					tblEmpresa.setPeriodoFiscal(rs.getString("periodoFiscal"));
+					listEmpresa.add(tblEmpresa);
+				}
+			} catch (Exception e) {
+				System.out.println("DATOS: ERROR EN LISTAR tbl_empresa " + e.getMessage());
+				e.printStackTrace();
+			} finally {
+				try {
+					if (rs != null) {
+						rs.close();
+					}
+					if (ps != null) {
+						ps.close();
+					}
+					if (c != null) {
+						poolConexion.closeConnection(c);
+					}
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+			return listEmpresa;
+
 		}
+		
 }
