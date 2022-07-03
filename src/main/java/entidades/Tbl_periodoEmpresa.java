@@ -24,5 +24,4 @@ public class Tbl_periodoEmpresa {
 	public void setIdPeriodoFiscal(int idPeriodoFiscal) {
 		this.idPeriodoFiscal = idPeriodoFiscal;
 	} 
-}	
 	
