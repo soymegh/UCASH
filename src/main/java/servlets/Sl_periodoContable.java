@@ -110,11 +110,12 @@ public class Sl_periodoContable extends HttpServlet {
 			}
 
 			break;
-
-		case 4:
+			
+		case 4: 
 			int idPeriodoContable = 0;
+			
+			if(request.getParameter("combobox_periodoContable") != null) {
 
-			if (request.getParameter("combobox_periodoContable") != null) {
 				idPeriodoContable = Integer.parseInt(request.getParameter("combobox_periodoContable"));
 				System.out.print(request.getParameter("combobox_periodoContable"));
 				try {
@@ -148,7 +149,7 @@ public class Sl_periodoContable extends HttpServlet {
 			}
 			break;
 
-		// Agregar un período contable a través dle indexPeriodoContable
+		// Agregar un perÃ­odo contable a travÃ©s dle indexPeriodoContable
 		case 6:
 			try {
 				periodocontable.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("cbxIDPF")));

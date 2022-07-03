@@ -148,5 +148,3 @@ public class Dt_periodoEmpresa {
 		return periodoEmpresa;
 
 	}
-}
-

@@ -21,16 +21,16 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 /**
- * Servlet implementation class Sl_rptIndCuentaContable
+ * Servlet implementation class Sl_BalanzaComprobacion
  */
-@WebServlet("/Sl_LibroMayorAuxiliar")
-public class Sl_LibroMayorAuxiliar extends HttpServlet {
+@WebServlet("/Sl_BalanzaComprobacion")
+public class Sl_BalanzaComprobacion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Sl_LibroMayorAuxiliar() {
+    public Sl_BalanzaComprobacion() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,11 +41,10 @@ public class Sl_LibroMayorAuxiliar extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
-try {
-	
-	
-	
-			poolConexion p = poolConexion.getInstance();
+		
+		try {
+
+			poolConexion p = poolConexion.getInstance()	;
 			Connection c = poolConexion.getConnection();
 			
 			String idPeriodoFiscal = "";
@@ -60,23 +59,20 @@ try {
 			HashMap<String, Object> hm = new HashMap<>();
 			hm.put("periodoFiscal" , idPeriodoFiscal.toString());
 			hm.put("idE" , Integer.parseInt(idEmpresa));
-
 			
 			OutputStream otps = response.getOutputStream();
 			ServletContext context = getServletContext();
 			String path = context.getRealPath("/");
-			String template = "reportes\\rptLibroMayorAuxiliar.jasper";
+			String template = "reportes\\BalanzaComprobacion.jasper";
 			System.out.println("Path: "+path+template);
 			
 			Exporter exporter = new JRPdfExporter();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(path+template, hm, c);
 			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "inline; filename=\"LibroMayorAuxiliar_"+ idPeriodoFiscal +".pdf");
+			response.setHeader("Content-Disposition", "inline; filename=\"BalanzaComprobacion_"+ idPeriodoFiscal +".pdf");
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(otps));
 			exporter.exportReport();
-			
-			System.out.print("hola");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

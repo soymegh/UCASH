@@ -47,9 +47,9 @@ public class Sl_rptCuentaContable extends HttpServlet {
 		try {
 			
 			
-			String idPeriodoContable = "";
-			idPeriodoContable = request.getParameter("idPeriodoContable")==null?"0":request.getParameter("idPeriodoContable");
-			System.out.println("idPeriodoContable: "+idPeriodoContable);
+			String idPeriodoFiscal = "";
+			idPeriodoFiscal = request.getParameter("idPeriodoFiscal")==null?"0":request.getParameter("idPeriodoFiscal");
+			System.out.println("idPeriodoFiscal: "+idPeriodoFiscal);
 			
 			String idEmpresa = ""; 
 			idEmpresa = request.getParameter("idE")==null?"0":request.getParameter("idE");
@@ -59,7 +59,7 @@ public class Sl_rptCuentaContable extends HttpServlet {
 			Connection c = poolConexion.getConnection();
 			
 			HashMap<String, Object> hm = new HashMap<>();
-			hm.put("periodoContable" , idPeriodoContable.toString());
+			hm.put("periodoFiscal" , idPeriodoFiscal.toString());
 			hm.put("idE" , Integer.parseInt(idEmpresa));
 
 			OutputStream otps = response.getOutputStream();
@@ -71,7 +71,7 @@ public class Sl_rptCuentaContable extends HttpServlet {
 			Exporter exporter = new JRPdfExporter();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(path+template, hm, c);
 			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "inline; filename=\"rptCatalogoCuentas_"+ idPeriodoContable +".pdf");
+			response.setHeader("Content-Disposition", "inline; filename=\"rptCatalogoCuentas_"+ idPeriodoFiscal +".pdf");
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(otps));
 			exporter.exportReport();
