@@ -156,8 +156,8 @@ if (!permiso) {
 															<li role="presentation" class="dropdown"><a
 																id="drop4" href="#" class="dropdown-toggle"
 																data-toggle="dropdown" aria-haspopup="true"
-																role="button" aria-expanded="false">Imprimir Reportes <span
-																	class="caret"></span>
+																role="button" aria-expanded="false">Imprimir
+																	Reportes <span class="caret"></span>
 															</a>
 																<div class="dropdown-menu"
 																	aria-labelledby="dropdownMenuButton"
@@ -166,15 +166,18 @@ if (!permiso) {
 																	<a
 																		href="../Sl_rptCuentaContable?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
 																		target='_blank'> <i class="fa fa-print"
-																		title="Imprimir Lista de Cuentas Contables">Lista de Cuentas Contables</i>
+																		title="Imprimir Lista de Cuentas Contables">Lista
+																			de Cuentas Contables</i>
 																	</a> <br></br> <a
 																		href="../Sl_LibroMayorAuxiliar?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
 																		target='_blank'> <i class="fa fa-print"
-																		title="Imprimir Libro Mayor Auxiliar"> Libro Mayor Auxiliar</i>
+																		title="Imprimir Libro Mayor Auxiliar"> Libro Mayor
+																			Auxiliar</i>
 																	</a> <br></br> <a
 																		href="../Sl_BalanzaComprobacion?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
 																		target='_blank'> <i class="fa fa-print"
-																		title="Imprimir Balanza de Comprobacion de Saldos">Balanza de Comprobacion de Saldos</i>
+																		title="Imprimir Balanza de Comprobacion de Saldos">Balanza
+																			de Comprobacion de Saldos</i>
 																	</a>
 																</div></li> <br></br> <input type="hidden" value="<%=signal%>"
 																id="JAlertInput" />
@@ -190,7 +193,10 @@ if (!permiso) {
 															<thead>
 																<tr>
 																	<th>ID</th>
-																	<th>Numero de Cuenta</th>
+																	<th>Cta</th>
+																	<th>SCta</th>
+																	<th>SSC</th>
+																	<th>SSS</th>
 																	<th>Nombre Cuenta</th>
 																	<th>Nivel</th>
 																	<th>Rubro</th>
@@ -217,13 +223,18 @@ if (!permiso) {
 																<tr>
 
 																	<td><%=cc.getIdCuenta()%></td>
-																	<td><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%></td>
+																	<td><%=cc.getNumeroCuenta()%></td>
+																	<td><%=cc.getsC()%></td>
+																	<td><%=cc.getSsC()%></td>
+																	<td><%=cc.getSssC()%></td>
 																	<td><%=cc.getNombreCuenta()%></td>
 																	<th><%=cc.getNivel()%></th>
 																	<td><%=cc.getRubro()%></td>
 																	<td><%=cc.getTipoCuenta()%></td>
 																	<td><%=cc.getCatalogoCuenta()%></td>
 																	<td><%=estado%></td>
+
+
 
 																	<td><a
 																		href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
@@ -234,11 +245,46 @@ if (!permiso) {
 																	</a> &nbsp;&nbsp; <a
 																		href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
 																			<i class="fa fa-trash" title="Eliminar"></i>
-																	</a></td>
-																</tr>
+																	</a> 
+																	
+																	<% int cta = Integer.parseInt(cc.getNumeroCuenta());%> 
+																	<% int scta = Integer.parseInt(cc.getsC());%> 
+																	
+																	<%try{ %>
+
+																		<% if(cta != 100 && cta != 200 && cta != 300 && scta == 0){%>
+																		 &nbsp;&nbsp; 
+																		 <a href="../Sl_Anexos?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>
+																		 &idE=<%=Vw_empresa.empresaActual%>&nCuenta=<%=cc.getNumeroCuenta()%>&nomCuenta=<%=cc.getNombreCuenta()%>"
+																		target='_blank'> <i class="fa fa-print" title="Imprimir Anexos de esta Cuenta"></i>
+																		</a> 
+																	<%
+																	}
+																	else
+																	{
+																	%> 
+																	&nbsp;&nbsp; 
+																	<a href="#"> 
+																		<i class="fa fa-minus"
+																		title="Opcion no disponible para este registro"></i>
+																	</a>
+
+																	<%
+																	}
+																	%> 
+																<%
+																}catch(Exception e){
+																	
+																	e.printStackTrace();
+																	System.out.println("REPORTE: ERROR AL GENERAR REPORTE " + e.getMessage());
+																}
+																%> 
 																<%
 																}
 																%>
+																</td>
+																</tr>
+
 															</tbody>
 
 														</table>
