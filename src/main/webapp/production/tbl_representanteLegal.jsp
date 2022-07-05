@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
+	
 	
 <%
 
@@ -54,6 +55,9 @@ if (request.getParameter("msj") != null) {
 	
 %>
 
+<%
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -134,6 +138,11 @@ if (request.getParameter("msj") != null) {
 													<a href="addRepresentanteLegal.jsp"> <i class="fa fa-plus-square"></i>
 														Nuevo Representante Legal
 													</a> <br></br>
+													
+													<a href="listadoRepresentanteLegal.jsp"> <i class="fa fa-file"></i>
+														Listado Representante Legal
+													</a> <br></br>
+													
 												</div>
 												
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
@@ -142,9 +151,17 @@ if (request.getParameter("msj") != null) {
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
-													ArrayList<Vw_representanteLegal> listarRepresentanteLegal = new ArrayList<Vw_representanteLegal>();
 													Dt_representanteLegal dtRL = new Dt_representanteLegal();
-													listarRepresentanteLegal = dtRL.listarRepresentanteLegal();
+													ArrayList<Vw_representanteLegal> listarRepresentanteLegal = new ArrayList<Vw_representanteLegal>();
+
+													String nombreEmpresa = "";
+													if (Vw_empresa.empresaActual != 0) {
+														Dt_empresa datosEmpresa = new Dt_empresa();
+														int idEmpresaActual = Vw_empresa.empresaActual;
+														listarRepresentanteLegal = dtRL.listarRepresentanteLegalDeEmpresa(idEmpresaActual);
+
+													}
+														
 													%>
 													<thead>
 														<tr>
@@ -189,7 +206,8 @@ if (request.getParameter("msj") != null) {
 															</a></td>
 														</tr>
 														<%
-														}
+														
+													}
 														%>
 													</tbody>
 
