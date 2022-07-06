@@ -20,6 +20,13 @@
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 	boolean permiso = false; //VARIABLE DE CONTROL
 	
+	int idEmpresa = 0; 
+	
+	if(request.getParameter("idE") != null){
+		idEmpresa = Integer.parseInt(request.getParameter("idE"));
+		Vw_empresa.empresaActual = idEmpresa; 
+	}
+	
 	//OBTENEMOS LA SESION
 	vwur = (Vw_usuariorol) session.getAttribute("acceso");
 	System.out.print("Este es el id de la sesión (JSP - indexMoneda): " + session.getId());

@@ -113,14 +113,19 @@ public class Sl_periodoContable extends HttpServlet {
 			
 		case 4: 
 			int idPeriodoContable = 0;
+			String adminPass = ""; 
 			
 			if(request.getParameter("combobox_periodoContable") != null) {
-
 				idPeriodoContable = Integer.parseInt(request.getParameter("combobox_periodoContable"));
-				System.out.print(request.getParameter("combobox_periodoContable"));
 				try {
 					if (dpc.obtenerPContablePorIdLogin(idPeriodoContable)) {
-						response.sendRedirect("production/indexMoneda.jsp");
+						if(request.getParameter("admin_pass") != null && !request.getParameter("admin_pass").trim().equals("")) {
+							adminPass = request.getParameter("admin_pass"); 
+							response.sendRedirect("production/indexMoneda.jsp?status="+adminPass+"");
+						}else {
+							response.sendRedirect("production/indexMoneda.jsp");
+						}
+						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

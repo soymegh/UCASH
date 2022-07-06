@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import datos.Dt_usuario;
+import entidades.PermisoTemporal;
 import entidades.Vw_usuariorol;
 import datos.Dt_recoverPassword;
 
@@ -77,6 +78,7 @@ public class Sl_login extends HttpServlet {
 					vwur = dtu.dtGetVwUR(usuario);
 					HttpSession hts = request.getSession(true);
 					hts.setAttribute("acceso", vwur);
+					PermisoTemporal.temporalFlag = true; 
 					response.sendRedirect("production/indexMultiempresa.jsp");
 				}
 				else{
@@ -121,12 +123,21 @@ public class Sl_login extends HttpServlet {
 
 			try{
 				if(dtu.recoverPassword(user, email) != null){
-					vwur = dtu.recoverPassword(user, email);
-					recoverPwd.recoverPassword(dtu.desencriptarPassword(vwur.getUsuario(), vwur.getKey(), vwur.getPassword()), vwur.getEmail(), vwur.getUsuario());
-					response.sendRedirect("login.jsp");
+					if(dtu.recoverPassword(user, email) != null) {
+						vwur = dtu.recoverPassword(user, email);
+						if(dtu.desencriptarPassword(vwur.getUsuario(), vwur.getKey(), vwur.getPassword()) != null) {
+							recoverPwd.recoverPassword(dtu.desencriptarPassword(vwur.getUsuario(), vwur.getKey(), vwur.getPassword()), vwur.getEmail(), vwur.getUsuario());
+							response.sendRedirect("login.jsp");
+						}else {
+							response.sendRedirect("login.jsp?msj=404");
+						}
+					}else {
+						response.sendRedirect("login.jsp?msj=404");
+					}
+					
 				}
 				else{
-				response.sendRedirect("login.jsp?msj=403");
+					response.sendRedirect("login.jsp?msj=404");
 				}	
 			}
 			catch(Exception e){

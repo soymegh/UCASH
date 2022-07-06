@@ -129,12 +129,22 @@ public class Sl_periodoFiscal extends HttpServlet {
 
 
 			int idPeriodoFiscal = 0;
+			String adminPass = ""; 
+			
+			
+			
 			if (request.getParameter("combobox_periodoFiscal") != null) {
 				idPeriodoFiscal = Integer.parseInt(request.getParameter("combobox_periodoFiscal"));
 
 				try {
 					if (dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal)) {
-						response.sendRedirect("production/indexPeriodoContable.jsp");
+						if(request.getParameter("admin_pass") != null && !request.getParameter("admin_pass").trim().equals("")) {
+							adminPass = request.getParameter("admin_pass"); 
+							response.sendRedirect("production/indexPeriodoContable.jsp?status="+adminPass+"");
+						}else {
+							response.sendRedirect("production/indexPeriodoContable.jsp");
+						}
+						
 					}
 					;
 				} catch (Exception e) {
