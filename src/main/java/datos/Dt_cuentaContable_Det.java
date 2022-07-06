@@ -125,7 +125,7 @@ public class Dt_cuentaContable_Det {
 		Vw_cuentacontable_cuentacontable_det ccD = new Vw_cuentacontable_cuentacontable_det();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM vw_cuentacontable_cuentacontable_det WHERE idCuentaContableDet=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps = c.prepareStatement("SELECT * FROM dbucash.cuentacontabledet where idCuenta = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			ps.setInt(1, idCuentaContableDet);
 			rs = ps.executeQuery();
 			if(rs.next()) {

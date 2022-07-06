@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 <!DOCTYPE html>
 
@@ -151,17 +151,36 @@ if (!permiso) {
 															<a
 																href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
 																<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
-															</a> &nbsp;&nbsp;
-															
-															<a href ="../Sl_rptCuentaContable?idPeriodoContable=Del: <%=Tbl_periodoContable.fechaInicioActual%> Al: <%=Tbl_periodoContable.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>" target='_blank'>
-																<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables">Imprimir Lista de Cuentas Contables</i>
-															</a>&nbsp;&nbsp;
-															
-															<a href ="../Sl_LibroMayorAuxiliar?idE=<%=Vw_empresa.empresaActual%>" target='_blank'>
-																<i class="fa fa-print" title="Imprimir Libro Mayor Auxiliar"> Imprimir Libro Mayor Auxiliar</i>
-															</a>&nbsp;&nbsp;<br></br> 
-															
-															<input type="hidden" value="<%=signal%>" id="JAlertInput" />
+															</a>
+
+															<li role="presentation" class="dropdown"><a
+																id="drop4" href="#" class="dropdown-toggle"
+																data-toggle="dropdown" aria-haspopup="true"
+																role="button" aria-expanded="false">Imprimir
+																	Reportes <span class="caret"></span>
+															</a>
+																<div class="dropdown-menu"
+																	aria-labelledby="dropdownMenuButton"
+																	x-placement="top-start"
+																	style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -129px, 0px);">
+																	<a
+																		href="../Sl_rptCuentaContable?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
+																		target='_blank'> <i class="fa fa-print"
+																		title="Imprimir Lista de Cuentas Contables">Lista
+																			de Cuentas Contables</i>
+																	</a> <br></br> <a
+																		href="../Sl_LibroMayorAuxiliar?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
+																		target='_blank'> <i class="fa fa-print"
+																		title="Imprimir Libro Mayor Auxiliar"> Libro Mayor
+																			Auxiliar</i>
+																	</a> <br></br> <a
+																		href="../Sl_BalanzaComprobacion?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
+																		target='_blank'> <i class="fa fa-print"
+																		title="Imprimir Balanza de Comprobacion de Saldos">Balanza
+																			de Comprobacion de Saldos</i>
+																	</a>
+																</div></li> <br></br> <input type="hidden" value="<%=signal%>"
+																id="JAlertInput" />
 														</div>
 														<table id="datatable-buttons"
 															class="table table-striped table-bordered"
@@ -174,7 +193,10 @@ if (!permiso) {
 															<thead>
 																<tr>
 																	<th>ID</th>
-																	<th>Numero de Cuenta</th>
+																	<th>Cta</th>
+																	<th>SCta</th>
+																	<th>SSC</th>
+																	<th>SSS</th>
 																	<th>Nombre Cuenta</th>
 																	<th>Nivel</th>
 																	<th>Rubro</th>
@@ -201,13 +223,18 @@ if (!permiso) {
 																<tr>
 
 																	<td><%=cc.getIdCuenta()%></td>
-																	<td><%=cc.getNumeroCuenta()%>-<%=cc.getsC()%>-<%=cc.getSsC()%>-<%=cc.getSssC()%></td>
+																	<td><%=cc.getNumeroCuenta()%></td>
+																	<td><%=cc.getsC()%></td>
+																	<td><%=cc.getSsC()%></td>
+																	<td><%=cc.getSssC()%></td>
 																	<td><%=cc.getNombreCuenta()%></td>
 																	<th><%=cc.getNivel()%></th>
 																	<td><%=cc.getRubro()%></td>
 																	<td><%=cc.getTipoCuenta()%></td>
 																	<td><%=cc.getCatalogoCuenta()%></td>
 																	<td><%=estado%></td>
+
+
 
 																	<td><a
 																		href="editCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
@@ -219,11 +246,45 @@ if (!permiso) {
 																		href="deleteCuentaContable.jsp?idCuenta=<%=cc.getIdCuenta()%>">
 																			<i class="fa fa-trash" title="Eliminar"></i>
 																	</a> 
-																	</td>
-																</tr>
+																	
+																	<% int cta = Integer.parseInt(cc.getNumeroCuenta());%> 
+																	<% int scta = Integer.parseInt(cc.getsC());%> 
+																	
+																	<%try{ %>
+
+																		<% if(cta != 100 && cta != 200 && cta != 300 && scta == 0){%>
+																		 &nbsp;&nbsp; 
+																		 <a href="../Sl_Anexos?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>
+																		 &idE=<%=Vw_empresa.empresaActual%>&nCuenta=<%=cc.getNumeroCuenta()%>&nomCuenta=<%=cc.getNombreCuenta()%>"
+																		target='_blank'> <i class="fa fa-print" title="Imprimir Anexos de esta Cuenta"></i>
+																		</a> 
+																	<%
+																	}
+																	else
+																	{
+																	%> 
+																	&nbsp;&nbsp; 
+																	<a href="#"> 
+																		<i class="fa fa-minus"
+																		title="Opcion no disponible para este registro"></i>
+																	</a>
+
+																	<%
+																	}
+																	%> 
+																<%
+																}catch(Exception e){
+																	
+																	e.printStackTrace();
+																	System.out.println("REPORTE: ERROR AL GENERAR REPORTE " + e.getMessage());
+																}
+																%> 
 																<%
 																}
 																%>
+																</td>
+																</tr>
+
 															</tbody>
 
 														</table>
@@ -352,7 +413,7 @@ if (!permiso) {
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-	
+
 	<!-- jAlert -->
 	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
 	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>

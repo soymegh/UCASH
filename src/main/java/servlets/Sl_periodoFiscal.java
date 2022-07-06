@@ -64,6 +64,7 @@ public class Sl_periodoFiscal extends HttpServlet {
 		switch (opc) {
 		case 1:
 			try {
+
 				if (dpf.agregarPeriodoFiscal(periodofiscal)) {
 					int ultimoPeriodoFiscal = dpf.obtenerUltimoPeriodoFiscal();
 					int empresa = Integer.parseInt(request.getParameter("empresaActual"));
@@ -95,16 +96,17 @@ public class Sl_periodoFiscal extends HttpServlet {
 			break;
 
 		case 3:
-
 			int idBorrar = Integer.parseInt(request.getParameter("idPFiscalEliminar"));
 			int empresaActual = Integer.parseInt(request.getParameter("empresaActual"));
 			Dt_periodoContable dtpc = new Dt_periodoContable();
 			ArrayList<Vw_periodoContable> listaperiodoContable = new ArrayList<Vw_periodoContable>();
 			listaperiodoContable = dtpc.listarperiodoContable(empresaActual);
+
 			boolean close = true;
 			for (Vw_periodoContable PC : listaperiodoContable) {
 				if (idBorrar == PC.getIdPeriodoFiscal()) {
 					if (PC.getEstado() < 3) {
+
 						close = false;
 					}
 				}
@@ -124,6 +126,7 @@ public class Sl_periodoFiscal extends HttpServlet {
 			}
 			break;
 		case 4:
+
 
 			int idPeriodoFiscal = 0;
 			String adminPass = ""; 
@@ -171,7 +174,7 @@ public class Sl_periodoFiscal extends HttpServlet {
 			}
 			break;
 
-		// Caso donde se agrega un nuevo período fiscal desde el index de la
+		// Caso donde se agrega un nuevo perÃ­odo fiscal desde el index de la
 		// multiempresa
 		case 6:
 			try {

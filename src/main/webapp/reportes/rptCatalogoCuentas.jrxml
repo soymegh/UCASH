@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptIndCuentaContable" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7c35f83-434c-4223-ba04-a1e2f542535b">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="daDBUcash"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="periodoContable" class="java.lang.String"/>
-	<parameter name="idE" class="java.lang.String"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DBUCASH"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[ZGJ1Y2FzaC52d19jYXRhbG9nb190aXBvX2N1ZW50YWNvbnRhYmxlICwxNSwxNSxiM2IyYmUyNi03
+ODg5LTRmZTItYWRiZS0xOTRkZmQ4NWNjMmE7]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
+	<parameter name="idE" class="java.lang.Integer"/>
+	<parameter name="periodoFiscal" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM vw_catalogo_tipo_cuentacontable WHERE estado <> 3 and idEmpresa = $P{idE} ORDER BY idCuenta]]>
+		<![CDATA[SELECT *
+FROM dbucash.vw_catalogo_tipo_cuentacontable
+WHERE 
+	 dbucash.vw_catalogo_tipo_cuentacontable.estado <> 3 
+	 AND dbucash.vw_catalogo_tipo_cuentacontable.`idEmpresa` = $P{idE} 
+ORDER BY dbucash.vw_catalogo_tipo_cuentacontable.`idCuenta` DESC]]>
 	</queryString>
 	<field name="idEmpresa" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="idEmpresa"/>
@@ -82,13 +92,13 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="118" splitType="Stretch">
+		<band height="116" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="80" height="79" uuid="8cc1cd8b-33c1-4098-bb80-60fb8db0d5d9"/>
 				<imageExpression><![CDATA["C:/payara-5.2022.2/payara5/glassfish/logoEmpresa/logo.jpg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="156" y="24" width="230" height="19" uuid="39d2e88f-a05b-42f8-b33b-2f135f0b5337"/>
+				<reportElement x="156" y="30" width="230" height="19" uuid="39d2e88f-a05b-42f8-b33b-2f135f0b5337"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -125,12 +135,30 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nombreComercial} + " RUC : " +$F{ruc}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombreComercial} + " RUC " +$F{ruc}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="156" y="44" width="230" height="30" uuid="2b207c76-487e-45f0-803f-e37c3d0ca287"/>
-				<textFieldExpression><![CDATA[$P{periodoContable}]]></textFieldExpression>
+				<reportElement x="177" y="46" width="230" height="16" uuid="4478f5b8-140b-4cb9-9189-24eebc7e09e4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodoFiscal}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="540" y="0" width="31" height="15" uuid="05e399f5-c541-44b6-82ac-75c72457602a"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="510" y="0" width="30" height="15" uuid="e6e54afa-6961-40d0-b1da-3dbcfeeae383"/>
+				<text><![CDATA[PAG#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="46" width="24" height="19" uuid="014a87d9-d79a-4579-8897-f452a99dc531"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[AL:]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>

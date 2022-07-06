@@ -11,6 +11,7 @@ import entidades.Tbl_representanteLegal;
 import entidades.Tbl_tipoIdentificacion;
 import entidades.Vw_representanteLegal;
 
+
 public class Dt_representanteLegal {
 
 	poolConexion pc = poolConexion.getInstance();
@@ -116,7 +117,50 @@ public class Dt_representanteLegal {
 		return listRL;
 	}
 	
+	public ArrayList<Vw_representanteLegal> listarRepresentanteLegalNoEnEmpresa() {
+		ArrayList<Vw_representanteLegal> listRL = new ArrayList<Vw_representanteLegal>();
+		try {
+			this.c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM vw_representantelegal WHERE idRepresentante NOT IN (SELECT idRepresentante FROM empresa) and vw_representantelegal.estado <> 3;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.rs = this.ps.executeQuery();
 
+			while (this.rs.next()) {
+				Vw_representanteLegal RL = new Vw_representanteLegal();
+
+				RL.setIdRepresentante(rs.getInt("idRepresentante"));
+				RL.setNombreCompleto(rs.getString("nombre Completo"));
+				RL.setTipo(rs.getString("tipo"));
+				RL.setCorreo(rs.getString("correo"));
+				RL.setTelefono(rs.getString("telefono"));
+				RL.setEstado(rs.getInt("estado"));
+
+				listRL.add(RL);
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR REPRESENTANTELEGAL " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (this.rs != null) {
+					this.rs.close();
+				}
+
+				if (this.ps != null) {
+					this.ps.close();
+				}
+
+				if (this.c != null) {
+					poolConexion.closeConnection(this.c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return listRL;
+	}
 	//Metodo para Agregar Representante Legal
 	
 	public boolean addRepresentanteLegal(Tbl_representanteLegal representante) {
@@ -341,5 +385,61 @@ public class Dt_representanteLegal {
 		}
 		
 		return viewR;
+	}
+	
+	public ArrayList<Vw_representanteLegal> listarRepresentanteLegalDeEmpresa(int idEmpresa) {
+		ArrayList<Vw_representanteLegal> listRL = new ArrayList<Vw_representanteLegal>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT\r\n"
+					+ "  representantelegal.idRepresentante,\r\n"
+					+ "  representantelegal.idTipoIdentifiacion,\r\n"
+					+ "    CONCAT(`representantelegal`.`nombre`, ' ', `representantelegal`.`apellido`) AS `nombre Completo`,\r\n"
+					+ "  representantelegal.telefono,\r\n"
+					+ "  representantelegal.correo,\r\n"
+					+ "  representantelegal.estado,\r\n"
+					+ "  tipoidentificacion.tipo\r\n"
+					+ "FROM empresa\r\n"
+					+ "  INNER JOIN representantelegal\r\n"
+					+ "    ON empresa.idRepresentante = representantelegal.idRepresentante \r\n"
+					+ "  INNER JOIN tipoidentificacion\r\n"
+					+ "    ON representantelegal.idTipoIdentifiacion = tipoidentificacion.idTipoIdentifiacion where idEmpresa =" +idEmpresa, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			//ps.setInt(1, idTC);
+			rs = ps.executeQuery();
+			while (this.rs.next()) {
+				Vw_representanteLegal RL = new Vw_representanteLegal();
+
+				RL.setIdRepresentante(rs.getInt("idRepresentante"));
+				RL.setNombreCompleto(rs.getString("nombre Completo"));
+				RL.setTipo(rs.getString("tipo"));
+				RL.setCorreo(rs.getString("correo"));
+				RL.setTelefono(rs.getString("telefono"));
+				RL.setEstado(rs.getInt("estado"));
+
+				listRL.add(RL);
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR REPRESENTANTELEGAL " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (this.rs != null) {
+					this.rs.close();
+				}
+
+				if (this.ps != null) {
+					this.ps.close();
+				}
+
+				if (this.c != null) {
+					poolConexion.closeConnection(this.c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return listRL;
 	}
 }

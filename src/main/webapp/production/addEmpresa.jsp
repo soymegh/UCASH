@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="ISO-8859-1"
 	import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
 	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio,entidades.Tbl_tipoIdentificacion, entidades.Tbl_representanteLegal, 
 	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones, datos.Dt_tipoIdentificacion,  
@@ -9,9 +8,9 @@
 <%
 
 int idEmpresaHidden = request.getParameter("idEmpresaHidden") != null ? Integer.parseInt(request.getParameter("idEmpresaHidden")) : 0;
- 
+int idTemporal = 0; 
 %>
-<%-- <%
+<%
 //JAlert flag
 
 //INVALIDA LA CACHE DEL NAVEGADOR //
@@ -55,7 +54,7 @@ if (!permiso) {
 	//response.sendRedirect("page_403.jsp");
 	return;
 }
-%> --%>
+%>
 
 
 
@@ -146,8 +145,8 @@ if (!permiso) {
 								<form class="" action="../Sl_empresa" method="post" novalidate>
 									<input type="hidden" value="1" name="opcion" id="opcion" />
 									<input type="hidden" value=<%=idEmpresaHidden%> name="idEmpresaHidden" id="idEmpresaHidden" />
-									<%-- 											<input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
- --%>
+																				<input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
+
 									<span class="section">Datos de empresa</span>
 									<div class="field item form-group">
 										<label class="col-form-label col-md-3 col-sm-3  label-align">RUC<span
@@ -158,8 +157,7 @@ if (!permiso) {
 										</div>
 									</div>
 									<div class="field item form-group">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Raz�n
-											social<span class="required">*</span>
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Razón social<span class="required">*</span>
 										</label>
 										<div class="col-md-6 col-sm-6">
 											<input name="razonSocial" class="form-control"
@@ -186,7 +184,7 @@ if (!permiso) {
 									</div>
 
 									<div class="field item form-group">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Tel�fono<span
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
 											class="required">*</span></label>
 										<div class="col-md-6 col-sm-6">
 											<input name="telefono" class="form-control" type="tel"
@@ -195,7 +193,7 @@ if (!permiso) {
 										</div>
 									</div>
 									<div class="field item form-group">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Direcci�n<span
+										<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span
 											class="required">*</span>
 										</label>
 										<div class="col-md-6 col-sm-6">
@@ -217,7 +215,7 @@ if (!permiso) {
 											<%
 											ArrayList<Vw_representanteLegal> listaRep = new ArrayList<Vw_representanteLegal>();
 											Dt_representanteLegal dtRep = new Dt_representanteLegal();
-											listaRep = dtRep.listarRepresentanteLegal();
+											listaRep = dtRep.listarRepresentanteLegalNoEnEmpresa();
 											%>
 
 											<select class="form-control js-example-basic-single"
@@ -236,44 +234,10 @@ if (!permiso) {
 											</select>
 										</div>
 										
-										<p>No encuentra el representante legal? <br />
+										<p>¿No encuentra el representante legal? <br />
 										<a href="/SistemaContable/production/addRepresentanteLegal.jsp">Agregar representante legal aqui</a>
 										</p>
 									</div>
-
-
-
-									<div class="field item form-group">
-										<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo
-											fiscal: <span class="required">*</span>
-										</label>
-										<div class="col-md-6 col-sm-6">
-											<!--                                                 
-												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-											<%
-											ArrayList<Tbl_periodoFiscal> listaPeriodo = new ArrayList<Tbl_periodoFiscal>();
-											Dt_periodoFiscal dtPeriodo = new Dt_periodoFiscal();
-											listaPeriodo = dtPeriodo.listarperiodoFiscal();
-											%>
-
-											<select class="form-control js-example-basic-single"
-												name="periodoFiscal" id="periodoFiscal" required="required">
-												<option value="0">Seleccione...</option>
-												<%
-												for (Tbl_periodoFiscal periodo : listaPeriodo) {
-												%>
-												<option value="<%=periodo.getIdPeriodoFiscal()%>">
-													<%=periodo.getFechaInicio()%> ->
-													<%=periodo.getFechaFinal()%>
-												</option>
-												<%
-												}
-												%>
-
-											</select>
-										</div>
-									</div>
-
 
 
 									<div class="field item form-group">
@@ -288,7 +252,6 @@ if (!permiso) {
 											listaDep = dtDep.listarDepartamento();
 											ArrayList<Vw_municipio> listaMuni = new ArrayList<Vw_municipio>();
 											Dt_municipio dtMunicipio = new Dt_municipio();
-											int currentDepId = 0; 
 											%>
 											<select onchange="checkDep()" class="form-control js-example-basic-single"
 												name="departamento" id="departamento" required="required">
@@ -300,11 +263,9 @@ if (!permiso) {
 												<option value="<%=depa.getIdDepartamento()%>">
 													<%=depa.getDepartamento()%>
 												</option>
-												<%
-												currentDepId = depa.getIdDepartamento();
-												
+												<%											
+											
 												}
-												listaMuni = dtMunicipio.listarMunicipioByDepId(currentDepId);
 
 												%>
 
@@ -318,27 +279,14 @@ if (!permiso) {
 										</label>
 										<div class="col-md-6 col-sm-6">
 											<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-											<%
-											
-										
-										
-									
-											
-											%>
+								
 											<select class="form-control js-example-basic-single"
 												name="municipio" id="municipio" required="required">
 												<option value="0">Seleccione...</option>
-												<%
-												System.out.println(listaMuni); 
-
-												for (Vw_municipio muni : listaMuni) {
-												%>
-												<option value="<%=muni.getIdMunicipio()%>">
-													<%=muni.getMunicipio()%>
-												</option>
-												<%
-												}
-												%>
+												
+							
+												
+												
 
 											</select>
 										</div>
@@ -365,7 +313,7 @@ if (!permiso) {
 
 		<!-- footer content -->
 		<footer>
-			<div class="pull-right">Sistema contable by Eldian's Software</div>
+			<div class="pull-right">Sistema contable by UCASH</div>
 			<div class="clearfix"></div>
 		</footer>
 		<!-- /footer content -->
@@ -451,25 +399,40 @@ if (!permiso) {
 	<script src="../vendors/jAlert/dist/jAlert.min.js"></script>
 	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
 
-
+<!-- Funcion para filtrar los municipios segun el departamento -->
 	<script>
 	var dep = document.getElementById("departamento"); 
-	document.getElementById("municipio").disabled = false; 
+	document.getElementById("municipio").disabled = true; 
 
 	function checkDep(){
 	if (document.getElementById("departamento").value != "0"){
 			document.getElementById("municipio").disabled = false; 
 		}
-	
+	convert(dep.value)
 	console.log(dep.value)
 	}
-	
-		
-		
-		
 	</script>
+<!-- Funcion para filtrar los municipios segun el departamento -->
+<script>													
+function convert(idDep){
+var data = <%=dtMunicipio.convert()%>
+var i = 0;
+var $select = $('#municipio').empty().append('<option value="0">Seleccione...</option>')
+var removedArray = [];
 
 
+
+removedArray = data.filter(function(item) {
+    return item.iddepartamento == idDep
+})
+
+$.each(removedArray, function(id, name) {
+    $select.append('<option value=' + name.idmunicipio + '>' + name.municipio + '</option>');
+});
+
+}
+
+</script>
 </body>
 
 </html>
