@@ -338,11 +338,12 @@ public class Dt_cuentaContable_Det {
 		totalDebe = this.getDebe(idCuenta);
 		totalHaber = this.getHaber(idCuenta);
 		
+		/*System.out.print("IDCUENTA " + idCuenta);
 		System.out.print("DEBE (Parametro): " + debe);
 		System.out.print("HABER (Parametro): " + haber);
 		System.out.print("DEBE (BD): "+ totalDebe);
 		System.out.print("HABER (BD): "+ totalDebe);
-		
+		*/
 		boolean modificado = false;
 		try {
 			c = poolConexion.getConnection();

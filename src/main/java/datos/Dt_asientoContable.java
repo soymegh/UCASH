@@ -393,16 +393,23 @@ public class Dt_asientoContable {
 	
 	
 public boolean EliminarAContablePorId(int idEliminar){
-		
+		ArrayList<Integer> idCuentaList = new ArrayList<>();
 		boolean borrado = false;
 		double debe  = 0; 
 		double haber = 0; 
-		int idCuenta = acDet.getIdCuentaByIdACD(idEliminar);
+		idCuentaList = acDet.getIdCuentaByIdACD(idEliminar);
 		
-		debe = acDet.getTotalDebeByIdCuenta(idCuenta);
-		haber = acDet.getTotalHaberByIdCuenta(idCuenta);
+		for(int x = 0; x < idCuentaList.size(); x++) {
+			debe = acDet.getTotalDebeByIdCuenta(idCuentaList.get(x), idEliminar);
+			haber = acDet.getTotalHaberByIdCuenta(idCuentaList.get(x), idEliminar);
+			
+			System.out.print("ESTE ES EL DEBE: "+debe+" Y ESTE ES EL HABER: "+haber+" DE LA CUENTA: "+idCuentaList.get(x)+" Y ESTE ES EL TAMAÑO DE LA LISTA: "+idCuentaList.size()+"");			
+			ccDet.editarCuentaContableDetMovimientosNegativoPorId(idCuentaList.get(x), debe, haber);
+			debe = 0; 
+			haber = 0; 
+		}
 		
-		ccDet.editarCuentaContableDetMovimientosNegativoPorId(idCuenta, debe, haber);
+		
 		
 		try {
 			

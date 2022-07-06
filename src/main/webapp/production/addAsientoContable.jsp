@@ -8,7 +8,10 @@
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
-	datos.Dt_asientoContableDet, java.sql.Timestamp, java.util.*;"%>
+	datos.Dt_asientoContableDet, datos.Dt_tasacambio_det, java.sql.Timestamp, java.util.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter,
+	java.text.SimpleDateFormat,
+	java.sql.Date,
+	java.text.DateFormat;"%>
 
 <%
 
@@ -27,10 +30,30 @@ response.setDateHeader("Expires", 0);
 response.setDateHeader("Expires", -1);
 
 //DECLARACIONES
+Dt_tasacambio_det tipoCambio  = new Dt_tasacambio_det();
 Vw_usuariorol vwur = new Vw_usuariorol();
 Dt_rolOpciones dtro = new Dt_rolOpciones();
 ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 boolean permiso = false; //VARIABLE DE CONTROL
+Vw_tasaCambioDet tipoCambioSugerido = new Vw_tasaCambioDet(); 
+
+DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+
+String fechaActual = dtf.format(LocalDateTime.now());
+tipoCambioSugerido = tipoCambio.ObtenerTasaCambioPorFecha(fechaActual);
+
+// Comparación de la fecha actual del sistema con la que regresa el método ObtenerTasaCambioPorFecha
+String fechaDelCambioSugerido = df.format(tipoCambioSugerido.getFecha());
+
+System.out.println("fechaActual: " + fechaActual);
+System.out.println("fechaDelCambioSugerido: " + fechaDelCambioSugerido);
+
+boolean fechaIgual = (fechaActual.equals(fechaDelCambioSugerido)) ? true : false;
+
+System.out.println("La fecha actual es la misma que la de la tasa de cambio sugerido? " + fechaIgual);
+
+System.out.print("ESTE ES EL VALOR QUE RETORNA EL METODO: " + tipoCambio.ObtenerTasaCambioPorFecha(fechaActual));
 
 //OBTENEMOS LA SESION
 vwur = (Vw_usuariorol) session.getAttribute("acceso");
@@ -65,9 +88,9 @@ if (!permiso) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 <!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -222,9 +245,9 @@ if (!permiso) {
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha:
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<input type="date" class="form-control"
+												<input type="date" class="form-control" data-parsley-excluded=true
 													 name="fecha" id="fecha" min="<%=Tbl_periodoContable.fechaInicioActual %>" max="<%=Tbl_periodoContable.fechaFinalActual %>"
-													 required="required">
+													  required/>
 											</div>
 										</div>
 
@@ -450,8 +473,52 @@ if (!permiso) {
 	
 	<script>
 	
+	var data = {
+			id : <%=tipoCambioSugerido.getIdTasaCambioDet()%>, 
+			valor : <%=tipoCambioSugerido.getTipoCambio()%>
+	}
+	function setVals() {
+		
+		var newOption = new Option(data.id, data.valor, false, false);
+		
+		$("#cbxIDTCD").val(data.id);
+	}
+	
+	setVals();
+	
 		// Toasts y alertas
 		$("document").ready(function(){
+			
+			if (<%=fechaIgual %>) {
+				$.toast({
+				    text: "Esta es la tasa de cambio de hoy: " + data.valor, 
+				    heading: 'Tasa de cambio del día', 
+				    icon: 'info', 
+				    showHideTransition: 'slide', 
+				    allowToastClose: false, 
+				    hideAfter: 10000, 
+				    stack: 5, 
+				    position: 'top-center', 
+				    textAlign: 'left',  
+				    loader: true,  
+				    loaderBg: '#9EC600',
+				});
+			} else {
+				$.toast({
+				    text: "La fecha de hoy no posee una tasa de cambio configurada. Se usará la última en el registro.", 
+				    heading: 'Tasa de cambio del día', 
+				    icon: 'warning', 
+				    showHideTransition: 'slide', 
+				    allowToastClose: false, 
+				    hideAfter: 10000, 
+				    stack: 5, 
+				    position: 'top-center', 
+				    textAlign: 'left',  
+				    loader: true,  
+				    loaderBg: '#9EC600',
+				});
+			}
+			
 			var codigoMensaje = $("#idMensaje").val();
 			
 			switch (codigoMensaje) {
@@ -549,6 +616,31 @@ if (!permiso) {
 		var botonGuardar = document.getElementById("btnGuardar");
 
         botonGuardar.addEventListener('click', (e) => {
+        	
+        	var contieneFecha = $("#fecha").val() != "";
+        	
+        	console.log(contieneFecha);
+        	
+        	if (!contieneFecha) {
+        		$.toast({
+            	    text: "Inserte una fecha válida",
+            	    heading: 'Advertencia - Fecha del asiento contable',
+            	    icon: 'warning',
+            	    showHideTransition: 'slide',
+            	    allowToastClose: false, 
+            	    hideAfter: 5000,
+            	    stack: 5,
+            	    position: 'top-center',  
+            	    
+            	    textAlign: 'left',
+            	    loader: true,
+            	    loaderBg: '#9EC600',
+            	    
+            	});
+        		e.preventDefault();
+        	}
+        		
+        	
             if(saldo !== 0){
             	$.toast({
             	    text: "El saldo debe ser 0 para poder guardar",
