@@ -159,7 +159,7 @@ int idd = dtCcd.idCuentaContable();
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
 													<a href="addCatalogocuenta.jsp"> <i
-														class="fa fa-plus-square"></i> Nuevo catalogo de cuenta
+														class="fa fa-plus-square"></i> Nuevo catálogo de cuenta
 													</a> &nbsp;&nbsp;
 													<a
 														href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
@@ -285,28 +285,28 @@ int idd = dtCcd.idCuentaContable();
 						function() {
 							if (mensaje == "1") {
 								successAlert('Exito',
-										'El catalogo de cuenta ha sido registrado correctamente.')
+										'El catálogo de cuentas se registró correctamente.')
 								console.log(mensaje);
 							}
 							if (mensaje == "2") {
 								errorAlert('Error',
-										'El catalogo de cuentas no se ha podido guardar. Por favor verifique los datos o cerciórese que la empresa que eligió para crear el nuevo catálogo no tiene un catalogo creado.')
+										'El catálogo de cuentas no se ha podido registrar.')
 							}
 							if (mensaje == "3") {
-								successAlert('Exito',
-										'Los datos del catalogo de cuenta seleccionado han sido editados.')
+								successAlert('Éxito',
+										'Los datos del catálogo de cuentas seleccionado han sido editados con éxito.')
 							}
 							if (mensaje == "4") {
 								errorAlert('Error',
-										'Los datos del catalogo de cuenta seleccionado no se han podido editar.')
+										'Los datos del catálogo de cuentas seleccionado no se han podido editar.')
 							}							
 							if (mensaje == "5") {
-								successAlert('Exito',
-										'El catalogo de cuenta se ha eliminado correctamente.')
+								successAlert('Éxito',
+										'El catálogo de cuentas se eliminó correctamente.')
 							}
 							if (mensaje == "6") {
 								errorAlert('Error',
-										'El catalogo de cuenta no se ha podido eliminar.')
+										'El catálogo de cuentas no se ha podido eliminar.')
 							}
 							
 							$("#example1").DataTable({
