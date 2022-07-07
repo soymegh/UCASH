@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8UTF-8"
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 
     
@@ -119,7 +119,7 @@ if (!permiso) {
 										<span class="section">Datos de Cuenta Contable Maestro</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero de Cuenta</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Número de Cuenta</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="number" class="optional" name="numeroCuenta" id="numeroCuenta" 
 												value="<%= vwCc.getNumeroCuenta() %>"/>
@@ -183,7 +183,7 @@ if (!permiso) {
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta</label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Catálogo Cuenta</label>
 											<div class="col-md-6 col-sm-6">
 												<input readonly class="form-control" type="text" class="optional" name="catalogoCuenta" id="catalogoCuenta" 
 												value="<%= vwCc.getCatalogoCuenta() %>"/>
@@ -231,6 +231,7 @@ if (!permiso) {
 										</div> --%>
 										
 										<div class="ln_solid">
+										<p> </p>
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<p> </p>

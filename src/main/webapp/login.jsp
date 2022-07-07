@@ -218,6 +218,12 @@
                 	errorAlert('Error', 'Usted no tiene permisos para acceder a esta página o su usuario no existe.')
                 }
 
+                if (mensaje == "404") {
+                	errorAlert('Error', 'El correo o usuario proporcionado no existe. Asegurate de que el usuario y el correo coincidan.')
+                }
+
+                
+               	
                 $("#example1").DataTable({
                     "responsive": true,
                     "lengthChange": false,

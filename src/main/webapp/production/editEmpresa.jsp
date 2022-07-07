@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+import="entidades.Tbl_empresa, entidades.Vw_empresa,entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Vw_representanteLegal, 
 	entidades.Tbl_periodoFiscal, entidades.Tbl_departamento, entidades.Vw_municipio, entidades.Tbl_periodoEmpresa, 
 	datos.Dt_empresa, datos.Dt_representanteLegal, datos.Dt_municipio, datos.Dt_periodoFiscal, datos.Dt_departamento, datos.Dt_rolOpciones, datos.Dt_periodoEmpresa,  
 	 
@@ -13,14 +13,11 @@ empresa = request.getParameter("idEmpresa") == null ? "0" : request.getParameter
 Tbl_empresa tEmpresa = new Tbl_empresa();
 Vw_empresa vEmpresa = new Vw_empresa();
 Dt_empresa dtEmpresa = new Dt_empresa();
+Dt_municipio dtMunicipio = new Dt_municipio(); 
 tEmpresa = dtEmpresa.getTableEmpresaByID(Integer.parseInt(empresa));
 vEmpresa = dtEmpresa.getEmpresaByID(Integer.parseInt(empresa));
 int currentUsuario;
-
 Tbl_periodoEmpresa periodoEmpresa = new Tbl_periodoEmpresa();
-Dt_periodoEmpresa dtPeriodoEmpresa = new Dt_periodoEmpresa(); 
-periodoEmpresa = dtPeriodoEmpresa.getTablePeriodoEmpresaByIdEmpresa(Integer.parseInt(empresa));
-int idEmpresaHidden =  Integer.parseInt(empresa);
 %>
 	<script>
     function setForm(){
@@ -33,15 +30,40 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
     	
     	
     	
-    	document.getElementById("periodoFiscal").value = "<%=periodoEmpresa.getIdPeriodoFiscal()%>";
     	document.getElementById("representanteLegal").value = "<%=tEmpresa.getIdRepresentanteLegal()%>";
     	document.getElementById("departamento").value = "<%=tEmpresa.getIdDepartamento()%>";
-    	document.getElementById("municipio").value = "<%=tEmpresa.getIdMunicipio()%>";
+    	
+    	
+    	function convertFirst(idDep){
+    		var data = <%=dtMunicipio.convert()%>
+    		var i = 0;
+    		var $select = $('#municipio').empty().append('<option value="0">Seleccione...</option>')
+    		var removedArray = [];
+			var currentMun = 0;
 
+
+    		removedArray = data.filter(function(item) {
+    		    return item.iddepartamento == idDep
+    		})
+
+    		$.each(removedArray, function(id, name) {
+    		    $select.append('<option value=' + name.idmunicipio + '>' + name.municipio + '</option>');
+    		});
+
+    		for(var i = 0; i < data.length; i++){
+    			if(data[i].idmunicipio = <%=tEmpresa.getIdMunicipio()%>) {
+    				document.getElementById("municipio").value = data[i].idmunicipio
+    				break;
+    			} 
+    		}
+    		}
+    	convertFirst("<%=tEmpresa.getIdDepartamento()%>")
+		
 		}
 		window.onload = setForm;
 	</script>
-<%-- <%
+
+<%
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
 	response.setHeader( "Cache-Control", "no-store" );
@@ -85,7 +107,7 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 		return;
 	}
 	
-%> --%>
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -173,8 +195,8 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 										<input type="hidden" value="2" name="opcion" id="opcion" /> 
 										<input type="hidden" value="<%=tEmpresa.getIdEmpresa()%>" name="idEmpresaHidden" id="idEmpresaHidden" /> 
 										
-<%-- 									    <input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
- --%>										
+									    <input type="hidden" value=<%=currentUsuario%> name="currentUsuario" id="currentUsuario" />
+										
 										<input
 											type="hidden" value="<%=tEmpresa.getIdEmpresa()%>"
 											name="idEmpresa" id="idEmpresa" /> <span class="section">Datos
@@ -188,8 +210,7 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Raz�n
-												social<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Razón social<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input name="razonSocial" class="form-control"
@@ -217,7 +238,7 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 										</div>
 
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Tel�fono<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Teléfono<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input name="telefono" class="form-control" type="tel"
@@ -225,7 +246,7 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Direcci�n<span
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Dirección<span
 												class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
@@ -267,40 +288,10 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 
 												</select>
 											</div>
-										</div>
-
-
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo
-												fiscal: <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<!--                                                 
-												<input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-												<%
-												ArrayList<Tbl_periodoFiscal> listaPeriodo = new ArrayList<Tbl_periodoFiscal>();
-												Dt_periodoFiscal dtPeriodo = new Dt_periodoFiscal();
-												listaPeriodo = dtPeriodo.listarperiodoFiscal();
-												%>
-
-												<select class="form-control js-example-basic-single"
-													name="periodoFiscal" id="periodoFiscal" required="required">
-													<option value="0">Seleccione...</option>
-													<%
-													for (Tbl_periodoFiscal periodo : listaPeriodo) {
-													%>
-													<option value="<%=periodo.getIdPeriodoFiscal()%>">
-														<%=periodo.getFechaInicio()%> ->
-														<%=periodo.getFechaFinal()%>
-													</option>
-													<%
-													}
-													%>
-
-												</select>
-											</div>
-										</div>
-
+										<p>¿No encuentra el representante legal? <br />
+										<a href="/SistemaContable/production/addRepresentanteLegal.jsp">Agregar representante legal aqui</a>
+										</p>
+									</div>
 
 
 										<div class="field item form-group">
@@ -314,7 +305,7 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 												Dt_departamento dtDep = new Dt_departamento();
 												listaDep = dtDep.listarDepartamento();
 												%>
-												<select id="departamento"
+												<select onchange="checkDep()"  id="departamento"
 													class="form-control js-example-basic-single"
 													name="departamento" id="departamento" required="required">
 													<option value="0">Seleccione...</option>
@@ -337,25 +328,12 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 												<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
-												<!--                                                 <input class="form-control" class='optional' name="occupation" data-validate-length-range="5,15" type="text" /></div> -->
-												<%
-												ArrayList<Vw_municipio> listaMuni = new ArrayList<Vw_municipio>();
-												Dt_municipio dtMunicipio = new Dt_municipio();
-												listaMuni = dtMunicipio.listarMunicipio();
-												%>
+											
 												<select class="form-control js-example-basic-single"
 													name="municipio" id="municipio" required="required">
 													<option value="0">Seleccione...</option>
-													<%
-													for (Vw_municipio muni : listaMuni) {
-													%>
-													<option value="<%=muni.getIdMunicipio()%>">
-														<%=muni.getMunicipio()%>
-													</option>
-													<%
-													}
-													%>
-
+													
+												
 												</select>
 											</div>
 										</div>
@@ -451,6 +429,35 @@ int idEmpresaHidden =  Integer.parseInt(empresa);
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
 
+	
+	<!-- Funcion para filtrar los municipios segun el departamento -->
+	<script>
+	
+	console.log(document.getElementById("departamento").value )
+	function checkDep(){
+    convert(document.getElementById("departamento").value )
+	}
+	</script>
+<!-- Funcion para filtrar los municipios segun el departamento -->
+<script>													
+function convert(idDep){
+var data = <%=dtMunicipio.convert()%>
+var i = 0;
+var $select = $('#municipio').empty().append('<option value="0">Seleccione...</option>')
+var removedArray = data.filter(function(item) {
+    return item.iddepartamento == idDep
+})
+
+$.each(removedArray, function(id, name) {
+    $select.append('<option value=' + name.idmunicipio + '>' + name.municipio + '</option>');
+});
+
+console.log(data)
+
+console.log(removedArray)
+}
+
+</script>
 </body>
 
 </html>

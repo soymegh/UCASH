@@ -10,10 +10,16 @@
 	response.setDateHeader( "Expires", -1 );
 	
 	//DECLARACIONES
+	PermisoTemporal tempPass = new PermisoTemporal();
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 	boolean permiso = false; //VARIABLE DE CONTROL
+	int pass = 0; 
+	
+	if(request.getParameter("pass") != null){
+		pass = Integer.parseInt(request.getParameter("pass"));
+	}
 	
 	//OBTENEMOS LA SESION
 	vwur = (Vw_usuariorol) session.getAttribute("acceso");
@@ -27,11 +33,16 @@
 		String miPagina = request.getRequestURL().substring(index+1);
 		
 		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
+		if(tempPass.checkPermisson(Vw_empresa.empresaActual, Tbl_periodoContable.idPeriodoActual, Tbl_moneda.idMonedaActual) != true || PermisoTemporal.temporalFlag == true || pass > 0){
+			for(Vw_rolopciones vrop : listOpc){
+				if(vrop.getOpciones().trim().equals(miPagina.trim())){
+					permiso = true; //ACCESO CONCEDIDO
+					break;
+				}
 			}
+		} else {
+			response.sendRedirect("index.jsp");
+			return; 
 		}
 	}
 	else{
@@ -41,7 +52,7 @@
 		
 	if(!permiso){
 		// response.sendRedirect("../login.jsp?msj=401");
-		response.sendRedirect("page_403.jsp");
+		response.sendRedirect("../login.jsp?msj=404");
 		return;
 	}
 	
@@ -50,7 +61,7 @@
 <%
 ArrayList<Vw_empresa> listadoEmpresas = new ArrayList<>();
 Dt_empresa datosEmpresas = new Dt_empresa();
-listadoEmpresas = datosEmpresas.listarEmpresa();
+listadoEmpresas = datosEmpresas.listarEmpresaLogin();
 %>
 
 <!DOCTYPE html>
@@ -97,6 +108,7 @@ listadoEmpresas = datosEmpresas.listarEmpresa();
 
 							<div class="x_content row">
 								<%
+								if(pass == 0){
 								for (Vw_empresa empresa : listadoEmpresas) {
 									request.setAttribute("idE", empresa.getIdEmpresa());
 								%>
@@ -113,6 +125,29 @@ listadoEmpresas = datosEmpresas.listarEmpresa();
 									</a>
 								</div>
 								<%
+								}
+							}
+								%>
+								<%
+								if(pass > 0){
+									for (Vw_empresa empresa : listadoEmpresas) {
+										request.setAttribute("idE", empresa.getIdEmpresa());
+								%>	
+								
+								<div class="field item form-group col">
+									<a href="indexPeriodoFiscal.jsp?idE=<%=empresa.getIdEmpresa()%>&status=ADMINPASS"> <jsp:include
+											page="fichaEmpresa.jsp">
+											<jsp:param name="nombreEmp"
+												value="<%=empresa.getNombreComercial()%>" />
+											<jsp:param name="altImg"
+												value="<%=empresa.getNombreComercial()%>" />
+											<jsp:param name="representanteEmp"
+												value="<%=empresa.getRepresentante()%>" />
+										</jsp:include>
+									</a>
+								</div>
+								<%
+									}
 								}
 								%>
 							</div>

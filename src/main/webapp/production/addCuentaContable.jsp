@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" import="entidades.*,datos.*, java.util.*;"%>
 
 
@@ -17,7 +17,6 @@ Vw_catalogocuenta_empresa Cata = new Vw_catalogocuenta_empresa();
 Dt_catalogocuenta dtcata = new Dt_catalogocuenta();
 
 Cata = dtcata.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
- 
 %>
 
 
@@ -115,7 +114,6 @@ if (!permiso) {
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Agregar CC Maestro</h2>
 
 									<div class="clearfix"></div>
 								</div>
@@ -123,9 +121,10 @@ if (!permiso) {
 								<div class="x_content">
 									<form class="" action="../Sl_cuentaContable" method="post"
 										novalidate>
-										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
-										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
-											class="section">Datos de CC Maestro</span>
+										<input type="hidden" value="<%=Vw_empresa.empresaActual%>"
+											name="empresaActual" id="empresaActual" /> <input
+											type="hidden" value="1" name="opcion" id="opcion" /> <span
+											class="section">Datos de Cuenta Contable</span>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Numero
@@ -224,14 +223,17 @@ if (!permiso) {
 											</div>
 										</div>
 
-										<input type="hidden" id="catalogoCuenta"
-													name="catalogoCuenta" value="<%=Cata.getIdCatalogo()%>"/>
+										<input type="hidden" id="catalogoCuenta" name="catalogoCuenta"
+											value="<%=Cata.getIdCatalogo()%>" />
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo Cuenta<span
-												class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Catalogo
+												Cuenta<span class="required">*</span>
+											</label>
 											<div class="col-md-6 col-sm-6">
-													<input type="text" class="form-control" id="txtCatalogo"
-													name="txtCatalogo" value="<%=Cata.getTitulo()+ " / " + Cata.getnombreComercial()%>" class="required" readonly="readonly" />
+												<input type="text" class="form-control" id="txtCatalogo"
+													name="txtCatalogo"
+													value="<%=Cata.getTitulo() + " / " + Cata.getnombreComercial()%>"
+													class="required" readonly="readonly" />
 											</div>
 										</div>
 
@@ -245,22 +247,24 @@ if (!permiso) {
 													required="required" step="0.001" oninput="calcular()" />
 											</div>
 										</div>
-										
+
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Debe<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="debe"
-													id="debe" type="number" required="required" step="0.001" oninput="calcular()" />
+													id="debe" type="number" required="required" step="0.001"
+													oninput="calcular()" />
 											</div>
 										</div>
-										
+
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Haber<span
 												class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="haber"
-													id="haber" type="number" required="required"  step="0.001" oninput="calcular()"/>
+													id="haber" type="number" required="required" step="0.001"
+													oninput="calcular()" />
 											</div>
 										</div>
 										<div class="field item form-group">
@@ -269,7 +273,8 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" type="number" class='optional'
-													name="saldoFinal" id="saldoFinal" required='required'  step="0.001" oninput="calcular()" readonly/>
+													name="saldoFinal" id="saldoFinal" required='required'
+													step="0.001" oninput="calcular()" readonly />
 											</div>
 										</div>
 
@@ -278,20 +283,23 @@ if (!permiso) {
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta
 												Contable<span class="required">*</span>
 											</label> -->
-											<div class="col-md-6 col-sm-6">
-												<input class="form-control" class='optional'
-													type="hidden" name="idCuenta" id="idCuenta" value="0" />
-											</div>
+										<div class="col-md-6 col-sm-6">
+											<input class="form-control" class='optional' type="hidden"
+												name="idCuenta" id="idCuenta" value="0" />
+										</div>
 										<!-- </div> -->
 
+
 										<div class="ln_solid">
+											<p></p>
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button id="AgregarCC" type='submit'
 														class="btn btn-primary">Agregar</button>
 													<button id="ResetCC" type='reset' class="btn btn-success">Reiniciar</button>
 													<a href="tbl_cuentacontable.jsp"><button
-															id="CancelarCC" type="button" class="btn btn-primary">Cancelar</button></a>
+															id="CancelarCC" type="button" class="btn btn-primary">Volver
+															a la tabla</button></a>
 												</div>
 											</div>
 										</div>
@@ -471,32 +479,46 @@ if (!permiso) {
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-	
-	
-	
+
+
+
 
 </body>
 
 <script type="text/javascript">
-	
-	function calcular(){
-		try{
-			var a = parseFloat(document.getElementById("saldoInicial").value) || 0,
-			b = parseFloat(document.getElementById("debe").value) || 0,
-			c = parseFloat(document.getElementById("haber").value) ||0;
-			
+	function calcular() {
+		try {
+			var a = parseFloat(document.getElementById("saldoInicial").value) || 0, b = parseFloat(document
+					.getElementById("debe").value) || 0, c = parseFloat(document
+					.getElementById("haber").value) || 0;
+
 			var resultado = 0;
-			
+
 			resultado = a + b;
-			resultado =  resultado - c;
-			
+			resultado = resultado - c;
+
 			document.getElementById("saldoFinal").value = resultado;
-			
-		}catch (e){
-			
+
+		} catch (e) {
+
 		}
 	}
-	
-	</script>
+
+	function setZero() {
+		try {
+			var a = parseFloat(document.getElementById("saldoInicial").value) || 0, b = parseFloat(document
+					.getElementById("debe").value) || 0, c = parseFloat(document
+					.getElementById("haber").value) || 0;
+
+			document.getElementById("saldoInicial").value = 0;
+			document.getElementById("debe").value = 0;
+			document.getElementById("haber").value = 0;
+			document.getElementById("saldoFinal").value = 0;
+		} catch (e) {
+
+		}
+	}
+	window.onload = setZero;
+</script>
 
 </html>

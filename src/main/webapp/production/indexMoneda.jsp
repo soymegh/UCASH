@@ -15,10 +15,16 @@
 	response.setDateHeader( "Expires", -1 );
 	
 	//DECLARACIONES
+	PermisoTemporal tempPass = new PermisoTemporal();
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 	boolean permiso = false; //VARIABLE DE CONTROL
+	int pass = 0; 
+	
+	if(request.getParameter("pass") != null){
+		pass = Integer.parseInt(request.getParameter("pass"));
+	}
 	
 	//OBTENEMOS LA SESION
 	vwur = (Vw_usuariorol) session.getAttribute("acceso");
@@ -32,11 +38,16 @@
 		String miPagina = request.getRequestURL().substring(index+1);
 		
 		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
+		if(tempPass.checkPermisson(Vw_empresa.empresaActual, Tbl_periodoContable.idPeriodoActual, Tbl_moneda.idMonedaActual) != true || PermisoTemporal.temporalFlag == true || pass > 0){
+			for(Vw_rolopciones vrop : listOpc){
+				if(vrop.getOpciones().trim().equals(miPagina.trim())){
+					permiso = true; //ACCESO CONCEDIDO
+					break;
+				}
 			}
+		} else {
+			response.sendRedirect("index.jsp");
+			return; 
 		}
 	}
 	else{

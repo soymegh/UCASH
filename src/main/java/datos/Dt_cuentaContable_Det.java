@@ -125,7 +125,7 @@ public class Dt_cuentaContable_Det {
 		Vw_cuentacontable_cuentacontable_det ccD = new Vw_cuentacontable_cuentacontable_det();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT * FROM vw_cuentacontable_cuentacontable_det WHERE idCuentaContableDet=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps = c.prepareStatement("SELECT * FROM dbucash.cuentacontabledet where idCuenta = ?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			ps.setInt(1, idCuentaContableDet);
 			rs = ps.executeQuery();
 			if(rs.next()) {
@@ -338,11 +338,12 @@ public class Dt_cuentaContable_Det {
 		totalDebe = this.getDebe(idCuenta);
 		totalHaber = this.getHaber(idCuenta);
 		
+		/*System.out.print("IDCUENTA " + idCuenta);
 		System.out.print("DEBE (Parametro): " + debe);
 		System.out.print("HABER (Parametro): " + haber);
 		System.out.print("DEBE (BD): "+ totalDebe);
 		System.out.print("HABER (BD): "+ totalDebe);
-		
+		*/
 		boolean modificado = false;
 		try {
 			c = poolConexion.getConnection();

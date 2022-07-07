@@ -28,7 +28,7 @@ int idEmpresa = dtEmpresa.idEmpresa() + 1;
 
 
 
-<%-- 
+
 <%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
@@ -71,7 +71,7 @@ if (!permiso) {
 	return;
 }
 %>
- --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +81,7 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Empresa</title>
+<title>Gestión | Empresa</title>
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -163,10 +163,9 @@ if (!permiso) {
 											<div class="card-box table-responsive">
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
-													<a href="addEmpresa.jsp?idEmpresaHidden=<%=idEmpresa%>">
-														Nuevo Empresa
-													</a>&nbsp;&nbsp; <a href="#" onclick="printListEmpresa();">
-														<i class="fa fa-print" title="Imprimir Lista de Empresas"></i>
+													<a href="addEmpresa.jsp?idEmpresaHidden=<%=idEmpresa%>"> <i
+														class="fa fa-plus-square"></i>
+														Nuevo Empresa </a>
 													</a> <br></br>
 												</div>
 												<input type="hidden" value="<%=signal%>" id="JAlertInput" />
@@ -182,10 +181,10 @@ if (!permiso) {
 														<tr>
 															<th>Id</th>
 															<th>RUC</th>
-															<th>Razon social</th>
+															<th>Razón social</th>
 															<th>Nombre comercial</th>
 
-															<th>Direccion</th>
+															<th>Dirección</th>
 															<th>Representante legal</th>
 															<th>Departamento</th>
 															<th>Municipio</th>
@@ -212,7 +211,12 @@ if (!permiso) {
 															<td><%=empresa.getDepartamentoNombre()%></td>
 															<td><%=empresa.getMunicipioNombre()%></td>
 
+
+															<%if(empresa.getPeriodoFiscal() != null){%>
 															<td><%=empresa.getPeriodoFiscal()%></td>
+															<%}
+else{%>
+															<td>No se ha establecido un periodo fiscal</td> <%}%>
 
 															<td><%=empresa.getTelefono()%></td>
 															<td><%=empresa.getCorreo()%></td>
@@ -223,10 +227,6 @@ if (!permiso) {
 															</a> &nbsp;&nbsp; <a
 																href="viewEmpresa.jsp?idEmpresa=<%=empresa.getIdEmpresa()%>">
 																	<i class="fa fa-eye" title="Ver empresa"></i>
-															</a> &nbsp;&nbsp; <a
-																href="../Sl_rptEmpresa?idEmpresa=<%=empresa.getIdEmpresa()%>"
-																title="Imprimir Ficha del Usuario" target="_blank">
-																	<i class="fa fa-print"></i>
 															</a></td>
 														</tr>
 														<%
@@ -308,6 +308,7 @@ if (!permiso) {
 	<script src="../vendors/jAlert/dist/jAlert-functions.min.js"></script>
 
 
+
 	<script>
 		var mensaje = "";
 		mensaje = document.getElementById("JAlertInput").value;
@@ -338,7 +339,7 @@ if (!permiso) {
 										'Los datos de la empresa no se han editado correctamente.')
 							}
 
-							$("#example1").DataTable({
+							$("#myTable").DataTable({
 								"responsive" : true,
 								"lengthChange" : false,
 								"autoWidth" : false,

@@ -48,12 +48,17 @@ try {
 			poolConexion p = poolConexion.getInstance();
 			Connection c = poolConexion.getConnection();
 			
+			String idPeriodoFiscal = "";
+			idPeriodoFiscal = request.getParameter("idPeriodoFiscal")==null?"0":request.getParameter("idPeriodoFiscal");
+			System.out.println("idPeriodoFiscal: "+idPeriodoFiscal);
+			
 			String idEmpresa = ""; 
 			idEmpresa = request.getParameter("idE")==null?"0":request.getParameter("idE");
 			System.out.println("idE: "+ idEmpresa);
 
 					
 			HashMap<String, Object> hm = new HashMap<>();
+			hm.put("periodoFiscal" , idPeriodoFiscal.toString());
 			hm.put("idE" , Integer.parseInt(idEmpresa));
 
 			
@@ -66,7 +71,7 @@ try {
 			Exporter exporter = new JRPdfExporter();
 			JasperPrint jasperPrint = JasperFillManager.fillReport(path+template, hm, c);
 			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "inline; filename=\"LibroMayorAuxiliar.pdf");
+			response.setHeader("Content-Disposition", "inline; filename=\"LibroMayorAuxiliar_"+ idPeriodoFiscal +".pdf");
 			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(otps));
 			exporter.exportReport();

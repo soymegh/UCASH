@@ -8,6 +8,11 @@
 		signal = request.getParameter("msj");
 	}	
 	
+	String adminPass = ""; 
+	if(request.getParameter("status") != null){
+		adminPass = request.getParameter("status"); 
+	}
+	
 
 	//INVALIDA LA CACHE DEL NAVEGADOR //
 	response.setHeader( "Pragma", "no-cache" );
@@ -16,6 +21,7 @@
 	response.setDateHeader( "Expires", -1 );
 	
 	//DECLARACIONES
+	PermisoTemporal tempPass = new PermisoTemporal();
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
 	Dt_empresa empresa = new Dt_empresa();
@@ -34,11 +40,17 @@
 		String miPagina = request.getRequestURL().substring(index+1);
 		
 		//VALIDAR SI EL ROL CONTIENE LA OPCION ACTUAL DENTRO DE LA MATRIZ DE OPCIONES
-		for(Vw_rolopciones vrop : listOpc){
-			if(vrop.getOpciones().trim().equals(miPagina.trim())){
-				permiso = true; //ACCESO CONCEDIDO
-				break;
+		if(tempPass.checkPermisson(Vw_empresa.empresaActual, Tbl_periodoContable.idPeriodoActual, Tbl_moneda.idMonedaActual) != true 
+		|| PermisoTemporal.temporalFlag == true || adminPass.equals("ADMINPASS") || adminPass.equals("ADMINPASSPF")){
+			for(Vw_rolopciones vrop : listOpc){
+				if(vrop.getOpciones().trim().equals(miPagina.trim())){
+					permiso = true; //ACCESO CONCEDIDO
+					break;
+				}
 			}
+		} else {
+			response.sendRedirect("index.jsp");
+			return; 
 		}
 	}
 	else{
@@ -109,7 +121,11 @@
 							<div class="x_content">
 									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
+									  <input type="hidden" value="<%=adminPass%>" name="admin_pass" id="admin_pass"/>
 										<span class="section">Periodo Fiscal</span>
+										<br>
+										<a href="./addNuevoPeriodoFiscal.jsp">Agregar período fiscla</a>
+										
 										<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 										<div class="field item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal<span class="required">:</span></label>
@@ -118,7 +134,7 @@
 												<%
 							                      	ArrayList<Tbl_periodoFiscal> listPeriodosFiscales = new ArrayList<Tbl_periodoFiscal>();
 							                      	Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin();
+							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin(Vw_empresa.empresaActual);
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="combobox_periodoFiscal" id="combobox_periodoFiscal" required="required">
 												  <option value="">Seleccione...</option>
@@ -136,7 +152,19 @@
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
+													<%if(adminPass.equals("ADMINPASS")){ %>
+													<button onClick="window.location.href='indexMultiempresa.jsp?pass=200'" type="button" class="btn btn-danger">Cancelar</button>
+													<%
+													} else if(adminPass.equals("ADMINPASSPF")) {
+													%>
+													<button onClick="window.location.href='index.jsp'" type="button" class="btn btn-danger">Cancelar</button>
+													<%
+													} else {
+													%>
 													<button onClick="window.location.href='indexMultiempresa.jsp'" type="button" class="btn btn-danger">Cancelar</button>
+													<%
+													}
+													%>
 													<button type='submit' class="btn btn-primary">Aceptar</button>
 												</div>
 											</div>

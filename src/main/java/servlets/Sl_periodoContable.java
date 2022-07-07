@@ -38,8 +38,8 @@ public class Sl_periodoContable extends HttpServlet {
 
 		// Fecha Inicio del Periodo Contable
 		try {
-			
-			if(request.getParameter("fechainicioc") != null) {
+
+			if (request.getParameter("fechainicioc") != null) {
 				String fechaIniPCJsp = request.getParameter("fechainicioc").toString();
 				java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPCJsp);
 				periodocontable.setFechaInicio(new java.sql.Date(date1.getTime()));
@@ -50,7 +50,7 @@ public class Sl_periodoContable extends HttpServlet {
 
 		// Fecha Final del Periodo Contable
 		try {
-			if(request.getParameter("fechafinalc") != null) {
+			if (request.getParameter("fechafinalc") != null) {
 				String fechaFinPCJsp = request.getParameter("fechafinalc").toString();
 				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPCJsp);
 				periodocontable.setFechaFinal(new java.sql.Date(date2.getTime()));
@@ -112,29 +112,36 @@ public class Sl_periodoContable extends HttpServlet {
 			break;
 			
 		case 4: 
-			int idPeriodoContable = 0; 
+			int idPeriodoContable = 0;
+			String adminPass = ""; 
 			
-			if(request.getParameter("combobox_periodoContable") != null && request.getParameter("combobox_periodoContable").matches("[0-9]")) {
+			if(request.getParameter("combobox_periodoContable") != null) {
 				idPeriodoContable = Integer.parseInt(request.getParameter("combobox_periodoContable"));
-				
 				try {
-					if(dpc.obtenerPContablePorIdLogin(idPeriodoContable)) {
-						response.sendRedirect("production/indexMoneda.jsp");
+					if (dpc.obtenerPContablePorIdLogin(idPeriodoContable)) {
+						if(request.getParameter("admin_pass") != null && !request.getParameter("admin_pass").trim().equals("")) {
+							adminPass = request.getParameter("admin_pass"); 
+							response.sendRedirect("production/indexMoneda.jsp?status="+adminPass+"");
+						}else {
+							response.sendRedirect("production/indexMoneda.jsp");
+						}
+						
 					}
-				}catch(Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-			}else {
+
+			} else {
 				response.sendRedirect("production/indexPeriodoContable.jsp?msj=1");
-			};
-			break; 
+			}
+			;
+			break;
 
 		case 5:
-			
+
 			periodocontable.setIdPeriodoContable(Integer.parseInt(request.getParameter("txtidpcontable")));
 			periodocontable.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("cbxIDPF")));
-			
+
 			try {
 				if (dpc.modificarPeriodoContable(periodocontable)) {
 					response.sendRedirect("production/tbl_periodoContable.jsp?msj=3");
@@ -146,7 +153,21 @@ public class Sl_periodoContable extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-			
+
+		// Agregar un período contable a través dle indexPeriodoContable
+		case 6:
+			try {
+				periodocontable.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("cbxIDPF")));
+				if (dpc.agregarPeriodoContable(periodocontable)) {
+					response.sendRedirect("production/indexPeriodoContable.jsp?msj=10");
+				} else {
+					response.sendRedirect("production/indexPeriodoContable.jsp?msj=11");
+				}
+			} catch (Exception e) {
+				System.out.println("Error Sl_periodoContable opc6: " + e.getMessage());
+			}
+			break;
+
 		default:
 			break;
 		}

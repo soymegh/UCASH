@@ -50,6 +50,7 @@ public class Sl_cuentaContable extends HttpServlet {
 		
 		
 		
+		
 		switch (opc) {
 		
 		case 1:
@@ -58,7 +59,7 @@ public class Sl_cuentaContable extends HttpServlet {
 			cc.setsC(request.getParameter("SC"));
 			cc.setSsC(request.getParameter("SsC"));
 			cc.setSssC(request.getParameter("SssC"));
-			cc.setNombreCuenta(request.getParameter("nombreCuenta"));
+			cc.setNombreCuenta(request.getParameter("nombreCuenta").toUpperCase());
 			int nivel = Integer.parseInt(request.getParameter("nivel"));
 			cc.setNivel(nivel);
 			int rubro = Integer.parseInt(request.getParameter("rubro"));
@@ -81,7 +82,10 @@ public class Sl_cuentaContable extends HttpServlet {
 			try
 			{
 				if(dtCc.addCuentaContable(cc) && dtccd.addCuentaContableDet(ccd)) {
-					response.sendRedirect("production/tbl_cuentacontable.jsp?msj=1");
+					
+					Dt_cuentaContable idc = new Dt_cuentaContable();
+					int idCuenta = idc.idCuentaContable() +1;
+					response.sendRedirect("production/addCuentaContable.jsp?idCuenta=" + idCuenta);
 				}
 				else
 				{

@@ -76,6 +76,48 @@ public class Dt_usuarioRol {
 		return listUserRol;
 	}
 	
+	public ArrayList<Vw_usuariorol> obtenerUsuariosAdministradores(){
+		ArrayList<Vw_usuariorol> listUserRol = new ArrayList<Vw_usuariorol>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_usuariorol WHERE id_rol = 12; ",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			rs = ps.executeQuery();
+			while(rs.next()) { 
+				Vw_usuariorol tblUserRol = new Vw_usuariorol();
+				tblUserRol.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
+				tblUserRol.setDescripcion(rs.getString("rol"));
+				tblUserRol.setNombre(rs.getString("nombre"));
+				tblUserRol.setApellido(rs.getString("apellido"));
+				tblUserRol.setUsuario(rs.getString("usuario"));
+				tblUserRol.setEmail(rs.getString("email"));
+				listUserRol.add(tblUserRol);
+			}
+		} 
+		catch (Exception e){
+			System.out.println("DATOS: ERROR EN LISTAR USUARIO ROL "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		return listUserRol;
+	}
+	
 	public boolean asignarRol(Tbl_usuarioRol UserRol){
 		boolean guardado = false;
 		try{
@@ -123,6 +165,47 @@ public class Dt_usuarioRol {
 			while (rs.next()) {
 				userRol.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
 				userRol.setDescripcion(rs.getString("rol"));
+				userRol.setNombre(rs.getString("nombre"));
+				userRol.setApellido(rs.getString("apellido"));
+				userRol.setUsuario(rs.getString("usuario"));
+			}
+		} catch (Exception e) {
+			System.out.println("DATOS: ERROR EN LISTAR USUARIOS " + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (ps != null) {
+					ps.close();
+				}
+
+				if (c != null) {
+					poolConexion.closeConnection(c);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+		return userRol;
+	}
+	
+	public Vw_usuariorol ObtenerUsuarioRolPorIdUsuario(int id) {
+		Vw_usuariorol userRol = new Vw_usuariorol();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_usuariorol WHERE  idUsuario = ?;",
+					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				userRol.setIdUsuarioRol(rs.getInt("idUsuarioRol"));
+				userRol.setRol(rs.getString("rol"));
 				userRol.setNombre(rs.getString("nombre"));
 				userRol.setApellido(rs.getString("apellido"));
 				userRol.setUsuario(rs.getString("usuario"));
