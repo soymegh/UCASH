@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
     
 <%
@@ -85,7 +85,7 @@
 							<h3>Agregar Catalogo de cuenta</h3>
 						</div>
 
-						<div class="title_right">
+						<!-- <div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
@@ -95,7 +95,7 @@
 									</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="clearfix"></div>
 
@@ -135,38 +135,34 @@
                                             <label class="col-form-label col-md-3 col-sm-3  label-align">Empresa<span class="required">*</span></label>
                                             <div class="col-md-6 col-sm-6">
                                                  <%
-							                      	ArrayList<Vw_empresa> listEmpresa = new ArrayList<Vw_empresa>();
-							                      	Dt_empresa dtemp = new Dt_empresa();
-							                      	listEmpresa = dtemp.listarEmpresa();
-								                 %>
-								                 <select class="form-control js-example-basic-single" name="idEmpresa" id="idEmpresa" required="required">
-												  <option value="">Seleccione...</option>
-												  <% 
-												  	for(Vw_empresa EMP :listEmpresa){
-												  %>
-												  <option value="<%=EMP.getIdEmpresa()%>"><%=EMP.getNombreComercial()%></option>
-												  <%
-												  	}
-												  %>
+                                                      ArrayList<Vw_empresa> listEmpresa = new ArrayList<Vw_empresa>();
+                                                      Dt_catalogocuenta dtemp = new Dt_catalogocuenta();
+                                                      listEmpresa = dtemp.getTableEmpresaNoCatalogoCuenta();
+                                                 %>
+                                                 <select class="form-control js-example-basic-single" name="idEmpresa" id="idEmpresa" required="required">
+                                                  <option value="">Seleccione...</option>
+                                                  <% 
+                                                      for(Vw_empresa EMP :listEmpresa){
+                                                  %>
+                                                  <option value="<%=EMP.getIdEmpresa()%>"><%=EMP.getNombreComercial()%></option>
+                                                  <%
+                                                      }
+                                                  %>
 												</select>
 											</div>
                                         </div>
 										
 										<div class="ln_solid">
 											<div class="form-group">
-												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Agregar</button>
-											<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_catalogocuenta.jsp"
-													title="Retornar a la p�gina anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Cancelar
-												</a>
-											</div>
-											</div>
+												<div class="col-md-6 offset-md-3">												
+												<button type='submit'
+												class="btn btn-primary">Agregar</button>														
+													<button type='button'
+														onClick="window.location.href='tbl_catalogocuenta.jsp'"
+														class="btn btn-danger">Cancelar</button>
 												</div>
 											</div>
-										</div>
+										</div>										
 									</form>
 								</div>
 							</div>

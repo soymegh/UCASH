@@ -121,7 +121,7 @@ public class Sl_catalogoCuenta extends HttpServlet {
 				System.out.println("ERROR en Sl_catalogoCuenta "+ e.getMessage());
 				e.printStackTrace();
 			}
-			break;
+			break;		
 		default:
 			break;
 		}

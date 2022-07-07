@@ -1,6 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
 	
+<%
+Tbl_cuentaContable ccd = new Tbl_cuentaContable();
+Dt_cuentaContable dtCcd = new Dt_cuentaContable();
+
+int idd = dtCcd.idCuentaContable();
+%>
 	<%
 	
 	//JAlert flag
@@ -62,7 +68,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestiï¿½n | Catalogo de cuenta</title>
+<title>Gestión | Catalogo de cuentas</title>
 
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
@@ -111,7 +117,7 @@
 						<div class="title_left">
 							<h3>Catalogo Cuenta</h3>
 						</div>
-						<div class="title_right">
+						<!-- <div class="title_right">
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 								<div class="input-group">
@@ -122,7 +128,7 @@
 									</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="clearfix"></div>
 					<div class="row">
@@ -130,7 +136,7 @@
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Catalogos de cuenta registrados</h2>
-									<ul class="nav navbar-right panel_toolbox">
+									<!-- <ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
 												class="fa fa-chevron-up"></i></a></li>
 										<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -143,7 +149,7 @@
 											</div></li>
 										<li><a class="close-link"><i class="fa fa-close"></i></a>
 										</li>
-									</ul>
+									</ul> -->
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -153,8 +159,17 @@
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
 													<a href="addCatalogocuenta.jsp"> <i
-														class="fa fa-plus-square"></i> Nuevo catalogo de cuenta
-													</a> <br></br>
+														class="fa fa-plus-square"></i> Nuevo catálogo de cuenta
+													</a> &nbsp;&nbsp;
+													<a
+														href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
+														<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
+													</a> &nbsp;&nbsp;
+													<a 
+														href ="../Sl_rptCuentaContable?idPeriodoContable=Del: <%=Tbl_periodoContable.fechaInicioActual%> Al: <%=Tbl_periodoContable.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>" target='_blank'>
+														<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables">Imprimir Lista de Cuentas Contables</i>
+													</a>&nbsp;&nbsp;
+													<br></br>
 												</div>
 												
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
@@ -270,28 +285,28 @@
 						function() {
 							if (mensaje == "1") {
 								successAlert('Exito',
-										'El catalogo de cuenta ha sido registrado correctamente.')
+										'El catálogo de cuentas se registró correctamente.')
 								console.log(mensaje);
 							}
 							if (mensaje == "2") {
 								errorAlert('Error',
-										'El catalogo de cuenta no se ha podido guardar. Por favor verifique los datos.')
+										'El catálogo de cuentas no se ha podido registrar.')
 							}
 							if (mensaje == "3") {
-								successAlert('Exito',
-										'Los datos del catalogo de cuenta seleccionado han sido editados.')
+								successAlert('Éxito',
+										'Los datos del catálogo de cuentas seleccionado han sido editados con éxito.')
 							}
 							if (mensaje == "4") {
 								errorAlert('Error',
-										'Los datos del catalogo de cuenta seleccionado no se han podido editar.')
+										'Los datos del catálogo de cuentas seleccionado no se han podido editar.')
 							}							
 							if (mensaje == "5") {
-								successAlert('Exito',
-										'El catalogo de cuenta se ha eliminado correctamente.')
+								successAlert('Éxito',
+										'El catálogo de cuentas se eliminó correctamente.')
 							}
 							if (mensaje == "6") {
 								errorAlert('Error',
-										'El catalogo de cuenta no se ha podido eliminar.')
+										'El catálogo de cuentas no se ha podido eliminar.')
 							}
 							
 							$("#example1").DataTable({

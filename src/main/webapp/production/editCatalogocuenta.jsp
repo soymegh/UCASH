@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*;"%>
     
    <%
@@ -117,7 +117,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 							<h3>Editar Catalogo cuenta</h3>
 						</div>
 
-						<div class="title_right">
+						<!-- <div class="title_right">
 							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
 								<div class="input-group">
 									<input type="text" class="form-control"
@@ -127,7 +127,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 									</span>
 								</div>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<div class="clearfix"></div>
 
@@ -186,14 +186,9 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button type='submit' class="btn btn-primary">Editar</button>
-											<div class="ln_solid">
-											<div class="form-group" align="center">
-												<a href="tbl_catalogocuenta.jsp"
-													title="Retornar a la p�gina anterior"> <i
-													class="fa fa-arrow-circle-o-left"></i> Cancelar
-												</a>
-											</div>
-											</div>
+													<button type='button'
+														onClick="window.location.href='tbl_catalogocuenta.jsp'"
+														class="btn btn-danger">Cancelar</button>
 												</div>
 											</div>
 										</div>
