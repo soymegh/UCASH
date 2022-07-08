@@ -131,9 +131,7 @@ public class Sl_periodoFiscal extends HttpServlet {
 			int idPeriodoFiscal = 0;
 			String adminPass = ""; 
 			
-			
-			
-			if (request.getParameter("combobox_periodoFiscal") != null) {
+			if (request.getParameter("combobox_periodoFiscal") != null && !request.getParameter("combobox_periodoFiscal").trim().equals("")) {
 				idPeriodoFiscal = Integer.parseInt(request.getParameter("combobox_periodoFiscal"));
 
 				try {

@@ -1,13 +1,14 @@
 package datos;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import datos.Dt_cuentaContable_Det;
-
+import entidades.Historico;
 import entidades.Tbl_asientoContableDet;
 import entidades.Vw_asientoContableDet;
 
@@ -333,5 +334,53 @@ public class Dt_asientoContableDet {
 	}
 
 	    return totalHaber ;
+	}
+	
+	public ArrayList<Historico> listarasientocontableDetHistorico(int idCuenta, String fechaInicial, String fechaFinal){
+		ArrayList<Historico> listasientocontableDet = new ArrayList<Historico>();
+		System.out.print("Esta es la cuenta: "+idCuenta+", Este es el inicio: "+fechaInicial+", Este es el final: "+fechaFinal+"");
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.vw_historico WHERE idCuenta = ? AND fecha BETWEEN ? AND ?;",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ps.setInt(1, idCuenta);
+	        ps.setString(2, fechaInicial);
+	        ps.setString(3, fechaFinal);
+			rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				Historico historico = new Historico();
+				historico.setIdAsientoContableDet(rs.getInt("idAsientoContableDet"));
+				historico.setNombreCuenta(rs.getString("nombreCuenta"));
+				historico.setDescripcion(rs.getString("descripcion"));
+				historico.setDebe(rs.getDouble("debe"));
+				historico.setHaber(rs.getDouble("haber"));
+				historico.setFecha(rs.getDate("fecha"));
+				
+				listasientocontableDet.add(historico);
+			}
+			} catch(Exception e) {
+				System.out.println("DATOS: ERROR EN LISTAR Detalle de Asiento Contable"+e.getMessage());
+				e.printStackTrace();
+			}
+		 finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+
+	                if (ps != null) {
+	                    ps.close();
+	                }
+
+	                if (c != null) {
+	                    poolConexion.closeConnection(c);
+	                }
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+
+		}
+		
+		return listasientocontableDet;
 	}
 }

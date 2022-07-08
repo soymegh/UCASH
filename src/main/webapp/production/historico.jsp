@@ -1,12 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Vw_empresa, entidades.Vw_rolopciones,entidades.Tbl_asientoContable,
-	entidades.Vw_asientoContable, entidades.Tbl_periodoContable, 
-	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_periodoContable, java.util.*;"%>
+	pageEncoding="ISO-8859-1" import="entidades.Historico, entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_usuariorol, entidades.Vw_empresa, entidades.Vw_rolopciones,entidades.Tbl_asientoContable,
+	entidades.Vw_asientoContable, entidades.Tbl_periodoContable, datos.Dt_cuentaContable,
+	datos.Dt_rolOpciones, datos.Dt_asientoContableDet, datos.Dt_asientoContable, datos.Dt_periodoContable, java.util.*, java.text.*;"%>
 
 <%
 
 //Placeholder para el mensaje
 String codigoMensaje = "";
+
+int idCuenta = 0; 
+String fechaInicio = "";
+String fechaFinal =  "";
+
+if(request.getParameter("idCuenta") != null){
+	idCuenta = Integer.parseInt(request.getParameter("idCuenta"));
+}
+
+if(request.getParameter("fechaI") != null){
+	fechaInicio = request.getParameter("fechaI");
+}
+
+if(request.getParameter("fechaF") != null){
+	fechaFinal = request.getParameter("fechaF");
+}
 
 if (request.getParameter("msj") != null)
 	codigoMensaje = request.getParameter("msj");
@@ -61,7 +77,7 @@ if (!permiso) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Asiento Contable</title>
+<title>Historico de movimientos contables</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -112,7 +128,7 @@ if (!permiso) {
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Asiento Contable</h3>
+							<h3>Historico</h3>
 						</div>
 
 						<div class="title_right">
@@ -127,17 +143,6 @@ if (!permiso) {
 					<div class="row">
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
-								<div class="x_title">
-									<h2>Asientos Contables Registrados <small><a href="imprimirAsientoContable.jsp"><i class="fa fa-print"></i>Imprimir asientos contables</a></small> </h2>
-
-									<div class="float-right">
-										<h2>Periodo contable: <%=Tbl_periodoContable.fechaInicioActual%> - <%=Tbl_periodoContable.fechaFinalActual %> </h2>
-									</div>	
-									<div class="clearfix">
-										
-									</div>
-								</div>
-
 								<div class="x_content">
 									<div class="row">
 										<div class="col-md-12 col-md-12">
@@ -146,99 +151,93 @@ if (!permiso) {
 													<div class="row">
 														<div class="col-md-12">
 															<div class="card-box table-responsive">
-																<div class="text-muted font-13 col-md-12"
-																	style="text-align: right;">
-																	<a href="addAsientoContable.jsp"> <i
-																		class="fa fa-plus-square"></i> Nuevo Asiento Contable
-																	</a> <br></br>
-																	<a href="historico.jsp"> <i
-																		class="fa fa-history"></i> Historico
-																	</a> <br></br>
-																</div>
-																<table id="datatable-buttons"
-																	class="table table-striped table-bordered"
-																	style="width: 100%">
-																	<%
-																	ArrayList<Vw_asientoContable> listaAsientoContable = new ArrayList<Vw_asientoContable>();
-																	Dt_asientoContable dtac = new Dt_asientoContable();
-																	listaAsientoContable = dtac.listarasientocontableporid(Vw_empresa.empresaActual);
-
-																	Dt_periodoContable dtpc = new Dt_periodoContable();
-																	Tbl_periodoContable tblpc = new Tbl_periodoContable();
-																	%>
-																	<thead>
-																		<tr>
-																			<th>ID</th>
-																			<th>NC</th>
-																			<th>Periodo Contable</th>
-																			<th>Nombre Comercial</th>
-																			<th>Tipo de Documento</th>
-																			<th>Moneda</th>
-																			<th>Tipo de Cambio</th>
-																			<th>Fecha</th>
-																			<th>Concepto</th>
-																			<th>Acciones</th>
-																		</tr>
-																	</thead>
-																	<tbody>
+																<form class="" action="../Sl_asientoContable" method="post" data-parsley-validate>
+																<input type="hidden" value="4" name="opcion" id="opcion" />
+																<div class="field item form-group">
+																	<label class="col-form-label col-md-3 col-sm-3  label-align">Cuenta
+																		<span class="required">*</span>
+																	</label>
+																	<div class="col-md-6 col-sm-6">
 																		<%
-																		for (Vw_asientoContable ac : listaAsientoContable) {
-
-																			tblpc = dtpc.obtenerPContablePorId(ac.getIdPeriodoContable());
-																			if (tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual && tblpc.getEstado() != 3) {
+																		ArrayList<Vw_catalogo_tipo_cuentacontable> listaTC = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+																		Dt_cuentaContable dttc = new Dt_cuentaContable();
+																		listaTC = dttc.getCuentaContableByIdEmpresa(Vw_empresa.empresaActual);
 																		%>
-																		<tr>
-
-																			<td><%=ac.getIdAsientoContable()%></td>
-																			<td><%=ac.getNumeroComprobante()%></td>
-																			<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
-																			<td><%=ac.getNombreComercial()%></td>
-																			<td><%=ac.getTipo()%></td>
-																			<td><%=ac.getNombre()%></td>
-																			<td><%=ac.getTipoCambio()%></td>
-																			<th><%=ac.getFecha()%></th>
-																			<td><%=ac.getDescripcion()%></td>
-
-
-																			<td><a
-																				href="editAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
-																					<i class="fa fa-edit" title="Editar"></i>
-																			</a> &nbsp;&nbsp; <a
-																				href="viewAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
-																					<i class="fa fa-eye" title="Mostrar"></i>
-																			</a> &nbsp;&nbsp; <a
-																				href="deleteAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
-																					<i class="fa fa-trash" title="Eliminar"></i>
-																			</a></td>
-																		</tr>
+																		<select class="form-control js-example-basic-single"
+																		name="cuentaContable" id="cuentaContable" required="required">
+																		<option value="" disabled selected>Seleccione...</option>
 																		<%
-																			} else if (tblpc.getEstado() == 3 && tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual) {
-																				%>
-																				<tr>
-
-																					<td><%=ac.getIdAsientoContable()%></td>
-																					<td><%=ac.getNumeroComprobante()%></td>
-																					<td><%=ac.getFechaInicio()%> - <%=ac.getFechaFinal()%></td>
-																					<td><%=ac.getNombreComercial()%></td>
-																					<td><%=ac.getTipo()%></td>
-																					<td><%=ac.getNombre()%></td>
-																					<td><%=ac.getTipoCambio()%></td>
-																					<th><%=ac.getFecha()%></th>
-																					<td><%=ac.getDescripcion()%></td>
-
-
-																					<td><a
-																						href="viewAsientoContable.jsp?ascont=<%=ac.getIdAsientoContable()%>">
-																							<i class="fa fa-eye" title="Mostrar"></i>
-																					</a></td>
-																				</tr>
-																				<%
-																				}
+																		for (Vw_catalogo_tipo_cuentacontable tc : listaTC) {
+																		%>
+																		<option value="<%=tc.getIdCuenta()%>"><%=tc.getNombreCuenta()%></option>
+																		<%
 																		}
 																		%>
-																	</tbody>
-
-																</table>
+																		</select>
+																	</div>
+																</div>
+															
+																<div class="field item form-group">
+																	<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Inicial:</label>
+																	<div class="col-md-6 col-sm-6">
+																		<input type="date" class="form-control" data-parsley-excluded=true name="fechaInicio" id="fechaInicio" required/>
+																	</div>
+																</div>
+																
+																<div class="field item form-group">
+																	<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final:</label>
+																	<div class="col-md-6 col-sm-6">
+																		<input type="date" class="form-control" data-parsley-excluded=true name="fechaFinal" id="fechaFinal" required/>
+																	</div>
+																</div>
+																<div class="ln_solid">
+																	<div class="form-group">
+																		<div class="col-md-6 offset-md-3">
+																			<button id="btnMovimientos" type='submit' class=" btn btn-primary">Traer movimientos</button>
+																			<a href="tbl_asientoContable.jsp" type="button" class="btn btn-danger">Cancelar</a>
+																		</div>
+																	</div>
+																</div>
+																</form>
+															</div>
+															<div class="card-box table-responsive">
+															<%
+																ArrayList<Historico> listaHistoricos = new ArrayList<Historico>();
+																Dt_asientoContableDet acd = new Dt_asientoContableDet();
+																listaHistoricos = acd.listarasientocontableDetHistorico(idCuenta, fechaInicio, fechaFinal);
+															%>
+															
+															<%
+																for(Historico his: listaHistoricos){
+															%>
+																<div class="field item form-group">
+																<h3 style="display:block;"><%=his.getNombreCuenta()%></h3>
+																</div>
+																<div class="field item form-group">
+																	<table 
+																	class=" table table-striped table-bordered"
+																	style="width: 100%; diplay:block;">
+																		<thead>
+																			<tr>
+																				<th>Fecha del movimiento</th>
+																				<th>Descripción</th>
+																				<th>Debe</th>
+																				<th>Haber</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td><%=his.getFecha() %></td>
+																				<td><%=his.getDescripcion()%></td>
+																				<td><%=his.getDebe()%></td>
+																				<td><%=his.getHaber()%></td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															<%
+																}
+															%>
 															</div>
 														</div>
 													</div>
