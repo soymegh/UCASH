@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptFichaAsientoContable" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="64228b3d-8f94-40de-98a2-8c105433e9f4">
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[ZGJ1Y2FzaC52d19hc2llbnRvcmVwb3J0ZSAsMTUsMTUsMDBiYmU0ZjYtYzkwNi00YWM3LWIwOWQt
-YWNiYmYzYTc1MjEyOw==]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dadbucash"/>
 	<parameter name="asientoContableID" class="java.lang.Integer"/>
 	<queryString language="SQL">
@@ -51,6 +48,11 @@ WHERE
 	<field name="descripcion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="descripcion"/>
 		<property name="com.jaspersoft.studio.field.label" value="descripcion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="vw_asientoreporte"/>
+	</field>
+	<field name="numeroComprobante" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="numeroComprobante"/>
+		<property name="com.jaspersoft.studio.field.label" value="numeroComprobante"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="vw_asientoreporte"/>
 	</field>
 	<field name="nombreCuenta" class="java.lang.String">
@@ -134,7 +136,7 @@ WHERE
 		</band>
 	</title>
 	<pageHeader>
-		<band height="51" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<textField pattern="dd MMMM, yyyy">
 				<reportElement x="0" y="10" width="180" height="30" uuid="fafeb3a2-9d70-4051-816f-7ae3b7cc73c9"/>
 				<box>
@@ -142,6 +144,11 @@ WHERE
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="0" width="162" height="53" uuid="cc1f657e-8ff5-4334-88cf-6bd42bac9ec7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["No. " + $F{numeroComprobante}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -344,7 +351,7 @@ WHERE
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[IF(!$F{nombre}.equals( "Córdoba" ),$F{debe}*$F{tipoCambio},$F{haber})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF(!$F{nombre}.equals( "Córdoba" ),$F{haber}*$F{tipoCambio},$F{haber})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="100" y="0" width="65" height="30" uuid="f366557d-ceed-4edd-829c-20c6eec10137">
