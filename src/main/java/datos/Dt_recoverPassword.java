@@ -38,7 +38,7 @@ public class Dt_recoverPassword {
 	    /*----------------------------------------------------------------------------*/
 
 	    //METODO QUE ENVIA EL EMAIL DE VERIFICACION
-		public boolean recoverPassword(String contraseÃ±aDesencriptada, String correo, String usuario) throws MessagingException{
+		public boolean recoverPassword(String contraseñaDesencriptada, String correo, String usuario) throws MessagingException{
 			Tbl_usuario user = new Tbl_usuario();
 			Vw_usuariorol userRol = new Vw_usuariorol(); 
 			ArrayList<Vw_usuariorol> userRolList = new ArrayList<>();
@@ -84,25 +84,25 @@ public class Dt_recoverPassword {
 		      	message.addRecipient(Message.RecipientType.TO, new InternetAddress(email_solicitante));
 
 		      // Asunto: encabezado del archivo
-		        message.setSubject("PROCESO DE RECUPERACIï¿½N DE CONTRASEï¿½A");
+		        message.setSubject("PROCESO DE RECUPERACIÓN DE CONTRASEÑA");
 
 
 		      //Cuerpo del correo  
-		        String myMsg = "<strong>PROCESO DE RECUPERACIï¿½N DE CONTRASEï¿½A </strong><br><br>";
-		      	myMsg += "Estimado "+user.getNombre()+" "+user.getApellidos()+", la contraseï¿½a recuperada por el sistema es la siguiente: ";
-		      	myMsg += contraseÃ±aDesencriptada+" <br><br>";
+		        String myMsg = "<strong>PROCESO DE RECUPERACIÓN DE CONTRASEÑA </strong><br><br>";
+		      	myMsg += "Estimado "+user.getNombre()+" "+user.getApellidos()+", la contraseña recuperada por el sistema es la siguiente: ";
+		      	myMsg += contraseñaDesencriptada+" <br><br>";
 		      	myMsg += "<br>----------------------------------------------------------<br>";
 		      	myMsg += "Administrador del Sistema<br>";
 		      	myMsg += "Usuario: "+user.getUsuario()+"<br>";
 		      	myMsg += "Cargo: "+userRol.getRol()+"<br>";
-		      	myMsg += "Fecha de recuperaciï¿½n: "+dtf.format(LocalDateTime.now())+"<br>";
-		      	myMsg += "Hora de recuperaciï¿½n: "+hour.format(LocalDateTime.now())+"<br>";
+		      	myMsg += "Fecha de recuperación: "+dtf.format(LocalDateTime.now())+"<br>";
+		      	myMsg += "Hora de recuperación: "+hour.format(LocalDateTime.now())+"<br>";
 		      	myMsg += "Si requiere soporte o algun tipo de acceso en especifico, puede contactar a los siguientes usuarios administradores: <br><br>";
 		      	for(Vw_usuariorol ur: userRolList) {
-		      		myMsg += "Nombre y apellido: "+ur.getNombre()+" "+ur.getApellido()+" <br> Correo electrï¿½nico: "+ur.getEmail()+" <br><br>";
+		      		myMsg += "Nombre y apellido: "+ur.getNombre()+" "+ur.getApellido()+" <br> Correo electrónico: "+ur.getEmail()+" <br><br>";
 		      	};
 		      	
-		      	myMsg += "En caso de necesitar un soporte tecnico especial, haga que un usuario administrador se contacte a este nï¿½mero telefonico o email: <br>";
+		      	myMsg += "En caso de necesitar un soporte tecnico especial, haga que un usuario administrador se contacte a este número telefonico o email: <br>";
 		      	myMsg += "Movil: +505 7855-2666 <br>";
 		      	myMsg += "Email: andUrbina2001@gmail.com";
 		      	
@@ -114,7 +114,7 @@ public class Dt_recoverPassword {
 		      transport.connect(SMTP_HOST_NAME, SMTP_AUTH_USER, SMTP_AUTH_PWD);
 		      Transport.send(message);
 		      debug = true;
-		      System.out.println("El mensaje fue enviado con Ã©xito");
+		      System.out.println("El mensaje fue enviado con exito");
 		      return debug;
 		}
 
