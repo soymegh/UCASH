@@ -151,6 +151,9 @@ if (!permiso) {
 																	<a href="addAsientoContable.jsp"> <i
 																		class="fa fa-plus-square"></i> Nuevo Asiento Contable
 																	</a> <br></br>
+																	<a href="historico.jsp"> <i
+																		class="fa fa-history"></i> Historico
+																	</a> <br></br>
 																</div>
 																<table id="datatable-buttons"
 																	class="table table-striped table-bordered"

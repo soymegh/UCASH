@@ -115,7 +115,7 @@ public class Sl_periodoContable extends HttpServlet {
 			int idPeriodoContable = 0;
 			String adminPass = ""; 
 			
-			if(request.getParameter("combobox_periodoContable") != null) {
+			if(request.getParameter("combobox_periodoContable") != null && !request.getParameter("combobox_periodoContable").trim().equals("")) {
 				idPeriodoContable = Integer.parseInt(request.getParameter("combobox_periodoContable"));
 				try {
 					if (dpc.obtenerPContablePorIdLogin(idPeriodoContable)) {

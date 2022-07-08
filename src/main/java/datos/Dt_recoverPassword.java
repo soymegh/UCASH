@@ -114,7 +114,7 @@ public class Dt_recoverPassword {
 		      transport.connect(SMTP_HOST_NAME, SMTP_AUTH_USER, SMTP_AUTH_PWD);
 		      Transport.send(message);
 		      debug = true;
-		      System.out.println("El mensaje fue enviado con éxito");
+		      System.out.println("El mensaje fue enviado con exito");
 		      return debug;
 		}
 

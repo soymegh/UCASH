@@ -203,6 +203,21 @@ public class Sl_asientoContable extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case 4: 
+			int idCuenta = 0; 
+			Date fechaInicial; 
+			Date fechaFinal; 
+			
+			if(request.getParameter("cuentaContable") != null && !request.getParameter("cuentaContable").trim().equals("")) {
+				idCuenta = Integer.parseInt(request.getParameter("cuentaContable"));
+				if(request.getParameter("fechaInicio") != null && !request.getParameter("fechaInicio").trim().equals("")) {
+					if(request.getParameter("fechaFinal") != null && !request.getParameter("fechaFinal").trim().equals("")) {
+						response.sendRedirect("production/historico.jsp?idCuenta="+idCuenta+"&fechaI="+request.getParameter("fechaInicio")+"&fechaF="+request.getParameter("fechaFinal")+"");
+					}
+				}
+			}
+			
+			break;
 		default:
 			break;
 		}
