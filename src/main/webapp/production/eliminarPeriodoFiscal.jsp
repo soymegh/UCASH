@@ -173,11 +173,6 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 	</div>
 </div>
 
-<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
-		<div class="clearfix"></div>
-	</footer>
-
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
