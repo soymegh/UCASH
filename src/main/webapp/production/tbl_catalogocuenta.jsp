@@ -68,7 +68,7 @@ int idd = dtCcd.idCuentaContable();
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Gestión | Catalogo de cuentas</title>
+<title>Gestión | Catálogo de Cuentas</title>
 
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
 <!-- Bootstrap -->
@@ -115,8 +115,9 @@ int idd = dtCcd.idCuentaContable();
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Catalogo Cuenta</h3>
+							<h3>Catálogo de Cuentas registrado</h3>
 						</div>
+						
 						<!-- <div class="title_right">
 							<div
 								class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -129,13 +130,14 @@ int idd = dtCcd.idCuentaContable();
 								</div>
 							</div>
 						</div> -->
+						
 					</div>
 					<div class="clearfix"></div>
 					<div class="row">
 						<div class="col-md-12 col-md-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Catalogos de cuenta registrados</h2>
+								
 									<!-- <ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
 												class="fa fa-chevron-up"></i></a></li>
@@ -150,6 +152,7 @@ int idd = dtCcd.idCuentaContable();
 										<li><a class="close-link"><i class="fa fa-close"></i></a>
 										</li>
 									</ul> -->
+									
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
@@ -159,7 +162,7 @@ int idd = dtCcd.idCuentaContable();
 												<div class="text-muted font-13 col-md-12"
 													style="text-align: right;">
 													<a href="addCatalogocuenta.jsp"> <i
-														class="fa fa-plus-square"></i> Nuevo catálogo de cuenta
+														class="fa fa-plus-square"></i> Nuevo catálogo de cuentas
 													</a> &nbsp;&nbsp;
 													<a
 														href="addCuentaContable.jsp?idCuenta=<%=dtCcd.idCuentaContable() + 1%>">
@@ -184,11 +187,11 @@ int idd = dtCcd.idCuentaContable();
 													%>
 													<thead>
 														<tr>
-															<th>Id del catalogo</th>
+															<th>Id del catálogo</th>
 															<th>Nombre comercial</th>
-															<th>Titulo</th>
-															<th>Descripcion</th>
-															<th>Acciones</th>
+															<th>Título</th>
+															<th>Descripción</th>
+															<th>Demás acciones de gestión</th>
 														</tr>
 													</thead>
 													<tbody>

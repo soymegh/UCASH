@@ -70,7 +70,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Eliminar | Catalogo de Cuenta</title>
+<title>Eliminar | Catálogo de Cuentas</title>
 
 <!-- Bootstrap -->
 <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -108,7 +108,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Eliminar Catalogo de Cuenta</h3>
+							<h3>Eliminar Catálogo de Cuentas</h3>
 						</div>
 
 						<!-- <div class="title_right">
@@ -128,8 +128,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
-								<div class="x_title">
-									<h2>Eliminar Catalogo</h2>
+								<div class="x_title">									
 
 									<div class="clearfix"></div>
 								</div>
@@ -138,17 +137,17 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 										novalidate>
 										<input type="hidden" value="3" name="opcion" id="opcion" /> 
 										<input type="hidden" value="<%=tCatalogo.getIdCatalogo() %>" name="IdCatalogo" id="IdCatalogo" />
-										<span class="section">Datos de Catalogo de Cuenta</span>
+										<span class="section">Datos del catálogo de cuentas seleccionado a eliminar</span>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Titulo<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Título<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="titulo" id="titulo" value="<%=tCatalogo.getTitulo() %>" type="text" readonly="readonly" />
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripción<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="descripcion" id="descripcion" value="<%=tCatalogo.getDescripcion() %>" type="text" readonly="readonly"/>

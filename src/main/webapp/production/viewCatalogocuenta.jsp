@@ -70,7 +70,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Ver | Catalogo de cuenta</title>
+<title>Visualizar | Catálogo de Cuentas</title>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -108,7 +108,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Catalogo de cuenta</h3>
+							<h3>Datos individuales del catálogo de cuentas seleccionado</h3>
 						</div>
 
 						<!-- <div class="title_right">
@@ -122,6 +122,7 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 								</div>
 							</div>
 						</div> -->
+						
 					</div>
 					<div class="clearfix"></div>
 
@@ -129,31 +130,30 @@ tEmpresa = dtEmpresa.getTableEmpresaByID(tCatalogo.getIdEmpresa());
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Ver catalogo</h2>
-
+									
 									<div class="clearfix"></div>
 								</div>
 								
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
-										<span class="section">Datos del catalogo</span>
+										<span class="section">Datos del catálogo de cuentas seleccionado</span>
 			
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Id del catalogo de cuenta<span></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">ID del catálogo de cuentas<span></span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="IdCatalogo" type="text" value="<%=tCatalogo.getIdCatalogo()%>" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Titulo<span></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Título<span></span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="titulo" type="text" value="<%=tCatalogo.getTitulo()%>" readonly/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripcion<span></span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Descripción<span></span></label>
 											<div class="col-md-6 col-sm-6">
 												<input class="form-control" class='optional' name="descripcion" type="text" value="<%=tCatalogo.getDescripcion()%>" readonly/>
 											</div>
