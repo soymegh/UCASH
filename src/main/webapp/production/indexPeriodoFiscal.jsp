@@ -103,6 +103,9 @@
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../vendors/jAlert/dist/jAlert.css" />
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
+	rel="stylesheet" />
 </head>
 
 <body class="nav-md">
@@ -197,6 +200,8 @@
 	<script src="../vendors/Chart.js/dist/Chart.min.js"></script>
 	<!-- jQuery Sparklines -->
 	<script src="../vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
 	<!-- Flot -->
 	<script src="../vendors/Flot/jquery.flot.js"></script>
 	<script src="../vendors/Flot/jquery.flot.pie.js"></script>
@@ -224,6 +229,12 @@
 	var mensaje = "";
 	mensaje = document.getElementById("JAlertInput").value; 
 	
+	//Inicio select2
+	$(document).ready(function() {
+		$('.js-example-basic-single').select2();
+	});
+	//Cierre Select2
+	
 	$(document).ready(function() {
 
         if (mensaje == "1") {
@@ -248,5 +259,6 @@
         });*/
     });
 	</script>
+	<script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
 </html>
