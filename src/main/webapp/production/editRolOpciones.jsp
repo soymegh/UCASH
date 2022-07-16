@@ -155,11 +155,11 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 								                 %>
 
 								                 <select class="form-control js-example-basic-single" name="cbxOpciones" id="cbxOpciones" required="required">
-												  <option value=""><%="Dato actual: " + rolOpciones.getOpciones() %></option>
+												  <option value=""><%="Dato actual: " + rolOpciones.getDescripcion() %></option>
 												  <% 
 												  	for(Tbl_opciones to :listaOpciones){
 												  %>
-												  <option value="<%=to.getIdOpciones()%>"><%=to.getNombreOpcion()%></option>
+												  <option value="<%=to.getIdOpciones()%>"><%=to.getDescripcion()%></option>
 												  <%
 												  	}
 												  %>

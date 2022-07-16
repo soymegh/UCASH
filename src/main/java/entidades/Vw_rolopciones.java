@@ -5,6 +5,7 @@ public class Vw_rolopciones {
 	private int idRolOpciones;
 	private String rol;
 	private String opciones;
+	private String descripcion;
 	
 	public Vw_rolopciones() {
 		
@@ -33,4 +34,13 @@ public class Vw_rolopciones {
 	public void setOpciones(String opciones) {
 		this.opciones = opciones;
 	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	
 }
