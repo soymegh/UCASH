@@ -140,7 +140,7 @@
 												  <% 
 												  	for(Tbl_opciones to :listaOpciones){
 												  %>
-												  <option value="<%=to.getIdOpciones()%>"><%=to.getNombreOpcion()%></option>
+												  <option value="<%=to.getIdOpciones()%>"><%=to.getDescripcion()%></option>
 												  <%
 												  	}
 												  %>

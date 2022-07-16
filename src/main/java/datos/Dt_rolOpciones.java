@@ -204,6 +204,7 @@ public class Dt_rolOpciones {
 				rolOpcion.setIdRolOpciones(rs.getInt("idRolOpciones"));
 				rolOpcion.setRol(rs.getString("nombreRol"));
 				rolOpcion.setOpciones(rs.getString("nombreOpcion"));
+				rolOpcion.setDescripcion(rs.getString("descripcion"));
 			}
 		} catch (Exception e) {
 			System.out.println("DATOS: ERROR EN LISTAR ROL OPCIONES" + e.getMessage());
