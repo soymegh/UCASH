@@ -159,7 +159,7 @@
 														<tr>
 															<th>Id</th>
 															<th>Rol Descripcion</th>
-															<th>Opciones</th>
+															<th>Descripción de opción</th>
 															<th>Acciones</th>
 														</tr>
 													</thead>
@@ -170,7 +170,7 @@
 														<tr>
 															<td><%=ro.getIdRolOpciones()%></td>
 															<td><%=ro.getRol()%></td>
-															<td><%=ro.getOpciones()%></td>
+															<td><%=ro.getDescripcion()%></td>
 															
 															<td><a href="editRolOpciones.jsp?idRolOpciones=<%=ro.getIdRolOpciones()%>"> <i
 																	class="fa fa-edit" title="Editar"></i></a> &nbsp;&nbsp; <a
