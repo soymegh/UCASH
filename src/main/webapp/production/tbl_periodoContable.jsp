@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoFiscal,
-	entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal, entidades.Vw_periodoContable,
-	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
+
+	import="entidades.Vw_empresa, 
+	entidades.Vw_usuariorol, 
+	entidades.Vw_rolopciones, 
+	entidades.Tbl_periodoFiscal,
+	entidades.Tbl_periodoContable, 
+	entidades.Tbl_periodoFiscal, 
+	entidades.Vw_periodoContable,
+	datos.Dt_rolOpciones, 
+	datos.Dt_periodoContable, 
+	datos.Dt_periodoFiscal, 
+	java.util.*;"%>
+
 
 <%
 //JAlert flag
@@ -142,6 +152,20 @@ if (!permiso) {
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
+									<div style="border: #73879C 2px solid; margin: 0 auto; width: 50%; padding: 10px; text-align: center">
+										<p><b>Leyenda:</b></p>
+										
+										<div class="row" style="margin: 0 auto">
+											<div style="background-color: #ff7878; width: 20px; height: 20px"></div>
+											<p>&nbsp;Período fiscal</p>
+										</div>
+
+										<div class="row" style="margin: 0 auto">
+											<div style="background-color: #52a0ff; width: 20px; height: 20px"></div>
+											<p>&nbsp;Período contable</p>
+										</div>
+
+									</div>
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="card-box table-responsive">
@@ -153,21 +177,27 @@ if (!permiso) {
 												</div>
 
 												<input type="hidden" value="<%=signal%>" id="JAlertInput" />
+
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
 													<%
 													ArrayList<Vw_periodoContable> listaperiodoContable = new ArrayList<Vw_periodoContable>();
 													Dt_periodoContable dtPC = new Dt_periodoContable();
+
 													listaperiodoContable = dtPC.listarperiodoContable(vwur.getIdEmpresa());
 													%>
 													<thead>
 														<tr>
 															<th>ID</th>
-															<th>Fecha Inicio del Periodo Fiscal</th>
-															<th>Fecha Final del Periodo Fiscal</th>
-															<th>Fecha Inicio</th>
-															<th>Fecha Final</th>
+															<th style="background-color: #ff7878">Fecha Inicio
+																del Periodo Fiscal</th>
+															<th style="background-color: #52a0ff">Fecha Inicio
+																del Periodo Contable</th>
+															<th style="background-color: #52a0ff">Fecha Final
+																del Periodo Contable</th>
+															<th style="background-color: #ff7878">Fecha Final
+																del Periodo Fiscal</th>
 															<th>Estado</th>
 															<th>Acciones</th>
 														</tr>
@@ -191,10 +221,17 @@ if (!permiso) {
 														%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
+<<<<<<< HEAD
 															<td><%=PC.getFechaInicioPF()%></td>
 															<td><%=PC.getFechaFinalPF()%></td>
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
+=======
+															<td style="background-color: #ffa6a6"><%=PC.getFechaInicioPF()%></td>
+															<td style="background-color: #a1cbff"><%=PC.getFechaInicio()%></td>
+															<td style="background-color: #a1cbff"><%=PC.getFechaFinal()%></td>
+															<td style="background-color: #ffa6a6"><%=PC.getFechaFinalPF()%></td>
+>>>>>>> 088eddc (Reorden de la tabla de PC y agregada leyenda de colores)
 															<td><%=estado%></td>
 															<td><a
 																href="editPeriodoContable.jsp?contable=<%=PC.getIdPeriodoContable()%>">
@@ -212,10 +249,17 @@ if (!permiso) {
 														%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
+<<<<<<< HEAD
 															<td><%=PC.getFechaInicioPF()%></td>
 															<td><%=PC.getFechaFinalPF()%></td>
 															<td><%=PC.getFechaInicio()%></td>
 															<td><%=PC.getFechaFinal()%></td>
+=======
+															<td style="background-color: #ffa6a6"><%=PC.getFechaInicioPF()%></td>
+															<td style="background-color: #a1cbff"><%=PC.getFechaInicio()%></td>
+															<td style="background-color: #a1cbff"><%=PC.getFechaFinal()%></td>
+															<td style="background-color: #ffa6a6"><%=PC.getFechaFinalPF()%></td>
+>>>>>>> 088eddc (Reorden de la tabla de PC y agregada leyenda de colores)
 															<td><%=estado%></td>
 															<td><a
 																href="viewPeriodoContable.jsp?contablever=<%=PC.getIdPeriodoContable()%>">
