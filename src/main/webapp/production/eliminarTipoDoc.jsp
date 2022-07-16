@@ -159,10 +159,7 @@ td = dtd.obtenerTipoDocPorId(idtd);
 			  </div>
 			</div>
 			<!-- footer content -->
-            <footer>
-                <div class="pull-right">Sistema contable by Eldian's Software</div>
-                <div class="clearfix"></div>
-            </footer>
+           
             <!-- /footer content -->
         </div>
     </div>

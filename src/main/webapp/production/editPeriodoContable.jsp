@@ -211,9 +211,8 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-													<button type='submit' class="btn btn-primary">Editar</button>
-													<a href="tbl_periodoContable.jsp" type="button"
-														class="btn btn-primary">Cancelar</a>
+													<a href="tbl_periodoContable.jsp" type="button" class="btn btn-danger">Cancelar</a>
+													<button type='submit' class="btn btn-success">Editar</button>
 												</div>
 											</div>
 										</div>
@@ -236,11 +235,34 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 	</div>
 
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="../vendors/validator/multifield.js"></script>
 	<script src="../vendors/validator/validator.js"></script>
 
+	<script>
+		// initialize a validator instance from the "FormValidator" constructor.
+		// A "<form>" element is optionally passed as an argument, but is not a must
+		var validator = new FormValidator({
+			"events" : [ 'blur', 'input', 'change' ]
+		}, document.forms[0]);
+		// on form "submit" event
+		document.forms[0].onsubmit = function(e) {
+			var submit = true, validatorResult = validator.checkAll(this);
+			console.log(validatorResult);
+			return !!validatorResult.valid;
+		};
+		// on form "reset" event
+		document.forms[0].onreset = function(e) {
+			validator.reset();
+		};
+		// stuff related ONLY for this demo page:
+		$('.toggleValidationTooltips').change(function() {
+			validator.settings.alerts = !this.checked;
+			if (this.checked)
+				$('form .alert').remove();
+		}).prop('checked', false);
+	</script>
+	
 	<!-- Javascript functions	-->
 	<script>
 		function hideshow() {

@@ -176,13 +176,7 @@
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer>
-				<div class="pull-right">
-					<a><i class="green">FROGBMJ Software </i><i>por</i> <i
-						class="red"> Eldian's Development</i></a>
-				</div>
-				<div class="clearfix"></div>
-			</footer>
+			
 			<!-- /footer content -->
 		</div>
 	</div>

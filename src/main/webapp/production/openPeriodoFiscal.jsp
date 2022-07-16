@@ -139,22 +139,22 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha de Inicio<span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
-												<input readonly='readonly' class="form-control" class='optional' name="fechaInicio" value="<%=tpfiscal.getFechaInicio() %>"  type="date" required="required" placeholder="Fecha de Inicio"/>
+												<input readonly='readonly' class="form-control" class='optional' name="fechaInicio" value="<%=tpfiscal.getFechaInicio() %>"  type="date"  placeholder="Fecha de Inicio"/>
 											</div>
 										</div>
 										
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final<span class="required">*</span></label>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha Final</label>
 											<div class="col-md-6 col-sm-6">
-												<input readonly='readonly' class="form-control" class='optional' name="fechaFinal" value="<%=tpfiscal.getFechaFinal() %>" type="date" required="required" placeholder="Fecha Final"/>
+												<input readonly='readonly' class="form-control" class='optional' name="fechaFinal" value="<%=tpfiscal.getFechaFinal() %>" type="date" placeholder="Fecha Final"/>
 											</div>
 										</div>
 										
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">													
-													<a href="tbl_periodoFiscal.jsp" type="button" class="btn btn-primary">Cancelar</a>
-													<button type='submit' class="btn btn-primary">Abrir</button>
+													<a href="tbl_periodoFiscal.jsp" type="button" class="btn btn-danger">Cancelar</a>
+													<button type='submit' class="btn btn-success">Abrir</button>
 												</div>
 											</div>
 										</div>
@@ -170,11 +170,6 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 								
 	</div>
 </div>
-
-<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
-		<div class="clearfix"></div>
-	</footer>
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

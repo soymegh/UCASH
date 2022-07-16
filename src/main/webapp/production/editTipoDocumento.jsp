@@ -130,20 +130,20 @@ td = dtd.obtenerTipoDocPorId(idtd);
 										novalidate>
 										<input type="hidden" value="2" name="opcion" id="opcion" /> <input
 											type="hidden" value="<%=td.getIdTipoDocumento()%>"
-											name="idTDUpdate" id="idTDUpdate" />
+											name="idTDUpdate" id="idTDUpdate" readonly="readonly"/>
 
 										<div class="field item form-group">
-											<label class="control-label col-md-3 col-sm-3 label-align ">Tipo</label>
+											<label class="control-label col-md-3 col-sm-3 label-align ">Tipo: <span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input type="text" class="form-control" name="txtTipo"
-													value="<%=td.getTipo()%>" placeholder="">
+													value="<%=td.getTipo()%>" placeholder="Ejemplo: cheque" required="required">
 											</div>
 										</div>
 										<div class="field item form-group">
-											<label class="control-label col-md-3 col-sm-3 label-align">Acronimo</label>
+											<label class="control-label col-md-3 col-sm-3 label-align">Acronimo: <span class="required">*</span></label>
 											<div class="col-md-6 col-sm-6">
 												<input type="text" class="form-control" name="txtAcronimo"
-													value="<%=td.getAcronimo()%>" placeholder="">
+													value="<%=td.getAcronimo()%>" placeholder="Ejemplo: txt" required="required">
 											</div>
 										</div>
 										<div class="ln_solid"></div>
@@ -162,14 +162,39 @@ td = dtd.obtenerTipoDocPorId(idtd);
 				</div>
 			</div>
 			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
 			<!-- /footer content -->
 		</div>
 	</div>
+	<!-- Validator -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../vendors/validator/multifield.js"></script>
+	<script src="../vendors/validator/validator.js"></script>
 
+	<script>
+		// initialize a validator instance from the "FormValidator" constructor.
+		// A "<form>" element is optionally passed as an argument, but is not a must
+		var validator = new FormValidator({
+			"events" : [ 'blur', 'input', 'change' ]
+		}, document.forms[0]);
+		// on form "submit" event
+		document.forms[0].onsubmit = function(e) {
+			var submit = true, validatorResult = validator.checkAll(this);
+			console.log(validatorResult);
+			return !!validatorResult.valid;
+		};
+		// on form "reset" event
+		document.forms[0].onreset = function(e) {
+			validator.reset();
+		};
+		// stuff related ONLY for this demo page:
+		$('.toggleValidationTooltips').change(function() {
+			validator.settings.alerts = !this.checked;
+			if (this.checked)
+				$('form .alert').remove();
+		}).prop('checked', false);
+	</script>
+	
+	
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->

@@ -124,7 +124,7 @@
 									  <input type="hidden" value="<%=adminPass%>" name="admin_pass" id="admin_pass"/>
 										<span class="section">Periodo Fiscal</span>
 										<br>
-										<a href="./addNuevoPeriodoFiscal.jsp">Agregar período fiscla</a>
+										<a href="./addNuevoPeriodoFiscal.jsp">Agregar período fiscal</a>
 										
 										<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
 										<div class="field item form-group">
@@ -178,13 +178,7 @@
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer>
-				<div class="pull-right">
-					<a><i class="green">FROGBMJ Software </i><i>por</i> <i
-						class="red"> Eldian's Development</i></a>
-				</div>
-				<div class="clearfix"></div>
-			</footer>
+			
 			<!-- /footer content -->
 		</div>
 	</div>

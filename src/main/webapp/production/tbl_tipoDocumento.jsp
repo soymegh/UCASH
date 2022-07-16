@@ -193,16 +193,6 @@
 														}
 														%>
 													</tbody>
-
-													<tfoot>
-														<tr>
-															<th>ID</th>
-															<th>Tipo</th>
-															<th>Acronimo</th>
-															<th>Acciones</th>
-														</tr>
-													</tfoot>
-
 												</table>
 											</div>
 										</div>
@@ -219,14 +209,6 @@
 	</div>
 
 	<!-- /page content -->
-
-	<!-- footer content -->
-	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
-		<div class="clearfix"></div>
-	</footer>
-	<!-- /footer content -->
-
 
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>

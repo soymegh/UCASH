@@ -213,8 +213,8 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<a href="tbl_periodoContable.jsp" type="button"
-														class="btn btn-primary">Cancelar</a>
-														<button type='submit' class="btn btn-primary">Abrir Periodo	</button>
+														class="btn btn-danger">Cancelar</a>
+														<button type='submit' class="btn btn-success">Abrir Periodo	</button>
 												</div>
 											</div>
 										</div>
@@ -228,10 +228,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
+			
 			<!-- /footer content -->
 		</div>
 	</div>
