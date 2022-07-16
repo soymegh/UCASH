@@ -69,6 +69,9 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
+	rel="stylesheet" />
 </head>
 
 <body class="nav-md">
@@ -106,8 +109,7 @@
 										novalidate>
 										<input type="hidden" value="1" name="opcion" id="opcion" />
 										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Inicio del Periodo Fiscal: <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal: <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<%
@@ -116,12 +118,12 @@
 												listaPF = dtpf.listarperiodoFiscal(Vw_empresa.empresaActual);
 												%>
 												<select class="form-control js-example-basic-single"
-													name="cbxIDPF" id="cbxIDPF" required="required" onchange="ShowSelected();">
+													name="cbxIDPF" id="cbxIDPF" required="required">
 													<option value="">Seleccione...</option>
 													<%
 													for (Tbl_periodoFiscal pf : listaPF) {
 													%>
-													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaInicio()%></option>
+													<option value="<%=pf.getIdPeriodoFiscal()%>"><%="Fecha de inicio: " + pf.getFechaInicio() + " " + " Fecha de finalización: " + pf.getFechaFinal()%></option>
 													<%
 													}
 													%>
@@ -129,24 +131,6 @@
 											</div>
 										</div>
 
-										<div class="field item form-group">
-											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
-												Final del Periodo Fiscal:
-											</label>
-											<div class="col-md-6 col-sm-6">
-												<select class="form-control js-example-basic-single"
-													name="cbxIDPFFF" id="cbxIDPFFF" disabled="disabled">
-													<option value="">Seleccione...</option>
-													<%
-													for (Tbl_periodoFiscal pf : listaPF) {
-													%>
-													<option value="<%=pf.getIdPeriodoFiscal()%>"><%=pf.getFechaFinal()%></option>
-													<%
-													}
-													%>
-												</select>
-											</div>
-										</div>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Fecha
@@ -190,21 +174,20 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-		function ShowSelected() {
-			/* Para obtener el valor */
-			var cod = document.getElementById("cbxIDPF").value;
-			$("#cbxIDPFFF").val(""+cod);
-		}
-	</script>
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="../vendors/validator/multifield.js"></script>
 	<script src="../vendors/validator/validator.js"></script>
-
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	
 	<script>
 		// initialize a validator instance from the "FormValidator" constructor.
 		// A "<form>" element is optionally passed as an argument, but is not a must
+		//Inicio select2
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2();
+		});
+		//Cierre Select2
 		var validator = new FormValidator({
 			"events" : [ 'blur', 'input', 'change' ]
 		}, document.forms[0]);
@@ -263,6 +246,6 @@
 	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-
+	<script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
 </html>
