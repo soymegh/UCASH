@@ -122,7 +122,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Mostrar Asiento Contable</h3>
+							<h3>Ver período contable</h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
