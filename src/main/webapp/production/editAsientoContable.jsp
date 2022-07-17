@@ -401,6 +401,23 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			</table>
 																		</div>
 																	</div>
+																	
+																	<div class="alert" role="alert" id="divTotaldebe"
+																		style="background: lightblue; width: 20%; left: 850px">
+																		<p
+																			style="color: black; text-align: left; font-size: 20px">
+																			Total debe: <span id="tdebe" style="color: black"><%=debe%></span>
+																		</p>
+																	</div>
+																	
+																	<div class="alert" role="alert" id="divTotalhaber"
+																		style="background: pink; width: 20%; left: 870px">
+																		<p
+																			style="color: black; text-align: left; font-size: 20px">
+																			Total haber: <span id="thaber" style="color: black "><%=haber%></span>
+																		</p>
+																	</div>
+																	
 																	<div class="alert" role="alert" id="divTotal"
 																		style="background: lightgreen; width: 100%">
 																		<p
@@ -621,6 +638,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 		var saldo = 0;
 		var debe = 0;
 		var haber = 0;
+		var tdebe = parseFloat($("#tdebe").text());
+		var thaber = parseFloat($("#thaber").text());
 		var tableBody = document.getElementById("tbldet");
 		var rows = getCantRows();
 		var deletedRows = 0;
@@ -659,6 +678,11 @@ tpacont = dtac.obtenerAContablePorId(idac);
 								debe = parseFloat($("#debe").val());
 								haber = parseFloat($("#haber").val());
 								saldo = saldo + (debe - haber);
+								tdebe += debe;
+								thaber += haber;
+								
+								$("#tdebe").text(tdebe);
+								$("#thaber").text(thaber);
 
 								$("#debe").val(0);
 								$("#haber").val(0);
@@ -688,8 +712,13 @@ tpacont = dtac.obtenerAContablePorId(idac);
 			rows = getCantRows();
 			deletedRowsNameMapper();
 			saldo = saldo - debe + haber;
+			tdebe -= debe;
+			thaber -= haber;
+			
+			$("#tdebe").text(tdebe);
+			$("#thaber").text(thaber);
 			$("#total").text(saldo);
-			console.log(cantDetalles);
+
 			$("#debe").val(0);
 			$("#haber").val(0);
 			if (saldo == 0) {
