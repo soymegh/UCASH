@@ -368,6 +368,23 @@ if (!permiso) {
 																			</table>
 																		</div>
 																	</div>
+																	
+																	<div class="alert" role="alert" id="divTotaldebe"
+																		style="background: lightblue; width: 20%; left: 850px">
+																		<p
+																			style="color: black; text-align: left; font-size: 20px">
+																			Total debe: <span id="tdebe" style="color: black">0</span>
+																		</p>
+																	</div>
+																	
+																	<div class="alert" role="alert" id="divTotalhaber"
+																		style="background: pink; width: 20%; left: 870px">
+																		<p
+																			style="color: black; text-align: left; font-size: 20px">
+																			Total haber: <span id="thaber" style="color: black ">0</span>
+																		</p>
+																	</div>
+																	
 																	<div class="alert" role="alert" id="divTotal"
 																		style="background: lightgreen; width: 100%">
 																		<p
@@ -375,7 +392,6 @@ if (!permiso) {
 																			Saldo: <span id="total" style="color: black">0</span>
 																		</p>
 																	</div>
-																</div>
 															</div>
 														</div>
 													</div>
@@ -612,6 +628,8 @@ if (!permiso) {
 		var saldo = 0;
 		var debe = 0;
 		var haber = 0;
+		var tdebe = 0;
+		var thaber = 0;
 		
 		var botonGuardar = document.getElementById("btnGuardar");
 
@@ -754,10 +772,15 @@ if (!permiso) {
 								debe = parseFloat($("#debe").val());
 								haber = parseFloat($("#haber").val());
 								saldo = saldo + (debe - haber);
-
+								tdebe += debe;
+								thaber += haber;
+								
+								$("#tdebe").text(tdebe);
+								$("#thaber").text(thaber);
+								
 								$("#debe").val(0);
 								$("#haber").val(0);
-
+								
 								if (saldo == 0) {
 									$("#divTotal").css({
 										"background" : "lightgreen"
@@ -803,6 +826,11 @@ if (!permiso) {
 			haber = parseFloat(currentRow.find("#tdhaber").children().val());
 			$(this).parent().parent().remove();
 			saldo = saldo - debe + haber;
+			tdebe -= debe;
+			thaber -= haber;
+			
+			$("#tdebe").text(tdebe);
+			$("#thaber").text(thaber);
 			$("#total").text(saldo);
 			if (saldo == 0) {
 				$("#divTotal").css({
@@ -827,6 +855,11 @@ if (!permiso) {
 
 		$("#vaciardet").click(function() {
 			saldo = 0;
+			tdebe = 0;
+			thaber = 0;
+			
+			$("#tdebe").text(tdebe);
+			$("#thaber").text(thaber);
 			$("#tbldet tbody tr").remove();
 			$("#total").text(saldo);
 			if (saldo == 0) {
