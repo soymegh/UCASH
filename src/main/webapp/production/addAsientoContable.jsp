@@ -177,8 +177,8 @@ if (!permiso) {
 										data-parsley-validate>
 										<input type="hidden" id="idMensaje" value="<%=codigoMensaje %>" />
 										
-										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
-											class="section"></span> <input type="hidden" value="0"
+										<input type="hidden" value="1" name="opcion" id="opcion" /> 
+										<input type="hidden" value="0"
 											name="detalles" id="detalles" /> <input type="hidden"
 											value="<%=Tbl_periodoContable.idPeriodoActual%>"
 											name="periodoContable" id="periodoContable" /> <input
@@ -775,9 +775,9 @@ if (!permiso) {
 
 								debe = parseFloat($("#debe").val());
 								haber = parseFloat($("#haber").val());
-								saldo = saldo + (debe - haber);
-								tdebe += debe;
-								thaber += haber;
+								saldo = (parseFloat(saldo) + parseFloat((debe - haber))).toFixed(2);
+								tdebe = (parseFloat(tdebe) + parseFloat(debe)).toFixed(2);
+								thaber = (parseFloat(thaber) + parseFloat(haber)).toFixed(2);
 								
 								$("#tdebe").text(tdebe);
 								$("#thaber").text(thaber);
