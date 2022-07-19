@@ -263,23 +263,25 @@ if (!permiso) {
 																		</table>
 																	</div>
 																</div>
-																
-																<div class="alert" role="alert" id="divTotaldebe"
-																		style="background: lightblue; width: 20%; left: 850px">
-																		<p
-																			style="color: black; text-align: left; font-size: 20px">
-																			Total debe: <span id="tdebe" style="color: black"><%=debe%></span>
-																		</p>
-																	</div>
+																<div class="alert" role="alert" id="debenhaber"
+																	style="width: 100%">
 																	
 																	<div class="alert" role="alert" id="divTotalhaber"
-																		style="background: pink; width: 20%; left: 870px">
+																		style="background: pink; width: 20%; float :right">
 																		<p
 																			style="color: black; text-align: left; font-size: 20px">
 																			Total haber: <span id="thaber" style="color: black "><%=haber%></span>
 																		</p>
 																	</div>
-																
+																	
+																	<div class="alert" role="alert" id="divTotaldebe"
+																		style="background: lightblue; width: 20%; float: right; right: 25px">
+																		<p style="color: black; text-align: left; font-size: 20px">
+																			Total debe: <span id="tdebe" style="color: black"><%=debe%></span>
+																		</p>
+																	</div>
+																	
+																</div>
 																<div class="alert" role="alert" id="divTotal"
 																	style="width: 100%">
 																	<p
@@ -288,6 +290,7 @@ if (!permiso) {
 																		</span>
 																	</p>
 																</div>
+																
 															</div>
 														</div>
 													</div>
