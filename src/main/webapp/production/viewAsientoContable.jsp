@@ -132,7 +132,6 @@ if (!permiso) {
 
 								<div class="x_content">
 									<form class="" action="" method="post" novalidate>
-										<span class="section"></span>
 										
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo

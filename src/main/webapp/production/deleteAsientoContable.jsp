@@ -129,7 +129,7 @@ if (!permiso) {
 								<div class="x_content">
 									<form class="" action="../Sl_asientoContable" method="post"
 										novalidate>
-										<span class="section"></span> <input type="hidden" value="3"
+										 <input type="hidden" value="3"
 											name="opcion" id="opcion" /> <input type="hidden"
 											value="<%=tpacont.getIdAsientoContable()%>"
 											name="idAContableEliminar" id="idPContableEliminar" />
