@@ -50,9 +50,9 @@
 
 <%
 String nombreEmpresa = "";
-if (Vw_empresa.empresaActual != 0) {
+if (vwur.getIdEmpresa() != 0) {
 	Dt_empresa datosEmpresa = new Dt_empresa();
-	int idEmpresa = Vw_empresa.empresaActual;
+	int idEmpresa = vwur.getIdEmpresa();
 	nombreEmpresa = "Trabajando, " + datosEmpresa.getNombreEmpresaPorId(idEmpresa);
 }
 %>

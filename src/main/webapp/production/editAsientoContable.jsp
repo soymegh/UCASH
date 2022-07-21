@@ -152,7 +152,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											value="<%=tpacont.getIdAsientoContable()%>" name="idAcont"
 											id="idAcont" /> <span class="section"></span>
 											<input type="hidden" value="<%=Tbl_periodoContable.idPeriodoActual %>" name="periodoContable" id="periodoContable" />
-											<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
+											<input type="hidden" value="<%=vwur.getIdEmpresa() %>" name="empresaActual" id="empresaActual" />
 											<input type="hidden" value="<%=vwur.getId_user()%>" name="usuarioModificacion" id="usuarioModificacion" />
 											<input type="hidden" value="<%=Tbl_moneda.idMonedaActual%>" name="moneda" id="moneda" />
 
@@ -255,7 +255,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			Vw_catalogocuenta_empresa CE = new Vw_catalogocuenta_empresa();
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
 																			Dt_catalogocuenta  dtcac = new Dt_catalogocuenta();
-																			CE = dtcac.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
+																			CE = dtcac.getCatalogoByIdEmpresa(vwur.getIdEmpresa());
 																			int idCatalogo = 0;
 																			%>
 																			<select class="js-example-basic-single" name="cbxCC"

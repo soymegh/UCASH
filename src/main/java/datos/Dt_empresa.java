@@ -359,8 +359,8 @@ public class Dt_empresa {
 		}
 		return modificado;
 	}
-	public boolean getTableEmpresaByIdLogin(int idEmpresa) {
-        boolean flag = false; 
+	public int getTableEmpresaByIdLogin(int idEmpresa) {
+        int flag = 0; 
         try {
             c = poolConexion.getConnection();
             ps = c.prepareStatement("SELECT * FROM dbucash.empresa WHERE idEmpresa =?",
@@ -371,9 +371,7 @@ public class Dt_empresa {
             // Hace peticion a la base de datos, por lo que los nombres en parentesis son
             // los de la base de datos.
             if (rs.next()) {
-                Vw_empresa.empresaActual = rs.getInt("idEmpresa");
-
-                flag = true; 
+                flag = rs.getInt("idEmpresa");
             }
 
         } catch (Exception e) {

@@ -161,7 +161,7 @@ if (!permiso) {
 																	<%
 																	ArrayList<Vw_asientoContable> listaAsientoContable = new ArrayList<Vw_asientoContable>();
 																	Dt_asientoContable dtac = new Dt_asientoContable();
-																	listaAsientoContable = dtac.listarasientocontableporid(Vw_empresa.empresaActual);
+																	listaAsientoContable = dtac.listarasientocontableporid(vwur.getIdEmpresa());
 
 																	Dt_periodoContable dtpc = new Dt_periodoContable();
 																	Tbl_periodoContable tblpc = new Tbl_periodoContable();

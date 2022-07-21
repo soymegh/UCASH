@@ -182,7 +182,7 @@ if (!permiso) {
 											name="detalles" id="detalles" /> <input type="hidden"
 											value="<%=Tbl_periodoContable.idPeriodoActual%>"
 											name="periodoContable" id="periodoContable" /> <input
-											type="hidden" value="<%=Vw_empresa.empresaActual%>"
+											type="hidden" value="<%=vwur.getIdEmpresa()%>"
 											name="empresaActual" id="empresaActual" /> <input
 											type="hidden" value="<%=vwur.getId_user()%>"
 											name="usuarioCreacion" id="usuarioCreacion" /> <input
@@ -290,7 +290,7 @@ if (!permiso) {
 																			Vw_catalogocuenta_empresa CE = new Vw_catalogocuenta_empresa();
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
 																			Dt_catalogocuenta  dtcac = new Dt_catalogocuenta();
-																			CE = dtcac.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
+																			CE = dtcac.getCatalogoByIdEmpresa(vwur.getIdEmpresa());
 																			int idCatalogo = 0;
 																			%>
 																			<select class="js-example-basic-single" name="cbxCC"
@@ -470,6 +470,30 @@ if (!permiso) {
 	<script src="../build/js/custom.min.js"></script>
 
 	<script src="../vendors/jquery.toast.min.js"></script>
+	
+	
+	<script type="text/javascript">
+		var concept = document.getElementById("descripcion");
+		var date = document.getElementById("fecha");
+		var documentType = document.getElementById("cbxIDTD");
+		var coinExchange = document.getElementById("cbxIDTCD");
+		var btnSave = document.getElementById("btnGuardar");
+		
+		
+		btnSave.addEventListener('click', () => {
+			localStorage.setItem('concept', ""+concept.value+"");
+			localStorage.setItem('date', ""+date.value+"");
+			localStorage.setItem('document', ""+$("#cbxIDTD").select2('val')+"")
+			localStorage.setItem('coin', ""+$("#cbxIDTCD").select2('val')+"")
+		});
+		
+		console.log(""+localStorage.getItem('document')+"");
+		
+		concept.value = ""+localStorage.getItem('concept')+"";
+		date.value = ""+localStorage.getItem('date')+"";
+		documentType.value = ""+localStorage.getItem('document')+"";
+		coinExchange.value = ""+localStorage.getItem('document')+"";
+	</script>
 	
 	<script>
 	

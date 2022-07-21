@@ -102,7 +102,7 @@
 								<div class="x_content">
 									<form class="" action="../Sl_periodoFiscal" method="post" novalidate>
 									  <input type="hidden" value="1" name="opcion" id="opcion"/>
-									  <input type="hidden" value="<%=Vw_empresa.empresaActual%>" name="empresaActual" id="empresaActual"/>
+									  <input type="hidden" value="<%=vwur.getIdEmpresa()%>" name="empresaActual" id="empresaActual"/>
 										<span class="section">Datos de Periodo Fiscal</span>
 										
 										<div class="field item form-group">

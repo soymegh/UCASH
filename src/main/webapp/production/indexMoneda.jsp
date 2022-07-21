@@ -110,6 +110,7 @@
 									<form class="" action="../Sl_moneda" method="post" novalidate>
 									  <input type="hidden" value="4" name="opcion" id="opcion"/>
 									  <input type="hidden" value="<%=signal%>" id="JAlertInput"/>
+									  <input type="hidden" value="<%=vwur.getUsuario()%>" id="username" name="username"/>
 										<span class="section">Moneda</span>
 
 										<div class="field item form-group">

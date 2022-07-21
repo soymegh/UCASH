@@ -149,7 +149,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 												<%
 												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
 												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-												listaPF = dtpf.listarperiodoFiscal(Vw_empresa.empresaActual);
+												listaPF = dtpf.listarperiodoFiscal(vwur.getIdEmpresa());
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDPF" id="cbxIDPF" required="required" disabled="disabled">
