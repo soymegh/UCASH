@@ -159,14 +159,13 @@ tpacont = dtac.obtenerAContablePorId(idac);
 										novalidate>
 										<input type="hidden" value="2" name="opcion" id="opcion" readonly="readonly"/>  
 										<input type="hidden" value="0" name="detallesEliminados" id="detallesEliminados", readonly="readonly" />
-										<input type="hidden" value="1" name="opcion" id="opcion" readonly="readonly"/> 
 										<input type="hidden" value="0" name="detalles" id="detalles" readonly="readonly"/>
 										<input type="hidden" value="0" name="detallesAgregados" id="detallesAgregados" readonly="readonly"/> 
 										<input type="hidden" value="<%=tpacont.getIdAsientoContable()%>" name="idAcont" id="idAcont" readonly="readonly"/>
-										<input type="hidden" value="<%=Tbl_periodoContable.idPeriodoActual %>" name="periodoContable" id="periodoContable" readonly="readonly"/>
+										<input type="hidden" value="<%=vwur.getIdPeriodoContable() %>" name="periodoContable" id="periodoContable" readonly="readonly"/>
 										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" readonly="readonly"/>
 										<input type="hidden" value="<%=vwur.getId_user()%>" name="usuarioModificacion" id="usuarioModificacion" readonly="readonly"/>
-										<input type="hidden" value="<%=Tbl_moneda.idMonedaActual%>" name="moneda" id="moneda" readonly="readonly"/>
+										<input type="hidden" value="<%=vwur.getIdMoneda()%>" name="moneda" id="moneda" readonly="readonly"/>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
