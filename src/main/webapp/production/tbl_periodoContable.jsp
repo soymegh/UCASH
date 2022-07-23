@@ -219,23 +219,11 @@ if (!permiso) {
 														%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-															<td><%=PC.getFechaInicioPF()%></td>
-															<td><%=PC.getFechaFinalPF()%></td>
-															<td><%=PC.getFechaInicio()%></td>
-															<td><%=PC.getFechaFinal()%></td>
-=======
-=======
->>>>>>> c0bea86961746d1bddfc675be9492437c5bb45ae
 															<td style="background-color: #ffa6a6"><%=PC.getFechaInicioPF()%></td>
 															<td style="background-color: #a1cbff"><%=PC.getFechaInicio()%></td>
 															<td style="background-color: #a1cbff"><%=PC.getFechaFinal()%></td>
 															<td style="background-color: #ffa6a6"><%=PC.getFechaFinalPF()%></td>
-<<<<<<< HEAD
->>>>>>> 088eddc (Reorden de la tabla de PC y agregada leyenda de colores)
-=======
->>>>>>> c0bea86961746d1bddfc675be9492437c5bb45ae
+
 															<td><%=estado%></td>
 															<td><a
 																href="editPeriodoContable.jsp?contable=<%=PC.getIdPeriodoContable()%>">
@@ -253,23 +241,10 @@ if (!permiso) {
 														%>
 														<tr>
 															<td><%=PC.getIdPeriodoContable()%></td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-															<td><%=PC.getFechaInicioPF()%></td>
-															<td><%=PC.getFechaFinalPF()%></td>
-															<td><%=PC.getFechaInicio()%></td>
-															<td><%=PC.getFechaFinal()%></td>
-=======
-=======
->>>>>>> c0bea86961746d1bddfc675be9492437c5bb45ae
 															<td style="background-color: #ffa6a6"><%=PC.getFechaInicioPF()%></td>
 															<td style="background-color: #a1cbff"><%=PC.getFechaInicio()%></td>
 															<td style="background-color: #a1cbff"><%=PC.getFechaFinal()%></td>
 															<td style="background-color: #ffa6a6"><%=PC.getFechaFinalPF()%></td>
-<<<<<<< HEAD
->>>>>>> 088eddc (Reorden de la tabla de PC y agregada leyenda de colores)
-=======
->>>>>>> c0bea86961746d1bddfc675be9492437c5bb45ae
 															<td><%=estado%></td>
 															<td><a
 																href="viewPeriodoContable.jsp?contablever=<%=PC.getIdPeriodoContable()%>">
