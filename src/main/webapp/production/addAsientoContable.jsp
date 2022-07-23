@@ -190,8 +190,8 @@ if (!permiso) {
 										data-parsley-validate>
 										<input type="hidden" id="idMensaje" value="<%=codigoMensaje %>" />
 										
-										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
-											class="section"></span> <input type="hidden" value="0"
+										<input type="hidden" value="1" name="opcion" id="opcion" /> 
+										<input type="hidden" value="0"
 											name="detalles" id="detalles" /> <input type="hidden"
 											value="<%=vwur.getIdPeriodoContable()%>"
 											name="periodoContable" id="periodoContable" /> <input
@@ -380,6 +380,27 @@ if (!permiso) {
 																			</table>
 																		</div>
 																	</div>
+
+																	<div class="alert" role="alert" id="debenhaber"
+																		style="width: 100%">
+
+																		<div class="alert" role="alert" id="divTotalhaber"
+																			style="background: pink; width: 20%; float: right">
+																			<p
+																				style="color: black; text-align: left; font-size: 20px">
+																				Total haber: <span id="thaber" style="color: black">0</span>
+																			</p>
+																		</div>
+																		
+																		<div class="alert" role="alert" id="divTotaldebe"
+																			style="background: lightblue; width: 20%; float: right; right: 25px">
+																			<p
+																				style="color: black; text-align: left; font-size: 20px">
+																				Total debe: <span id="tdebe" style="color: black">0</span>
+																			</p>
+																		</div>
+																	</div>
+
 																	<div class="alert" role="alert" id="divTotal"
 																		style="background: lightgreen; width: 100%">
 																		<p
@@ -387,7 +408,6 @@ if (!permiso) {
 																			Saldo: <span id="total" style="color: black">0</span>
 																		</p>
 																	</div>
-																</div>
 															</div>
 														</div>
 													</div>
@@ -648,6 +668,8 @@ if (!permiso) {
 		var saldo = 0;
 		var debe = 0;
 		var haber = 0;
+		var tdebe = 0;
+		var thaber = 0;
 		
 		var botonGuardar = document.getElementById("btnGuardar");
 
@@ -789,11 +811,16 @@ if (!permiso) {
 
 								debe = parseFloat($("#debe").val());
 								haber = parseFloat($("#haber").val());
-								saldo = saldo + (debe - haber);
-
+								saldo = (parseFloat(saldo) + parseFloat((debe - haber))).toFixed(2);
+								tdebe = (parseFloat(tdebe) + parseFloat(debe)).toFixed(2);
+								thaber = (parseFloat(thaber) + parseFloat(haber)).toFixed(2);
+								
+								$("#tdebe").text(tdebe);
+								$("#thaber").text(thaber);
+								
 								$("#debe").val(0);
 								$("#haber").val(0);
-
+								
 								if (saldo == 0) {
 									$("#divTotal").css({
 										"background" : "lightgreen"
@@ -839,6 +866,11 @@ if (!permiso) {
 			haber = parseFloat(currentRow.find("#tdhaber").children().val());
 			$(this).parent().parent().remove();
 			saldo = saldo - debe + haber;
+			tdebe -= debe;
+			thaber -= haber;
+			
+			$("#tdebe").text(tdebe);
+			$("#thaber").text(thaber);
 			$("#total").text(saldo);
 			if (saldo == 0) {
 				$("#divTotal").css({
@@ -863,6 +895,11 @@ if (!permiso) {
 
 		$("#vaciardet").click(function() {
 			saldo = 0;
+			tdebe = 0;
+			thaber = 0;
+			
+			$("#tdebe").text(tdebe);
+			$("#thaber").text(thaber);
 			$("#tbldet tbody tr").remove();
 			$("#total").text(saldo);
 			if (saldo == 0) {

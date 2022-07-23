@@ -71,6 +71,9 @@
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
+	rel="stylesheet" />
 </head>
 
 <body class="nav-md">
@@ -143,10 +146,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="../vendors/validator/multifield.js"></script>
 	<script src="../vendors/validator/validator.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
 
 	<script>
 		// initialize a validator instance from the "FormValidator" constructor.
 		// A "<form>" element is optionally passed as an argument, but is not a must
+		//Inicio select2
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2();
+		});
+		//Cierre Select2
 		var validator = new FormValidator({
 			"events" : [ 'blur', 'input', 'change' ]
 		}, document.forms[0]);
@@ -206,6 +216,6 @@
 	<script src="../vendors/starrr/dist/starrr.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-
+	<script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
 </html>

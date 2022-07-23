@@ -157,24 +157,16 @@ tpacont = dtac.obtenerAContablePorId(idac);
 								<div class="x_content">
 									<form class="" action="../Sl_asientoContable" method="post"
 										novalidate>
-										<input type="hidden" value="2" name="opcion" id="opcion" /> <span
-											class="section"></span> <input type="hidden" value="0"
-											name="detallesEliminados" id="detallesEliminados" /> <input
-											type="hidden" value="1" name="opcion" id="opcion" /> <span
-											class="section"></span> <input type="hidden" value="0"
-											name="detalles" id="detalles" /> <input type="hidden"
-											value="0" name="detallesAgregados" id="detallesAgregados" />
-										<input type="hidden"
-											value="<%=tpacont.getIdAsientoContable()%>" name="idAcont"
-											id="idAcont" /> <span class="section"></span> <input
-											type="hidden" value="<%=vwur.getIdPeriodoContable()%>"
-											name="periodoContable" id="periodoContable" /> <input
-											type="hidden" value="<%=vwur.getIdEmpresa()%>"
-											name="empresaActual" id="empresaActual" /> <input
-											type="hidden" value="<%=vwur.getId_user()%>"
-											name="usuarioModificacion" id="usuarioModificacion" /> <input
-											type="hidden" value="<%=moneda.getIdMoneda()%>" name="moneda"
-											id="moneda" />
+										<input type="hidden" value="2" name="opcion" id="opcion" readonly="readonly"/>  
+										<input type="hidden" value="0" name="detallesEliminados" id="detallesEliminados", readonly="readonly" />
+										<input type="hidden" value="1" name="opcion" id="opcion" readonly="readonly"/> 
+										<input type="hidden" value="0" name="detalles" id="detalles" readonly="readonly"/>
+										<input type="hidden" value="0" name="detallesAgregados" id="detallesAgregados" readonly="readonly"/> 
+										<input type="hidden" value="<%=tpacont.getIdAsientoContable()%>" name="idAcont" id="idAcont" readonly="readonly"/>
+										<input type="hidden" value="<%=Tbl_periodoContable.idPeriodoActual %>" name="periodoContable" id="periodoContable" readonly="readonly"/>
+										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" readonly="readonly"/>
+										<input type="hidden" value="<%=vwur.getId_user()%>" name="usuarioModificacion" id="usuarioModificacion" readonly="readonly"/>
+										<input type="hidden" value="<%=Tbl_moneda.idMonedaActual%>" name="moneda" id="moneda" readonly="readonly"/>
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
@@ -401,6 +393,28 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			</table>
 																		</div>
 																	</div>
+
+																	<div class="alert" role="alert" id="debenhaber"
+																		style="width: 100%">
+
+																		<div class="alert" role="alert" id="divTotalhaber"
+																			style="background: pink; width: 20%; float: right">
+																			<p
+																				style="color: black; text-align: left; font-size: 20px">
+																				Total haber: <span id="thaber" style="color: black"><%=haber%></span>
+																			</p>
+																		</div>
+																		
+																		<div class="alert" role="alert" id="divTotaldebe"
+																			style="background: lightblue; width: 20%; float: right; right: 25px">
+																			<p
+																				style="color: black; text-align: left; font-size: 20px">
+																				Total debe: <span id="tdebe" style="color: black"><%=debe%></span>
+																			</p>
+																		</div>
+																		
+																	</div>
+
 																	<div class="alert" role="alert" id="divTotal"
 																		style="background: lightgreen; width: 100%">
 																		<p
@@ -621,6 +635,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 		var saldo = 0;
 		var debe = 0;
 		var haber = 0;
+		var tdebe = parseFloat($("#tdebe").text());
+		var thaber = parseFloat($("#thaber").text());
 		var tableBody = document.getElementById("tbldet");
 		var rows = getCantRows();
 		var deletedRows = 0;
@@ -658,7 +674,12 @@ tpacont = dtac.obtenerAContablePorId(idac);
 												+ "</tr>");
 								debe = parseFloat($("#debe").val());
 								haber = parseFloat($("#haber").val());
-								saldo = saldo + (debe - haber);
+								saldo = (parseFloat(saldo) + parseFloat((debe - haber))).toFixed(2);
+								tdebe = (parseFloat(tdebe) + parseFloat(debe)).toFixed(2);
+								thaber = (parseFloat(thaber) + parseFloat(haber)).toFixed(2);
+								
+								$("#tdebe").text(tdebe);
+								$("#thaber").text(thaber);
 
 								$("#debe").val(0);
 								$("#haber").val(0);
@@ -688,8 +709,13 @@ tpacont = dtac.obtenerAContablePorId(idac);
 			rows = getCantRows();
 			deletedRowsNameMapper();
 			saldo = saldo - debe + haber;
+			tdebe -= debe;
+			thaber -= haber;
+			
+			$("#tdebe").text(tdebe);
+			$("#thaber").text(thaber);
 			$("#total").text(saldo);
-			console.log(cantDetalles);
+
 			$("#debe").val(0);
 			$("#haber").val(0);
 			if (saldo == 0) {

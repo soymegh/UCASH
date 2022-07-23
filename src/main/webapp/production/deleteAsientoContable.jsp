@@ -129,7 +129,7 @@ if (!permiso) {
 								<div class="x_content">
 									<form class="" action="../Sl_asientoContable" method="post"
 										novalidate>
-										<span class="section"></span> <input type="hidden" value="3"
+										 <input type="hidden" value="3"
 											name="opcion" id="opcion" /> <input type="hidden"
 											value="<%=tpacont.getIdAsientoContable()%>"
 											name="idAContableEliminar" id="idPContableEliminar" />
@@ -225,6 +225,8 @@ if (!permiso) {
 																			Dt_asientoContableDet dtac1 = new Dt_asientoContableDet();
 																			listaAsientoContable = dtac1.listarasientocontableDET();
 																			double total = 0;
+																			double debe = 0;
+																			double haber = 0;
 																			%>
 																			<thead>
 																				<tr>
@@ -249,6 +251,8 @@ if (!permiso) {
 																				</tr>
 																				<%
 																				total = total + ac.getDebe() - ac.getHaber();
+																				debe += ac.getDebe();
+																				haber += ac.getHaber();
 																				} //else{
 
 																				//}
@@ -259,6 +263,25 @@ if (!permiso) {
 																		</table>
 																	</div>
 																</div>
+																<div class="alert" role="alert" id="debenhaber"
+																	style="width: 100%">
+																	
+																	<div class="alert" role="alert" id="divTotalhaber"
+																		style="background: pink; width: 20%; float :right">
+																		<p
+																			style="color: black; text-align: left; font-size: 20px">
+																			Total haber: <span id="thaber" style="color: black "><%=haber%></span>
+																		</p>
+																	</div>
+																	
+																	<div class="alert" role="alert" id="divTotaldebe"
+																		style="background: lightblue; width: 20%; float: right; right: 25px">
+																		<p style="color: black; text-align: left; font-size: 20px">
+																			Total debe: <span id="tdebe" style="color: black"><%=debe%></span>
+																		</p>
+																	</div>
+																	
+																</div>
 																<div class="alert" role="alert" id="divTotal"
 																	style="width: 100%">
 																	<p
@@ -267,6 +290,7 @@ if (!permiso) {
 																		</span>
 																	</p>
 																</div>
+																
 															</div>
 														</div>
 													</div>

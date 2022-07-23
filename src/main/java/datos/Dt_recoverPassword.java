@@ -84,25 +84,25 @@ public class Dt_recoverPassword {
 		      	message.addRecipient(Message.RecipientType.TO, new InternetAddress(email_solicitante));
 
 		      // Asunto: encabezado del archivo
-		        message.setSubject("PROCESO DE RECUPERACIÓN DE CONTRASEÑA");
+		        message.setSubject("PROCESO DE RECUPERACIï¿½N DE CONTRASEï¿½A");
 
 
 		      //Cuerpo del correo  
-		        String myMsg = "<strong>PROCESO DE RECUPERACIÓN DE CONTRASEÑA </strong><br><br>";
-		      	myMsg += "Estimado "+user.getNombre()+" "+user.getApellidos()+", la contraseña recuperada por el sistema es la siguiente: ";
+		        String myMsg = "<strong>PROCESO DE RECUPERACIï¿½N DE CONTRASEï¿½A </strong><br><br>";
+		      	myMsg += "Estimado "+user.getNombre()+" "+user.getApellidos()+", la contraseï¿½a recuperada por el sistema es la siguiente: ";
 		      	myMsg += contraseñaDesencriptada+" <br><br>";
 		      	myMsg += "<br>----------------------------------------------------------<br>";
 		      	myMsg += "Administrador del Sistema<br>";
 		      	myMsg += "Usuario: "+user.getUsuario()+"<br>";
 		      	myMsg += "Cargo: "+userRol.getRol()+"<br>";
-		      	myMsg += "Fecha de recuperación: "+dtf.format(LocalDateTime.now())+"<br>";
-		      	myMsg += "Hora de recuperación: "+hour.format(LocalDateTime.now())+"<br>";
+		      	myMsg += "Fecha de recuperaciï¿½n: "+dtf.format(LocalDateTime.now())+"<br>";
+		      	myMsg += "Hora de recuperaciï¿½n: "+hour.format(LocalDateTime.now())+"<br>";
 		      	myMsg += "Si requiere soporte o algun tipo de acceso en especifico, puede contactar a los siguientes usuarios administradores: <br><br>";
 		      	for(Vw_usuariorol ur: userRolList) {
-		      		myMsg += "Nombre y apellido: "+ur.getNombre()+" "+ur.getApellido()+" <br> Correo electrónico: "+ur.getEmail()+" <br><br>";
+		      		myMsg += "Nombre y apellido: "+ur.getNombre()+" "+ur.getApellido()+" <br> Correo electrï¿½nico: "+ur.getEmail()+" <br><br>";
 		      	};
 		      	
-		      	myMsg += "En caso de necesitar un soporte tecnico especial, haga que un usuario administrador se contacte a este número telefonico o email: <br>";
+		      	myMsg += "En caso de necesitar un soporte tecnico especial, haga que un usuario administrador se contacte a este nï¿½mero telefonico o email: <br>";
 		      	myMsg += "Movil: +505 7855-2666 <br>";
 		      	myMsg += "Email: andUrbina2001@gmail.com";
 		      	

@@ -86,6 +86,7 @@ public class Dt_rolOpciones {
 				tblRolOpc.setIdRolOpciones(this.rs.getInt("idRolOpciones"));
 				tblRolOpc.setRol(this.rs.getString("nombreRol"));
 				tblRolOpc.setOpciones(this.rs.getString("nombreOpcion"));
+				tblRolOpc.setDescripcion(this.rs.getString("descripcion"));
 				listRolOpc.add(tblRolOpc);
 			}
 		} 
@@ -203,6 +204,7 @@ public class Dt_rolOpciones {
 				rolOpcion.setIdRolOpciones(rs.getInt("idRolOpciones"));
 				rolOpcion.setRol(rs.getString("nombreRol"));
 				rolOpcion.setOpciones(rs.getString("nombreOpcion"));
+				rolOpcion.setDescripcion(rs.getString("descripcion"));
 			}
 		} catch (Exception e) {
 			System.out.println("DATOS: ERROR EN LISTAR ROL OPCIONES" + e.getMessage());
@@ -231,7 +233,7 @@ public class Dt_rolOpciones {
 	
 	public boolean modificarRolOpcion(Tbl_rolOpciones rolOpcion)
 	{
-		System.out.println("Id de la asginación: "+rolOpcion.getIdRolOpciones()+"");
+		System.out.println("Id de la asginaciï¿½n: "+rolOpcion.getIdRolOpciones()+"");
 		boolean modificado=false;	
 		try
 		{

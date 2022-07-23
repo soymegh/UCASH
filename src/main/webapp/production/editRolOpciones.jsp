@@ -78,6 +78,9 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
+<!-- Select2 -->
+<link href="../vendors/select2/dist/css/select2.min.css"
+	rel="stylesheet" />
 </head>
 
 <body class="nav-md">
@@ -93,15 +96,6 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 						</div>
 
 						<div class="title_right">
-							<div class="col-md-5 col-sm-5 form-group pull-right top_search">
-								<div class="input-group">
-									<input type="text" class="form-control"
-										placeholder="Buscar..."> <span
-										class="input-group-btn">
-										<button class="btn btn-default" type="button">Go!</button>
-									</span>
-								</div>
-							</div>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -155,11 +149,11 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 								                 %>
 
 								                 <select class="form-control js-example-basic-single" name="cbxOpciones" id="cbxOpciones" required="required">
-												  <option value=""><%="Dato actual: " + rolOpciones.getOpciones() %></option>
+												  <option value=""><%="Dato actual: " + rolOpciones.getDescripcion() %></option>
 												  <% 
 												  	for(Tbl_opciones to :listaOpciones){
 												  %>
-												  <option value="<%=to.getIdOpciones()%>"><%=to.getNombreOpcion()%></option>
+												  <option value="<%=to.getIdOpciones()%>"><%=to.getDescripcion()%></option>
 												  <%
 												  	}
 												  %>
@@ -186,10 +180,7 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 			<!-- /page content -->
 
 			<!-- footer content -->
-			<footer>
-				<div class="pull-right">Sistema contable by Eldian's Software</div>
-				<div class="clearfix"></div>
-			</footer>
+			
 			<!-- /footer content -->
 		</div>
 	</div>
@@ -199,12 +190,19 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="../vendors/validator/multifield.js"></script>
 	<script src="../vendors/validator/validator.js"></script>
+	<!-- Select2 -->
+	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
 
 	<!-- Javascript functions	-->
 
 	<script>
 		// initialize a validator instance from the "FormValidator" constructor.
 		// A "<form>" element is optionally passed as an argument, but is not a must
+		//Inicio select2
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2();
+		});
+		//Cierre Select2
 		var validator = new FormValidator({
 			"events" : [ 'blur', 'input', 'change' ]
 		}, document.forms[0]);
@@ -239,6 +237,6 @@ rolOpciones = datosUsuarioRol.ObtenerRolOpcionPorId(idRolOp);
 
 	<!-- Custom Theme Scripts -->
 	<script src="../build/js/custom.min.js"></script>
-
+	<script src="../vendors/select2/dist/js/select2.min.js"></script>
 </body>
 </html>
