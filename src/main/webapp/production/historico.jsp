@@ -260,11 +260,8 @@ if (!permiso) {
 				</div>
 			</div>
 		</div>
+	
 	<!-- /page content -->
-	<footer>
-		<div class="pull-right">Sistema contable by Eldian's Software</div>
-		<div class="clearfix"></div>
-	</footer>
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -291,6 +288,15 @@ if (!permiso) {
 	<script src="../vendors/switchery/dist/switchery.min.js"></script>
 	<!-- Select2 -->
 	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	
+	<script>
+		//Inicio select2
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2();
+		});
+		//Cierre Select2
+	</script>
+	
 	<!-- Parsley -->
 	<script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
 	<!-- Autosize -->
