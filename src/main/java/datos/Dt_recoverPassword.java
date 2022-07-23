@@ -38,7 +38,7 @@ public class Dt_recoverPassword {
 	    /*----------------------------------------------------------------------------*/
 
 	    //METODO QUE ENVIA EL EMAIL DE VERIFICACION
-		public boolean recoverPassword(String contraseñaDesencriptada, String correo, String usuario) throws MessagingException{
+		public boolean recoverPassword(String decriptedPassword, String correo, String usuario) throws MessagingException{
 			Tbl_usuario user = new Tbl_usuario();
 			Vw_usuariorol userRol = new Vw_usuariorol(); 
 			ArrayList<Vw_usuariorol> userRolList = new ArrayList<>();
@@ -90,7 +90,7 @@ public class Dt_recoverPassword {
 		      //Cuerpo del correo  
 		        String myMsg = "<strong>PROCESO DE RECUPERACIï¿½N DE CONTRASEï¿½A </strong><br><br>";
 		      	myMsg += "Estimado "+user.getNombre()+" "+user.getApellidos()+", la contraseï¿½a recuperada por el sistema es la siguiente: ";
-		      	myMsg += contraseñaDesencriptada+" <br><br>";
+		      	myMsg += decriptedPassword+" <br><br>";
 		      	myMsg += "<br>----------------------------------------------------------<br>";
 		      	myMsg += "Administrador del Sistema<br>";
 		      	myMsg += "Usuario: "+user.getUsuario()+"<br>";
