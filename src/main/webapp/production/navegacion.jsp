@@ -9,6 +9,12 @@
 	response.setDateHeader( "Expires", -1 );
 	
 	//DECLARACIONES
+	Tbl_moneda moneda = new Tbl_moneda();
+	Tbl_periodoFiscal pfiscal = new Tbl_periodoFiscal();
+	Tbl_periodoContable pContable = new Tbl_periodoContable();
+	Dt_moneda dtMoneda = new Dt_moneda();
+	Dt_periodoFiscal periodoFiscal = new Dt_periodoFiscal();
+	Dt_periodoContable periodoContable  = new Dt_periodoContable();
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
@@ -20,7 +26,12 @@
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		
 		listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+
+		pfiscal = periodoFiscal.obtenerPFiscalPorId(vwur.getIdPeriodoFiscal());
 		
+		pContable = periodoContable.obtenerPContablePorId(vwur.getIdPeriodoContable());
+		
+		moneda = dtMoneda.getMonedaByID(vwur.getIdMoneda());
 		
 		//RECUPERAMOS LA URL = MI OPCION ACTUAL
 		int index = request.getRequestURL().lastIndexOf("/");
@@ -84,13 +95,19 @@ if (vwur.getIdEmpresa() != 0) {
 					<!-- /menu profile quick info -->
 					
 					<div class="clearfix">
-						<h2 class="site_title" style="font-size: 16px; font-family: serif;"><%=nombreEmpresa %> </h2>	
+						<h2 class="site_title" style="font-size: 19px; font-family: serif;"><%=nombreEmpresa %> </h2>	
+						<h2 style="font-size: 19px; font-family: serif; color:white; padding-left:10px;">Periodo fiscal:</h2>
+						<h3 style="font-size: 16px; font-family: serif; color:white; padding-left:10px;">Inicio: <%=pfiscal.getFechaInicio() %><br>Final: <%=pfiscal.getFechaFinal() %></h3>
+							
+						<h2 style="font-size: 19px; font-family: serif; color:white; padding-left:10px;">Periodo contable:</h2>
+						<h3 style="font-size: 16px; font-family: serif; color:white; padding-left:10px;">Inicio: <%=pContable.getFechaInicio() %><br>Final: <%=pContable.getFechaFinal() %></h3>
+						
+						<h2 style="font-size: 19px; font-family: serif; color:white; padding-left:10px;">Contabilidad: <%=moneda.getNombre() %></h2>
 					</div>
 					<br>
 
 					<!-- sidebar menu -->
-					<div id="sidebar-menu"
-						class="main_menu_side hidden-print main_menu">
+					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<ul class="nav side-menu">
 								<li><a href="index.jsp"><i class="fa fa-home"></i>Inicio</a></li>

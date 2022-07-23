@@ -147,9 +147,8 @@ public class Dt_moneda {
 		return tmon;
 	}
 	
-	public boolean getMonedaByIDLogin(int idMon) {
-		Tbl_moneda tmon = new Tbl_moneda();
-		boolean flag = false; 
+	public int getMonedaByIDLogin(int idMon) {
+		int flag = 0; 
 		try {
 			c = poolConexion.getConnection();
 			ps = c.prepareStatement("SELECT * FROM dbucash.moneda WHERE idMoneda=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
@@ -157,8 +156,7 @@ public class Dt_moneda {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				Tbl_moneda.idMonedaActual = rs.getInt("idMoneda");
-				flag = true; 
+				flag = rs.getInt("idMoneda");
 			}
 		} catch (Exception e) {
 			System.out.println("DATOS ERROR getMonedaByID(): "+ e.getMessage());

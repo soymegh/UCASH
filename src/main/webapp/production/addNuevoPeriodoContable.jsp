@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal,
+	pageEncoding="ISO-8859-1" import="datos.Dt_empresa, entidades.Vw_empresa, entidades.Vw_usuariorol, entidades.Vw_rolopciones, entidades.Tbl_periodoContable, entidades.Tbl_periodoFiscal,
 	datos.Dt_rolOpciones, datos.Dt_periodoContable, datos.Dt_periodoFiscal, java.util.*;"%>
 	
 	<%
@@ -12,6 +12,8 @@
 	//DECLARACIONES
 	Vw_usuariorol vwur = new Vw_usuariorol();
 	Dt_rolOpciones dtro = new Dt_rolOpciones();
+	Tbl_periodoFiscal pfiscal = new Tbl_periodoFiscal();
+	Dt_periodoFiscal periodoFiscal = new Dt_periodoFiscal();
 	ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 	boolean permiso = false; //VARIABLE DE CONTROL
 	
@@ -112,7 +114,7 @@
 												<%
 												ArrayList<Tbl_periodoFiscal> listaPF = new ArrayList<Tbl_periodoFiscal>();
 												Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-												listaPF = dtpf.listarperiodoFiscal(Vw_empresa.empresaActual);
+												listaPF = dtpf.listarperiodoFiscal(vwur.getIdEmpresa());
 												%>
 												<select class="form-control js-example-basic-single"
 													name="cbxIDPF" id="cbxIDPF" required="required" onchange="ShowSelected();">

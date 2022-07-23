@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.Dt_periodoContable;
 import entidades.Tbl_periodoContable;
+import entidades.Vw_usuariorol;
 
 @WebServlet("/Sl_periodoContable")
 public class Sl_periodoContable extends HttpServlet {
@@ -114,11 +115,17 @@ public class Sl_periodoContable extends HttpServlet {
 		case 4: 
 			int idPeriodoContable = 0;
 			String adminPass = ""; 
+			int currentPeriod = 0; 
+			Vw_usuariorol vwur = new Vw_usuariorol(); 
 			
 			if(request.getParameter("combobox_periodoContable") != null && !request.getParameter("combobox_periodoContable").trim().equals("")) {
 				idPeriodoContable = Integer.parseInt(request.getParameter("combobox_periodoContable"));
 				try {
-					if (dpc.obtenerPContablePorIdLogin(idPeriodoContable)) {
+					if (dpc.obtenerPContablePorIdLogin(idPeriodoContable) > 0) {
+						currentPeriod = dpc.obtenerPContablePorIdLogin(idPeriodoContable);
+						vwur = (Vw_usuariorol) request.getSession(true).getAttribute("acceso");
+						vwur.setIdPeriodoContable(currentPeriod);
+						request.setAttribute("acceso", vwur);
 						if(request.getParameter("admin_pass") != null && !request.getParameter("admin_pass").trim().equals("")) {
 							adminPass = request.getParameter("admin_pass"); 
 							response.sendRedirect("production/indexMoneda.jsp?status="+adminPass+"");

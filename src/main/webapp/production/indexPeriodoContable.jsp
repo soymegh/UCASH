@@ -126,7 +126,7 @@
 												<%
 							                      	ArrayList<Vw_periodoContable> listPeriodosContable = new ArrayList<Vw_periodoContable>();
 							                      	Dt_periodoContable dtpc = new Dt_periodoContable();
-							                      	listPeriodosContable = dtpc.listarperiodoContablePorIdFiscal(Tbl_periodoFiscal.idPeriodoFiscalActual);
+							                      	listPeriodosContable = dtpc.listarperiodoContablePorIdFiscal(vwur.getIdPeriodoFiscal());
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="combobox_periodoContable" id="combobox_periodoContable" required="required">
 												  <option value="">Seleccione...</option>
