@@ -29,7 +29,6 @@
 	
 	//OBTENEMOS LA SESION
 	vwur = (Vw_usuariorol) session.getAttribute("acceso");
-	System.out.print("Este es el id de la sesión (JSP - indexMoneda): " + session.getId());
 	if(vwur!=null){
 		//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 		

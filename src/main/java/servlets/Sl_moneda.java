@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import datos.Dt_moneda;
 import entidades.PermisoTemporal;
 import entidades.Tbl_moneda;
+import entidades.Vw_empresa;
+import entidades.Vw_usuariorol;
 
 /**
  * Servlet implementation class Sl_moneda
@@ -116,9 +118,16 @@ public class Sl_moneda extends HttpServlet {
 			break;
 		case 4:
 			int idMoneda = 0;
+			int currentCoin = 0; 
+			Vw_usuariorol vwur = new Vw_usuariorol();
+			
 			if(request.getParameter("combobox_moneda") != null && request.getParameter("combobox_moneda").matches("[0-9]")) {
 				idMoneda = Integer.parseInt(request.getParameter("combobox_moneda"));
-				if(dtm.getMonedaByIDLogin(idMoneda)) {
+				if(dtm.getMonedaByIDLogin(idMoneda) > 0) {
+					currentCoin = dtm.getMonedaByIDLogin(idMoneda);	
+					vwur = (Vw_usuariorol) request.getSession(true).getAttribute("acceso");
+					vwur.setIdMoneda(currentCoin);
+					request.setAttribute("acceso", vwur);
 					PermisoTemporal.temporalFlag = false; 
 					response.sendRedirect("production/index.jsp");
 					System.out.print("Este es el id de la moneda" + Tbl_moneda.idMonedaActual);

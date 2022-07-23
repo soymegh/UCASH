@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Tbl_periodoFiscal;
 import entidades.Vw_periodoContable;
+import entidades.Vw_usuariorol;
 import datos.Dt_periodoContable;
 import datos.Dt_periodoFiscal;
 
@@ -129,13 +130,20 @@ public class Sl_periodoFiscal extends HttpServlet {
 
 
 			int idPeriodoFiscal = 0;
+			int currentPeriod = 0; 
 			String adminPass = ""; 
+			Vw_usuariorol vwur = new Vw_usuariorol();
 			
 			if (request.getParameter("combobox_periodoFiscal") != null && !request.getParameter("combobox_periodoFiscal").trim().equals("")) {
 				idPeriodoFiscal = Integer.parseInt(request.getParameter("combobox_periodoFiscal"));
 
 				try {
-					if (dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal)) {
+					if (dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal) > 0) {
+						currentPeriod = dpf.obtenerPFiscalPorIdLogin(idPeriodoFiscal);
+						vwur = (Vw_usuariorol) request.getSession(true).getAttribute("acceso");
+						vwur.setIdPeriodoFiscal(currentPeriod);
+						request.setAttribute("acceso", vwur);
+						
 						if(request.getParameter("admin_pass") != null && !request.getParameter("admin_pass").trim().equals("")) {
 							adminPass = request.getParameter("admin_pass"); 
 							response.sendRedirect("production/indexPeriodoContable.jsp?status="+adminPass+"");

@@ -4,7 +4,7 @@
 <%@page import="datos.Dt_periodoContable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
+	import="datos.Dt_moneda, entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
@@ -30,11 +30,17 @@ response.setDateHeader("Expires", 0);
 response.setDateHeader("Expires", -1);
 
 //DECLARACIONES
+Tbl_moneda moneda = new Tbl_moneda();
+Tbl_periodoContable pContable = new Tbl_periodoContable();
+Dt_periodoContable periodoContable  = new Dt_periodoContable();
 Dt_tasacambio_det tipoCambio  = new Dt_tasacambio_det();
 Vw_usuariorol vwur = new Vw_usuariorol();
 Dt_rolOpciones dtro = new Dt_rolOpciones();
+Dt_moneda dtMoneda = new Dt_moneda();
+Dt_asientoContable asientoContable = new Dt_asientoContable();
 ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 boolean permiso = false; //VARIABLE DE CONTROL
+int numeroComprobante = 0; 
 Vw_tasaCambioDet tipoCambioSugerido = new Vw_tasaCambioDet(); 
 
 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -62,6 +68,12 @@ if (vwur != null) {
 
 	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 
+
+	pContable = periodoContable.obtenerPContablePorId(vwur.getIdPeriodoContable());
+	
+	moneda = dtMoneda.getMonedaByID(vwur.getIdMoneda());
+	
+	numeroComprobante = asientoContable.comprobarNumeroComprobanteAC(vwur.getIdPeriodoContable());
 	//RECUPERAMOS LA URL = MI OPCION ACTUAL
 	int index = request.getRequestURL().lastIndexOf("/");
 	String miPagina = request.getRequestURL().substring(index + 1);
@@ -148,7 +160,7 @@ if (!permiso) {
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Agregar nuevo de asiento contable</h3>
+							<h3>Agregar nuevo de asiento contable #<%=numeroComprobante%></h3>
 						</div>
 					</div>
 					<div class="clearfix"></div>
@@ -160,14 +172,15 @@ if (!permiso) {
 									<h2>Datos de Asiento Contable</h2>
 									<br> <br>
 									<h2 id="fecha_hora_sistem"></h2>
+									<br><br>
 									<div class="float-right periodoContable">
 										<h2>Periodo contable:</h2>
 										<br> <br>
 										<h2>
 											Inicio:
-											<%=Tbl_periodoContable.fechaInicioActual%>
+											<%=pContable.getFechaInicio()%>
 											- Final:
-											<%=Tbl_periodoContable.fechaFinalActual%></h2>
+											<%=pContable.getFechaFinal()%></h2>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -180,14 +193,13 @@ if (!permiso) {
 										<input type="hidden" value="1" name="opcion" id="opcion" /> <span
 											class="section"></span> <input type="hidden" value="0"
 											name="detalles" id="detalles" /> <input type="hidden"
-											value="<%=Tbl_periodoContable.idPeriodoActual%>"
+											value="<%=vwur.getIdPeriodoContable()%>"
 											name="periodoContable" id="periodoContable" /> <input
-											type="hidden" value="<%=Vw_empresa.empresaActual%>"
+											type="hidden" value="<%=vwur.getIdEmpresa()%>"
 											name="empresaActual" id="empresaActual" /> <input
 											type="hidden" value="<%=vwur.getId_user()%>"
-											name="usuarioCreacion" id="usuarioCreacion" /> <input
-											type="hidden" value="<%=Tbl_moneda.idMonedaActual%>"
-											name="moneda" id="moneda" />
+											name="usuarioCreacion" id="usuarioCreacion" /> 
+											<input type="hidden" value="<%=moneda.getIdMoneda()%>" name="moneda" id="moneda" />
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
 												documento: <span class="required">*</span>
@@ -246,7 +258,7 @@ if (!permiso) {
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control" data-parsley-excluded=true
-													 name="fecha" id="fecha" min="<%=Tbl_periodoContable.fechaInicioActual %>" max="<%=Tbl_periodoContable.fechaFinalActual %>"
+													 name="fecha" id="fecha" min="<%=pContable.getFechaInicio()%>" max="<%=pContable.getFechaFinal() %>"
 													  required/>
 											</div>
 										</div>
@@ -290,7 +302,7 @@ if (!permiso) {
 																			Vw_catalogocuenta_empresa CE = new Vw_catalogocuenta_empresa();
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
 																			Dt_catalogocuenta  dtcac = new Dt_catalogocuenta();
-																			CE = dtcac.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
+																			CE = dtcac.getCatalogoByIdEmpresa(vwur.getIdEmpresa());
 																			int idCatalogo = 0;
 																			%>
 																			<select class="js-example-basic-single" name="cbxCC"
@@ -470,6 +482,30 @@ if (!permiso) {
 	<script src="../build/js/custom.min.js"></script>
 
 	<script src="../vendors/jquery.toast.min.js"></script>
+	
+	
+	<script type="text/javascript">
+		var concept = document.getElementById("descripcion");
+		var date = document.getElementById("fecha");
+		var documentType = document.getElementById("cbxIDTD");
+		var coinExchange = document.getElementById("cbxIDTCD");
+		var btnSave = document.getElementById("btnGuardar");
+		
+		
+		btnSave.addEventListener('click', () => {
+			localStorage.setItem('concept', ""+concept.value+"");
+			localStorage.setItem('date', ""+date.value+"");
+			localStorage.setItem('document', ""+$("#cbxIDTD").select2('val')+"")
+			localStorage.setItem('coin', ""+$("#cbxIDTCD").select2('val')+"")
+		});
+		
+		console.log(""+localStorage.getItem('document')+"");
+		
+		concept.value = ""+localStorage.getItem('concept')+"";
+		date.value = ""+localStorage.getItem('date')+"";
+		documentType.value = ""+localStorage.getItem('document')+"";
+		coinExchange.value = ""+localStorage.getItem('document')+"";
+	</script>
 	
 	<script>
 	

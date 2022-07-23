@@ -162,7 +162,7 @@
 													System.out.print("Current company = " + Vw_empresa.empresaActual);
                       								ArrayList<Tbl_periodoFiscal> listarperiodoFiscal = new ArrayList<Tbl_periodoFiscal>();
                       								Dt_periodoFiscal dtPF = new Dt_periodoFiscal();
-                      								listarperiodoFiscal = dtPF.listarperiodoFiscal(Vw_empresa.empresaActual);
+                      								listarperiodoFiscal = dtPF.listarperiodoFiscal(vwur.getIdEmpresa());
 	                  								%>
 													<thead>
 														<tr>

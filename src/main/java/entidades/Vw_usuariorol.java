@@ -4,6 +4,10 @@ public class Vw_usuariorol {
 
 	private int id_user;
 	private int idUsuarioRol;
+	private int idEmpresa; 
+	private int idPeriodoFiscal; 
+	private int idPeriodoContable; 
+	private int idMoneda; 
 	private String descripcion;
 	private String nombre;
 	private String apellido;
@@ -112,6 +116,39 @@ public class Vw_usuariorol {
 	}
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+	public int getIdEmpresa() {
+		return idEmpresa;
+	}
+	public void setIdEmpresa(int idEmpresa) {
+		this.idEmpresa = idEmpresa;
+	}
+	public int getIdPeriodoFiscal() {
+		return idPeriodoFiscal;
+	}
+	public void setIdPeriodoFiscal(int idPeriodoFiscal) {
+		this.idPeriodoFiscal = idPeriodoFiscal;
+	}
+	public int getIdPeriodoContable() {
+		return idPeriodoContable;
+	}
+	public void setIdPeriodoContable(int idPeriodoContable) {
+		this.idPeriodoContable = idPeriodoContable;
+	}
+	public int getIdMoneda() {
+		return idMoneda;
+	}
+	public void setIdMoneda(int idMoneda) {
+		this.idMoneda = idMoneda;
+	}
+	@Override
+	public String toString() {
+		return "Vw_usuariorol [id_user=" + id_user + ", idUsuarioRol=" + idUsuarioRol + ", idEmpresa=" + idEmpresa
+				+ ", idPeriodoFiscal=" + idPeriodoFiscal + ", idPeriodoContable=" + idPeriodoContable + ", idMoneda="
+				+ idMoneda + ", descripcion=" + descripcion + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", usuario=" + usuario + ", password=" + password + ", key=" + key + ", codVerificacion="
+				+ codVerificacion + ", email=" + email + ", password_temp=" + password_temp + ", estado=" + estado
+				+ ", rol=" + rol + ", urlFoto=" + urlFoto + ", id_rol=" + id_rol + "]";
 	}
 	
 	 

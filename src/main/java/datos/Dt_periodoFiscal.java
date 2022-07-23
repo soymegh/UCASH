@@ -329,9 +329,9 @@ public class Dt_periodoFiscal {
 		return pfiscal;
 	}
 	
-	public boolean obtenerPFiscalPorIdLogin(int id)
+	public int obtenerPFiscalPorIdLogin(int id)
 	{
-		boolean flag = false; 
+		int flag = 0; 
 		Tbl_periodoFiscal pfiscal = new Tbl_periodoFiscal();
 		try 
 		{
@@ -342,11 +342,10 @@ public class Dt_periodoFiscal {
 			
 			if (rs.next()) 
 			{
-				pfiscal.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
-				Tbl_periodoFiscal.idPeriodoFiscalActual = rs.getInt("idPeriodoFiscal");
+				flag = rs.getInt("idPeriodoFiscal");
 				//Fecha inicio\
 				//Se realiza este metodo para que no reste un dia
-				String fechaIniJsp = rs.getString("fechaInicio");
+				/*String fechaIniJsp = rs.getString("fechaInicio");
 	            java.util.Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniJsp);
 	            pfiscal.fechaInicioActual = new java.sql.Date(date1.getTime());
 				
@@ -357,7 +356,7 @@ public class Dt_periodoFiscal {
 	        	java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinJsp); 	 
 	        	pfiscal.fechaFinalActual = new java.sql.Date(date2.getTime());
 				
-				flag = true; 
+				flag = true; */
 			}
 		} 
 		catch (Exception e)

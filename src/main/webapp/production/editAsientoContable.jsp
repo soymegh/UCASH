@@ -1,6 +1,8 @@
 <%@page
 	import="com.mysql.cj.protocol.Protocol.GetProfilerEventHandlerInstanceFunction"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" import="entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"
+	import="datos.Dt_moneda, datos.Dt_periodoContable, entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet, entidades.Tbl_cuentaContable, entidades.Vw_catalogocuenta_empresa,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
@@ -14,7 +16,11 @@ response.setDateHeader("Expires", 0);
 response.setDateHeader("Expires", -1);
 
 //DECLARACIONES
+Tbl_moneda moneda = new Tbl_moneda();
+Tbl_periodoContable pContable = new Tbl_periodoContable();
+Dt_periodoContable periodoContable = new Dt_periodoContable();
 Vw_usuariorol vwur = new Vw_usuariorol();
+Dt_moneda dtMoneda = new Dt_moneda();
 Dt_rolOpciones dtro = new Dt_rolOpciones();
 ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 boolean permiso = false; //VARIABLE DE CONTROL
@@ -26,6 +32,9 @@ if (vwur != null) {
 
 	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 
+	pContable = periodoContable.obtenerPContablePorId(vwur.getIdPeriodoContable());
+
+	moneda = dtMoneda.getMonedaByID(vwur.getIdMoneda());
 	//RECUPERAMOS LA URL = MI OPCION ACTUAL
 	int index = request.getRequestURL().lastIndexOf("/");
 	String miPagina = request.getRequestURL().substring(index + 1);
@@ -102,8 +111,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 	href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"
 	rel="stylesheet">
 <!--Jquery Toast Plugin -->
-<link href="../vendors/jquery.toast.min.css"
-	rel="stylesheet">
+<link href="../vendors/jquery.toast.min.css" rel="stylesheet">
 
 <!-- Custom Theme Style -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -129,11 +137,19 @@ tpacont = dtac.obtenerAContablePorId(idac);
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>Datos de Asiento Contable</h2><br><br>
+									<h2>Datos de Asiento Contable</h2>
+									<br>
+									<br>
 									<h2 id="fecha_hora_sistem"></h2>
 									<div class="float-right periodoContable">
-										<h2>Periodo contable:</h2><br><br>
-										<h2>Inicio: <%=Tbl_periodoContable.fechaInicioActual %> - Final: <%=Tbl_periodoContable.fechaFinalActual %></h2>
+										<h2>Periodo contable:</h2>
+										<br>
+										<br>
+										<h2>
+											Inicio:
+											<%=pContable.getFechaInicio()%>
+											- Final:
+											<%=pContable.getFechaFinal()%></h2>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -143,18 +159,22 @@ tpacont = dtac.obtenerAContablePorId(idac);
 										novalidate>
 										<input type="hidden" value="2" name="opcion" id="opcion" /> <span
 											class="section"></span> <input type="hidden" value="0"
-											name="detallesEliminados" id="detallesEliminados" />
-											<input type="hidden" value="1" name="opcion" id="opcion" /> <span
+											name="detallesEliminados" id="detallesEliminados" /> <input
+											type="hidden" value="1" name="opcion" id="opcion" /> <span
 											class="section"></span> <input type="hidden" value="0"
-											name="detalles" id="detalles" />
-											<input type="hidden" value="0" name="detallesAgregados"
-											id="detallesAgregados" /> <input type="hidden"
+											name="detalles" id="detalles" /> <input type="hidden"
+											value="0" name="detallesAgregados" id="detallesAgregados" />
+										<input type="hidden"
 											value="<%=tpacont.getIdAsientoContable()%>" name="idAcont"
-											id="idAcont" /> <span class="section"></span>
-											<input type="hidden" value="<%=Tbl_periodoContable.idPeriodoActual %>" name="periodoContable" id="periodoContable" />
-											<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
-											<input type="hidden" value="<%=vwur.getId_user()%>" name="usuarioModificacion" id="usuarioModificacion" />
-											<input type="hidden" value="<%=Tbl_moneda.idMonedaActual%>" name="moneda" id="moneda" />
+											id="idAcont" /> <span class="section"></span> <input
+											type="hidden" value="<%=vwur.getIdPeriodoContable()%>"
+											name="periodoContable" id="periodoContable" /> <input
+											type="hidden" value="<%=vwur.getIdEmpresa()%>"
+											name="empresaActual" id="empresaActual" /> <input
+											type="hidden" value="<%=vwur.getId_user()%>"
+											name="usuarioModificacion" id="usuarioModificacion" /> <input
+											type="hidden" value="<%=moneda.getIdMoneda()%>" name="moneda"
+											id="moneda" />
 
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
@@ -211,7 +231,9 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											</label>
 											<div class="col-md-6 col-sm-6">
 												<input type="date" class="form-control"
-													placeholder="Fecha de inicio" name="fechainicioc" min="<%=Tbl_periodoContable.fechaInicioActual %>" max="<%=Tbl_periodoContable.fechaFinalActual %>"
+													placeholder="Fecha de inicio" name="fechainicioc"
+													min="<%=pContable.getFechaInicio()%>"
+													max="<%=pContable.getFechaFinal()%>"
 													value="<%=tpacont.getFecha()%>">
 											</div>
 										</div>
@@ -222,8 +244,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											<div class="col-md-6 col-sm-6">
 
 												<textarea class="form-control" rows="3"
-													placeholder="Concepto" id="descripcion"
-													name="descripcion" maxlength="150"><%=tpacont.getDescripcion()%></textarea>
+													placeholder="Concepto" id="descripcion" name="descripcion"
+													maxlength="150"><%=tpacont.getDescripcion()%></textarea>
 
 
 												<div id="contador">
@@ -254,8 +276,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																			ArrayList<Tbl_cuentaContable> listaCC = new ArrayList<Tbl_cuentaContable>();
 																			Vw_catalogocuenta_empresa CE = new Vw_catalogocuenta_empresa();
 																			Dt_cuentaContable dtcc = new Dt_cuentaContable();
-																			Dt_catalogocuenta  dtcac = new Dt_catalogocuenta();
-																			CE = dtcac.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
+																			Dt_catalogocuenta dtcac = new Dt_catalogocuenta();
+																			CE = dtcac.getCatalogoByIdEmpresa(vwur.getIdEmpresa());
 																			int idCatalogo = 0;
 																			%>
 																			<select class="js-example-basic-single" name="cbxCC"
@@ -300,12 +322,13 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																	</div>
 
 																</div>
-																
+
 																<div class="row">
-																	<a tabindex="0" id="agregardet" class="btn btn-success col"
-																		style="color: black"> Agregar </a>
+																	<a tabindex="0" id="agregardet"
+																		class="btn btn-success col" style="color: black">
+																		Agregar </a>
 																</div>
-																
+
 																<div class="row">
 																	<div class="col-md-12">
 																		<div class="card-box table-responsive">
@@ -336,7 +359,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																				<tbody>
 
 																					<%
-																					int detallesSalientes = 0; 
+																					int detallesSalientes = 0;
 																					for (Vw_asientoContableDet ac : listaAsientoContable) {
 																						if (ac.getIdAsientoContable() == idac) {
 																					%>
@@ -344,19 +367,23 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																						<td><input type="button"
 																							id="btnBorrarDetalle" value="Borrar" /></td>
 																						<td><input type="text"
-																							class="form-control col-sm-3" name = "<%="idCuentaSaliente"+detallesSalientes%>"
-																							value="<%=ac.getIdCuenta()%>"
-																							readonly="readonly"></td>
+																							class="form-control col-sm-3"
+																							name="<%="idCuentaSaliente" + detallesSalientes%>"
+																							value="<%=ac.getIdCuenta()%>" readonly="readonly"></td>
 																						<td><input type="text"
 																							class="form-control col-sm-12"
 																							value="<%=ac.getNumeroCuenta()%>-<%=ac.getSC()%>-<%=ac.getSsC()%>-<%=ac.getSssC()%>--<%=ac.getNombreCuenta()%>"
 																							readonly="readonly"></td>
 																						<td id='tddebe'><input type="text"
 																							class="form-control col-sm-6"
-																							value="<%=ac.getDebe()%>" name = "<%="debeSaliente"+detallesSalientes%>" readonly="readonly"></td>
+																							value="<%=ac.getDebe()%>"
+																							name="<%="debeSaliente" + detallesSalientes%>"
+																							readonly="readonly"></td>
 																						<td id="tdhaber"><input type="text"
 																							class="form-control col-sm-6"
-																							value="<%=ac.getHaber()%>" name = "<%="haberSaliente"+detallesSalientes%>" readonly="readonly"></td>
+																							value="<%=ac.getHaber()%>"
+																							name="<%="haberSaliente" + detallesSalientes%>"
+																							readonly="readonly"></td>
 																						<td id='agreg'><input type="text"
 																							hidden="hidden"
 																							value="<%=ac.getIdAsientoContableDet()%>"></td>
@@ -365,7 +392,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 																					total = total + ac.getDebe() - ac.getHaber();
 																					debe += ac.getDebe();
 																					haber += ac.getHaber();
-																					detallesSalientes++;  
+																					detallesSalientes++;
 																					}
 																					}
 																					%>
@@ -390,8 +417,8 @@ tpacont = dtac.obtenerAContablePorId(idac);
 											<div class="ln_solid">
 												<div class="form-group">
 													<div class="col-md-6 offset-md-3">
-														<button id="btnGuardar" type='submit' class="btn btn-danger">Guardar
-															ediciones</button>
+														<button id="btnGuardar" type='submit'
+															class="btn btn-danger">Guardar ediciones</button>
 														<a href="tbl_asientoContable.jsp" type="button"
 															class="btn btn-primary">Cancelar</a>
 													</div>
@@ -558,7 +585,7 @@ tpacont = dtac.obtenerAContablePorId(idac);
 
 	<script src="../vendors/jquery.toast.min.js"></script>
 
-<script>
+	<script>
 	var counter = 100000;  
 	var dateContainer = document.getElementById("fecha_hora_sistem");
 	var today = new Date();

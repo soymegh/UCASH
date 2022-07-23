@@ -18,6 +18,8 @@ response.setDateHeader("Expires", 0);
 response.setDateHeader("Expires", -1);
 
 //DECLARACIONES
+Tbl_periodoContable pContable = new Tbl_periodoContable();
+Dt_periodoContable periodoContable  = new Dt_periodoContable();
 Vw_usuariorol vwur = new Vw_usuariorol();
 Dt_rolOpciones dtro = new Dt_rolOpciones();
 ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
@@ -28,6 +30,8 @@ vwur = (Vw_usuariorol) session.getAttribute("acceso");
 if (vwur != null) {
 	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+
+	pContable = periodoContable.obtenerPContablePorId(vwur.getIdPeriodoContable());
 
 	//RECUPERAMOS LA URL = MI OPCION ACTUAL
 	int index = request.getRequestURL().lastIndexOf("/");
@@ -131,7 +135,7 @@ if (!permiso) {
 									<h2>Asientos Contables Registrados <small><a href="imprimirAsientoContable.jsp"><i class="fa fa-print"></i>Imprimir asientos contables</a></small> </h2>
 
 									<div class="float-right">
-										<h2>Periodo contable: <%=Tbl_periodoContable.fechaInicioActual%> - <%=Tbl_periodoContable.fechaFinalActual %> </h2>
+										<h2>Periodo contable: <%=pContable.getFechaInicio()%> - <%=pContable.getFechaFinal()%> </h2>
 									</div>	
 									<div class="clearfix">
 										
@@ -161,7 +165,7 @@ if (!permiso) {
 																	<%
 																	ArrayList<Vw_asientoContable> listaAsientoContable = new ArrayList<Vw_asientoContable>();
 																	Dt_asientoContable dtac = new Dt_asientoContable();
-																	listaAsientoContable = dtac.listarasientocontableporid(Vw_empresa.empresaActual);
+																	listaAsientoContable = dtac.listarasientocontableporid(vwur.getIdEmpresa());
 
 																	Dt_periodoContable dtpc = new Dt_periodoContable();
 																	Tbl_periodoContable tblpc = new Tbl_periodoContable();
@@ -185,7 +189,7 @@ if (!permiso) {
 																		for (Vw_asientoContable ac : listaAsientoContable) {
 
 																			tblpc = dtpc.obtenerPContablePorId(ac.getIdPeriodoContable());
-																			if (tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual && tblpc.getEstado() != 3) {
+																			if (tblpc.getIdPeriodoContable() == vwur.getIdPeriodoContable() && tblpc.getEstado() != 3) {
 																		%>
 																		<tr>
 
@@ -212,7 +216,7 @@ if (!permiso) {
 																			</a></td>
 																		</tr>
 																		<%
-																			} else if (tblpc.getEstado() == 3 && tblpc.getIdPeriodoContable() == Tbl_periodoContable.idPeriodoActual) {
+																			} else if (tblpc.getEstado() == 3 && tblpc.getIdPeriodoContable() == vwur.getIdPeriodoContable()) {
 																				%>
 																				<tr>
 

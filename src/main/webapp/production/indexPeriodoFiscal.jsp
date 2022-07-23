@@ -69,7 +69,9 @@
 <%
 	//Setting company configurations
 	if(request.getParameter("idE") != null){
-		if(!empresa.getTableEmpresaByIdLogin(Integer.parseInt(request.getParameter("idE")))){
+		vwur.setIdEmpresa(empresa.getTableEmpresaByIdLogin(Integer.parseInt(request.getParameter("idE"))));
+		request.setAttribute("acceso", vwur);
+		if(vwur.getIdEmpresa() == 0){
 			response.sendRedirect("indexMultiempresa.jsp?idEm=1");
 		}
 	}
@@ -134,7 +136,7 @@
 												<%
 							                      	ArrayList<Tbl_periodoFiscal> listPeriodosFiscales = new ArrayList<Tbl_periodoFiscal>();
 							                      	Dt_periodoFiscal dtpf = new Dt_periodoFiscal();
-							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin(Vw_empresa.empresaActual);
+							                      	listPeriodosFiscales = dtpf.listarperiodoFiscalLogin(vwur.getIdEmpresa());
 								                 %>
 								                 <select class="form-control js-example-basic-single" name="combobox_periodoFiscal" id="combobox_periodoFiscal" required="required">
 												  <option value="">Seleccione...</option>

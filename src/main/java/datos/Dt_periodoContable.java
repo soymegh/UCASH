@@ -257,10 +257,9 @@ public class Dt_periodoContable {
 		return pcontable;
 	}
 	
-	public boolean obtenerPContablePorIdLogin	(int id)
+	public int obtenerPContablePorIdLogin	(int id)
 	{
-		Tbl_periodoContable pcontable = new Tbl_periodoContable();
-		boolean flag = false; 
+		int flag = 0; 
 		
 		try 
 		{
@@ -271,12 +270,10 @@ public class Dt_periodoContable {
 			
 			if (rs.next()) 
 			{
-				pcontable.setIdPeriodoContable(rs.getInt("idPeriodoContable"));
-				Tbl_periodoContable.idPeriodoActual = rs.getInt("idPeriodoContable");
-				pcontable.setIdPeriodoFiscal(rs.getInt("idPeriodoFiscal"));
+				flag = rs.getInt("idPeriodoContable");
 				//Fecha inicio
 				//Se utiliza este metodo para evitar que reste un dia
-				String fechaIniPC = rs.getString("fechaInicio");
+				/*String fechaIniPC = rs.getString("fechaInicio");
 				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaIniPC);
 				pcontable.fechaInicioActual = new java.sql.Date(date2.getTime());
 				
@@ -286,7 +283,7 @@ public class Dt_periodoContable {
 	        	java.util.Date date3 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaFinPC);
 	        	pcontable.fechaFinalActual = new java.sql.Date(date3.getTime());
 				
-				flag = true; 
+				flag = true;*/ 
 			}
 		} 
 		catch (Exception e)
