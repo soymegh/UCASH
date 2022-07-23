@@ -208,7 +208,7 @@ if (!permiso) {
 												<%
 												Tbl_periodoContable pc = new Tbl_periodoContable();
 												Dt_periodoContable dtpc = new Dt_periodoContable();
-												pc = dtpc.obtenerPContablePorId(Tbl_periodoContable.idPeriodoActual);
+												pc = dtpc.obtenerPContablePorId(vwur.getIdPeriodoContable());
 												
 												ArrayList<Tbl_tipoDocumento> listaTD = new ArrayList<Tbl_tipoDocumento>();
 												Dt_tipoDocumento dttd = new Dt_tipoDocumento();
