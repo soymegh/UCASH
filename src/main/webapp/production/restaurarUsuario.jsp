@@ -154,6 +154,10 @@
 										<div class="col-sm-12">
 											<div class="card-box table-responsive">
 												<input type="hidden" value="<%=signal%>" id="JAlertInput"/>
+												<div class="text-muted font-13 col-md-12"
+													style="text-align: right;">
+													<button type='button' onClick="window.location.href='tbl_usuario.jsp'" class="btn btn-primary">Regresar</button>
+												</div>
 												<table id="datatable-buttons"
 													class="table table-striped table-bordered"
 													style="width: 100%">
