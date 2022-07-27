@@ -436,7 +436,6 @@ if (!permiso) {
 		</div>
 	</div>
 	<!-- /page content -->
-
 	<!-- jQuery -->
 	<script src="../vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
@@ -699,7 +698,7 @@ if (!permiso) {
         	}
         		
         	
-            if(saldo !== 0){
+            if(saldo !== (parseFloat(0)).toFixed(2)){
             	$.toast({
             	    text: "El saldo debe ser 0 para poder guardar",
             	    heading: 'Advertencia - saldo',
@@ -930,5 +929,8 @@ if (!permiso) {
 		});
 	</script>
 	<script src="../vendors/select2/dist/js/select2.min.js"></script>
+	
+	<!--Navigation-->
+	<script src="js/navigation/accountingSeatNavigation.js"></script>
 </body>
 </html>
