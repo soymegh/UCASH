@@ -138,6 +138,8 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 								<div class="x_content">
 									<form class="" action="../Sl_periodoContable" method="post" novalidate>
 									<input type="hidden" value="3" name="opcion" id="opcion"/>
+									<input type="hidden" value="0" name="transferBalance" id="transferBalance"/>
+									<input type="hidden" value="<%=vwur.getIdEmpresa()%>" name="empresa" id="empresa"/>
 								  <input type="hidden" value="<%= tpcontable.getIdPeriodoContable() %>" name="idPContableEliminar" id="idPContableEliminar"/>
 										
 										<span class="section">Datos de Periodo Contable</span>
@@ -210,9 +212,11 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 										<div class="ln_solid">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
-												<button type='submit' class="btn btn-primary">Cerrar</button>
+												<button type='submit' id="btnClosePeriod" class="btn btn-primary">Cerrar</button>
 													<a href="tbl_periodoContable.jsp" type="button"
 														class="btn btn-primary">Cancelar</a>
+												<input type="checkbox" id="balanceTransfer"/>
+												<label style="color:#000;" for="balanceTransfer">- Tranferir saldos</label>
 												</div>
 											</div>
 										</div>
@@ -237,6 +241,20 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 	<script src="../vendors/validator/validator.js"></script>
 
 	<!-- Javascript functions	-->
+	
+	<script>
+		var selection = document.getElementById("balanceTransfer");
+		var balanceValue = document.getElementById("transferBalance");
+		selection.addEventListener("click", ()=>{
+			if(selection.checked){
+				balanceValue.value = 1; 
+			}else {
+				balanceValue.value = 0;
+			};
+		});
+		
+	</script>
+	
 	<script>
 		function hideshow() {
 			var password = document.getElementById("password1");
