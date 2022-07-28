@@ -102,7 +102,7 @@ public class Dt_cuentaContable_Det {
 				ccd.setIdEmpresa(this.rs.getInt("idEmpresa"));
 				ccd.setSubCuenta(this.rs.getInt("SC"));
 				
-				saldoTotalFinal += (ccd.getSaldoInicial() + ccd.getDebe() - ccd.getHaber());
+				saldoTotalFinal += (Math.abs(ccd.getSaldoInicial()) + Math.abs(ccd.getDebe()) - Math.abs(ccd.getHaber()));
 			}
 			} catch(Exception var11) {
 				System.out.println("DATOS: ERROR EN LISTAR DETALLE DE CUENTAS CONTABLES DET "+var11.getMessage());

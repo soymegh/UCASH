@@ -127,9 +127,8 @@ public class Sl_periodoContable extends HttpServlet {
 						saldoFinalTotal = dtCuentaContableDet.listaCuentasContablesDetPorNumeroCuentaEmpresaSubCuenta(cuenta.getNumeroCuenta(), empresa); 
 						cuentaContableDet.setIdCuenta(cuenta.getIdCuenta());
 						saldoActual = dtCuentaContableDet.getCcdbyIDSaldos(cuenta.getIdCuenta()).getSaldoInicial();
-						if(saldoFinalTotal < 0) {
-							saldoFinalTotal = saldoFinalTotal * -1;
-						}
+						
+						Math.abs(saldoFinalTotal);
 						
 						saldoFinalTotal += saldoActual; 
 						cuentaContableDet.setSaldoInicial(saldoFinalTotal);
