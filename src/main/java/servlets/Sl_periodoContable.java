@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.ServletException;
@@ -11,8 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datos.Dt_cuentaContable;
+import datos.Dt_cuentaContable_Det;
 import datos.Dt_periodoContable;
+import entidades.Tbl_cuentaContable_Det;
 import entidades.Tbl_periodoContable;
+import entidades.Vw_catalogo_tipo_cuentacontable;
 import entidades.Vw_usuariorol;
 
 @WebServlet("/Sl_periodoContable")
@@ -36,7 +41,10 @@ public class Sl_periodoContable extends HttpServlet {
 		opc = Integer.parseInt(request.getParameter("opcion"));
 		Tbl_periodoContable periodocontable = new Tbl_periodoContable();
 		Dt_periodoContable dpc = new Dt_periodoContable();
-
+		Dt_cuentaContable cuentaContable = new Dt_cuentaContable();
+		Dt_cuentaContable_Det dtCuentaContableDet = new Dt_cuentaContable_Det();
+		Tbl_cuentaContable_Det cuentaContableDet = new Tbl_cuentaContable_Det();
+		
 		// Fecha Inicio del Periodo Contable
 		try {
 
@@ -92,8 +100,42 @@ public class Sl_periodoContable extends HttpServlet {
 		case 3:
 
 			int idBorrar = Integer.parseInt(request.getParameter("idPContableEliminar"));
+			int transferBalance = 0, empresa = 0; 
+			double saldoFinalTotal = 0;
+			double saldoActual = 0; 
+			
+			if(request.getParameter("transferBalance") != null) {
+				transferBalance = Integer.parseInt(request.getParameter("transferBalance"));
+			}else {
+				transferBalance = 0; 
+			}
 
+			if(request.getParameter("empresa") != null) {
+				empresa = Integer.parseInt(request.getParameter("empresa"));
+			}else {
+				empresa = 0; 
+			}
+
+			
 			try {
+				
+				if(transferBalance != 0) {
+					ArrayList<Vw_catalogo_tipo_cuentacontable> cuentasDeMayor = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+					cuentasDeMayor = cuentaContable.getCuentaContableMayorByIdEmpresa(empresa);
+					
+					for(Vw_catalogo_tipo_cuentacontable cuenta: cuentasDeMayor) {
+						saldoFinalTotal = dtCuentaContableDet.listaCuentasContablesDetPorNumeroCuentaEmpresaSubCuenta(cuenta.getNumeroCuenta(), empresa); 
+						cuentaContableDet.setIdCuenta(cuenta.getIdCuenta());
+						saldoActual = dtCuentaContableDet.getCcdbyIDSaldos(cuenta.getIdCuenta()).getSaldoInicial();
+						
+						Math.abs(saldoFinalTotal);
+						
+						saldoFinalTotal += saldoActual; 
+						cuentaContableDet.setSaldoInicial(saldoFinalTotal);
+						
+						dtCuentaContableDet.editarCuentaContableDetSaldos(cuentaContableDet);
+					}
+				}
 
 				if (dpc.EliminarPContablePorId(idBorrar)) {
 

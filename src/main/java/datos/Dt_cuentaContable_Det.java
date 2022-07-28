@@ -2,6 +2,7 @@ package datos;
 
 import entidades.Tbl_cuentaContable;
 import entidades.Tbl_cuentaContable_Det;
+import entidades.Vw_SubCuentaContable;
 import entidades.Vw_cuentacontable_cuentacontable_det;
 
 import java.sql.Connection;
@@ -77,6 +78,58 @@ public class Dt_cuentaContable_Det {
 		return listCuentaContableDet;
 	}
 	
+	public double listaCuentasContablesDetPorNumeroCuentaEmpresaSubCuenta(String numeroCuenta, int idEmpresa){
+		
+		double saldoTotalFinal = 0; 
+		
+		try {
+			this.c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_cuentacontable_det_saldo_tranfer WHERE numeroCuenta = ? AND idEmpresa = ? AND SC <> ?;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps.setString(1, numeroCuenta);
+			this.ps.setInt(2, idEmpresa);
+			this.ps.setInt(3, 0);
+			this.rs = this.ps.executeQuery();
+			
+			while(this.rs.next()) {
+				Vw_SubCuentaContable ccd = new Vw_SubCuentaContable();
+				ccd.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
+				ccd.setIdCuenta(this.rs.getInt("idCuenta"));
+				ccd.setSaldoInicial(this.rs.getDouble("saldoInicial"));
+				ccd.setSaldoFinal(this.rs.getDouble("saldoFinal"));
+				ccd.setDebe(this.rs.getDouble("debe"));
+				ccd.setHaber(this.rs.getDouble("haber"));
+				ccd.setNumeroCuenta(this.rs.getString("numeroCuenta"));
+				ccd.setIdEmpresa(this.rs.getInt("idEmpresa"));
+				ccd.setSubCuenta(this.rs.getInt("SC"));
+				
+				saldoTotalFinal += (Math.abs(ccd.getSaldoInicial()) + Math.abs(ccd.getDebe()) - Math.abs(ccd.getHaber()));
+			}
+			} catch(Exception var11) {
+				System.out.println("DATOS: ERROR EN LISTAR DETALLE DE CUENTAS CONTABLES DET "+var11.getMessage());
+				var11.printStackTrace();
+			}
+		 finally {
+	            try {
+	                if (this.rs != null) {
+	                    this.rs.close();
+	                }
+
+	                if (this.ps != null) {
+	                    this.ps.close();
+	                }
+
+	                if (this.c != null) {
+	                    poolConexion.closeConnection(this.c);
+	                }
+	            } catch (SQLException var10) {
+	                var10.printStackTrace();
+	            }
+
+		}
+		
+		return saldoTotalFinal;
+	}
+	
 	
 	public Tbl_cuentaContable_Det getCcdbyID(int idCuentaContableDet) {
 		Tbl_cuentaContable_Det ccD = new Tbl_cuentaContable_Det();
@@ -84,6 +137,48 @@ public class Dt_cuentaContable_Det {
 			c = poolConexion.getConnection();
 			ps = c.prepareStatement("SELECT * FROM dbucash.cuentacontabledet WHERE idCuentaContableDet=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
 			ps.setInt(1, idCuentaContableDet);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				ccD.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
+				ccD.setIdCuenta(this.rs.getInt("idCuenta"));
+				ccD.setDebe(this.rs.getDouble("debe"));
+				ccD.setHaber(this.rs.getDouble("haber"));
+				ccD.setSaldoInicial(this.rs.getDouble("saldoInicial"));
+				ccD.setSaldoFinal(this.rs.getDouble("saldoFinal"));
+				
+			}
+		}catch (Exception e)
+		{
+			System.out.println("DATOS ERROR getCcdbyID(): "+ e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(rs != null){
+					rs.close();
+				}
+				if(ps != null){
+					ps.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return ccD;
+	}
+	
+	public Tbl_cuentaContable_Det getCcdbyIDSaldos(int idCuenta) {
+		Tbl_cuentaContable_Det ccD = new Tbl_cuentaContable_Det();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.cuentacontabledet WHERE idCuenta=?", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			ps.setInt(1, idCuenta);
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				ccD.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
@@ -212,6 +307,49 @@ public class Dt_cuentaContable_Det {
 			rsCuentaContableDet.beforeFirst();
 			while (rsCuentaContableDet.next()) {
 				if (rsCuentaContableDet.getInt(1)==ccD.getIdCuentaContableDet()) {
+					rsCuentaContableDet.updateInt("idCuenta", ccD.getIdCuenta());
+					rsCuentaContableDet.updateDouble("debe", ccD.getDebe());
+					rsCuentaContableDet.updateDouble("haber", ccD.getHaber());
+					rsCuentaContableDet.updateDouble("saldoInicial", ccD.getSaldoInicial());
+					rsCuentaContableDet.updateDouble("saldoFinal", ccD.getSaldoFinal());
+					rsCuentaContableDet.updateRow();
+					modificado=true;
+					break;
+				}
+				
+			}
+		} catch (Exception e) {
+			System.err.println("ERROR AL EDITAR CUENTA CONTABLE DET() "+e.getMessage());
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
+				if(rsCuentaContableDet != null){
+					rsCuentaContableDet.close();
+				}
+				if(c != null){
+					poolConexion.closeConnection(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return modificado;
+	}
+	
+	
+	public boolean editarCuentaContableDetSaldos(Tbl_cuentaContable_Det ccD) {
+		boolean modificado = false;
+		try {
+			c = poolConexion.getConnection();
+			this.llenarRsCuentaContableDet(c);
+			rsCuentaContableDet.beforeFirst();
+			while (rsCuentaContableDet.next()) {
+				if (rsCuentaContableDet.getInt(2)==ccD.getIdCuenta()) {
 					rsCuentaContableDet.updateInt("idCuenta", ccD.getIdCuenta());
 					rsCuentaContableDet.updateDouble("debe", ccD.getDebe());
 					rsCuentaContableDet.updateDouble("haber", ccD.getHaber());
