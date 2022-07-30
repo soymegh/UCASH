@@ -2,40 +2,7 @@
     pageEncoding="ISO-8859-1" import="entidades.*, datos.*, java.util.*" %>
 <!DOCTYPE html>
 <html>
-<%
 
-//Maestro
-String cc = "";
-cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCuenta");
-
-Vw_catalogo_tipo_cuentacontable vwCc = new Vw_catalogo_tipo_cuentacontable();
-Dt_cuentaContable dtCc = new Dt_cuentaContable();
-vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
-
-
-Tbl_tipocuenta ttc = new Tbl_tipocuenta();
-Dt_tipocuenta dtCtc = new Dt_tipocuenta();
-ttc = dtCtc.getTableTipocuentaByID(Integer.parseInt(cc));
-
-
-Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
-Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
-cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
-
-
-Tbl_cuentaContable tCuentaContable = new Tbl_cuentaContable(); 
-int idCuentaContable = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
-Dt_cuentaContable cuentaContable = new Dt_cuentaContable(); 
-
-tCuentaContable = cuentaContable.getCuentaContableByIdTable(idCuentaContable); 
-
-Vw_catalogocuenta_empresa Cata = new Vw_catalogocuenta_empresa();
-Dt_catalogocuenta dtcata = new Dt_catalogocuenta();
-
-Cata = dtcata.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
-
-
-%>
 <!-- //DETALLE  -->
 <%
 String CCD = "";
@@ -97,6 +64,40 @@ if (!permiso) {
 	return;
 }
 %>
+<%
+
+//Maestro
+String cc = "";
+cc = request.getParameter("idCuenta") == null ? "0" : request.getParameter("idCuenta");
+
+Vw_catalogo_tipo_cuentacontable vwCc = new Vw_catalogo_tipo_cuentacontable();
+Dt_cuentaContable dtCc = new Dt_cuentaContable();
+vwCc = dtCc.getCuentaContableById(Integer.parseInt(cc));
+
+
+Tbl_tipocuenta ttc = new Tbl_tipocuenta();
+Dt_tipocuenta dtCtc = new Dt_tipocuenta();
+ttc = dtCtc.getTableTipocuentaByID(Integer.parseInt(cc));
+
+
+Vw_catalogocuenta_empresa cata = new Vw_catalogocuenta_empresa();
+Dt_catalogocuenta dtCatC = new Dt_catalogocuenta();
+cata = dtCatC.getCatalogoByID(Integer.parseInt(cc));
+
+
+Tbl_cuentaContable tCuentaContable = new Tbl_cuentaContable(); 
+int idCuentaContable = request.getParameter("idCuenta") != null ? Integer.parseInt(request.getParameter("idCuenta")): 0;
+Dt_cuentaContable cuentaContable = new Dt_cuentaContable(); 
+
+tCuentaContable = cuentaContable.getCuentaContableByIdTable(idCuentaContable); 
+
+Vw_catalogocuenta_empresa Cata = new Vw_catalogocuenta_empresa();
+Dt_catalogocuenta dtcata = new Dt_catalogocuenta();
+
+Cata = dtcata.getCatalogoByIdEmpresa(vwur.getIdEmpresa());
+
+
+%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
@@ -148,7 +149,7 @@ if (!permiso) {
 										<input type="hidden" value="2" name="opcion" id="opcion"/>
 										<input type="hidden" value="<%= vwCc.getIdCuenta()%>" name="idCuenta" id="idCuenta" />
 										<input type="hidden" value="<%=vwCCD.getIdCuentaContableDet()%>" name="idCuentaContableDet" id="idCuentaContableDet" />
-										<input type="hidden" value="<%=Vw_empresa.empresaActual %>" name="empresaActual" id="empresaActual" />
+										<input type="hidden" value="<%=vwur.getIdEmpresa() %>" name="empresaActual" id="empresaActual" />
 										<span class="section">Datos de Cuenta Contable Maestro</span>
 										
 										<div class="field item form-group">

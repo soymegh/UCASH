@@ -28,6 +28,8 @@ response.setDateHeader("Expires", -1);
 Vw_usuariorol vwur = new Vw_usuariorol();
 Dt_rolOpciones dtro = new Dt_rolOpciones();
 ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
+Tbl_periodoFiscal pFiscal = new Tbl_periodoFiscal();
+Dt_periodoFiscal periodoFiscal  = new Dt_periodoFiscal();
 boolean permiso = false; //VARIABLE DE CONTROL
 
 //OBTENEMOS LA SESION
@@ -36,6 +38,8 @@ if (vwur != null) {
 	//OBTENEMOS LA LISTA DE OPCIONES ASIGNADAS AL ROL
 
 	listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
+	
+	pFiscal = periodoFiscal.obtenerPFiscalPorId(vwur.getIdPeriodoFiscal());
 
 	//RECUPERAMOS LA URL = MI OPCION ACTUAL
 	int index = request.getRequestURL().lastIndexOf("/");
@@ -164,17 +168,17 @@ if (!permiso) {
 																	x-placement="top-start"
 																	style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -129px, 0px);">
 																	<a
-																		href="../Sl_rptCuentaContable?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
+																		href="../Sl_rptCuentaContable?idPeriodoFiscal=<%=pFiscal.getFechaFinal()%>&idE=<%=vwur.getIdEmpresa()%>"
 																		target='_blank'> <i class="fa fa-print"
 																		title="Imprimir Lista de Cuentas Contables">Lista
 																			de Cuentas Contables</i>
 																	</a> <br></br> <a
-																		href="../Sl_LibroMayorAuxiliar?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
+																		href="../Sl_LibroMayorAuxiliar?idPeriodoFiscal=<%=pFiscal.getFechaFinal()%>&idE=<%=vwur.getIdEmpresa()%>"
 																		target='_blank'> <i class="fa fa-print"
 																		title="Imprimir Libro Mayor Auxiliar"> Libro Mayor
 																			Auxiliar</i>
 																	</a> <br></br> <a
-																		href="../Sl_BalanzaComprobacion?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>"
+																		href="../Sl_BalanzaComprobacion?idPeriodoFiscal=<%=pFiscal.getFechaFinal()%>&idE=<%=vwur.getIdEmpresa()%>"
 																		target='_blank'> <i class="fa fa-print"
 																		title="Imprimir Balanza de Comprobacion de Saldos">Balanza
 																			de Comprobacion de Saldos</i>
@@ -188,7 +192,7 @@ if (!permiso) {
 															<%
 															ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasContables = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 															Dt_cuentaContable dtCc = new Dt_cuentaContable();
-															listaCuentasContables = dtCc.getCuentaContableByIdEmpresa(Vw_empresa.empresaActual);
+															listaCuentasContables = dtCc.getCuentaContableByIdEmpresa(vwur.getIdEmpresa());
 															%>
 															<thead>
 																<tr>
@@ -254,8 +258,8 @@ if (!permiso) {
 
 																		<% if(cta != 100 && cta != 200 && cta != 300 && scta == 0){%>
 																		 &nbsp;&nbsp; 
-																		 <a href="../Sl_Anexos?idPeriodoFiscal=<%=Tbl_periodoFiscal.fechaFinalActual%>
-																		 &idE=<%=Vw_empresa.empresaActual%>&nCuenta=<%=cc.getNumeroCuenta()%>&nomCuenta=<%=cc.getNombreCuenta()%>"
+																		 <a href="../Sl_Anexos?idPeriodoFiscal=<%=pFiscal.getFechaFinal()%>
+																		 &idE=<%=vwur.getIdEmpresa()%>&nCuenta=<%=cc.getNumeroCuenta()%>&nomCuenta=<%=cc.getNombreCuenta()%>"
 																		target='_blank'> <i class="fa fa-print" title="Imprimir Anexos de esta Cuenta"></i>
 																		</a> 
 																	<%
