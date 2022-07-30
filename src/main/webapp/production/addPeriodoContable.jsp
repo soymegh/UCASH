@@ -108,6 +108,8 @@
 									<form class="" action="../Sl_periodoContable" method="post"
 										novalidate>
 										<input type="hidden" value="1" name="opcion" id="opcion" />
+										<input type="hidden" value="0" name="transferBalance" id="transferBalance"/>
+										<input type="hidden" value="<%=vwur.getIdEmpresa()%>" name="empresa" id="empresa"/>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Periodo Fiscal: <span class="required">*</span>
 											</label>
@@ -161,6 +163,8 @@
 												<a href="tbl_periodoContable.jsp" type="button"
 													class="btn btn-danger">Cancelar</a>
 												<button type="submit" class="btn btn-success">Agregar</button>
+												<input type="checkbox" id="balanceTransfer"/>
+												<label style="color:#000;" for="balanceTransfer">- Transferir saldos</label>
 											</div>
 										</div>
 
@@ -179,6 +183,19 @@
 	<script src="../vendors/validator/validator.js"></script>
 	<!-- Select2 -->
 	<script src="../vendors/select2/dist/js/select2.full.min.js"></script>
+	
+	<script>
+		var selection = document.getElementById("balanceTransfer");
+		var balanceValue = document.getElementById("transferBalance");
+		selection.addEventListener("click", ()=>{
+			if(selection.checked){
+				balanceValue.value = 1; 
+			}else {
+				balanceValue.value = 0;
+			};
+		});
+		
+	</script>
 	
 	<script>
 		// initialize a validator instance from the "FormValidator" constructor.

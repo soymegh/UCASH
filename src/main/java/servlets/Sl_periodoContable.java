@@ -44,6 +44,7 @@ public class Sl_periodoContable extends HttpServlet {
 		Dt_cuentaContable cuentaContable = new Dt_cuentaContable();
 		Dt_cuentaContable_Det dtCuentaContableDet = new Dt_cuentaContable_Det();
 		Tbl_cuentaContable_Det cuentaContableDet = new Tbl_cuentaContable_Det();
+		Tbl_cuentaContable_Det cuentaContableDetSub = new Tbl_cuentaContable_Det();
 		
 		// Fecha Inicio del Periodo Contable
 		try {
@@ -71,7 +72,43 @@ public class Sl_periodoContable extends HttpServlet {
 
 		switch (opc) {
 		case 1:
+			int transferenciaSaldos = 0, company = 0; 
+			
+			if(request.getParameter("transferBalance") != null) {
+				transferenciaSaldos = Integer.parseInt(request.getParameter("transferBalance"));
+			} else {
+				transferenciaSaldos = 0; 
+			}
+			
+			if(request.getParameter("empresa") != null) {
+				company = Integer.parseInt(request.getParameter("empresa"));
+			}else {
+				company = 0; 
+			}
+
+			
 			try {
+				double saldoFinalTotal = 0;
+				
+				if(transferenciaSaldos != 0) {
+					ArrayList<Tbl_cuentaContable_Det> cuentasDeMayor = new ArrayList<Tbl_cuentaContable_Det>();
+					ArrayList<Tbl_cuentaContable_Det> subCuentas = new ArrayList<Tbl_cuentaContable_Det>();
+					cuentasDeMayor = dtCuentaContableDet.listarCuentasMayorTransSaldos(company);
+					
+					
+					
+					for(Tbl_cuentaContable_Det cuenta: cuentasDeMayor) {
+						dtCuentaContableDet.editarCuentaContableDet(cuenta);
+					}	
+					
+					subCuentas = dtCuentaContableDet.listarSubcuentasTransSaldos(company);
+					
+					for(Tbl_cuentaContable_Det cuenta: subCuentas) {
+						dtCuentaContableDet.editarCuentaContableDet(cuenta);
+					}	
+					
+				}
+				
 				periodocontable.setIdPeriodoFiscal(Integer.parseInt(request.getParameter("cbxIDPF")));
 				if (dpc.agregarPeriodoContable(periodocontable)) {
 					response.sendRedirect("production/tbl_periodoContable.jsp?msj=1");
@@ -102,7 +139,6 @@ public class Sl_periodoContable extends HttpServlet {
 			int idBorrar = Integer.parseInt(request.getParameter("idPContableEliminar"));
 			int transferBalance = 0, empresa = 0; 
 			double saldoFinalTotal = 0;
-			double saldoActual = 0; 
 			
 			if(request.getParameter("transferBalance") != null) {
 				transferBalance = Integer.parseInt(request.getParameter("transferBalance"));
@@ -121,19 +157,22 @@ public class Sl_periodoContable extends HttpServlet {
 				
 				if(transferBalance != 0) {
 					ArrayList<Vw_catalogo_tipo_cuentacontable> cuentasDeMayor = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+					ArrayList<Tbl_cuentaContable_Det> subCuentas = new ArrayList<Tbl_cuentaContable_Det>();
 					cuentasDeMayor = cuentaContable.getCuentaContableMayorByIdEmpresa(empresa);
 					
 					for(Vw_catalogo_tipo_cuentacontable cuenta: cuentasDeMayor) {
 						saldoFinalTotal = dtCuentaContableDet.listaCuentasContablesDetPorNumeroCuentaEmpresaSubCuenta(cuenta.getNumeroCuenta(), empresa); 
 						cuentaContableDet.setIdCuenta(cuenta.getIdCuenta());
-						saldoActual = dtCuentaContableDet.getCcdbyIDSaldos(cuenta.getIdCuenta()).getSaldoInicial();
-						
+						cuentaContableDet.setSaldoInicial(dtCuentaContableDet.getCcdbyIDSaldos(cuenta.getIdCuenta()).getSaldoInicial());
 						Math.abs(saldoFinalTotal);
-						
-						saldoFinalTotal += saldoActual; 
-						cuentaContableDet.setSaldoInicial(saldoFinalTotal);
-						
+						cuentaContableDet.setSaldoFinal(saldoFinalTotal);
 						dtCuentaContableDet.editarCuentaContableDetSaldos(cuentaContableDet);
+					}
+					
+					subCuentas = dtCuentaContableDet.listarSubcuentas(empresa);
+					
+					for(Tbl_cuentaContable_Det subCuenta: subCuentas) {
+						dtCuentaContableDet.editarCuentaContableDet(subCuenta);
 					}
 				}
 

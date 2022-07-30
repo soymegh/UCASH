@@ -46,6 +46,12 @@ public class Tbl_cuentaContable_Det {
 	public void setHaber(double haber) {
 		this.haber = haber;
 	}
+	@Override
+	public String toString() {
+		return "Tbl_cuentaContable_Det [idCuentaContableDet=" + idCuentaContableDet + ", idCuenta=" + idCuenta
+				+ ", saldoFinal=" + saldoFinal + ", saldoInicial=" + saldoInicial + ", debe=" + debe + ", haber="
+				+ haber + "]";
+	}
 	
 	
 	

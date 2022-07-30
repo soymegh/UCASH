@@ -80,7 +80,7 @@ public class Dt_cuentaContable_Det {
 	
 	public double listaCuentasContablesDetPorNumeroCuentaEmpresaSubCuenta(String numeroCuenta, int idEmpresa){
 		
-		double saldoTotalFinal = 0; 
+		double saldoTotalFinal = 0;
 		
 		try {
 			this.c = poolConexion.getConnection();
@@ -103,6 +103,8 @@ public class Dt_cuentaContable_Det {
 				ccd.setSubCuenta(this.rs.getInt("SC"));
 				
 				saldoTotalFinal += (Math.abs(ccd.getSaldoInicial()) + Math.abs(ccd.getDebe()) - Math.abs(ccd.getHaber()));
+				
+				
 			}
 			} catch(Exception var11) {
 				System.out.println("DATOS: ERROR EN LISTAR DETALLE DE CUENTAS CONTABLES DET "+var11.getMessage());
@@ -172,6 +174,155 @@ public class Dt_cuentaContable_Det {
 		
 		return ccD;
 	}
+	
+public ArrayList<Tbl_cuentaContable_Det> listarSubcuentas(int idEmpresa){
+	
+		ArrayList<Tbl_cuentaContable_Det> subCuentas = new ArrayList<Tbl_cuentaContable_Det>();
+		double saldoTotalFinal = 0;
+		
+		try {
+			this.c = poolConexion.getConnection();
+			this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_cuentacontable_det_saldo_tranfer WHERE idEmpresa = ? AND SC <> ?;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+			this.ps.setInt(1, idEmpresa);
+			this.ps.setInt(2, 0);
+			this.rs = this.ps.executeQuery();
+			
+			while(this.rs.next()) {
+				Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+				ccd.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
+				ccd.setIdCuenta(this.rs.getInt("idCuenta"));
+				ccd.setSaldoInicial(this.rs.getDouble("saldoInicial"));
+				ccd.setDebe(this.rs.getDouble("debe"));
+				ccd.setHaber(this.rs.getDouble("haber"));
+				
+				saldoTotalFinal = (Math.abs(ccd.getSaldoInicial()) + Math.abs(ccd.getDebe()) - Math.abs(ccd.getHaber()));
+				
+				ccd.setSaldoFinal(saldoTotalFinal);
+				subCuentas.add(ccd);
+			}
+			} catch(Exception var11) {
+				System.out.println("DATOS: ERROR EN LISTAR DETALLE DE CUENTAS CONTABLES DET "+var11.getMessage());
+				var11.printStackTrace();
+			}
+		 finally {
+	            try {
+	                if (this.rs != null) {
+	                    this.rs.close();
+	                }
+
+	                if (this.ps != null) {
+	                    this.ps.close();
+	                }
+
+	                if (this.c != null) {
+	                    poolConexion.closeConnection(this.c);
+	                }
+	            } catch (SQLException var10) {
+	                var10.printStackTrace();
+	            }
+
+		}
+		
+		return subCuentas; 
+	}
+
+public ArrayList<Tbl_cuentaContable_Det> listarSubcuentasTransSaldos(int idEmpresa){
+	
+	ArrayList<Tbl_cuentaContable_Det> subCuentas = new ArrayList<Tbl_cuentaContable_Det>();
+	double saldoFinal = 0;
+	
+	try {
+		this.c = poolConexion.getConnection();
+		this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_cuentacontable_det_saldo_tranfer WHERE idEmpresa = ? AND SC <> ?;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+		this.ps.setInt(1, idEmpresa);
+		this.ps.setInt(2, 0);
+		this.rs = this.ps.executeQuery();
+		
+		while(this.rs.next()) {
+			Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+			ccd.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
+			ccd.setIdCuenta(this.rs.getInt("idCuenta"));
+			ccd.setDebe(this.rs.getDouble("debe"));
+			ccd.setHaber(this.rs.getDouble("haber"));
+			saldoFinal = this.rs.getDouble("saldoFinal");
+			ccd.setSaldoInicial(saldoFinal);
+			ccd.setSaldoFinal(0);
+			subCuentas.add(ccd);
+		}
+		} catch(Exception var11) {
+			System.out.println("DATOS: ERROR EN LISTAR DETALLE DE CUENTAS CONTABLES DET "+var11.getMessage());
+			var11.printStackTrace();
+		}
+	 finally {
+            try {
+                if (this.rs != null) {
+                    this.rs.close();
+                }
+
+                if (this.ps != null) {
+                    this.ps.close();
+                }
+
+                if (this.c != null) {
+                    poolConexion.closeConnection(this.c);
+                }
+            } catch (SQLException var10) {
+                var10.printStackTrace();
+            }
+
+	}
+	
+	return subCuentas; 
+}
+
+public ArrayList<Tbl_cuentaContable_Det> listarCuentasMayorTransSaldos(int idEmpresa){
+	
+	ArrayList<Tbl_cuentaContable_Det> cuentasMayor = new ArrayList<Tbl_cuentaContable_Det>();
+	double saldoFinal = 0;
+	
+	try {
+		this.c = poolConexion.getConnection();
+		this.ps = this.c.prepareStatement("SELECT * FROM dbucash.vw_cuentacontable_det_saldo_tranfer WHERE idEmpresa = ? AND SC = ?;", ResultSet.TYPE_SCROLL_SENSITIVE,  ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+		this.ps.setInt(1, idEmpresa);
+		this.ps.setInt(2, 0);
+		this.rs = this.ps.executeQuery();
+		
+		while(this.rs.next()) {
+			Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+			ccd.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
+			ccd.setIdCuenta(this.rs.getInt("idCuenta"));
+			ccd.setDebe(this.rs.getDouble("debe"));
+			ccd.setHaber(this.rs.getDouble("haber"));
+			saldoFinal = this.rs.getDouble("saldoFinal");
+			ccd.setSaldoInicial(saldoFinal);
+			ccd.setSaldoFinal(0);
+			cuentasMayor.add(ccd);
+		}
+		} catch(Exception var11) {
+			System.out.println("DATOS: ERROR EN LISTAR DETALLE DE CUENTAS CONTABLES DET "+var11.getMessage());
+			var11.printStackTrace();
+		}
+	 finally {
+            try {
+                if (this.rs != null) {
+                    this.rs.close();
+                }
+
+                if (this.ps != null) {
+                    this.ps.close();
+                }
+
+                if (this.c != null) {
+                    poolConexion.closeConnection(this.c);
+                }
+            } catch (SQLException var10) {
+                var10.printStackTrace();
+            }
+
+	}
+	
+	return cuentasMayor; 
+}
 	
 	public Tbl_cuentaContable_Det getCcdbyIDSaldos(int idCuenta) {
 		Tbl_cuentaContable_Det ccD = new Tbl_cuentaContable_Det();
