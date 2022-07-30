@@ -24,6 +24,8 @@ int idd = dtCcd.idCuentaContable();
 		//DECLARACIONES
 		Vw_usuariorol vwur = new Vw_usuariorol();
 		Dt_rolOpciones dtro = new Dt_rolOpciones();
+		Tbl_periodoContable pContable = new Tbl_periodoContable();
+		Dt_periodoContable periodoContable  = new Dt_periodoContable();
 		ArrayList<Vw_rolopciones> listOpc = new ArrayList<Vw_rolopciones>();
 		boolean permiso = false; //VARIABLE DE CONTROL
 		
@@ -34,7 +36,7 @@ int idd = dtCcd.idCuentaContable();
 			
 			listOpc = dtro.ObtenerRolOpcionPorIdLogin(vwur.getIdUsuarioRol());
 			
-			
+			pContable = periodoContable.obtenerPContablePorId(vwur.getIdPeriodoContable());
 			//RECUPERAMOS LA URL = MI OPCION ACTUAL
 			int index = request.getRequestURL().lastIndexOf("/");
 			String miPagina = request.getRequestURL().substring(index+1);
@@ -169,7 +171,7 @@ int idd = dtCcd.idCuentaContable();
 														<i class="fa fa-plus-square"></i> Nueva Cuenta Contable
 													</a> &nbsp;&nbsp;
 													<a 
-														href ="../Sl_rptCuentaContable?idPeriodoContable=Del: <%=Tbl_periodoContable.fechaInicioActual%> Al: <%=Tbl_periodoContable.fechaFinalActual%>&idE=<%=Vw_empresa.empresaActual%>" target='_blank'>
+														href ="../Sl_rptCuentaContable?idPeriodoContable=Del: <%=pContable.getFechaInicio()%> Al: <%=pContable.getFechaFinal()%>&idE=<%=vwur.getIdEmpresa()%>" target='_blank'>
 														<i class="fa fa-print" title="Imprimir Lista de Cuentas Contables">Imprimir Lista de Cuentas Contables</i>
 													</a>&nbsp;&nbsp;
 													<br></br>
@@ -183,7 +185,7 @@ int idd = dtCcd.idCuentaContable();
 													<%
 													ArrayList<Vw_catalogocuenta_empresa> listaCatalogocuenta = new ArrayList<Vw_catalogocuenta_empresa>();
 													Dt_catalogocuenta dtCc = new Dt_catalogocuenta();
-													listaCatalogocuenta = dtCc.listarCatalogocuentaDeEmpresa(Vw_empresa.empresaActual);
+													listaCatalogocuenta = dtCc.listarCatalogocuentaDeEmpresa(vwur.getIdEmpresa());
 													%>
 													<thead>
 														<tr>
