@@ -216,7 +216,7 @@ tpfiscal = dtpfiscal.obtenerPFiscalPorId(idpfiscal);
 													<a href="tbl_periodoContable.jsp" type="button"
 														class="btn btn-primary">Cancelar</a>
 												<input type="checkbox" id="balanceTransfer"/>
-												<label style="color:#000;" for="balanceTransfer">- Tranferir saldos</label>
+												<label style="color:#000;" for="balanceTransfer">- Calcular saldos finales</label>
 												</div>
 											</div>
 										</div>
