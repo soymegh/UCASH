@@ -3,24 +3,6 @@
 
 
 <%
-String CCD = "";
-Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
-Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
-
-String Ccd = "";
-Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
-
-int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")) : 0;
-vwCCD = dtCCD.getCCDbyID(idCCD);
-
-Vw_catalogocuenta_empresa Cata = new Vw_catalogocuenta_empresa();
-Dt_catalogocuenta dtcata = new Dt_catalogocuenta();
-
-Cata = dtcata.getCatalogoByIdEmpresa(Vw_empresa.empresaActual);
-%>
-
-
-<%
 //INVALIDA LA CACHE DEL NAVEGADOR //
 response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-store");
@@ -63,6 +45,22 @@ if (!permiso) {
 }
 %>
 
+<%
+String CCD = "";
+Vw_cuentacontable_cuentacontable_det vwCCD = new Vw_cuentacontable_cuentacontable_det();
+Dt_cuentaContable_Det dtCCD = new Dt_cuentaContable_Det();
+
+String Ccd = "";
+Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
+
+int idCCD = request.getParameter("idCD") != null ? Integer.parseInt(request.getParameter("idCD")) : 0;
+vwCCD = dtCCD.getCCDbyID(idCCD);
+
+Vw_catalogocuenta_empresa Cata = new Vw_catalogocuenta_empresa();
+Dt_catalogocuenta dtcata = new Dt_catalogocuenta();
+
+Cata = dtcata.getCatalogoByIdEmpresa(vwur.getIdEmpresa());
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +119,7 @@ if (!permiso) {
 								<div class="x_content">
 									<form class="" action="../Sl_cuentaContable" method="post"
 										novalidate>
-										<input type="hidden" value="<%=Vw_empresa.empresaActual%>"
+										<input type="hidden" value="<%=vwur.getIdEmpresa()%>"
 											name="empresaActual" id="empresaActual" /> <input
 											type="hidden" value="1" name="opcion" id="opcion" /> <span
 											class="section">Datos de Cuenta Contable</span>
