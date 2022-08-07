@@ -1,5 +1,6 @@
 /datos/
+/servlets/
 /entidades/
 /negocio/
 /reportes/
-/servlets/
+/beans/
