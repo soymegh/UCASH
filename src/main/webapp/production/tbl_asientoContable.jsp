@@ -133,7 +133,7 @@ if (!permiso) {
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Asientos Contables Registrados <small><a href="imprimirAsientoContable.jsp"><i class="fa fa-print"></i>Imprimir asientos contables</a></small> </h2>
-
+									<a href="generalBalanceFactory.jsp"><i class="fa fa-print"></i>Imprimir Balance General</a>
 									<div class="float-right">
 										<h2>Periodo contable: <%=pContable.getFechaInicio()%> - <%=pContable.getFechaFinal()%> </h2>
 									</div>	
