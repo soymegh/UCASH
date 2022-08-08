@@ -117,13 +117,13 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					//Obteniedo total
 					for(int x = 0; x < listaCuentaDetallesAC.size(); x++) {
 						if(listaCuentaDetallesAC.get(x).getSaldoFinal() > 0) {
-							totalAC = listaCuentaDetallesAC.get(x).getSaldoFinal();
+							totalAC = totalAC + listaCuentaDetallesAC.get(x).getSaldoFinal();
 						} else {
 							saldoInicial = listaCuentaDetallesAC.get(x).getSaldoInicial();
 							debe = listaCuentaDetallesAC.get(x).getDebe();
 							haber = listaCuentaDetallesAC.get(x).getHaber();
 							
-							totalAC = saldoInicial + debe - haber; 
+							totalAC = totalAC + (saldoInicial + debe) - haber; 
 							
 							saldoInicial = debe = haber = 0; 
 						}
@@ -158,13 +158,13 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					//Obteniedo total
 					for(int x = 0; x < listaCuentaDetallesAF.size(); x++) {
 						if(listaCuentaDetallesAF.get(x).getSaldoFinal() > 0) {
-							totalAF = listaCuentaDetallesAF.get(x).getSaldoFinal();
+							totalAF = totalAF + listaCuentaDetallesAF.get(x).getSaldoFinal();
 						} else {
 							saldoInicial = listaCuentaDetallesAF.get(x).getSaldoInicial();
 							debe = listaCuentaDetallesAF.get(x).getDebe();
 							haber = listaCuentaDetallesAF.get(x).getHaber();
 							
-							totalAF = saldoInicial + debe - haber; 
+							totalAF = totalAF + (saldoInicial + debe) - haber; 
 							
 							saldoInicial = debe = haber = 0; 
 						}
@@ -200,13 +200,13 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					//Obteniedo total
 					for(int x = 0; x < listaCuentaDetallesAD.size(); x++) {
 						if(listaCuentaDetallesAD.get(x).getSaldoFinal() > 0) {
-							totalAD = listaCuentaDetallesAD.get(x).getSaldoFinal();
+							totalAD = totalAD + listaCuentaDetallesAD.get(x).getSaldoFinal();
 						} else {
 							saldoInicial = listaCuentaDetallesAD.get(x).getSaldoInicial();
 							debe = listaCuentaDetallesAD.get(x).getDebe();
 							haber = listaCuentaDetallesAD.get(x).getHaber();
 							
-							totalAD = saldoInicial + debe - haber; 
+							totalAD = totalAD + (saldoInicial + debe) - haber; 
 							
 							saldoInicial = debe = haber = 0; 
 						}
@@ -241,13 +241,13 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					//Obteniedo total
 					for(int x = 0; x < listaCuentaDetallesPC.size(); x++) {
 						if(listaCuentaDetallesPC.get(x).getSaldoFinal() > 0) {
-							totalPC = listaCuentaDetallesPC.get(x).getSaldoFinal();
+							totalPC = totalPC + listaCuentaDetallesPC.get(x).getSaldoFinal();
 						} else {
 							saldoInicial = listaCuentaDetallesPC.get(x).getSaldoInicial();
 							debe = listaCuentaDetallesPC.get(x).getDebe();
 							haber = listaCuentaDetallesPC.get(x).getHaber();
 							
-							totalPC = saldoInicial + debe - haber; 
+							totalPC = totalPC + (saldoInicial + debe) - haber; 
 							
 							saldoInicial = debe = haber = 0; 
 						}
@@ -283,13 +283,13 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					//Obteniedo total
 					for(int x = 0; x < listaCuentaDetallesCN.size(); x++) {
 						if(listaCuentaDetallesCN.get(x).getSaldoFinal() > 0) {
-							totalCN = listaCuentaDetallesCN.get(x).getSaldoFinal();
+							totalCN = totalCN + listaCuentaDetallesCN.get(x).getSaldoFinal();
 						} else {
 							saldoInicial = listaCuentaDetallesCN.get(x).getSaldoInicial();
 							debe = listaCuentaDetallesCN.get(x).getDebe();
 							haber = listaCuentaDetallesCN.get(x).getHaber();
 							
-							totalCN = saldoInicial + debe - haber; 
+							totalCN = totalCN + (saldoInicial + debe) - haber; 
 							
 							saldoInicial = debe = haber = 0; 
 						}
@@ -320,13 +320,13 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					System.out.print("Pasivo Circulante - Id cuenta:" + listaCuentaPC.get(x).getIdCuenta() + " Nombre de la cuenta: " + listaCuentaPC.get(x).getNombreCuenta() + " Saldo Inicial: " + listaCuentaDetallesPC.get(x).getSaldoInicial());
 				}
 				
-				System.out.print("Total Activo Circulante: " + totalPC);
+				System.out.print("Total Pasivo Circulante: " + totalPC);
 				
 				for(int x = 0; x < listaCuentaCN.size(); x++) {
 					System.out.print("Capital Neto - Id cuenta:" + listaCuentaCN.get(x).getIdCuenta() + " Nombre de la cuenta: " + listaCuentaCN.get(x).getNombreCuenta() + " Saldo Inicial: " + listaCuentaDetallesCN.get(x).getSaldoInicial());
 				}
 				
-				System.out.print("Total Activo Circulante: " + totalCN);
+				System.out.print("Total Capital Neto: " + totalCN);
 				
 				
 				System.out.print("Total Activos: " + (totalAC + totalAF + totalAD) + "Total Pasivos y Capital: " + (totalPC + totalCN));
