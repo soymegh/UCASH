@@ -21,9 +21,11 @@ import datos.Dt_cuentaContable;
 import datos.Dt_cuentaContable_Det;
 import datos.Dt_empresa;
 import datos.poolConexion;
+
 import entidades.Tbl_cuentaContable;
 import entidades.Tbl_cuentaContable_Det;
 import entidades.Vw_empresa;
+
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
@@ -38,6 +40,7 @@ import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
  */
 @WebServlet("/Sl_rptBalanceGeneral")
 public class Sl_rptBalanceGeneral extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
 	/**
