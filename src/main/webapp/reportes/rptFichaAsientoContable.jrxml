@@ -399,7 +399,7 @@ WHERE
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="150" splitType="Stretch">
+		<band height="196" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="10" width="100" height="30" uuid="8cf426cf-aaf5-4d7b-885e-a42882c3bb74"/>
 				<textElement verticalAlignment="Middle">
@@ -408,17 +408,17 @@ WHERE
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="491" y="10" width="81" height="30" uuid="913ffa46-ae06-410b-943c-7ca29443cd17"/>
+				<reportElement x="450" y="10" width="122" height="30" uuid="913ffa46-ae06-410b-943c-7ca29443cd17"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[IF($F{nombre}.equals( "Córdoba" ),$V{haber2},$V{haber2}*$F{tipoCambio})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="10" width="81" height="30" uuid="1f397961-ccae-4539-87f9-0953212b40d6"/>
+				<reportElement x="329" y="10" width="121" height="30" uuid="1f397961-ccae-4539-87f9-0953212b40d6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[IF($F{nombre}.equals( "Córdoba" ),$V{debe4},$V{debe4}*$F{tipoCambio})]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="120" width="180" height="30" uuid="0dc7ff0a-4a6f-4197-9c9c-4261ae6774f4"/>
+				<reportElement x="0" y="166" width="180" height="30" uuid="0dc7ff0a-4a6f-4197-9c9c-4261ae6774f4"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
@@ -426,7 +426,7 @@ WHERE
 				<text><![CDATA[Elaborado por]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="392" y="120" width="180" height="30" uuid="17b8012a-1ee5-4d49-9776-ec8b73b7d7fb"/>
+				<reportElement x="392" y="166" width="180" height="30" uuid="17b8012a-1ee5-4d49-9776-ec8b73b7d7fb"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 				</box>
@@ -434,7 +434,7 @@ WHERE
 				<text><![CDATA[Autorizado por]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight">
-				<reportElement stretchType="ContainerHeight" x="0" y="50" width="572" height="30" uuid="cceadc57-3edf-4544-8e4b-87708d074f2d">
+				<reportElement stretchType="ContainerHeight" x="0" y="50" width="572" height="50" uuid="cceadc57-3edf-4544-8e4b-87708d074f2d">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 				</reportElement>
 				<box>
