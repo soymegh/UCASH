@@ -334,11 +334,38 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				System.out.print("Total Activos: " + totalActivos + " Total Pasivos Y Capital: " + totalPasivosXCapital);
 				
-				break; 
+				/**
+				 * Generación del reporte con JasperSoft
+				 */
+				
+				poolConexion pc = poolConexion.getInstance();
+				Connection c = poolConexion.getConnection();
+				
+				HashMap<String, Object> hashMap = new HashMap<>();
+				hashMap.put("whereQuery", concatKeys);
+				hashMap.put("totalPasivosYCapital", totalPasivosXCapital);
+				
+				OutputStream outputSt = response.getOutputStream();
+				ServletContext slContext = getServletContext();
+				
+				String path = slContext.getRealPath("/");
+				System.out.println("PATH: " + path);
+				
+				String template = "reportes\\BG.jasper";
+				Exporter exporter = new JRPdfExporter();
+				JasperPrint jasperPrint = JasperFillManager.fillReport(path + template, hashMap, c);
+				
+				response.setContentType("application/pdf");
+				response.setHeader("Content-Disposition", "inline; filename=\"" + "BalanceGeneral" + "_.pdf");
+				
+				exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputSt));
+				exporter.exportReport();
+				
 			}
 
 		} catch (Exception e) {
-			System.err.println("ERROR AL GENERAR RESUMEN DE ASIENTOS CONTABLES: " + e.getMessage());
+			System.err.println("ERROR AL GENERAR BALANCE GENERAL: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
