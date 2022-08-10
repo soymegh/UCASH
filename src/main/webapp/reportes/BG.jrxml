@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BG" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d1992ba-40a1-4464-8115-0fef357065c0">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Local MySQL"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dadbucash"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<parameter name="idEmpresa" class="java.lang.Integer"/>
+	<parameter name="whereQuery" class="java.lang.String" evaluationTime="Early">
+		<defaultValueExpression><![CDATA["idCuenta = 11  OR idCuenta = 12  OR idCuenta = 21  OR idCuenta = 38  OR idCuenta = 28  OR idCuenta = 41  OR idCuenta = 26  OR idCuenta = 39  OR idCuenta = 29  OR idCuenta = 44"]]></defaultValueExpression>
+	</parameter>
 	<parameter name="totalAF" class="java.lang.Double" isForPrompting="false"/>
-	<parameter name="whereQuery" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="totalAC" class="java.lang.Double" isForPrompting="false"/>
 	<parameter name="totalPF" class="java.lang.Double" isForPrompting="false"/>
 	<parameter name="totalPC" class="java.lang.Double" isForPrompting="false"/>
 	<parameter name="totalCapital" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
-		<![CDATA[SELECT * FROM vw_balance WHERE NOT tipoCuenta = "Resultado" AND idEmpresa = $P{idEmpresa} AND  $P{whereQuery} ;]]>
+		<![CDATA[SELECT * FROM vw_balance WHERE $P!{whereQuery}]]>
 	</queryString>
 	<field name="idCuenta" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="idCuenta"/>
@@ -33,7 +34,7 @@
 		<property name="com.jaspersoft.studio.field.label" value="subTipoCuenta"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="vw_balance"/>
 	</field>
-	<field name="saldoFinal" class="java.lang.Float">
+	<field name="saldoFinal" class="java.lang.Double">
 		<property name="com.jaspersoft.studio.field.name" value="saldoFinal"/>
 		<property name="com.jaspersoft.studio.field.label" value="saldoFinal"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="vw_balance"/>
