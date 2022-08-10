@@ -87,8 +87,11 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				int totalActivosCirculante = 0, totalActivosFijos = 0, totalActivosDiferidos = 0, totalPasivoCirculante = 0,
 				totalCapitalNeto = 0; 
 				
+				ArrayList<Integer> accountsIdentifiers = new ArrayList<Integer>();
 				
-				double totalAC = 0, totalAF = 0, totalAD = 0, totalPC = 0, totalCN = 0;
+				String concatKeys = "";
+				
+				double totalAC = 0, totalAF = 0, totalAD = 0, totalPC = 0, totalCN = 0, totalActivos = 0, totalPasivosXCapital = 0;
 				
 				double saldoInicial = 0, saldoFinal = 0, debe = 0, haber = 0; 
 				
@@ -112,6 +115,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 					
 					for(Tbl_cuentaContable cuenta: listaCuentaAC) {
+						
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						listaCuentaDetallesAC.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
 						);				
@@ -153,6 +159,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 					
 					for(Tbl_cuentaContable cuenta: listaCuentaAF) {
+						
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						listaCuentaDetallesAF.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
 						);				
@@ -195,6 +204,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 					
 					for(Tbl_cuentaContable cuenta: listaCuentaAD) {
+						
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						listaCuentaDetallesAD.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
 						);				
@@ -236,6 +248,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 					
 					for(Tbl_cuentaContable cuenta: listaCuentaPC) {
+						
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						listaCuentaDetallesPC.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
 						);				
@@ -278,6 +293,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 					
 					for(Tbl_cuentaContable cuenta: listaCuentaCN) {
+						
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						listaCuentaDetallesCN.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
 						);				
@@ -299,40 +317,23 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 				}
 				
-				
-				
-				for(int x = 0; x < listaCuentaAC.size(); x++) {
-					System.out.print("Activo Circulante - Id cuenta:" + listaCuentaAC.get(x).getIdCuenta() + " Nombre de la cuenta: " + listaCuentaAC.get(x).getNombreCuenta() + " Saldo Inicial: " + listaCuentaDetallesAC.get(x).getSaldoInicial());
+				for(int x = 0; x < accountsIdentifiers.size(); x++) {
+					if(x == 0) {
+						concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+" ";
+					} else {
+						concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+" ";
+					}
 				}
 				
-				System.out.print("Total Activo Circulante: " + totalAC);
+				//Totales del reporte (Parametros para jasper)
+				totalActivos = totalAC + totalAF + totalAD; 
+				totalPasivosXCapital = totalPC + totalCN; 
 				
-				for(int x = 0; x < listaCuentaAF.size(); x++) {
-					System.out.print("Activo Fijo - Id cuenta:" + listaCuentaAF.get(x).getIdCuenta() + " Nombre de la cuenta: " + listaCuentaAF.get(x).getNombreCuenta() + " Saldo Inicial: " + listaCuentaDetallesAF.get(x).getSaldoInicial());
-				}
+				//La variable concatKeys contiene la condicion y parametros para el where que se usa en Jasper
+				System.out.print(concatKeys);
 				
-				System.out.print("Total Activo Fijo: " + totalAF);
+				System.out.print("Total Activos: " + totalActivos + " Total Pasivos Y Capital: " + totalPasivosXCapital);
 				
-				for(int x = 0; x < listaCuentaAD.size(); x++) {
-					System.out.print("Activo Diferido - Id cuenta:" + listaCuentaAD.get(x).getIdCuenta() + " Nombre de la cuenta: " + listaCuentaAD.get(x).getNombreCuenta() + " Saldo Inicial: " + listaCuentaDetallesAD.get(x).getSaldoInicial());
-				}
-				
-				System.out.print("Total Activo Diferido: " + totalAD);
-				
-				for(int x = 0; x < listaCuentaPC.size(); x++) {
-					System.out.print("Pasivo Circulante - Id cuenta:" + listaCuentaPC.get(x).getIdCuenta() + " Nombre de la cuenta: " + listaCuentaPC.get(x).getNombreCuenta() + " Saldo Inicial: " + listaCuentaDetallesPC.get(x).getSaldoInicial());
-				}
-				
-				System.out.print("Total Pasivo Circulante: " + totalPC);
-				
-				for(int x = 0; x < listaCuentaCN.size(); x++) {
-					System.out.print("Capital Neto - Id cuenta:" + listaCuentaCN.get(x).getIdCuenta() + " Nombre de la cuenta: " + listaCuentaCN.get(x).getNombreCuenta() + " Saldo Inicial: " + listaCuentaDetallesCN.get(x).getSaldoInicial());
-				}
-				
-				System.out.print("Total Capital Neto: " + totalCN);
-				
-				
-				System.out.print("Total Activos: " + (totalAC + totalAF + totalAD) + "Total Pasivos y Capital: " + (totalPC + totalCN));
 				break; 
 			}
 
