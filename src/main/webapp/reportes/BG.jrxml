@@ -6,6 +6,7 @@
 	<parameter name="whereQuery" class="java.lang.String" evaluationTime="Early">
 		<defaultValueExpression><![CDATA["idCuenta = 11  OR idCuenta = 12  OR idCuenta = 21  OR idCuenta = 38  OR idCuenta = 28  OR idCuenta = 41  OR idCuenta = 26  OR idCuenta = 39  OR idCuenta = 29  OR idCuenta = 44"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="totalPasivosYCapital" class="java.lang.Double" isForPrompting="false"/>
 	<parameter name="totalAF" class="java.lang.Double" isForPrompting="false"/>
 	<parameter name="totalAC" class="java.lang.Double" isForPrompting="false"/>
 	<parameter name="totalPF" class="java.lang.Double" isForPrompting="false"/>
@@ -328,7 +329,7 @@
 					<font size="9"/>
 					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{totalPF} + $P{totalPC} + $P{totalCapital}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{totalPasivosYCapital}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
