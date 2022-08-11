@@ -95,6 +95,8 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				double saldoInicial = 0, saldoFinal = 0, debe = 0, haber = 0; 
 				
+				
+				// Activo circular
 				ArrayList<Tbl_cuentaContable> listaCuentaAC = new ArrayList<Tbl_cuentaContable>();
 				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAC = new ArrayList<Tbl_cuentaContable_Det>();
 				
@@ -120,7 +122,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						
 						listaCuentaDetallesAC.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
-						);				
+						);
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 3);
 					}
 					
 					//Obteniedo total
@@ -137,8 +141,10 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 							saldoInicial = debe = haber = 0; 
 						}
 					}
+					
 				}
 				
+				// Activo fijo
 				ArrayList<Tbl_cuentaContable> listaCuentaAF = new ArrayList<Tbl_cuentaContable>();
 				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAF = new ArrayList<Tbl_cuentaContable_Det>();
 				
@@ -164,7 +170,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						
 						listaCuentaDetallesAF.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
-						);				
+						);
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 1);
 					}
 					
 					//Obteniedo total
@@ -183,7 +191,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 				}
 				
-				
+				// Activo diferido
 				ArrayList<Tbl_cuentaContable> listaCuentaAD = new ArrayList<Tbl_cuentaContable>();
 				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAD = new ArrayList<Tbl_cuentaContable_Det>();
 				
@@ -209,7 +217,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						
 						listaCuentaDetallesAD.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
-						);				
+						);
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 2);
 					}
 					
 					//Obteniedo total
@@ -228,6 +238,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 				}
 				
+				// Pasivo circular
 				ArrayList<Tbl_cuentaContable> listaCuentaPC = new ArrayList<Tbl_cuentaContable>();
 				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesPC = new ArrayList<Tbl_cuentaContable_Det>();
 				
@@ -253,7 +264,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						
 						listaCuentaDetallesPC.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
-						);				
+						);		
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 4);
 					}
 					
 					//Obteniedo total
@@ -272,7 +285,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 				}
 				
-				
+				// Capital neto
 				ArrayList<Tbl_cuentaContable> listaCuentaCN = new ArrayList<Tbl_cuentaContable>();
 				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesCN = new ArrayList<Tbl_cuentaContable_Det>();
 				
@@ -298,7 +311,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						
 						listaCuentaDetallesCN.add(
 								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
-						);				
+						);	
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 5);
 					}
 					
 					//Obteniedo total
@@ -337,7 +352,6 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				/**
 				 * Generación del reporte con JasperSoft
 				 */
-				
 				poolConexion pc = poolConexion.getInstance();
 				Connection c = poolConexion.getConnection();
 				
