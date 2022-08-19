@@ -181,7 +181,7 @@ if (!permiso) {
 													<%
 													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasAC = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 													Dt_cuentaContable dtCuentaAC = new Dt_cuentaContable();
-													listaCuentasAC = dtCuentaAC.getCuentaContableByIdEmpresa(vwur.getIdEmpresa());
+													listaCuentasAC = dtCuentaAC.getCuentaContableByIdEmpresaActivos(vwur.getIdEmpresa());
 													%>
 													<select class="form-control js-example-basic-single"
 														name="cuenta_contable_AC" id="cuenta_contable_AC"
@@ -239,7 +239,7 @@ if (!permiso) {
 													<%
 													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasAF = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 													Dt_cuentaContable dtCuentaAF = new Dt_cuentaContable();
-													listaCuentasAF = dtCuentaAF.getCuentaContableByIdEmpresa(vwur.getIdEmpresa());
+													listaCuentasAF = dtCuentaAF.getCuentaContableByIdEmpresaActivos(vwur.getIdEmpresa());
 													%>
 													<select class="form-control js-example-basic-single"
 														name="cuenta_contable_AF" id="cuenta_contable_AF"
@@ -297,7 +297,7 @@ if (!permiso) {
 													<%
 													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasAD = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 													Dt_cuentaContable dtCuentaAD = new Dt_cuentaContable();
-													listaCuentasAD = dtCuentaAD.getCuentaContableByIdEmpresa(vwur.getIdEmpresa());
+													listaCuentasAD = dtCuentaAD.getCuentaContableByIdEmpresaActivos(vwur.getIdEmpresa());
 													%>
 													<select class="form-control js-example-basic-single"
 														name="cuenta_contable_AD" id="cuenta_contable_AD"
@@ -355,7 +355,7 @@ if (!permiso) {
 													<%
 													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasPC = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 													Dt_cuentaContable dtCuentaPC = new Dt_cuentaContable();
-													listaCuentasPC = dtCuentaPC.getCuentaContableByIdEmpresa(vwur.getIdEmpresa());
+													listaCuentasPC = dtCuentaPC.getCuentaContableByIdEmpresaPasivos(vwur.getIdEmpresa());
 													%>
 													<select class="form-control js-example-basic-single"
 														name="cuenta_contable_PC" id="cuenta_contable_PC"
@@ -414,7 +414,7 @@ if (!permiso) {
 													<%
 													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasCN = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 													Dt_cuentaContable dtCuentaCN = new Dt_cuentaContable();
-													listaCuentasCN = dtCuentaCN.getCuentaContableByIdEmpresa(vwur.getIdEmpresa());
+													listaCuentasCN = dtCuentaCN.getCuentaContableByIdEmpresaCapital(vwur.getIdEmpresa());
 													%>
 													<select class="form-control js-example-basic-single"
 														name="cuenta_contable_CN" id="cuenta_contable_CN"
