@@ -174,15 +174,18 @@ if (!permiso) {
 											id="moneda" />
 
 
-										<div class="IngresosBrutos">
-
+										<div class="IngresosBrutos" style="overflow: hidden;">
+											<div>
+												<h2>Seleccione cuentas para el ingreso bruto de la
+													empresa</h2>
+											</div>
 											<div style="display: inline-block;" class="left">
 												<div>
 													<div class="col-md-12 col-sm-12">
 														<%
 														ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasIngresosMayor = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 														Dt_cuentaContable dtCuentaIngresosMayor = new Dt_cuentaContable();
-														listaCuentasIngresosMayor = dtCuentaIngresosMayor.getCuentaContableByIdEmpresaActivos(vwur.getIdEmpresa());
+														listaCuentasIngresosMayor = dtCuentaIngresosMayor.getCuentaContableByIdEmpresaCapitalYResultados(vwur.getIdEmpresa());
 														%>
 														<select class="form-control js-example-basic-single"
 															name="cuenta_contable_IMayor" id="cuenta_contable_IMayor"
@@ -239,11 +242,11 @@ if (!permiso) {
 														<%
 														ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasIngresosMenor = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
 														Dt_cuentaContable dtCuentaIngresosMenor = new Dt_cuentaContable();
-														listaCuentasIngresosMenor = dtCuentaIngresosMenor.getCuentaContableByIdEmpresaActivos(vwur.getIdEmpresa());
+														listaCuentasIngresosMenor = dtCuentaIngresosMenor.getCuentaContableByIdEmpresaCapitalYResultados(vwur.getIdEmpresa());
 														%>
 														<select class="form-control js-example-basic-single"
-															name="cuenta_contable_IngresosMenor" id="cuenta_contable_IngresosMenor"
-															required="required">
+															name="cuenta_contable_IngresosMenor"
+															id="cuenta_contable_IngresosMenor" required="required">
 															<option value="" disabled selected>Seleccione
 																cuenta para activo circulante...</option>
 															<%
@@ -291,7 +294,134 @@ if (!permiso) {
 												</div>
 											</div>
 										</div>
-										<div class="ln_solid">
+										<div class="GastosDeOperacion" style="overflow: hidden;">
+											<div>
+												<h2>Seleccione cuentas para los gastos de operación de
+													la empresa</h2>
+											</div>
+											<div style="display: inline-block;" class="left">
+												<div>
+													<div class="col-md-12 col-sm-12">
+														<%
+														ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasGastosGenerales = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+														Dt_cuentaContable dtCuentaGastosGenerales = new Dt_cuentaContable();
+														listaCuentasGastosGenerales = dtCuentaGastosGenerales
+																.getCuentaContableByIdEmpresaCapitalYResultados(vwur.getIdEmpresa());
+														%>
+														<select class="form-control js-example-basic-single"
+															name="cuenta_contable_GG" id="cuenta_contable_GG"
+															required="required">
+															<option value="" disabled selected>Seleccione
+																cuenta para activo circulante...</option>
+															<%
+															for (Vw_catalogo_tipo_cuentacontable cuenta : listaCuentasGastosGenerales) {
+															%>
+															<option value="<%=cuenta.getIdCuenta()%>"><%=cuenta.getNombreCuenta()%></option>
+															<%
+															}
+															%>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-12">
+													<div class="card-box table-responsive">
+														<div class="text-muted font-13 col-md-12"
+															style="text-align: right;"></div>
+														<input type="hidden" value="" name="GastosGenerales_Total"
+															id="GastosGenerales_Total" />
+														<table class="table table-striped jambo_table bulk_action"
+															style="width: 100%" id="tbldetGastosGenerales">
+															<thead>
+																<tr>
+																	<th>Opción</th>
+																	<th>ID Cuenta</th>
+																	<th>Nombre cuenta</th>
+																</tr>
+															</thead>
+
+															<tbody>
+
+															</tbody>
+
+														</table>
+													</div>
+												</div>
+
+												<div class="ln_solid">
+													<div class="form-group">
+														<div class="col-md-6">
+															<button id="btnAgregarGastosGenerales" type='button'
+																class="btn btn-primary">Agregar</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="OtrosIngresosYEgresos" style="overflow: hidden;">
+											<div>
+												<h2>Seleccione cuentas para la totalización de ingresos
+													y egresos</h2>
+											</div>
+											<div style="display: inline-block;" class="left">
+												<div>
+													<div class="col-md-12 col-sm-12">
+														<%
+																ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasIngresos = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+																Dt_cuentaContable dtCuentaIngresos = new Dt_cuentaContable();
+																listaCuentasIngresos = dtCuentaIngresos.getCuentaContableByIdEmpresaCapitalYResultados(vwur.getIdEmpresa());
+																%>
+														<select class="form-control js-example-basic-single"
+															name="cuenta_contable_I" id="cuenta_contable_I"
+															required="required">
+															<option value="" disabled selected>Seleccione
+																cuenta para activo circulante...</option>
+															<%
+																	for (Vw_catalogo_tipo_cuentacontable cuenta : listaCuentasIngresos) {
+																	%>
+															<option value="<%=cuenta.getIdCuenta()%>"><%=cuenta.getNombreCuenta()%></option>
+															<%
+																	}
+																	%>
+														</select>
+													</div>
+												</div>
+
+												<div class="col-md-12">
+													<div class="card-box table-responsive">
+														<div class="text-muted font-13 col-md-12"
+															style="text-align: right;"></div>
+														<input type="hidden" value="" name="Ingresos_Total"
+															id="Ingresos_Total" />
+														<table class="table table-striped jambo_table bulk_action"
+															style="width: 100%" id="tbldetIngresos">
+															<thead>
+																<tr>
+																	<th>Opción</th>
+																	<th>ID Cuenta</th>
+																	<th>Nombre cuenta</th>
+																</tr>
+															</thead>
+
+															<tbody>
+
+															</tbody>
+
+														</table>
+													</div>
+												</div>
+
+												<div class="ln_solid">
+													<div class="form-group">
+														<div class="col-md-6">
+															<button id="btnAgregarIngresos" type='button'
+																class="btn btn-primary">Agregar</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="ln_solid" style="display: block;">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">
 													<button id="btnGuardarTodo" type='submit'
@@ -378,69 +508,160 @@ if (!permiso) {
 	<script src="../vendors/jquery.toast.min.js"></script>
 
 	<script>
-	$(document).ready(function() {
-		$('.js-example-basic-single').select2();
-	});
-	
-	var contadorIngresoMayor = 0; 
-	var ingresoMayor = document.getElementById("IngresosMayor_Total");
-		$("#btnAgregarIngresoMayor").click(
-			function(){
-				contadorIngresoMayor++; 
-				$("#tbldetIngresosMayor tbody")
-				.append(
-						"<tr>"
-								+ "<td>"
-								+ '<input type="button" id="btnBorrarDetalleIngresoMayor" value="Borrar" />'
-								+ "</td>"
-								+ "<td>"
-								+ '<input type="text"  id="IMayor'+contadorIngresoMayor+'" name="IMayor'+contadorIngresoMayor+'" class="form-control col-sm-3" value='
-								+ $("#cuenta_contable_IMayor").val()
-								+ ' readOnly>'
-								+ "</td>"
-								+ "<td>"
-								+ '<input type="text" class="form-control col-sm-6" value='
-								+ $('#cuenta_contable_IMayor option:selected').text()
-								+ ' readOnly>'
-								+ "</td>");	
-				ingresoMayor.value = contadorIngresoMayor; 
-			}	
-		);
-		
-		$("#tbldetIngresosMayor").on('click', '#btnBorrarDetalleIngresoMayor', function() {
-			var currentRow = $(this).closest("tr");
-			$(this).parent().parent().remove();
+		$(document).ready(function() {
+			$('.js-example-basic-single').select2();
 		});
-		
-		var contadorIngresoMenor = 0; 
+
+		var contadorIngresoMayor = 0;
+		var ingresoMayor = document.getElementById("IngresosMayor_Total");
+		$("#btnAgregarIngresoMayor")
+				.click(
+						function() {
+							contadorIngresoMayor++;
+							$("#tbldetIngresosMayor tbody")
+									.append(
+											"<tr>"
+													+ "<td>"
+													+ '<input type="button" id="btnBorrarDetalleIngresoMayor" value="Borrar" />'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text"  id="IMayor'
+													+ contadorIngresoMayor
+													+ '" name="IMayor'
+													+ contadorIngresoMayor
+													+ '" class="form-control col-sm-3" value='
+													+ $(
+															"#cuenta_contable_IMayor")
+															.val()
+													+ ' readOnly>'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text" class="form-control col-sm-6" value='
+													+ $(
+															'#cuenta_contable_IMayor option:selected')
+															.text()
+													+ ' readOnly>' + "</td>");
+							ingresoMayor.value = contadorIngresoMayor;
+						});
+
+		$("#tbldetIngresosMayor").on('click', '#btnBorrarDetalleIngresoMayor',
+				function() {
+					var currentRow = $(this).closest("tr");
+					$(this).parent().parent().remove();
+				});
+
+		var contadorIngresoMenor = 0;
 		var ingresoMenor = document.getElementById("IngresosMenor_Total");
-			$("#btnAgregarIngresosMenor").click(
-				function(){
-					contadorIngresoMenor++; 
-					$("#tbldetIngresosMenor tbody")
-					.append(
-							"<tr>"
-									+ "<td>"
-									+ '<input type="button" id="btnBorrarDetalleIngresoMenor" value="Borrar" />'
-									+ "</td>"
-									+ "<td>"
-									+ '<input type="text"  id="IMenor'+contadorIngresoMenor+'" name="IMenor'+contadorIngresoMenor+'" class="form-control col-sm-3" value='
-									+ $("#cuenta_contable_IngresosMenor").val()
-									+ ' readOnly>'
-									+ "</td>"
-									+ "<td>"
-									+ '<input type="text" class="form-control col-sm-6" value='
-									+ $('#cuenta_contable_IngresosMenor option:selected').text()
-									+ ' readOnly>'
-									+ "</td>");	
-					ingresoMenor.value = contadorIngresoMenor; 
-				}	
-			);
-			
-			$("#tbldetIngresosMenor").on('click', '#btnBorrarDetalleIngresoMenor', function() {
-				var currentRow = $(this).closest("tr");
-				$(this).parent().parent().remove();
-			});
+		$("#btnAgregarIngresosMenor")
+				.click(
+						function() {
+							contadorIngresoMenor++;
+							$("#tbldetIngresosMenor tbody")
+									.append(
+											"<tr>"
+													+ "<td>"
+													+ '<input type="button" id="btnBorrarDetalleIngresoMenor" value="Borrar" />'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text"  id="IMenor'
+													+ contadorIngresoMenor
+													+ '" name="IMenor'
+													+ contadorIngresoMenor
+													+ '" class="form-control col-sm-3" value='
+													+ $(
+															"#cuenta_contable_IngresosMenor")
+															.val()
+													+ ' readOnly>'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text" class="form-control col-sm-6" value='
+													+ $(
+															'#cuenta_contable_IngresosMenor option:selected')
+															.text()
+													+ ' readOnly>' + "</td>");
+							ingresoMenor.value = contadorIngresoMenor;
+						});
+
+		$("#tbldetIngresosMenor").on('click', '#btnBorrarDetalleIngresoMenor',
+				function() {
+					var currentRow = $(this).closest("tr");
+					$(this).parent().parent().remove();
+				});
+
+		var contadorGastoGenerales = 0;
+		var gastosGenerales = document.getElementById("GastosGenerales_Total");
+		$("#btnAgregarGastosGenerales")
+				.click(
+						function() {
+							contadorGastoGenerales++;
+							$("#tbldetGastosGenerales tbody")
+									.append(
+											"<tr>"
+													+ "<td>"
+													+ '<input type="button" id="btnBorrarDetalleGastosGenerales" value="Borrar" />'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text"  id="GG'
+													+ contadorGastoGenerales
+													+ '" name="GG'
+													+ contadorGastoGenerales
+													+ '" class="form-control col-sm-3" value='
+													+ $("#cuenta_contable_GG")
+															.val()
+													+ ' readOnly>'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text" class="form-control col-sm-6" value='
+													+ $(
+															'#cuenta_contable_GG option:selected')
+															.text()
+													+ ' readOnly>' + "</td>");
+							gastosGenerales.value = contadorGastoGenerales;
+						});
+
+		$("#tbldetGastosGenerales").on('click',
+				'#btnBorrarDetalleGastosGenerales', function() {
+					var currentRow = $(this).closest("tr");
+					$(this).parent().parent().remove();
+				});
+		
+		var contadorIngresos = 0;
+		var ingresos = document.getElementById("Ingresos_Total");
+		$("#btnAgregarIngresos")
+				.click(
+						function() {
+							contadorIngresos++;
+							$("#tbldetIngresos tbody")
+									.append(
+											"<tr>"
+													+ "<td>"
+													+ '<input type="button" id="btnBorrarDetalleIngresos" value="Borrar" />'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text"  id="Ingresos'
+													+ contadorIngresos
+													+ '" name="Ingresos'
+													+ contadorIngresos
+													+ '" class="form-control col-sm-3" value='
+													+ $("#cuenta_contable_I")
+															.val()
+													+ ' readOnly>'
+													+ "</td>"
+													+ "<td>"
+													+ '<input type="text" class="form-control col-sm-6" value='
+													+ $(
+															'#cuenta_contable_I option:selected')
+															.text()
+													+ ' readOnly>' + "</td>");
+							ingresos.value = contadorIngresos;
+						});
+
+		$("#tbldetIngresos").on('click',
+				'#btnBorrarDetalleIngresos', function() {
+					var currentRow = $(this).closest("tr");
+					$(this).parent().parent().remove();
+				});
+		
 	</script>
 
 	<script src="../vendors/select2/dist/js/select2.min.js"></script>
