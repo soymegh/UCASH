@@ -98,6 +98,10 @@ public class Sl_rptIncomesResult extends HttpServlet {
 				
 				double totalMes = 0, totalFecha = 0; 
 				
+				String concatKeys = "";
+				
+				ArrayList<Integer> accountsIdentifiers = new ArrayList<Integer>();
+				
 				if(request.getParameter("periodoContable") != null) {
 					idPeriodoContable = Integer.parseInt(request.getParameter("periodoContable"));
 				}
@@ -153,10 +157,14 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					
 					//Obteniendo detalles
 					for(Tbl_cuentaContable cuenta: cuentaContableMinuendo) {
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						cuentaDetalleMinuendo.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
 					}
 					
 					for(Tbl_cuentaContable cuenta: cuentaContableSustraendo) {
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						cuentaDetalleSustraendo.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
 					}
 					
@@ -271,6 +279,8 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					
 					//Obteniendo detalles
 					for(Tbl_cuentaContable cuenta: cuentaContable) {
+						accountsIdentifiers.add(cuenta.getIdCuenta());
+						
 						cuentaDetalle.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
 					}
 					
@@ -340,6 +350,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					}
 					//OBTENIENDO DETALLES
 					for(Tbl_cuentaContable cuenta: cuentaContableIngresosYEgresos) {
+						accountsIdentifiers.add(cuenta.getIdCuenta());
 						cuentaDetalleIngresos.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
 					}
 					
@@ -384,10 +395,20 @@ public class Sl_rptIncomesResult extends HttpServlet {
 						
 						System.out.print("Sub Total ingresos al mes: "+ totalAcumuladoAlMes +"Sub Total ingresos: " + totalAcumuladoFecha);
 						
+						
+						for(int x = 0; x < accountsIdentifiers.size(); x++) {
+							if(x == 0) {
+								concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+"";
+							} else {
+								concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+"";
+							}
+						}
+						
 				}
 				
 				System.out.print("TOTAL DEL MES: " + totalMes + " TOTAL ACUMULADO: " + totalFecha);
 				
+				System.out.print("ID'S: " + concatKeys);
 				break; 
 			}
 
