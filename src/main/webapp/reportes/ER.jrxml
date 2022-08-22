@@ -2,10 +2,7 @@
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ER" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ecd104d9-66cc-42cd-8c23-d773c42c4d31">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCASH"/>
-	<property name="com.jaspersoft.studio.data.sql.tables">
-		<![CDATA[ZGJ1Y2FzaC52X3Jlc3VsdHMgLDE1LDE1LGE5ZTlmOGQ5LTk5ZjItNDU4Yi1iMTYyLTVjNmI4MjY0
-NDg5YTs=]]>
-	</property>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="whereQuery" class="java.lang.String" evaluationTime="Early"/>
 	<parameter name="margenBruto" class="java.lang.Double"/>
 	<parameter name="totalGastosOperacion" class="java.lang.Double"/>
@@ -14,7 +11,7 @@ NDg5YTs=]]>
 	<parameter name="goAcumulado" class="java.lang.Double"/>
 	<parameter name="ieAcumulado" class="java.lang.Double"/>
 	<queryString>
-		<![CDATA[SELECT *
+		<![CDATA[SELECT DISTINCT *
 FROM dbucash.v_results
 WHERE 
 	 $P!{whereQuery}]]>
@@ -109,14 +106,14 @@ WHERE
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totalDinamicoSeccionAcumuladoFecha}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00#;#,##0.00#- %">
 					<reportElement x="260" y="0" width="100" height="30" uuid="c13f2e65-73cf-4a3d-9f1c-0b5dc6197553"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totalDinamicoPorSeccionMensual} * 100 / $P{margenBruto}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField pattern="#,##0.00#;#,##0.00#- %">
 					<reportElement x="472" y="0" width="100" height="30" uuid="6f1476dc-257b-4dd6-abe2-9772dea14be3"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
@@ -212,14 +209,14 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$V{vaAcumulado}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#;#,##0.00#- %">
 				<reportElement x="260" y="0" width="100" height="30" uuid="1f0bf8bd-6ace-4535-a53d-5d970d697059"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($V{vaMes} * 100) / $P{margenBruto}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#;#,##0.00#- %">
 				<reportElement x="472" y="0" width="100" height="30" uuid="137c588f-359c-41f3-b7e1-547cd66602e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
@@ -327,28 +324,28 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$V{antesIRAcumulado}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#;#,##0.00#- %">
 				<reportElement x="260" y="0" width="100" height="30" uuid="ef3fc79e-7a53-4d22-832c-2ccec0d63871"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($V{antesIRMes} * 100) / $P{margenBruto}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#;#,##0.00#- %">
 				<reportElement x="260" y="60" width="100" height="30" uuid="9fb20f0c-95f6-48e1-8172-7592d4084452"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($V{antesIRMes} * 100) / $P{margenBruto}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#;#,##0.00#- %">
 				<reportElement x="472" y="0" width="100" height="30" uuid="fb6e3939-dd01-47a5-8b2c-2266f5ac5d6a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($V{antesIRAcumulado} * 100) / $P{ibAcumulado}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00#;#,##0.00#- %">
 				<reportElement x="470" y="60" width="100" height="30" uuid="e6cc5cd6-fab7-4e59-b7ae-cdc5fdb28f98"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
