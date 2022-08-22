@@ -75,6 +75,8 @@ public class Sl_rptIncomesResult extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 		
+		HashMap<String, Object> hm = new HashMap<>();
+		
 		Dt_empresa datosEmpresa = new Dt_empresa();
 		Dt_cuentaContable cuentaDatos = new Dt_cuentaContable();
 		Dt_cuentaContable_Det cuentaDatosDetalles = new Dt_cuentaContable_Det();
@@ -235,6 +237,10 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					totalIngresosAcumulado = subTotalMinuendoAcumulado - subTotalSustraendoAcumulado; 
 					totalAlMes = subTotalMinuendoAlMes - subTotalSustraendoAlMes; 
 					
+					// Agregar los datos al HashMap para Jasper
+					hm.put("margenBruto", totalAlMes);
+					hm.put("ibAcumulado", totalIngresosAcumulado);
+					
 					
 					totalMes += totalAlMes; 
 					totalFecha += totalIngresosAcumulado; 
@@ -256,7 +262,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					
 				}
 				
-				//CUENTAS GASTOS DE OPERACI�N
+				//CUENTAS GASTOS DE OPERACI�N
 				if(request.getParameter("GastosGenerales_Total") != null) {
 					cuentasGastosGenerales = Integer.parseInt(request.getParameter("GastosGenerales_Total"));
 				} else {
@@ -328,6 +334,10 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					}
 					
 					System.out.print("GASTOS - Total Al Mes: "+ totalAlMes + "Total ingresos: " + totalAcumulado);
+					
+					// Agregar los datos de gastos de operación al HashMap
+					hm.put("totalGastosOperacion", totalAlMes);
+					hm.put("goAcumulado", totalAcumulado);
 				}
 				
 				//CUENTAS DE OTROS INGRESOS Y EGRESOS
@@ -402,6 +412,10 @@ public class Sl_rptIncomesResult extends HttpServlet {
 						
 						System.out.print("Sub Total ingresos al mes: "+ totalAcumuladoAlMes +"Sub Total ingresos: " + totalAcumuladoFecha);
 						
+						// Agregar los datos de otros ingresos y egresos al HashMap
+						hm.put("totalIngresosEgresos", totalAcumuladoAlMes);
+						hm.put("ieAcumulado", totalAcumuladoFecha);
+						
 						
 						for(int x = 0; x < accountsIdentifiers.size(); x++) {
 							if(x == 0) {
@@ -411,6 +425,8 @@ public class Sl_rptIncomesResult extends HttpServlet {
 							}
 						}
 						
+						hm.put("whereQuery", concatKeys);
+						
 				}
 				
 				System.out.print("TOTAL DEL MES: " + totalMes + " TOTAL ACUMULADO: " + totalFecha);
@@ -418,6 +434,31 @@ public class Sl_rptIncomesResult extends HttpServlet {
 				System.out.print("ID'S: " + concatKeys);
 				break; 
 			}
+			
+			/**
+			 * Generación del reporte - Estado de resultados
+			 */
+			
+			poolConexion pc = poolConexion.getInstance();
+			Connection c = poolConexion.getConnection();
+			
+			OutputStream outputSt = response.getOutputStream();
+			ServletContext slContext = getServletContext();
+			
+			String path = slContext.getRealPath("/");
+			System.out.println("PATH: " + path);
+			
+			String template = "reportes\\ER.jasper";
+			Exporter exporter = new JRPdfExporter();
+			JasperPrint jasperPrint = JasperFillManager.fillReport(path + template, hm, c);
+			
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "inline; filename=\"" + "EstadoDeResultados" + "_.pdf");
+			
+			exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+			exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputSt));
+			exporter.exportReport();
+			
 
 		} catch (Exception e) {
 			System.err.println("ERROR AL ESTADO DE RESULTADOS: " + e.getMessage());
