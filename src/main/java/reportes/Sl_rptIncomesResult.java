@@ -160,12 +160,16 @@ public class Sl_rptIncomesResult extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						cuentaDetalleMinuendo.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 9);
 					}
 					
 					for(Tbl_cuentaContable cuenta: cuentaContableSustraendo) {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						cuentaDetalleSustraendo.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 9);
 					}
 					
 					//Obteniendo subtotales minuendo
@@ -282,6 +286,8 @@ public class Sl_rptIncomesResult extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						cuentaDetalle.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
+						
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 10);
 					}
 					
 					//Obteniendo totales
@@ -352,6 +358,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					for(Tbl_cuentaContable cuenta: cuentaContableIngresosYEgresos) {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						cuentaDetalleIngresos.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
+						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 11);
 					}
 					
 					//OBTENIENDO TOTALES
