@@ -425,7 +425,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 							}
 						}
 						
-						hm.put("whereQuery", concatKeys);
+						hm.put("whereQuery", concatKeys + " ORDER BY id ASC");
 						
 				}
 				
