@@ -421,6 +421,28 @@ if (!permiso) {
 												</div>
 											</div>
 										</div>
+										<div class="CuentaTotalizadora" style="overflow: hidden;">
+											<div class="col-md-6 col-sm-6">
+												<%
+													ArrayList<Vw_catalogo_tipo_cuentacontable> listaCuentasTotalizar = new ArrayList<Vw_catalogo_tipo_cuentacontable>();
+													Dt_cuentaContable dtCuentaTotal = new Dt_cuentaContable();
+													listaCuentasTotalizar = dtCuentaTotal.getCuentaContableByIdEmpresaCapitalYResultados(vwur.getIdEmpresa());
+												%>
+												<select class="form-control js-example-basic-single"
+													name="cuenta_contable_T" id="cuenta_contable_T"
+													required="required">
+													<option value="" disabled selected>Seleccione
+														cuenta para totalizar...</option>
+													<%
+																	for (Vw_catalogo_tipo_cuentacontable cuenta : listaCuentasTotalizar) {
+																	%>
+													<option value="<%=cuenta.getIdCuenta()%>"><%=cuenta.getNombreCuenta()%></option>
+													<%
+																	}
+																	%>
+												</select>
+											</div>
+										</div>
 										<div class="ln_solid" style="display: block;">
 											<div class="form-group">
 												<div class="col-md-6 offset-md-3">

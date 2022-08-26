@@ -96,7 +96,8 @@ public class Sl_rptIncomesResult extends HttpServlet {
 
 			switch(opcion) {
 			case 1:
-				int cuentasIngresosMayor = 0, cuentasIngresosMenor = 0, idEmpresa = 0, idPeriodoContable = 0, cuentasGastosGenerales = 0, cuentasOtroIngreso = 0, cuentasOtroEgreso = 0; 
+				int cuentasIngresosMayor = 0, cuentasIngresosMenor = 0, idEmpresa = 0, idPeriodoContable = 0, cuentasGastosGenerales = 0, cuentasOtroIngreso = 0, cuentasOtroEgreso = 0
+				, cuentaTotalizdora = 0; 
 				
 				double totalMes = 0, totalFecha = 0; 
 				
@@ -122,6 +123,10 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					cuentasIngresosMenor = Integer.parseInt(request.getParameter("IngresosMenor_Total"));
 				} else {
 					cuentasIngresosMenor = 0; 
+				}
+				
+				if(request.getParameter("cuenta_contable_T") != null) {
+					cuentaTotalizdora = Integer.parseInt(request.getParameter("cuenta_contable_T"));
 				}
 				
 				//CUENTAS INGRESOS
@@ -432,6 +437,20 @@ public class Sl_rptIncomesResult extends HttpServlet {
 				System.out.print("TOTAL DEL MES: " + totalMes + " TOTAL ACUMULADO: " + totalFecha);
 				
 				System.out.print("ID'S: " + concatKeys);
+				
+				//Totalizando en cuenta 
+				
+				Tbl_cuentaContable cuentaTotalizadora = new Tbl_cuentaContable();
+				
+				cuentaTotalizadora = cuentaDatos.getCuentaContableByIdTable(cuentaTotalizdora);
+				
+				Tbl_cuentaContable_Det detalleTotal = new Tbl_cuentaContable_Det();
+				
+				detalleTotal = cuentaDatosDetalles.getDetalleByIdCuenta(cuentaTotalizadora.getIdCuenta());
+				
+				detalleTotal.setSaldoFinal(totalFecha);
+				
+				cuentaDatosDetalles.editarCuentaContableDet(detalleTotal);
 				break; 
 			}
 			
