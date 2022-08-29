@@ -10,6 +10,7 @@
 	<parameter name="ibAcumulado" class="java.lang.Double"/>
 	<parameter name="goAcumulado" class="java.lang.Double"/>
 	<parameter name="ieAcumulado" class="java.lang.Double"/>
+	<parameter name="nombreEmpresa" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT DISTINCT *
 FROM dbucash.v_results
@@ -73,9 +74,9 @@ WHERE
 		<groupExpression><![CDATA[$F{nombre}]]></groupExpression>
 		<groupHeader>
 			<band height="31">
-				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 				<textField>
-					<reportElement mode="Opaque" x="0" y="0" width="572" height="31" backcolor="#9C9C9C" uuid="028bec8c-af41-419b-a326-d322e5ed9796"/>
+					<reportElement mode="Opaque" x="0" y="0" width="160" height="31" backcolor="#9C9C9C" uuid="028bec8c-af41-419b-a326-d322e5ed9796"/>
 					<textElement verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
@@ -106,19 +107,19 @@ WHERE
 					</textElement>
 					<textFieldExpression><![CDATA[$V{totalDinamicoSeccionAcumuladoFecha}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00#;#,##0.00#- %">
+				<textField pattern="##0.00 %">
 					<reportElement x="260" y="0" width="100" height="30" uuid="c13f2e65-73cf-4a3d-9f1c-0b5dc6197553"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{totalDinamicoPorSeccionMensual} * 100 / $P{margenBruto}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{totalDinamicoPorSeccionMensual} / $P{margenBruto}]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00#;#,##0.00#- %">
+				<textField pattern="##0.00 %">
 					<reportElement x="472" y="0" width="100" height="30" uuid="6f1476dc-257b-4dd6-abe2-9772dea14be3"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font size="8" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{totalDinamicoSeccionAcumuladoFecha} * 100 / $P{ibAcumulado}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{totalDinamicoSeccionAcumuladoFecha} / $P{ibAcumulado}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -127,14 +128,23 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="38" splitType="Stretch">
+		<band height="70" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 			<textField>
-				<reportElement x="0" y="0" width="572" height="38" uuid="d3fe7bca-f799-40c1-b464-fc7b9b8ced0f"/>
+				<reportElement x="0" y="0" width="572" height="35" uuid="ef116b90-bb69-4c79-9032-ddcd956fcc28"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="19" isBold="true"/>
+					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Empresa"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{nombreEmpresa}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="35" width="572" height="35" uuid="8db5d2ab-26d9-4f1c-a5e9-9308c861ab1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Torres & Ortega CIA. LTA.
+]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -209,19 +219,19 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$V{vaAcumulado}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#- %">
+			<textField pattern="#0.00 %">
 				<reportElement x="260" y="0" width="100" height="30" uuid="1f0bf8bd-6ace-4535-a53d-5d970d697059"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($V{vaMes} * 100) / $P{margenBruto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{vaMes}) / $P{margenBruto}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#- %">
+			<textField pattern="##0.00 %">
 				<reportElement x="472" y="0" width="100" height="30" uuid="137c588f-359c-41f3-b7e1-547cd66602e3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($V{vaAcumulado} * 100) / $P{ibAcumulado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{vaAcumulado}) / $P{ibAcumulado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -324,33 +334,33 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$V{antesIRAcumulado}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#- %">
+			<textField pattern="##0.00 %">
 				<reportElement x="260" y="0" width="100" height="30" uuid="ef3fc79e-7a53-4d22-832c-2ccec0d63871"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($V{antesIRMes} * 100) / $P{margenBruto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{antesIRMes}) / $P{margenBruto}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#- %">
+			<textField pattern="##0.00 %">
 				<reportElement x="260" y="60" width="100" height="30" uuid="9fb20f0c-95f6-48e1-8172-7592d4084452"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($V{antesIRMes} * 100) / $P{margenBruto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{antesIRMes}) / $P{margenBruto}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#- %">
+			<textField pattern="##0.00 %">
 				<reportElement x="472" y="0" width="100" height="30" uuid="fb6e3939-dd01-47a5-8b2c-2266f5ac5d6a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($V{antesIRAcumulado} * 100) / $P{ibAcumulado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{antesIRAcumulado}) / $P{ibAcumulado}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;#,##0.00#- %">
+			<textField pattern="##0.00 %">
 				<reportElement x="470" y="60" width="100" height="30" uuid="e6cc5cd6-fab7-4e59-b7ae-cdc5fdb28f98"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($V{antesIRAcumulado} * 100) / $P{ibAcumulado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($V{antesIRAcumulado}) / $P{ibAcumulado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

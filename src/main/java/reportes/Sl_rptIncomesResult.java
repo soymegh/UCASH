@@ -102,6 +102,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 				double totalMes = 0, totalFecha = 0; 
 				
 				String concatKeys = "";
+				String nombreEmpresa;
 				
 				ArrayList<Integer> accountsIdentifiers = new ArrayList<Integer>();
 				
@@ -125,9 +126,15 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					cuentasIngresosMenor = 0; 
 				}
 				
+<<<<<<< Updated upstream
 				if(request.getParameter("cuenta_contable_T") != null) {
 					cuentaTotalizdora = Integer.parseInt(request.getParameter("cuenta_contable_T"));
 				}
+=======
+				// Nombre de empresa para el reporte
+				nombreEmpresa = datosEmpresa.getNombreEmpresaPorId(idEmpresa);
+				hm.put("nombreEmpresa", nombreEmpresa);
+>>>>>>> Stashed changes
 				
 				//CUENTAS INGRESOS
 				if(cuentasIngresosMayor > 0 && cuentasIngresosMenor > 0) {
