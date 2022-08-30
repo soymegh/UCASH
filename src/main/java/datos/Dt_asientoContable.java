@@ -1,6 +1,7 @@
 package datos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -152,6 +153,66 @@ public class Dt_asientoContable {
 				tblAsientoContable.setFechaModificacion(this.rs.getDate("fechaModificacion"));
 				tblAsientoContable.setUsuarioEliminacion(this.rs.getInt("usuarioEliminacion"));
 				tblAsientoContable.setFechaEliminacion(this.rs.getDate("fechaEliminacion"));
+				
+				listAsientoContable.add(tblAsientoContable);
+			}
+			} catch(Exception e) {
+				System.out.println("DATOS: ERROR EN LISTAR Asiento Contable"+e.getMessage());
+				e.printStackTrace();
+			}
+		 finally {
+	            try {
+	                if (rs != null) {
+	                    rs.close();
+	                }
+
+	                if (ps != null) {
+	                    ps.close();
+	                }
+
+	                if (c != null) {
+	                    poolConexion.closeConnection(c);
+	                }
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+
+		}
+		
+		return listAsientoContable;
+	}
+	
+	public ArrayList<Tbl_asientoContable> listarasientocontableporfecha(int idEmpresa, int idPeriodoContable){
+		ArrayList<Tbl_asientoContable> listAsientoContable = new ArrayList<Tbl_asientoContable>();
+		try {
+			c = poolConexion.getConnection();
+			ps = c.prepareStatement("SELECT * FROM dbucash.asientocontable WHERE idEmpresa = ? AND idPeriodoContable = ?",  ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			this.ps.setInt(1, idEmpresa);
+			this.ps.setInt(2, idPeriodoContable);
+			rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				Tbl_asientoContable tblAsientoContable = new Tbl_asientoContable();
+				tblAsientoContable.setIdAsientoContable(this.rs.getInt("idAsientoContable"));
+				tblAsientoContable.setIdPeriodoContable(this.rs.getInt("idPeriodoContable"));
+				
+				tblAsientoContable.setIdEmpresa(this.rs.getInt("idEmpresa"));
+				tblAsientoContable.setIdTipoDocumento(this.rs.getInt("idTipoDocumento"));
+				tblAsientoContable.setIdMoneda(this.rs.getInt("idMoneda"));
+				tblAsientoContable.setNumeroComprobante(this.rs.getInt("numeroComprobante"));
+				
+				String fechaAsiento = rs.getString("fecha");
+				java.util.Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(fechaAsiento);
+				tblAsientoContable.setFecha(new java.sql.Date(date2.getTime()));
+				
+				
+				tblAsientoContable.setDescripcion(this.rs.getString("descripcion"));
+				tblAsientoContable.setUsuarioCreacion(this.rs.getInt("usuarioCreacion"));
+				tblAsientoContable.setFechaCreacion(this.rs.getTimestamp("fechaCreacion"));
+				tblAsientoContable.setUsuarioModificacion(this.rs.getInt("usuarioModificacion"));
+				tblAsientoContable.setFechaModificacion(this.rs.getTimestamp("fechaModificacion"));
+				tblAsientoContable.setUsuarioEliminacion(this.rs.getInt("usuarioEliminacion"));
+				tblAsientoContable.setFechaEliminacion(this.rs.getTimestamp("fechaEliminacion"));
 				
 				listAsientoContable.add(tblAsientoContable);
 			}
