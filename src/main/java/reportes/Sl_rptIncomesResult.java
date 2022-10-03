@@ -24,8 +24,10 @@ import datos.Dt_asientoContable;
 import datos.Dt_cuentaContable;
 import datos.Dt_cuentaContable_Det;
 import datos.Dt_empresa;
+import datos.Dt_historicoSaldos;
 import datos.Dt_periodoContable;
 import datos.poolConexion;
+import entidades.HistoricoSaldos;
 import entidades.Tbl_asientoContable;
 import entidades.Tbl_cuentaContable;
 import entidades.Tbl_cuentaContable_Det;
@@ -82,6 +84,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 		Dt_cuentaContable_Det cuentaDatosDetalles = new Dt_cuentaContable_Det();
 		Dt_asientoContable datosAsientoContable = new Dt_asientoContable();
 		Dt_periodoContable datosPeriodo = new Dt_periodoContable();
+		Dt_historicoSaldos dt_historico = new Dt_historicoSaldos();
 		Tbl_periodoContable periodoContable = new Tbl_periodoContable();
 		Vw_empresa emp = new Vw_empresa();
 		int opcion = 0; 
@@ -103,6 +106,8 @@ public class Sl_rptIncomesResult extends HttpServlet {
 				
 				String concatKeys = "";
 				String nombreEmpresa;
+				int idFecha;
+				String fecha = "";
 				
 				ArrayList<Integer> accountsIdentifiers = new ArrayList<Integer>();
 				
@@ -129,6 +134,11 @@ public class Sl_rptIncomesResult extends HttpServlet {
 				if(request.getParameter("cuenta_contable_T") != null) {
 					cuentaTotalizdora = Integer.parseInt(request.getParameter("cuenta_contable_T"));
 				}
+				
+				if(request.getParameter("fecha_historico") != null) {
+					idFecha = Integer.parseInt(request.getParameter("fecha_historico"));
+					fecha = dt_historico.ObtenerFechaExacta(idFecha).getFecha();
+				}
 
 				// Nombre de empresa para el reporte
 				nombreEmpresa = datosEmpresa.getNombreEmpresaPorId(idEmpresa);
@@ -143,10 +153,10 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					subTotalMinuendoAlMes = 0, subTotalSustraendoAlMes = 0, totalAlMes = 0; 
 					
 					ArrayList<Tbl_cuentaContable> cuentaContableMinuendo = new ArrayList<Tbl_cuentaContable>();
-					ArrayList<Tbl_cuentaContable_Det> cuentaDetalleMinuendo = new ArrayList<Tbl_cuentaContable_Det>();
+					ArrayList<HistoricoSaldos> cuentaDetalleMinuendo = new ArrayList<HistoricoSaldos>();
 					
 					ArrayList<Tbl_cuentaContable> cuentaContableSustraendo = new ArrayList<Tbl_cuentaContable>();
-					ArrayList<Tbl_cuentaContable_Det> cuentaDetalleSustraendo = new ArrayList<Tbl_cuentaContable_Det>();
+					ArrayList<HistoricoSaldos> cuentaDetalleSustraendo = new ArrayList<HistoricoSaldos>();
 					
 					for(int x = 0; x < cuentasIngresosMayor; x++){
 						Tbl_cuentaContable cuenta = new Tbl_cuentaContable();
@@ -172,16 +182,14 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					for(Tbl_cuentaContable cuenta: cuentaContableMinuendo) {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
-						cuentaDetalleMinuendo.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
-						
+						cuentaDetalleMinuendo.add(dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha));					
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 9);
 					}
 					
 					for(Tbl_cuentaContable cuenta: cuentaContableSustraendo) {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
-						cuentaDetalleSustraendo.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
-						
+						cuentaDetalleSustraendo.add(dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha));			
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 9);
 					}
 					
@@ -286,7 +294,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					double totalAcumulado = 0, totalAlMes = 0; 
 					
 					ArrayList<Tbl_cuentaContable> cuentaContable = new ArrayList<Tbl_cuentaContable>();
-					ArrayList<Tbl_cuentaContable_Det> cuentaDetalle = new ArrayList<Tbl_cuentaContable_Det>();
+					ArrayList<HistoricoSaldos> cuentaDetalle = new ArrayList<HistoricoSaldos>();
 					
 					for(int x  = 0; x < cuentasGastosGenerales; x++) {
 						Tbl_cuentaContable cuenta = new Tbl_cuentaContable();
@@ -302,8 +310,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					for(Tbl_cuentaContable cuenta: cuentaContable) {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
-						cuentaDetalle.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
-						
+						cuentaDetalle.add(dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha));	
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 10);
 					}
 					
@@ -364,7 +371,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					double totalAcumuladoFecha = 0, totalAcumuladoAlMes = 0; 
 					
 					ArrayList<Tbl_cuentaContable> cuentaContableIngresosYEgresos = new ArrayList<Tbl_cuentaContable>();
-					ArrayList<Tbl_cuentaContable_Det> cuentaDetalleIngresos = new ArrayList<Tbl_cuentaContable_Det>();
+					ArrayList<HistoricoSaldos> cuentaDetalleIngresos = new ArrayList<HistoricoSaldos>();
 					
 					for(int x = 0; x < cuentasOtroIngreso; x++) {
 						Tbl_cuentaContable cuenta = new Tbl_cuentaContable();
@@ -378,7 +385,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					//OBTENIENDO DETALLES
 					for(Tbl_cuentaContable cuenta: cuentaContableIngresosYEgresos) {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
-						cuentaDetalleIngresos.add(cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta()));
+						cuentaDetalleIngresos.add(dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha));
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 11);
 					}
 					

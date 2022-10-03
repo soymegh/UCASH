@@ -20,8 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import datos.Dt_cuentaContable;
 import datos.Dt_cuentaContable_Det;
 import datos.Dt_empresa;
+import datos.Dt_historicoSaldos;
 import datos.poolConexion;
-
+import entidades.HistoricoSaldos;
 import entidades.Tbl_cuentaContable;
 import entidades.Tbl_cuentaContable_Det;
 import entidades.Vw_empresa;
@@ -71,6 +72,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 		Dt_empresa datosEmpresa = new Dt_empresa();
 		Dt_cuentaContable cuentaDatos = new Dt_cuentaContable();
 		Dt_cuentaContable_Det cuentaDatosDetalles = new Dt_cuentaContable_Det();
+		Dt_historicoSaldos dt_historico = new Dt_historicoSaldos();
 		Vw_empresa emp = new Vw_empresa();
 		int opcion = 0; 
 		
@@ -98,7 +100,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Activo circular
 				ArrayList<Tbl_cuentaContable> listaCuentaAC = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAC = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesAC = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("AC_Total") != null) {
 					totalActivosCirculante = Integer.parseInt(request.getParameter("AC_Total"));
@@ -121,7 +123,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAC.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 3);
@@ -146,7 +148,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Activo fijo
 				ArrayList<Tbl_cuentaContable> listaCuentaAF = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAF = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesAF = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("AF_Total") != null) {
 					totalActivosFijos = Integer.parseInt(request.getParameter("AF_Total"));
@@ -169,7 +171,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAF.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 1);
@@ -193,7 +195,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Activo diferido
 				ArrayList<Tbl_cuentaContable> listaCuentaAD = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAD = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesAD = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("AD_Total") != null) {
 					totalActivosDiferidos = Integer.parseInt(request.getParameter("AD_Total"));
@@ -216,7 +218,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAD.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 2);
@@ -240,7 +242,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Pasivo circular
 				ArrayList<Tbl_cuentaContable> listaCuentaPC = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesPC = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesPC = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("PC_Total") != null) {
 					totalPasivoCirculante = Integer.parseInt(request.getParameter("PC_Total"));
@@ -263,7 +265,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesPC.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
 						);		
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 4);
@@ -287,7 +289,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Capital neto
 				ArrayList<Tbl_cuentaContable> listaCuentaCN = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesCN = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesCN = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("CN_Total") != null) {
 					totalCapitalNeto = Integer.parseInt(request.getParameter("CN_Total"));
@@ -310,7 +312,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesCN.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
 						);	
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 5);

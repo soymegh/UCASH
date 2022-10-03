@@ -458,10 +458,9 @@ public class Dt_cuentaContable {
 
 			while (this.rs.next()) {
 				cc.setIdCuenta(this.rs.getInt("idCuenta"));
-
+				cc.setIdSubCategoria(rs.getInt("id_subtipo"));
 				cc.setIdTipoCuenta(rs.getInt("idTipoCuenta"));
 				cc.setIdCatalogo(rs.getInt("idCatalogo"));
-
 				cc.setNumeroCuenta(this.rs.getString("numeroCuenta"));
 				cc.setsC(this.rs.getString("SC"));
 				cc.setSsC(this.rs.getString("SsC"));

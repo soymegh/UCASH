@@ -4,7 +4,7 @@
 <%@page import="datos.Dt_periodoContable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="datos.Dt_moneda, entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
+	import="datos.*, entidades.*, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
@@ -180,6 +180,25 @@ if (!permiso) {
 													empresa</h2>
 											</div>
 											<div style="display: inline-block;" class="left">
+												<div>
+													<div class="col-md-12 col-sm-12">
+														<%
+														ArrayList<HistoricoSaldos> historial = new ArrayList<HistoricoSaldos>();
+														Dt_historicoSaldos historialFechas = new Dt_historicoSaldos();
+														historial = historialFechas.ObtenerHistoricoFechas(vwur.getIdEmpresa());
+														%>
+														<select class="form-control js-example-basic-single" name="fecha_historico" id="fecha_historico" required="required">
+															<option value="" disabled selected>Seleccione una fecha.</option>
+															<%
+															for (HistoricoSaldos historico : historial) {
+															%>
+															<option value="<%=historico.getIdHistorico()%>"><%=historico.getFecha()%></option>
+															<%
+															}
+															%>
+														</select>
+													</div>
+												</div>
 												<div>
 													<div class="col-md-12 col-sm-12">
 														<%

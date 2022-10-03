@@ -1,9 +1,16 @@
 package servlets;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.*;
+import java.sql.Date;
+import java.util.Arrays;
 
 import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.ServletException;
@@ -12,9 +19,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import datos.Dt_SubTipoCategoria;
 import datos.Dt_cuentaContable;
 import datos.Dt_cuentaContable_Det;
+import datos.Dt_empresa;
+import datos.Dt_historicoSaldos;
 import datos.Dt_periodoContable;
+import entidades.HistoricoSaldos;
 import entidades.Tbl_cuentaContable_Det;
 import entidades.Tbl_periodoContable;
 import entidades.Vw_catalogo_tipo_cuentacontable;
@@ -43,6 +54,9 @@ public class Sl_periodoContable extends HttpServlet {
 		Dt_periodoContable dpc = new Dt_periodoContable();
 		Dt_cuentaContable cuentaContable = new Dt_cuentaContable();
 		Dt_cuentaContable_Det dtCuentaContableDet = new Dt_cuentaContable_Det();
+		Dt_historicoSaldos dt_historico = new Dt_historicoSaldos();
+		Dt_empresa dtEmpresa = new Dt_empresa();
+		Dt_SubTipoCategoria DtSubTipo = new Dt_SubTipoCategoria();
 		Tbl_cuentaContable_Det cuentaContableDet = new Tbl_cuentaContable_Det();
 		Tbl_cuentaContable_Det cuentaContableDetSub = new Tbl_cuentaContable_Det();
 		
@@ -90,20 +104,138 @@ public class Sl_periodoContable extends HttpServlet {
 			try {
 				double saldoFinalTotal = 0;
 				
+				
 				if(transferenciaSaldos != 0) {
+
+					
 					ArrayList<Tbl_cuentaContable_Det> cuentasDeMayor = new ArrayList<Tbl_cuentaContable_Det>();
 					ArrayList<Tbl_cuentaContable_Det> subCuentas = new ArrayList<Tbl_cuentaContable_Det>();
 					cuentasDeMayor = dtCuentaContableDet.listarCuentasMayorTransSaldos(company);
 					
-					
+					//Eliminando duplicados
+					ArrayList<Tbl_cuentaContable_Det> masterDetailsList = new ArrayList<Tbl_cuentaContable_Det>();
 					
 					for(Tbl_cuentaContable_Det cuenta: cuentasDeMayor) {
+						masterDetailsList.add(cuenta);
+					}
+					
+					for(int x = 0; x < masterDetailsList.size(); x++) {
+						int counter = 0; 
+						for(int y = 0; y < cuentasDeMayor.size(); y++) {
+							if(masterDetailsList.get(x).getIdCuenta() == cuentasDeMayor.get(y).getIdCuenta()) {
+								counter++; 
+								if(counter > 1) {
+									cuentasDeMayor.remove(y);
+								}
+							}
+						}
+					}
+					
+					
+					//Eliminando duplicados
+					
+
+					for(Tbl_cuentaContable_Det cuenta: cuentasDeMayor) {
+						HistoricoSaldos historico = new HistoricoSaldos();
+						
+						//Obteniendo la empresa
+						String nombreEmpresa = "";
+						nombreEmpresa = dtEmpresa.getEmpresaByID(company).getNombreComercial();
+						
+						historico.setIdEmpresa(company);
+						historico.setNombreEmpresa(nombreEmpresa);
+						
+						//Obteniendo la empresa
+						
+						historico.setIdCatalogo(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getIdCatalogo());
+						historico.setIdCuenta(cuenta.getIdCuenta());
+						historico.setIdTipoCuenta(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getIdTipoCuenta());
+						historico.setIdSupTipo(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getIdSubCategoria());
+						
+						//Obteniendo el nombre de la subcategoria
+						String subcategoria = DtSubTipo.ObtenerSubCategoria(historico.getIdSupTipo()).getNombreSupTipo();
+						//Obteniendo el nombre de la subcategoria
+						
+						historico.setNombreSubTipo(subcategoria);
+						historico.setNombreCuenta(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getNombreCuenta());
+						historico.setSaldoInicial(cuenta.getSaldoInicial());
+						historico.setSaldoFinal(cuenta.getSaldoFinal());
+						historico.setDebe(cuenta.getDebe());
+						historico.setHaber(cuenta.getHaber());
+						
+						//Fecha de respaldo
+						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+						LocalDateTime now = LocalDateTime.now();
+						historico.setFecha(dtf.format(now));
+						//Fecha de respaldo
+						
+						
+						dt_historico.addHistorico(historico);
+						
 						dtCuentaContableDet.editarCuentaContableDet(cuenta);
+						
 					}	
 					
 					subCuentas = dtCuentaContableDet.listarSubcuentasTransSaldos(company);
 					
+					
+					//Eliminando duplicados
+					ArrayList<Tbl_cuentaContable_Det> minorDetailsList = new ArrayList<Tbl_cuentaContable_Det>();
+					
 					for(Tbl_cuentaContable_Det cuenta: subCuentas) {
+						masterDetailsList.add(cuenta);
+					}
+					
+					for(int x = 0; x < minorDetailsList.size(); x++) {
+						int counter = 0; 
+						for(int y = 0; y < subCuentas.size(); y++) {
+							if(minorDetailsList.get(x).getIdCuenta() == subCuentas.get(y).getIdCuenta()) {
+								counter++; 
+								if(counter > 1) {
+									subCuentas.remove(y);
+								}
+							}
+						}
+					}
+					
+					
+					//Eliminando duplicados
+					for(Tbl_cuentaContable_Det cuenta: subCuentas) {
+						HistoricoSaldos historico = new HistoricoSaldos();
+						
+						//Obteniendo la empresa
+						String nombreEmpresa = "";
+						nombreEmpresa = dtEmpresa.getEmpresaByID(company).getNombreComercial();
+						
+						historico.setIdEmpresa(company);
+						historico.setNombreEmpresa(nombreEmpresa);
+						
+						//Obteniendo la empresa
+						
+						historico.setIdCatalogo(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getIdCatalogo());
+						historico.setIdCuenta(cuenta.getIdCuenta());
+						historico.setIdTipoCuenta(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getIdTipoCuenta());
+						historico.setIdSupTipo(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getIdSubCategoria());
+
+						//Obteniendo el nombre de la subcategoria
+						String subcategoria = DtSubTipo.ObtenerSubCategoria(historico.getIdSupTipo()).getNombreSupTipo();
+						//Obteniendo el nombre de la subcategoria
+						
+						historico.setNombreSubTipo(subcategoria);
+						historico.setNombreCuenta(cuentaContable.getCuentaContableByIdTable(cuenta.getIdCuenta()).getNombreCuenta());
+						historico.setSaldoInicial(cuenta.getSaldoInicial());
+						historico.setSaldoFinal(cuenta.getSaldoFinal());
+						historico.setDebe(cuenta.getDebe());
+						historico.setHaber(cuenta.getHaber());
+						
+						//Fecha de respaldo
+						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+						LocalDateTime now = LocalDateTime.now();
+						historico.setFecha(dtf.format(now));
+						//Fecha de respaldo
+						
+						dt_historico.addHistorico(historico);
+						
 						dtCuentaContableDet.editarCuentaContableDet(cuenta);
 					}	
 					

@@ -11,9 +11,22 @@ public class Tbl_cuentaContable {
 	private int nivel;
 	private int rubro;
 	private int idTipoCuenta;
+	private int idSubCategoria; 
 	private int idCatalogo;
 	private int estado;
 	
+	
+	
+	
+	
+	public int getIdSubCategoria() {
+		return idSubCategoria;
+	}
+
+	public void setIdSubCategoria(int idSubCategoria) {
+		this.idSubCategoria = idSubCategoria;
+	}
+
 	public Tbl_cuentaContable() {
 	}
 
