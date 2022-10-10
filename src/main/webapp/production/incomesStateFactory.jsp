@@ -190,10 +190,17 @@ if (!permiso) {
 														<select class="form-control js-example-basic-single" name="fecha_historico" id="fecha_historico" required="required">
 															<option value="" disabled selected>Seleccione una fecha.</option>
 															<%
-															for (HistoricoSaldos historico : historial) {
+															for (int x = 0; x < historial.size(); x++) {
+																try {
+																	
 															%>
-															<option value="<%=historico.getIdHistorico()%>"><%=historico.getFecha()%></option>
+															<option value="<%=historial.get(x).getIdHistorico()%>"><%=historial.get(x).getFecha() + " - " + historial.get(x+1).getFecha()%></option>
 															<%
+																} catch(Exception ex){
+																	%>
+																	<option value="<%=historial.get(x).getIdHistorico()%>"><%=historial.get(x).getFecha()%></option>
+																	<%
+																}
 															}
 															%>
 														</select>

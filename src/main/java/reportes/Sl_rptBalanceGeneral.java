@@ -74,12 +74,24 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 		Dt_cuentaContable_Det cuentaDatosDetalles = new Dt_cuentaContable_Det();
 		Dt_historicoSaldos dt_historico = new Dt_historicoSaldos();
 		Vw_empresa emp = new Vw_empresa();
-		int opcion = 0; 
+		int opcion = 0, idEmpresa = 0, idFecha = 0; 
+		String fecha = "";
 		
 		if(request.getParameter("opcion") != null) {
 			opcion = Integer.parseInt(request.getParameter("opcion"));
 		} else {
 			opcion = 0; 
+		}
+		
+		if(request.getParameter("idEmpresa") != null) {
+			idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+		} else {
+			idEmpresa = 0; 
+		}
+		
+		if(request.getParameter("fecha_historico") != null) {
+			idFecha = Integer.parseInt(request.getParameter("fecha_historico"));
+			fecha = dt_historico.ObtenerFechaExacta(idFecha).getFecha();
 		}
 		
 		try {
@@ -123,7 +135,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAC.add(
-								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 3);
@@ -171,7 +183,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAF.add(
-								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 1);
@@ -218,7 +230,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAD.add(
-								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 2);
@@ -265,7 +277,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesPC.add(
-								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);		
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 4);
@@ -312,7 +324,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesCN.add(
-								dt_historico.ObtenerHistoricoSaldosPorIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);	
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 5);
@@ -336,9 +348,9 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				for(int x = 0; x < accountsIdentifiers.size(); x++) {
 					if(x == 0) {
-						concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+" ";
+						concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+" and fecha = '"+fecha+"' ";
 					} else {
-						concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+" ";
+						concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+" and fecha = '"+fecha+"' ";
 					}
 				}
 				

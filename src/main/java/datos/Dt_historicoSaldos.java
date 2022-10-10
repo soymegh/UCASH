@@ -184,7 +184,7 @@ public class Dt_historicoSaldos {
 		ArrayList<HistoricoSaldos> fechas = new ArrayList<HistoricoSaldos>();
 		try {
 			c = poolConexion.getConnection();
-			ps = c.prepareStatement("SELECT distinct fecha, idhistorico_movimientos FROM dbucash.historico_movimientos WHERE idEmpresa = ? GROUP BY fecha;",
+			ps = c.prepareStatement("SELECT DISTINCT fecha, idhistorico_movimientos FROM dbucash.historico_movimientos WHERE idEmpresa = ? GROUP BY fecha ORDER BY fecha ASC;",
 					ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			ps.setInt(1, idEmpresa);
 			rs = ps.executeQuery();

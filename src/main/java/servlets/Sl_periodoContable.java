@@ -164,7 +164,7 @@ public class Sl_periodoContable extends HttpServlet {
 						historico.setHaber(cuenta.getHaber());
 						
 						//Fecha de respaldo
-						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");  
+						DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
 						LocalDateTime now = LocalDateTime.now();
 						historico.setFecha(dtf.format(now));
 						//Fecha de respaldo

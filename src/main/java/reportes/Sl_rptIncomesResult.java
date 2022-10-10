@@ -345,7 +345,13 @@ public class Sl_rptIncomesResult extends HttpServlet {
 						}
 					}
 					
-					totalMes -= totalAlMes; 
+					
+					if(totalMes < 0 && totalAlMes < 0) {
+						totalMes = totalMes + totalAlMes; 
+					}else {
+						totalMes -= totalAlMes; 
+					}
+						
 					totalFecha -= totalAcumulado; 
 					for(int x = 0; x < cuentaDetalle.size(); x++) {
 						System.out.print("Nombre de la cuenta: " + cuentaContable.get(x).getNombreCuenta() + " Saldo final: " + cuentaDetalle.get(x).getSaldoInicial());
@@ -354,8 +360,8 @@ public class Sl_rptIncomesResult extends HttpServlet {
 					System.out.print("GASTOS - Total Al Mes: "+ totalAlMes + "Total ingresos: " + totalAcumulado);
 					
 					// Agregar los datos de gastos de operación al HashMap
-					hm.put("totalGastosOperacion", totalAlMes);
-					hm.put("goAcumulado", totalAcumulado);
+					hm.put("totalGastosOperacion", totalAcumulado);
+					hm.put("goAcumulado", totalAlMes);
 				}
 				
 				//CUENTAS DE OTROS INGRESOS Y EGRESOS
@@ -431,19 +437,19 @@ public class Sl_rptIncomesResult extends HttpServlet {
 						System.out.print("Sub Total ingresos al mes: "+ totalAcumuladoAlMes +"Sub Total ingresos: " + totalAcumuladoFecha);
 						
 						// Agregar los datos de otros ingresos y egresos al HashMap
-						hm.put("totalIngresosEgresos", totalAcumuladoAlMes);
-						hm.put("ieAcumulado", totalAcumuladoFecha);
+						hm.put("totalIngresosEgresos", totalAcumuladoFecha);
+						hm.put("ieAcumulado", totalAcumuladoAlMes);
 						
 						
 						for(int x = 0; x < accountsIdentifiers.size(); x++) {
 							if(x == 0) {
-								concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+"";
+								concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+" and fecha = '"+fecha+"' ";
 							} else {
-								concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+"";
+								concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+" and fecha = '"+fecha+"' ";
 							}
 						}
 						
-						hm.put("whereQuery", concatKeys + " ORDER BY id ASC");
+						hm.put("whereQuery",concatKeys + "ORDER BY id ASC");
 						
 				}
 				
