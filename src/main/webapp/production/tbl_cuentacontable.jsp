@@ -256,7 +256,7 @@ if (!permiso) {
 																	
 																	<%try{ %>
 
-																		<% if(cta != 100 && cta != 200 && cta != 300 && scta == 0){%>
+																		<% if(cta != 100 && cta != 200 && cta != 300 && scta == 0 && scta == 00 && scta == 000){%>
 																		 &nbsp;&nbsp; 
 																		 <a href="../Sl_Anexos?idPeriodoFiscal=<%=pFiscal.getFechaFinal()%>
 																		 &idE=<%=vwur.getIdEmpresa()%>&nCuenta=<%=cc.getNumeroCuenta()%>&nomCuenta=<%=cc.getNombreCuenta()%>"

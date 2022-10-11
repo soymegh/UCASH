@@ -122,17 +122,18 @@ if (!permiso) {
 							<div class="x_panel">
 								<div class="x_title">
 									<h2>Datos de Asiento Contable</h2><br>
-									<br> <span class="section"><a
+									<br> <!-- <span class="section"><a
 										href="../Sl_rptFichaAsientoContable?idAC=<%=idac%>&empresaActual=<%=Vw_empresa.empresaActual%>"
 										target="_blank">Imprimir asiento contable <i
-											class="fa fa-print"></i></a></span>
+											class="fa fa-print"></i></a></span>-->
 
 									<div class="clearfix"></div>
 								</div>
 
 								<div class="x_content">
-									<form class="" action="" method="post" novalidate>
-										
+									<form class="" action="../Sl_rptFichaAsientoContable" method="post" novalidate>
+										<input type="hidden" value="<%=idac%>" name="AC" id="AC" />
+										<input name="empresaActual" id="empresaActual" type="hidden" value="<%=vwur.getIdEmpresa()%>"/>
 										<div class="field item form-group">
 											<label class="col-form-label col-md-3 col-sm-3  label-align">Tipo
 												documento: </label>
@@ -302,6 +303,9 @@ if (!permiso) {
 												<div class="col-md-6 offset-md-3">
 													<a href="tbl_asientoContable.jsp" type="button"
 														class="btn btn-primary">Regresar</a>
+												</div>
+												<div class="col-md-6 offset-md-3">
+													<button type="submit" class="btn btn-primary">Generar Reporte</button>
 												</div>
 											</div>
 										</div>

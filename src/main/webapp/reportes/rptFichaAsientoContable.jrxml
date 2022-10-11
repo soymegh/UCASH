@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptFichaAsientoContable" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="64228b3d-8f94-40de-98a2-8c105433e9f4">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="dadbucash"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UCASH"/>
 	<parameter name="asientoContableID" class="java.lang.Integer"/>
+	<parameter name="tipoDocumento" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT *
 FROM dbucash.vw_asientoreporte
@@ -112,26 +113,20 @@ WHERE
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<staticText>
-				<reportElement x="80" y="40" width="400" height="30" uuid="636c686d-6917-448d-a22d-866b0238703f"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="13" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[Comprobante de diario]]></text>
-			</staticText>
+		<band height="86" splitType="Stretch">
 			<textField>
 				<reportElement x="80" y="10" width="400" height="30" uuid="f29b9e0a-b7ed-4e76-9f64-fcb683d6389b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{nombreComercial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="48" width="400" height="30" uuid="86d68de1-b6ec-4e38-b617-dfa6f6c58ea1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipoDocumento}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

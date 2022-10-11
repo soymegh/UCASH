@@ -20,8 +20,10 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-
+import datos.Dt_asientoContable;
 import datos.Dt_empresa;
+import datos.Dt_tipoDocumento;
+import entidades.Tbl_asientoContable;
 import entidades.Vw_empresa;
 
 /**
@@ -46,11 +48,24 @@ public class Sl_rptFichaAsientoContable extends HttpServlet {
 		
 		Dt_empresa datosEmpresa = new Dt_empresa();
 		Vw_empresa emp = new Vw_empresa();
+		Dt_tipoDocumento dt_tipoDocumento = new Dt_tipoDocumento();
+		Dt_asientoContable dtAC = new Dt_asientoContable();
+		Tbl_asientoContable asientoContable = new Tbl_asientoContable();
+		int idAC = 0;
+		String nombreDocumento = ""; 
+		
+		if(request.getParameter("AC") != null) {
+			idAC = Integer.parseInt(request.getParameter("AC"));
+			asientoContable = dtAC.obtenerAContablePorId(idAC);
+			nombreDocumento = dt_tipoDocumento.obtenerTipoDocPorId(asientoContable.getIdTipoDocumento()).getTipo();
+		} else {
+			idAC = 0; 
+		}
 		
 		
 		try {
 			
-			String idAsientoContable = request.getParameter("idAC") == null ? "0" : (request.getParameter("idAC"));
+			String idAsientoContable = request.getParameter("AC") == null ? "0" : (request.getParameter("AC"));
 			String idEmpresa = request.getParameter("empresaActual");
 
 			emp = datosEmpresa.getEmpresaByID(Integer.parseInt(idEmpresa));
@@ -62,6 +77,7 @@ public class Sl_rptFichaAsientoContable extends HttpServlet {
 			
 			HashMap<String, Object> hashMap = new HashMap<>();
 			hashMap.put("asientoContableID", Integer.parseInt(idAsientoContable));
+			hashMap.put("tipoDocumento", nombreDocumento);
 			
 			OutputStream outputSt = response.getOutputStream();
 			ServletContext slContext = getServletContext();
