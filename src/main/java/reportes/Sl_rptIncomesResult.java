@@ -106,7 +106,7 @@ public class Sl_rptIncomesResult extends HttpServlet {
 				
 				String concatKeys = "";
 				String nombreEmpresa;
-				int idFecha;
+				int idFecha = 0;
 				String fecha = "";
 				
 				ArrayList<Integer> accountsIdentifiers = new ArrayList<Integer>();
@@ -439,6 +439,29 @@ public class Sl_rptIncomesResult extends HttpServlet {
 						// Agregar los datos de otros ingresos y egresos al HashMap
 						hm.put("totalIngresosEgresos", totalAcumuladoFecha);
 						hm.put("ieAcumulado", totalAcumuladoAlMes);
+						
+						//Obteniendo rango de fechas
+						String fechaInicio = "", fechaFinal = "";
+						
+						ArrayList<HistoricoSaldos> HistoricoFechas = new ArrayList<HistoricoSaldos>();
+						
+						HistoricoFechas = dt_historico.ObtenerHistoricoFechas(idEmpresa);
+						
+						for(int x  = 0; x < HistoricoFechas.size(); x++) {
+							try {
+								if(idFecha == HistoricoFechas.get(x).getIdHistorico()) {
+									fechaInicio = HistoricoFechas.get(x).getFecha();
+									fechaFinal = HistoricoFechas.get(x+1).getFecha();
+									
+									hm.put("fechaInicio", fechaInicio);
+									hm.put("fechaFin", fechaFinal);
+								}
+							}catch(Exception ex) {
+								fechaInicio = HistoricoFechas.get(x).getFecha();
+								
+								hm.put("fechaInicio", fechaInicio);
+							}
+						}
 						
 						
 						for(int x = 0; x < accountsIdentifiers.size(); x++) {

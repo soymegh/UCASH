@@ -346,6 +346,31 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 				}
 				
+				HashMap<String, Object> hashMap = new HashMap<>();
+				
+				//Obteniendo rango de fechas
+				String fechaInicio = "", fechaFinal = "";
+				
+				ArrayList<HistoricoSaldos> HistoricoFechas = new ArrayList<HistoricoSaldos>();
+				
+				HistoricoFechas = dt_historico.ObtenerHistoricoFechas(idEmpresa);
+				
+				for(int x  = 0; x < HistoricoFechas.size(); x++) {
+					try {
+						if(idFecha == HistoricoFechas.get(x).getIdHistorico()) {
+							fechaInicio = HistoricoFechas.get(x).getFecha();
+							fechaFinal = HistoricoFechas.get(x+1).getFecha();
+							
+							hashMap.put("fechaInicio", fechaInicio);
+							hashMap.put("fechaFin", fechaFinal);
+						}
+					}catch(Exception ex) {
+						fechaInicio = HistoricoFechas.get(x).getFecha();
+						
+						hashMap.put("fechaInicio", fechaInicio);
+					}
+				}
+				
 				for(int x = 0; x < accountsIdentifiers.size(); x++) {
 					if(x == 0) {
 						concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+" and fecha = '"+fecha+"' ";
@@ -369,9 +394,12 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				poolConexion pc = poolConexion.getInstance();
 				Connection c = poolConexion.getConnection();
 				
-				HashMap<String, Object> hashMap = new HashMap<>();
+				
 				hashMap.put("whereQuery", concatKeys);
 				hashMap.put("totalPasivosYCapital", totalPasivosXCapital);
+				
+				
+				
 				
 				OutputStream outputSt = response.getOutputStream();
 				ServletContext slContext = getServletContext();
@@ -383,9 +411,10 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				Exporter exporter = new JRPdfExporter();
 				JasperPrint jasperPrint = JasperFillManager.fillReport(path + template, hashMap, c);
 				
+				
 				response.setContentType("application/pdf");
 				response.setHeader("Content-Disposition", "inline; filename=\"" + "BalanceGeneral" + "_.pdf");
-				
+			
 				exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputSt));
 				exporter.exportReport();
