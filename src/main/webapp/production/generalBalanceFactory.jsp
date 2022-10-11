@@ -4,7 +4,7 @@
 <%@page import="datos.Dt_periodoContable"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="datos.Dt_moneda, entidades.Vw_usuariorol, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
+	import="datos.*, entidades.*, entidades.Tbl_moneda, entidades.Vw_empresa, entidades.Tbl_periodoContable,
 	entidades.Vw_rolopciones,entidades.Tbl_asientoContable, entidades.Tbl_tipoDocumento, entidades.Vw_tasaCambioDet,
 	entidades.Vw_catalogo_tipo_cuentacontable, entidades.Vw_asientoContableDet, entidades.Tbl_empresa,
 	datos.Dt_rolOpciones, datos.Dt_asientoContable, datos.Dt_tipoDocumento, datos.Dt_tasaCambio, datos.Dt_cuentaContable,
@@ -166,14 +166,41 @@ if (!permiso) {
 											type="hidden" value="0" name="detalles" id="detalles" /> <input
 											type="hidden" value="<%=vwur.getIdPeriodoContable()%>"
 											name="periodoContable" id="periodoContable" /> <input
-											type="hidden" value="<%=vwur.getIdEmpresa()%>"
-											name="empresaActual" id="empresaActual" /> <input
-											type="hidden" value="<%=vwur.getId_user()%>"
-											name="usuarioCreacion" id="usuarioCreacion" /> <input
-											type="hidden" value="<%=moneda.getIdMoneda()%>" name="moneda"
-											id="moneda" />
+											name="idEmpresa" id="idEmpresa" type="hidden"
+											value="<%=vwur.getIdEmpresa()%>" name="empresaActual"
+											id="empresaActual" /> <input type="hidden"
+											value="<%=vwur.getId_user()%>" name="usuarioCreacion"
+											id="usuarioCreacion" /> <input type="hidden"
+											value="<%=moneda.getIdMoneda()%>" name="moneda" id="moneda" />
 
 
+
+										<div>
+													<div class="col-md-12 col-sm-12">
+														<%
+														ArrayList<HistoricoSaldos> historial = new ArrayList<HistoricoSaldos>();
+														Dt_historicoSaldos historialFechas = new Dt_historicoSaldos();
+														historial = historialFechas.ObtenerHistoricoFechas(vwur.getIdEmpresa());
+														%>
+														<select class="form-control js-example-basic-single" name="fecha_historico" id="fecha_historico" required="required">
+															<option value="" disabled selected>Seleccione una fecha.</option>
+															<%
+															for (int x = 0; x < historial.size(); x++) {
+																try {
+																	
+															%>
+															<option value="<%=historial.get(x).getIdHistorico()%>"><%=historial.get(x).getFecha() + " - " + historial.get(x+1).getFecha()%></option>
+															<%
+																} catch(Exception ex){
+																	%>
+																	<option value="<%=historial.get(x).getIdHistorico()%>"><%=historial.get(x).getFecha()%></option>
+																	<%
+																}
+															}
+															%>
+														</select>
+													</div>
+												</div>
 										<div class="ActivoCirculante">
 
 											<div>

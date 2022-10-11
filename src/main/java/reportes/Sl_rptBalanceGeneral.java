@@ -20,8 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import datos.Dt_cuentaContable;
 import datos.Dt_cuentaContable_Det;
 import datos.Dt_empresa;
+import datos.Dt_historicoSaldos;
 import datos.poolConexion;
-
+import entidades.HistoricoSaldos;
 import entidades.Tbl_cuentaContable;
 import entidades.Tbl_cuentaContable_Det;
 import entidades.Vw_empresa;
@@ -71,13 +72,26 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 		Dt_empresa datosEmpresa = new Dt_empresa();
 		Dt_cuentaContable cuentaDatos = new Dt_cuentaContable();
 		Dt_cuentaContable_Det cuentaDatosDetalles = new Dt_cuentaContable_Det();
+		Dt_historicoSaldos dt_historico = new Dt_historicoSaldos();
 		Vw_empresa emp = new Vw_empresa();
-		int opcion = 0; 
+		int opcion = 0, idEmpresa = 0, idFecha = 0; 
+		String fecha = "";
 		
 		if(request.getParameter("opcion") != null) {
 			opcion = Integer.parseInt(request.getParameter("opcion"));
 		} else {
 			opcion = 0; 
+		}
+		
+		if(request.getParameter("idEmpresa") != null) {
+			idEmpresa = Integer.parseInt(request.getParameter("idEmpresa"));
+		} else {
+			idEmpresa = 0; 
+		}
+		
+		if(request.getParameter("fecha_historico") != null) {
+			idFecha = Integer.parseInt(request.getParameter("fecha_historico"));
+			fecha = dt_historico.ObtenerFechaExacta(idFecha).getFecha();
 		}
 		
 		try {
@@ -98,7 +112,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Activo circular
 				ArrayList<Tbl_cuentaContable> listaCuentaAC = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAC = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesAC = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("AC_Total") != null) {
 					totalActivosCirculante = Integer.parseInt(request.getParameter("AC_Total"));
@@ -121,7 +135,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAC.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 3);
@@ -146,7 +160,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Activo fijo
 				ArrayList<Tbl_cuentaContable> listaCuentaAF = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAF = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesAF = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("AF_Total") != null) {
 					totalActivosFijos = Integer.parseInt(request.getParameter("AF_Total"));
@@ -169,7 +183,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAF.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 1);
@@ -193,7 +207,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Activo diferido
 				ArrayList<Tbl_cuentaContable> listaCuentaAD = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesAD = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesAD = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("AD_Total") != null) {
 					totalActivosDiferidos = Integer.parseInt(request.getParameter("AD_Total"));
@@ -216,7 +230,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesAD.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 2);
@@ -240,7 +254,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Pasivo circular
 				ArrayList<Tbl_cuentaContable> listaCuentaPC = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesPC = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesPC = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("PC_Total") != null) {
 					totalPasivoCirculante = Integer.parseInt(request.getParameter("PC_Total"));
@@ -263,7 +277,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesPC.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);		
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 4);
@@ -287,7 +301,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				
 				// Capital neto
 				ArrayList<Tbl_cuentaContable> listaCuentaCN = new ArrayList<Tbl_cuentaContable>();
-				ArrayList<Tbl_cuentaContable_Det> listaCuentaDetallesCN = new ArrayList<Tbl_cuentaContable_Det>();
+				ArrayList<HistoricoSaldos> listaCuentaDetallesCN = new ArrayList<HistoricoSaldos>();
 				
 				if(request.getParameter("CN_Total") != null) {
 					totalCapitalNeto = Integer.parseInt(request.getParameter("CN_Total"));
@@ -310,7 +324,7 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 						accountsIdentifiers.add(cuenta.getIdCuenta());
 						
 						listaCuentaDetallesCN.add(
-								cuentaDatosDetalles.getDetalleByIdCuenta(cuenta.getIdCuenta())
+								dt_historico.ObtenerCuentaHistorico(cuenta.getIdCuenta(), idEmpresa, fecha)
 						);	
 						
 						cuentaDatos.modificarSubTipoCuenta(cuenta.getIdCuenta(), 5);
@@ -332,11 +346,36 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 					}
 				}
 				
+				HashMap<String, Object> hashMap = new HashMap<>();
+				
+				//Obteniendo rango de fechas
+				String fechaInicio = "", fechaFinal = "";
+				
+				ArrayList<HistoricoSaldos> HistoricoFechas = new ArrayList<HistoricoSaldos>();
+				
+				HistoricoFechas = dt_historico.ObtenerHistoricoFechas(idEmpresa);
+				
+				for(int x  = 0; x < HistoricoFechas.size(); x++) {
+					try {
+						if(idFecha == HistoricoFechas.get(x).getIdHistorico()) {
+							fechaInicio = HistoricoFechas.get(x).getFecha();
+							fechaFinal = HistoricoFechas.get(x+1).getFecha();
+							
+							hashMap.put("fechaInicio", fechaInicio);
+							hashMap.put("fechaFin", fechaFinal);
+						}
+					}catch(Exception ex) {
+						fechaInicio = HistoricoFechas.get(x).getFecha();
+						
+						hashMap.put("fechaInicio", fechaInicio);
+					}
+				}
+				
 				for(int x = 0; x < accountsIdentifiers.size(); x++) {
 					if(x == 0) {
-						concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+" ";
+						concatKeys = concatKeys + " idCuenta = "+accountsIdentifiers.get(x)+" and fecha = '"+fecha+"' ";
 					} else {
-						concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+" ";
+						concatKeys = concatKeys + " OR idCuenta = "+accountsIdentifiers.get(x)+" and fecha = '"+fecha+"' ";
 					}
 				}
 				
@@ -355,9 +394,12 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				poolConexion pc = poolConexion.getInstance();
 				Connection c = poolConexion.getConnection();
 				
-				HashMap<String, Object> hashMap = new HashMap<>();
+				
 				hashMap.put("whereQuery", concatKeys);
 				hashMap.put("totalPasivosYCapital", totalPasivosXCapital);
+				
+				
+				
 				
 				OutputStream outputSt = response.getOutputStream();
 				ServletContext slContext = getServletContext();
@@ -369,9 +411,10 @@ public class Sl_rptBalanceGeneral extends HttpServlet {
 				Exporter exporter = new JRPdfExporter();
 				JasperPrint jasperPrint = JasperFillManager.fillReport(path + template, hashMap, c);
 				
+				
 				response.setContentType("application/pdf");
 				response.setHeader("Content-Disposition", "inline; filename=\"" + "BalanceGeneral" + "_.pdf");
-				
+			
 				exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
 				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputSt));
 				exporter.exportReport();

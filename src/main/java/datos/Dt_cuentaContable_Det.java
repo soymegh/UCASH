@@ -242,8 +242,8 @@ public ArrayList<Tbl_cuentaContable_Det> listarSubcuentasTransSaldos(int idEmpre
 			Tbl_cuentaContable_Det ccd = new Tbl_cuentaContable_Det();
 			ccd.setIdCuentaContableDet(this.rs.getInt("idCuentaContableDet"));
 			ccd.setIdCuenta(this.rs.getInt("idCuenta"));
-			ccd.setDebe(this.rs.getDouble("debe"));
-			ccd.setHaber(this.rs.getDouble("haber"));
+			ccd.setDebe(0);
+			ccd.setHaber(0);
 			saldoFinal = this.rs.getDouble("saldoFinal");
 			ccd.setSaldoInicial(saldoFinal);
 			ccd.setSaldoFinal(0);
